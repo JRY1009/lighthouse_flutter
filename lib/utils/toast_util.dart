@@ -43,4 +43,14 @@ class ToastUtil {
         textStyle: TextStyle(fontSize: 16, color: Colours.text_black),
         backgroundColor: Colours.toast_bg);
   }
+
+  static void normal(String msg, {Duration duration = DEFAULT_TOAST_DURATION}) {
+    showToast(msg, duration: duration,
+        textStyle: TextStyle(fontSize: 16, color: Colours.text_black),
+        backgroundColor: Colours.toast_bg);
+  }
+
+  static void cancelToast() {
+    dismissAllToast();
+  }
 }

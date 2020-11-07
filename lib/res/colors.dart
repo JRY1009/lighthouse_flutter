@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class Colours {
   static const Color app_main = Color(0xFF2872FC);
+  static const Color app_main_500 = Color(0xFF2872FC);
   static const Color dark_app_main = Color(0xFF3842Ff);
 
   static const Color toast_bg = Color(0xfff1f1f1);
@@ -19,6 +20,7 @@ class Colours {
 
   static const Color default_line = Color(0xFFEEEEEE);
   static const Color text_disabled = Color(0xFFD4E2FA);
+  static const Color unselected_item_color = Color(0xFFC0C9DF);
 
 }
 

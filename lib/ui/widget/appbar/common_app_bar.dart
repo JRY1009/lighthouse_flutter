@@ -15,7 +15,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.title,
     this.titleAlignment = Alignment.center,
     this.actionText,
-    this.backImage = 'ic_back_black',
+    this.backImage = 'ic_back',
     this.backVisible = true,
     this.onPressed
   }): super(key: key);
@@ -46,19 +46,11 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
 
     final Widget actionWidget = ObjectUtil.isNotEmpty(actionText) ? Positioned(
       right: 0.0,
-      child: Theme(
-        data: Theme.of(context).copyWith(
-          buttonTheme: const ButtonThemeData(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
-            minWidth: 60.0,
-          ),
-        ),
-        child: FlatButton(
-          child: Text(actionText),
-          textColor: Colours.text_black,
-          highlightColor: Colors.transparent,
-          onPressed: onPressed,
-        ),
+      child: FlatButton(
+        child: Text(actionText),
+        textColor: Colours.text_black,
+        highlightColor: Colors.transparent,
+        onPressed: onPressed,
       ),
     ) : Gaps.empty;
 

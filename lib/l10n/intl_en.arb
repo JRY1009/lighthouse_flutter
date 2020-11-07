@@ -18,5 +18,10 @@
   "close": "Close",
   "cancel": "cancel",
   "noAccount": "没有账号？",
-  "clickRegister": "点此注册"
+  "clickRegister": "点此注册",
+  "doubleTapExit": "再次点击退出应用",
+  "home": "首页",
+  "news": "资讯",
+  "money": "财富",
+  "mine": "我的"
 }

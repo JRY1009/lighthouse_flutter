@@ -10,6 +10,7 @@ import 'package:lighthouse/net/rt_account.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
+import 'package:lighthouse/router/routers.dart';
 import 'package:lighthouse/ui/widget/appbar/common_app_bar.dart';
 import 'package:lighthouse/ui/widget/button/gradient_button.dart';
 import 'package:lighthouse/ui/widget/common_scroll_view.dart';
@@ -72,6 +73,10 @@ class _LoginPageState extends State<LoginPage> {
       RTAccount.instance().setActiveAccount(account);
       RTAccount.instance().saveAccount();
       ToastUtil.success(S.current.loginSuccess);
+
+      Navigator.pop(context);
+      Routers.navigateTo(context, Routers.mainPage);
+
     }, (error) {
       ToastUtil.error(error[Constant.MESSAGE]);
     });
@@ -82,16 +87,24 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _jump2Register() {
+    Map<String, dynamic> params = {
+      'title': 'xxx',
+      'url': 'https://www.baidu.com',
+    };
 
+    Routers.navigateTo(context, Routers.webviewPage, params: params);
   }
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-          backgroundColor: Colors.white,
-          appBar: CommonAppBar(
-            backVisible: false,
+          backgroundColor: Colours.white,
+          appBar: AppBar(
+            elevation: 0,
+            brightness: Brightness.light,
+            backgroundColor: Colours.white,
+            automaticallyImplyLeading: false,
           ),
           body: CommonScrollView(
             keyboardConfig: OtherUtil.getKeyboardActionsConfig(context, <FocusNode>[_phoneNode, _pwdNode]),
@@ -118,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                 text: S.of(context).login,
                 colors: <Color>[   //背景渐变
                   Colours.app_main,
-                  Colours.dark_app_main
+                  Colours.app_main_500
                 ],
                 onPressed: _loginEnabled ? _login : null,
               ),

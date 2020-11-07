@@ -234,6 +234,56 @@ class S {
       args: [],
     );
   }
+
+  /// `再次点击退出应用`
+  String get doubleTapExit {
+    return Intl.message(
+      '再次点击退出应用',
+      name: 'doubleTapExit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `首页`
+  String get home {
+    return Intl.message(
+      '首页',
+      name: 'home',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `资讯`
+  String get news {
+    return Intl.message(
+      '资讯',
+      name: 'news',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `财富`
+  String get money {
+    return Intl.message(
+      '财富',
+      name: 'money',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `我的`
+  String get mine {
+    return Intl.message(
+      '我的',
+      name: 'mine',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -8,6 +8,7 @@ class Routers {
 
   static String webviewPage = '/webviewPage';
   static String loginPage = '/loginPage';
+  static String mainPage = '/mainPage';
 
   static void init() {
     router = FluroRouter();
@@ -24,6 +25,7 @@ class Routers {
 
     router.define(webviewPage, handler: webviewPageHandler);
     router.define(loginPage, handler: loginPageHandler);
+    router.define(mainPage, handler: mainPageHandler);
   }
 
   // 对参数进行encode，解决参数中有特殊字符，影响fluro路由匹配(https://www.jianshu.com/p/e575787d173c)
@@ -49,5 +51,25 @@ class Routers {
     path = path + query;
     return router.navigateTo(context, path,
         clearStack: clearStack, transition: transition);
+  }
+
+
+  /// 返回
+  static void goBack(BuildContext context) {
+    unfocus();
+    Navigator.pop(context);
+  }
+
+  /// 带参数返回
+  static void goBackWithParams(BuildContext context, Object result) {
+    unfocus();
+    Navigator.pop<Object>(context, result);
+  }
+
+  static void unfocus() {
+    // 使用下面的方式，会触发不必要的build。
+    // FocusScope.of(context).unfocus();
+    // https://github.com/flutter/flutter/issues/47128#issuecomment-627551073
+    FocusManager.instance.primaryFocus?.unfocus();
   }
 }
