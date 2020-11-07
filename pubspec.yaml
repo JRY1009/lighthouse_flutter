@@ -1,0 +1,78 @@
+name: lighthouse
+description: A new Flutter application.
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.0
+  shared_preferences: ^0.5.7+2
+  cookie_jar: ^1.0.1
+  date_format: ^1.0.8
+  event_bus: ^1.1.1
+  path_provider: ^1.6.8
+  package_info: ^0.4.0+18
+  permission_handler: ^5.0.0+hotfix.5
+  encrypt: ^4.1.0
+
+  # webview插件 https://github.com/fluttercommunity/flutter_webview_plugin
+  flutter_webview_plugin: ^0.3.11
+  # 图片缓存 https://github.com/renefloor/flutter_cached_network_image
+  cached_network_image: ^2.2.0+1
+  # 网络库 https://github.com/flutterchina/dio
+  dio: ^3.0.9
+  # 状态管理 https://github.com/rrousselGit/provider
+  provider: ^4.3.2+2
+  # Toast插件 https://github.com/OpenFlutter/flutter_oktoast
+  oktoast: ^2.3.2
+  # 启动URL的插件 https://github.com/flutter/plugins/tree/master/packages/url_launcher
+  url_launcher: ^5.4.7
+  # 路由框架 https://github.com/theyakka/fluro
+  fluro: ^1.7.3
+  # Flutter 轮播图 https://github.com/best-flutter/flutter_swiper
+  flutter_swiper: ^1.1.6
+  # 处理键盘事件 https://github.com/diegoveloper/flutter_keyboard_actions
+  keyboard_actions: ^3.3.1+1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner:
+  auto_route_generator: ^0.5.0
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+
+flutter_intl:
+  enabled: true

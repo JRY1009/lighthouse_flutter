@@ -1,0 +1,22 @@
+{
+  "login": "Login",
+  "logout": "Logout",
+  "welcomeLogin": "Welcome Login",
+  "welcomeRegist": "Welcome Regist",
+  "loginPhone": "Phone Number",
+  "loginPhoneHint": "Please enter your phone number",
+  "loginPhoneError": "Phone number cannot be empty!",
+  "password": "Password",
+  "passwordHint": "Please enter your password",
+  "passwordError": "Password cannot be less than 6 digits!",
+  "forgetPassword": "Forget Password?",
+  "loginSuccess": "Login Success",
+  "register": "Register",
+  "repeatPassword": "Repeat Password",
+  "registerSuccess": "Register Success",
+  "settings": "Settings",
+  "close": "Close",
+  "cancel": "cancel",
+  "noAccount": "没有账号？",
+  "clickRegister": "点此注册"
+}
