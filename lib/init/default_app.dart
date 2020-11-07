@@ -6,6 +6,7 @@ import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/provider/locale_provider.dart';
 import 'package:lighthouse/provider/store.dart';
 import 'package:lighthouse/provider/theme_provider.dart';
+import 'package:lighthouse/router/app_analysis.dart';
 import 'package:lighthouse/router/routers.dart';
 import 'package:lighthouse/ui/page/splash_page.dart';
 import 'package:lighthouse/utils/device_util.dart';
@@ -13,12 +14,18 @@ import 'package:lighthouse/utils/log_util.dart';
 import 'package:lighthouse/utils/sp_util.dart';
 import 'package:lighthouse/utils/toast_util.dart';
 import 'package:provider/provider.dart';
+import 'package:umeng_analytics_plugin/umeng_analytics_plugin.dart';
 
 //默认App的启动
 class DefaultApp {
   //运行app
   static Future<void> run() async {
     WidgetsFlutterBinding.ensureInitialized();
+
+    await UmengAnalyticsPlugin.init(
+      androidKey: '5fa62c2745b2b751a925bf49',
+      iosKey: '5fa62c921c520d3073a2536f',
+    );
     await SPUtil.init();
     runApp(Store.init(MyApp()));
     initApp();
@@ -26,6 +33,7 @@ class DefaultApp {
 
   //程序初始化操作
   static void initApp() {
+
     LogUtil.init(isDebug: Constant.isTestEnvironment);
 
     if (DeviceUtil.isAndroid) {
@@ -60,6 +68,7 @@ class MyApp extends StatelessWidget {
         themeMode: themeProvider.getThemeMode(),
         home: home ?? SplashPage(),
         onGenerateRoute: Routers.router.generator,
+        navigatorObservers: [AppAnalysis()],
         locale: localeModel.getLocale(),
         localizationsDelegates: const [
           S.delegate,
