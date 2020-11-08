@@ -36,6 +36,10 @@ class TextStyles {
     color: Colours.text_gray,
   );
 
+  static const TextStyle textWhite14 = TextStyle(
+    fontSize: 14.0,
+    color: Colours.white,
+  );
 
   static const TextStyle textWhite16 = TextStyle(
     fontSize: 16.0,

@@ -23,5 +23,7 @@
   "home": "首页",
   "news": "资讯",
   "money": "财富",
-  "mine": "我的"
+  "mine": "我的",
+  "loading": "加载中...",
+  "logingin": "登录中..."
 }

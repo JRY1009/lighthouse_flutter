@@ -37,6 +37,8 @@ dependencies:
   package_info: ^0.4.0+18
   permission_handler: ^5.0.0+hotfix.5
   encrypt: ^4.1.0
+  flutter_easyrefresh: ^2.1.6
+  flutter_spinkit: ^4.1.2+1
   umeng_analytics_plugin: ^1.0.3
 
   # WebView插件 https://github.com/flutter/plugins/tree/master/packages/webview_flutter

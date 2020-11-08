@@ -33,20 +33,20 @@ class DioUtil {
   }
 
 //get请求
-  get(String url, Map<String, dynamic> params, Function successCallBack,
-      Function errorCallBack) async {
+  get(String url, {Map<String, dynamic> params, Function successCallBack,
+      Function errorCallBack}) async {
     _requstHttp(url, successCallBack, 'get', params, errorCallBack);
   }
 
   //post请求
-  post(String url, Map<String, dynamic> params, Function successCallBack,
-      Function errorCallBack) async {
+  post(String url, {Map<String, dynamic> params, Function successCallBack,
+      Function errorCallBack}) async {
     _requstHttp(url, successCallBack, "post", params, errorCallBack);
   }
 
   //post请求
   postNoParams(
-      String url, Function successCallBack, Function errorCallBack) async {
+      String url, {Function successCallBack, Function errorCallBack}) async {
     _requstHttp(url, successCallBack, "post", null, errorCallBack);
   }
 

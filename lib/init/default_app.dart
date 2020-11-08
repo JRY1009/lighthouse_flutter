@@ -27,7 +27,9 @@ class DefaultApp {
       iosKey: '5fa62c921c520d3073a2536f',
     );
     await SPUtil.init();
+
     runApp(Store.init(MyApp()));
+
     initApp();
   }
 
@@ -41,6 +43,7 @@ class DefaultApp {
       const SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor: Colors.transparent);
       SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
     }
+
   }
 }
 

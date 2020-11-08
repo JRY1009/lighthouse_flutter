@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lighthouse/res/colors.dart';
+import 'package:lighthouse/utils/screen_util.dart';
 import 'package:oktoast/oktoast.dart';
 
-const DEFAULT_TOAST_DURATION = Duration(seconds: 2);
-const DEFAULT_TOAST_COLOR = Color(0xFF424242);
+import 'log_util.dart';
+
+const DEFAULT_TOAST_DURATION = Duration(milliseconds: 2500);
 
 class ToastUtil {
   ToastUtil._internal();
@@ -13,8 +15,8 @@ class ToastUtil {
     return OKToast(
       ///字体大小
       textStyle: TextStyle(fontSize: 16, color: Colors.white),
-      backgroundColor: DEFAULT_TOAST_COLOR,
-      radius: 5,
+      backgroundColor: Colours.toast_bg,
+      radius: 3,
       dismissOtherOnShow: true,
       textPadding: EdgeInsets.fromLTRB(20, 10, 20, 10),
       child: child,
@@ -22,32 +24,144 @@ class ToastUtil {
     );
   }
 
-  static void toast(String msg,
-      {Duration duration = DEFAULT_TOAST_DURATION,
-      Color color = DEFAULT_TOAST_COLOR}) {
-    showToast(msg, duration: duration, backgroundColor: color);
+  static void waring(String msg, {Duration duration = DEFAULT_TOAST_DURATION, ToastPosition position = ToastPosition.bottom}) {
+    Widget widget = Container(
+        margin: const EdgeInsets.all(50.0),
+        decoration: BoxDecoration(
+          color: Colours.toast_warn,
+          borderRadius: BorderRadius.circular(3.0),
+        ),
+        padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Icon(Icons.warning, color: Colours.white, size: 25),
+              ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: ScreenUtil.instance().screenWidth - 160),
+                  child: Padding(
+                      padding: const EdgeInsets.only(left: 5, top: 3),
+                      child: Text(msg,
+                          strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
+                          style: TextStyle(fontSize: 15, color: Colours.white))
+                  ))
+            ]
+        )
+    );
+
+    showToastWidget(
+        widget,
+        duration: duration,
+        position: position
+    );
   }
 
-  static void waring(String msg, {Duration duration = DEFAULT_TOAST_DURATION}) {
-    showToast(msg, duration: duration,
-        textStyle: TextStyle(fontSize: 16, color: Colours.text_black),
-        backgroundColor: Colours.toast_bg);
+  static void error(String msg, {Duration duration = DEFAULT_TOAST_DURATION, ToastPosition position = ToastPosition.bottom}) {
+    Widget widget = Container(
+        margin: const EdgeInsets.all(50.0),
+        decoration: BoxDecoration(
+          color: Colours.toast_error,
+          borderRadius: BorderRadius.circular(3.0),
+        ),
+        padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Icon(Icons.error, color: Colours.white, size: 25),
+              ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: ScreenUtil.instance().screenWidth - 160),
+                  child: Padding(
+                      padding: const EdgeInsets.only(left: 5, top: 3),
+                      child: Text(msg,
+                          strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
+                          style: TextStyle(fontSize: 15, color: Colours.white))
+                  ))
+            ]
+        )
+    );
+
+    showToastWidget(
+        widget,
+        duration: duration,
+        position: position
+    );
   }
 
-  static void error(String msg, {Duration duration = DEFAULT_TOAST_DURATION}) {
-    showToast(msg, duration: duration, backgroundColor: Colours.red);
+  static void success(String msg, {Duration duration = DEFAULT_TOAST_DURATION, ToastPosition position = ToastPosition.bottom}) {
+
+    Widget widget = Container(
+        margin: const EdgeInsets.all(50.0),
+        decoration: BoxDecoration(
+          color: Colours.toast_success,
+          borderRadius: BorderRadius.circular(3.0),
+        ),
+        padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Icon(Icons.check, color: Colours.white, size: 25),
+              ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: ScreenUtil.instance().screenWidth - 160),
+                  child: Padding(
+                      padding: const EdgeInsets.only(left: 5, top: 3),
+                      child: Text(msg,
+                          strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
+                          style: TextStyle(fontSize: 15, color: Colours.white))
+                  ))
+            ]
+        )
+    );
+
+    showToastWidget(
+        widget,
+        duration: duration,
+        position: position
+    );
   }
 
-  static void success(String msg, {Duration duration = DEFAULT_TOAST_DURATION}) {
-    showToast(msg, duration: duration,
-        textStyle: TextStyle(fontSize: 16, color: Colours.text_black),
-        backgroundColor: Colours.toast_bg);
-  }
+  static void normal(String msg, {Duration duration = DEFAULT_TOAST_DURATION, ToastPosition position = ToastPosition.bottom}) {
 
-  static void normal(String msg, {Duration duration = DEFAULT_TOAST_DURATION}) {
-    showToast(msg, duration: duration,
-        textStyle: TextStyle(fontSize: 16, color: Colours.text_black),
-        backgroundColor: Colours.toast_bg);
+    Widget widget = Container(
+      margin: const EdgeInsets.all(50.0),
+      decoration: BoxDecoration(
+        color: Colours.toast_bg,
+        borderRadius: BorderRadius.circular(3.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colours.toast_shadow_dark,
+            offset: Offset(0.0, 0.0),
+            blurRadius: 0.0,
+            spreadRadius: 1.0,
+          ),
+          BoxShadow(
+            color: Colours.toast_shadow_light,
+            offset: Offset(0.0, 2.0),
+            blurRadius: 4.0,
+            spreadRadius: 0.0,
+          ),
+        ],
+      ),
+      padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+      child: ClipRect(
+        child: Text(
+          msg,
+          strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
+          style: TextStyle(fontSize: 15, color: Colours.text_black),
+        ),
+      ),
+    );
+
+
+    showToastWidget(
+        widget,
+        duration: duration,
+        position: position
+    );
   }
 
   static void cancelToast() {
