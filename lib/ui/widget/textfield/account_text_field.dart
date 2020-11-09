@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lighthouse/generated/l10n.dart';
+import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/widget/auto_image.dart';
@@ -9,13 +10,19 @@ import 'package:lighthouse/ui/widget/auto_image.dart';
 //登陆注册界面edittext输入框
 class AccountTextField extends StatefulWidget {
 
+  final FocusNode focusNode;
   final Function() onTextChanged;
+  final Function() onPrefixPressed;
+  final String areaCode;
   final TextEditingController controller;
 
   AccountTextField({
     Key key,
     @required this.controller,
     this.onTextChanged,
+    this.focusNode,
+    this.areaCode,
+    this.onPrefixPressed,
   }) : super(key: key);
 
   @override
@@ -33,6 +40,7 @@ class _AccountTextFieldState extends State<AccountTextField> {
     return Container(
         height: 48.0,
         child: TextField(
+          focusNode: widget.focusNode,
           controller: widget.controller,
           style: TextStyles.textBlack14,
           keyboardType: TextInputType.numberWithOptions(),
@@ -42,17 +50,32 @@ class _AccountTextFieldState extends State<AccountTextField> {
           decoration: InputDecoration(
             counterText: "",
             hintText: S.of(context).loginPhoneHint,
-            contentPadding: EdgeInsets.only(left: 20, right: 10),
+            contentPadding: EdgeInsets.only(top: 16, bottom: 16),
             hintStyle: TextStyles.textGray14,
-            focusedBorder: BorderStyles.outlineInputR50Main,
-            enabledBorder: BorderStyles.outlineInputR50Gray,
+            focusedBorder: BorderStyles.underlineInputMain,
+            enabledBorder: BorderStyles.underlineInputGray,
             prefixIcon: Container(
-              padding: EdgeInsets.all(14.0),
-              child: LocalImage('ic_phone', width: 20.0, height: 20.0),
-            ),
+                child: FlatButton(
+                    padding: EdgeInsets.all(10.0),
+                    minWidth: 70,
+                    onPressed: widget.onPrefixPressed,
+                    child:Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(right: 2),
+                            child: Text(widget.areaCode, style: TextStyles.textBlack14),
+                          ),
+                          Icon(Icons.arrow_drop_down, color: Colours.text_black, size: 18),
+                        ]
+                    )
+
+                )),
             suffixIcon: !_isEmptyText() ? IconButton(
-              iconSize: 14.0,
-              icon: LocalImage('ic_close', width: 14.0, height: 14.0),
+              iconSize: 20.0,
+              icon: Icon(Icons.close, color: Colours.text_black, size: 20),
               onPressed: () {
                 setState(() {
                   widget.controller.text = "";

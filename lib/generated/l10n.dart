@@ -304,6 +304,36 @@ class S {
       args: [],
     );
   }
+
+  /// `国家/地区`
+  String get countryArea {
+    return Intl.message(
+      '国家/地区',
+      name: 'countryArea',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `搜索`
+  String get search {
+    return Intl.message(
+      '搜索',
+      name: 'search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `暂无数据`
+  String get noData {
+    return Intl.message(
+      '暂无数据',
+      name: 'noData',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

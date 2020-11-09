@@ -2,19 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lighthouse/generated/l10n.dart';
-import 'package:lighthouse/res/gaps.dart';
+import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/ui/widget/auto_image.dart';
 
 //登陆注册界面edittext输入框
 class PwdTextField extends StatefulWidget {
 
+  final FocusNode focusNode;
   final Function() onTextChanged;
   final TextEditingController controller;
 
   PwdTextField({
     Key key,
     @required this.controller,
+    this.focusNode,
     this.onTextChanged,
   }) : super(key: key);
 
@@ -37,29 +38,37 @@ class _AccountTextFieldState extends State<PwdTextField> {
     return Container(
         height: 48.0,
         child: TextField(
+          focusNode: widget.focusNode,
           controller: widget.controller,
           style: TextStyles.textBlack14,
           obscureText: !_isShowPassWord,
           keyboardType: TextInputType.visiblePassword,
           inputFormatters: [FilteringTextInputFormatter.deny(RegExp('[\u4e00-\u9fa5]'))], //不包含汉字
           maxLines: 1,
-          maxLength: 16,
+          maxLength: 20,
           decoration: InputDecoration(
-            counterText: "",
-            hintText: S.of(context).passwordHint,
-            contentPadding: EdgeInsets.only(left: 20, right: 10),
-            hintStyle: TextStyles.textGray14,
-            focusedBorder: BorderStyles.outlineInputR50Main,
-            enabledBorder: BorderStyles.outlineInputR50Gray,
-            prefixIcon: Container(
-              padding: EdgeInsets.all(14.0),
-              child: LocalImage('ic_password', width: 20.0, height: 20.0),
-            ),
-            suffixIcon: IconButton(
-              iconSize: 20.0,
-              icon: LocalImage(_isShowPassWord ? 'ic_eye_close' : 'ic_eye_open', width: 20.0, height: 20.0),
-              onPressed: _showPassWord,
-            )
+              counterText: "",
+              hintText: S.of(context).passwordHint,
+              contentPadding: EdgeInsets.only(top: 16, bottom: 16),
+              hintStyle: TextStyles.textGray14,
+              focusedBorder: BorderStyles.underlineInputMain,
+              enabledBorder: BorderStyles.underlineInputGray,
+              prefixIcon: Container(
+                  child: FlatButton(
+                    padding: EdgeInsets.all(10.0),
+                    minWidth: 70,
+                    onPressed: null,
+                    child: Container(
+                        constraints: BoxConstraints(maxWidth: 50),
+                      alignment: Alignment.centerLeft,
+                      child:Text(S.of(context).password, style: TextStyles.textBlack14)
+                    ),
+                  )),
+              suffixIcon: IconButton(
+                iconSize: 20.0,
+                icon: Icon(_isShowPassWord ? Icons.visibility_off : Icons.visibility, color: Colours.text_black, size: 20),
+                onPressed: _showPassWord,
+              )
           ),
           onChanged: (text) {
             setState(() {

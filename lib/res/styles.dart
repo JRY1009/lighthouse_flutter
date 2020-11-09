@@ -58,4 +58,12 @@ class BorderStyles {
       borderRadius: BorderRadius.all(Radius.circular(50.0)),
       borderSide:  BorderSide(color: Colours.border_gray)
   );
+
+  static const UnderlineInputBorder underlineInputMain = UnderlineInputBorder(
+      borderSide:  BorderSide(color: Colours.app_main)
+  );
+
+  static const UnderlineInputBorder underlineInputGray = UnderlineInputBorder(
+      borderSide:  BorderSide(color: Colours.border_gray)
+  );
 }

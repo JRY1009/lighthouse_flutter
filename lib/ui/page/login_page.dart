@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,7 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
   final FocusNode _phoneNode = FocusNode();
   final FocusNode _pwdNode = FocusNode();
 
+  String _area_code;
   bool _loginEnabled = false;
 
   @override
@@ -41,7 +43,10 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
     Account account = RTAccount.instance().loadAccount();
     if (account != null) {
       var t = account.phone?.split(' ');
+      _area_code = t?.first;
       _phoneController.text = t?.last;
+    } else {
+      _area_code = '+86';
     }
     super.initState();
   }
@@ -57,7 +62,7 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
   }
 
   void _login() {
-    String phone = '+86 ' + _phoneController.text;
+    String phone = _area_code + ' ' + _phoneController.text;
     String pwd = _pwdController.text;
     int nonce = DateUtil.getNowDateMs() * 1000;
     String pwdMd5 = EncryptUtil.encodeMd5(EncryptUtil.encodeMd5(pwd) + nonce.toString());
@@ -87,8 +92,21 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
         });
   }
 
+  void _selectArea() {
+
+    Map<String, dynamic> params = {
+      'areaCode': _area_code,
+    };
+
+    Routers.navigateToResult(context, Routers.areaPage, params, (result) {
+      setState(() {
+        _area_code = result;
+      });
+    });
+  }
+
   void _forgetPwd() {
-    ToastUtil.error('功登录成 录 成登录成功录成功');
+
   }
 
   void _jump2Register() {
@@ -121,11 +139,15 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
             ),
             Gaps.vGap32,
             AccountTextField(
+              focusNode: _phoneNode,
               controller: _phoneController,
               onTextChanged: _checkInput,
+              areaCode: _area_code,
+              onPrefixPressed: _selectArea,
             ),
             Gaps.vGap16,
             PwdTextField(
+              focusNode: _pwdNode,
               controller: _pwdController,
               onTextChanged: _checkInput,
             ),

@@ -1,6 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lighthouse/router/router_handler.dart';
+import 'package:lighthouse/utils/log_util.dart';
 
 ///使用fluro进行路由管理
 class Routers {
@@ -8,6 +9,7 @@ class Routers {
 
   static String webviewPage = '/webviewPage';
   static String loginPage = '/loginPage';
+  static String areaPage = '/areaPage';
   static String mainPage = '/mainPage';
 
   static void init() {
@@ -25,6 +27,7 @@ class Routers {
 
     router.define(webviewPage, handler: webviewPageHandler);
     router.define(loginPage, handler: loginPageHandler);
+    router.define(areaPage, handler: areaPageHandler);
     router.define(mainPage, handler: mainPageHandler);
   }
 
@@ -53,6 +56,19 @@ class Routers {
         clearStack: clearStack, transition: transition);
   }
 
+  static void navigateToResult(BuildContext context, String path, Map<String, dynamic> params, Function(Object) function,
+      {bool clearStack = false, TransitionType transition = TransitionType.cupertino}) {
+    unfocus();
+    navigateTo(context, path, params: params, clearStack: clearStack, transition: transition).then((Object result) {
+      // 页面返回result为null
+      if (result == null) {
+        return;
+      }
+      function(result);
+    }).catchError((dynamic error) {
+      LogUtil.e('$error');
+    });
+  }
 
   /// 返回
   static void goBack(BuildContext context) {

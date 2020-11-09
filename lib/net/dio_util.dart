@@ -33,24 +33,24 @@ class DioUtil {
   }
 
 //get请求
-  get(String url, {Map<String, dynamic> params, Function successCallBack,
+  Future get(String url, {Map<String, dynamic> params, Function successCallBack,
       Function errorCallBack}) async {
-    _requstHttp(url, successCallBack, 'get', params, errorCallBack);
+    return _requstHttp(url, successCallBack, 'get', params, errorCallBack);
   }
 
   //post请求
-  post(String url, {Map<String, dynamic> params, Function successCallBack,
+  Future post(String url, {Map<String, dynamic> params, Function successCallBack,
       Function errorCallBack}) async {
-    _requstHttp(url, successCallBack, "post", params, errorCallBack);
+    return _requstHttp(url, successCallBack, "post", params, errorCallBack);
   }
 
   //post请求
-  postNoParams(
+  Future postNoParams(
       String url, {Function successCallBack, Function errorCallBack}) async {
-    _requstHttp(url, successCallBack, "post", null, errorCallBack);
+    return _requstHttp(url, successCallBack, "post", null, errorCallBack);
   }
 
-  _requstHttp(String url, Function successCallBack,
+  Future _requstHttp(String url, Function successCallBack,
       [String method, Map<String, dynamic> params, Function errorCallBack]) async {
     Response response;
     try {
@@ -84,7 +84,6 @@ class DioUtil {
           Constant.MESSAGE: error.message,
         });
       }
-      return '';
     }
 
     // debug模式打印相关数据

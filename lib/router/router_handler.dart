@@ -1,6 +1,7 @@
 
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:lighthouse/ui/page/area_page.dart';
 import 'package:lighthouse/ui/page/login_page.dart';
 import 'package:lighthouse/ui/page/main_page.dart';
 import 'package:lighthouse/ui/page/web_view_page.dart';
@@ -16,6 +17,12 @@ var loginPageHandler = new Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   return LoginPage();
 });
+
+var areaPageHandler = new Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+      String areaCode = params['areaCode']?.first;
+      return AreaPage(areaCode);
+    });
 
 var mainPageHandler = new Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
