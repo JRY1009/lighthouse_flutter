@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/dimens.dart';
+import 'package:lighthouse/ui/page2nd/home_page.dart';
+import 'package:lighthouse/ui/page2nd/news_page.dart';
 import 'package:lighthouse/ui/provider/main_provider.dart';
 import 'package:lighthouse/ui/widget/auto_image.dart';
 import 'package:lighthouse/utils/double_tap_back_exit_app.dart';
@@ -40,9 +42,9 @@ class _MainPageState extends State<MainPage> {
   void initData() {
     _appBarTitles = [S.current.home, S.current.news, S.current.money, S.current.mine];
     _pageList = [
-      Container(color: Colours.app_main),
+      HomePage(),
       Container(color: Colours.red),
-      Container(color: Colours.white),
+      NewsPage(supportPullRefresh: true),
       Container(color: Colours.default_line),
     ];
   }

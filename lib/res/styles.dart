@@ -26,6 +26,11 @@ class TextStyles {
     color: Colours.text_black,
   );
 
+  static const TextStyle textBlack16 = TextStyle(
+    fontSize: 18.0,
+    color: Colours.text_black,
+  );
+
   static const TextStyle textBlack14 = TextStyle(
     fontSize: 14.0,
     color: Colours.text_black,

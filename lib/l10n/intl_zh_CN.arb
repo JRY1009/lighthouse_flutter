@@ -28,5 +28,6 @@
   "logingin": "登录中...",
   "countryArea": "国家/地区",
   "search": "搜索",
-  "noData": "暂无数据"
+  "noData": "暂无数据",
+  "noMoreData": "没有更多数据"
 }

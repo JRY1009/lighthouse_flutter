@@ -43,7 +43,7 @@ class _AreaPageState extends State<AreaPage> {
 
   _AreaPageState({this.areaCode});
 
-  Future<void> _refresh()  async {
+  Future<void> _refresh() async {
     return Area.loadAreaFromFile().then((value) {
       value.sort((a, b) {
         List<int> al = a.sort_name.codeUnits;
@@ -59,7 +59,7 @@ class _AreaPageState extends State<AreaPage> {
 
       _allList.addAll(value);
       _listProvider.addAll(value);
-      _listProvider.finishLoad(true);
+      _listProvider.notify();
     });
   }
 
@@ -100,10 +100,10 @@ class _AreaPageState extends State<AreaPage> {
 
     if (_searchList.isEmpty) {
       _listProvider.addAll(_allList);
-      _listProvider.finishLoad(true);
+      _listProvider.notify();
     } else {
       _listProvider.addAll(_searchList);
-      _listProvider.finishLoad(true);
+      _listProvider.notify();
     }
   }
 

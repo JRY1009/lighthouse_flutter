@@ -334,6 +334,16 @@ class S {
       args: [],
     );
   }
+
+  /// `没有更多数据`
+  String get noMoreData {
+    return Intl.message(
+      '没有更多数据',
+      name: 'noMoreData',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -18,6 +18,7 @@ class Constant {
   static const String KEY_CHANNEL = "vf-Channel";
   static const String KEY_USER_TOKEN = "vf-Token";
   static const String KEY_USER_TS = "vf-Ts";
+  static const String KEY_USER_U_ID = "vf-Uid";
   static const String KEY_USER_SIGN = "vf-Sign";
 
   static const String PRIVATE_KEY = "5ffF03b858D5Fd16";       //测试环境
@@ -31,4 +32,5 @@ class Constant {
   static const String URL_RESET_PASSWORD = '/user/resetPassword';
   static const String URL_GET_ACCOUNT_INFO = '/user/getAccountInfo';
 
+  static const String URL_GET_NEWS = '/user/selectAccounts';
 }

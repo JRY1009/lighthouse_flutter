@@ -14,9 +14,13 @@ class EncryptUtil {
   }
 
   /// aes加密
-  static String encodeAes(String data, String key, String vector) {
-    final encrypter = Encrypter(AES(Key.fromUtf8(key)));
-    final encrypted = encrypter.encrypt(data, iv: IV.fromUtf8(vector));
+  static String encodeAes(String data, String keyStr, String vector) {
+    final plainText = data;
+    final key = Key.fromUtf8(keyStr);
+    final iv = IV.fromUtf8(vector);
+    final encrypter = Encrypter(AES(key, mode: AESMode.cbc));
+    final encrypted = encrypter.encrypt(plainText, iv: iv);
+
     return encrypted.base16;
   }
 

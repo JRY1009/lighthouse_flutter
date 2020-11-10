@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lighthouse/net/model/area.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
 

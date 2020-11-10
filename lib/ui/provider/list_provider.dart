@@ -6,12 +6,7 @@ class ListProvider<T> extends ChangeNotifier {
   final List<T> _list = [];
   List<T> get list => _list;
 
-  bool _noMoreData = false;
-
-  bool get noMoreData => _noMoreData;
-
-  void finishLoad(bool noMoreData) {
-    _noMoreData = noMoreData;
+  void notify() {
     notifyListeners();
   }
 

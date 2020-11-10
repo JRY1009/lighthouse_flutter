@@ -30,12 +30,14 @@ class AuthInterceptor extends Interceptor {
 
     if (RTAccount.instance().isLogin()) {
       Account account = RTAccount.instance().getActiveAccount();
-      String sign = EncryptUtil.encodeAes(account?.token, Constant.PRIVATE_KEY, timestamp);
+      String sign = EncryptUtil.encodeAes(account?.token, Constant.PRIVATE_KEY, timestamp).substring(0, 64);
       options.headers[Constant.KEY_USER_TOKEN] = account?.token;
+      options.headers[Constant.KEY_USER_U_ID] = account?.account_id.toString();
       options.headers[Constant.KEY_USER_SIGN] = sign;
 
     } else {
       options.headers[Constant.KEY_USER_TOKEN] = '';
+      options.headers[Constant.KEY_USER_U_ID] = '';
       options.headers[Constant.KEY_USER_SIGN] = '';
     }
 
