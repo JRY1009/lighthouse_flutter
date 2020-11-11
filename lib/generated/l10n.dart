@@ -256,10 +256,10 @@ class S {
   }
 
   /// `资讯`
-  String get news {
+  String get info {
     return Intl.message(
       '资讯',
-      name: 'news',
+      name: 'info',
       desc: '',
       args: [],
     );
@@ -285,10 +285,10 @@ class S {
     );
   }
 
-  /// `加载中...`
+  /// `正在加载...`
   String get loading {
     return Intl.message(
-      '加载中...',
+      '正在加载...',
       name: 'loading',
       desc: '',
       args: [],

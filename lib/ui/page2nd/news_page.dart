@@ -17,35 +17,67 @@ import 'package:provider/provider.dart';
 
 class NewsPage extends StatefulWidget {
 
-  final bool supportPullRefresh;  //是否支持手动下拉刷新
 
-  NewsPage({this.supportPullRefresh = true});
+  final bool isSupportPull;  //是否支持手动下拉刷新
+
+  NewsPage({
+    Key key,
+    this.isSupportPull = true
+  }) : super(key: key);
 
   @override
-  _NewsPageState createState() {
-    return _NewsPageState(supportPullRefresh: supportPullRefresh);
+  NewsPageState createState() {
+    return NewsPageState(isSupportPull: isSupportPull);
   }
 }
 
-class _NewsPageState extends State<NewsPage> {
+class NewsPageState extends State<NewsPage> with AutomaticKeepAliveClientMixin<NewsPage>, SingleTickerProviderStateMixin {
 
-  bool supportPullRefresh;
+  @override
+  bool get wantKeepAlive => true;
+
+  bool isSupportPull;
 
   EasyRefreshController _controller = EasyRefreshController();
   ListProvider<News> _listProvider = ListProvider<News>();
   int _page = 0;
   int _pageSize = 10;
+  bool _init = false;
 
-  _NewsPageState({this.supportPullRefresh});
+  NewsPageState({
+    this.isSupportPull
+  });
 
-  Future<void> _refresh() async {
-    _page = 0;
-    await _requestData();
+  @override
+  void initState() {
+    super.initState();
+
+    _refresh();
   }
 
-  Future<void> _loadMore() async {
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Future<void> refresh({showHeader = false}) {
+    if (showHeader) {
+      _controller.callRefresh();
+    } else {
+      _page = 0;
+      return _requestData();
+    }
+  }
+
+  Future<void> _refresh() {
+    _page = 0;
+    _requestData();
+  }
+
+  Future<void> _loadMore() {
     _page ++;
-    await _requestData();
+    _requestData();
   }
 
   Future<void> _requestData() {
@@ -86,55 +118,50 @@ class _NewsPageState extends State<NewsPage> {
         _controller.resetLoadState();
       }
       _controller.finishRefresh(success: success, noMore: noMore);
-      _listProvider.notify();
     } else {
       _controller.finishLoad(success: success, noMore: noMore);
     }
+
+    if (!_init) {
+      _init = true;
+    }
+
+    _listProvider.notify(noMore: noMore);
   }
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<ListProvider<News>>(
-      create: (_) => _listProvider,
-      child: Scaffold(
-          body: Consumer<ListProvider<News>>(
-              builder: (_, _provider, __) {
-                return Column(
-                  children: <Widget>[
-                    Expanded(child: EasyRefresh.custom(
-                      header: supportPullRefresh ? BallPulseHeader(color: Colours.app_main) : null,
-                      footer:  CommonFooter(),
-                      topBouncing: false,
-                      bottomBouncing: false,
-                      controller: _controller,
-                      firstRefresh: true,
-                      firstRefreshWidget: FirstRefresh(),
-                      emptyWidget: _listProvider.list.isEmpty ? LoadingEmpty() : null,
-                      slivers: <Widget>[
-                        SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                                (context, index) {
-                              return NewsItem(
-                                title: _provider.list[index].account_name,
-                                time: _provider.list[index].created_at,
-                                author: _provider.list[index].city,
-                                imageUrl: _provider.list[index].avatar_300,
-                              );
-                            },
-                            childCount: _provider.list.length,
-                          ),
-                        ),
-                      ],
-                      onRefresh: _refresh,
-                      onLoad: _loadMore,
-                    ))
+        create: (_) => _listProvider,
+        child: Consumer<ListProvider<News>>(
+            builder: (_, _provider, __) {
+              return !_init ? FirstRefresh() : EasyRefresh(
+                header: isSupportPull ? MaterialHeader(valueColor: AlwaysStoppedAnimation<Color>(Colours.app_main)) : null,
+                footer:  CommonFooter(enableInfiniteLoad: !_provider.noMore),
+                controller: _controller,
+//                firstRefresh配合NestedScrollView使用会造成刷新跳动问题
+//                firstRefresh: true,
+//                firstRefreshWidget: FirstRefresh(),
+                topBouncing: false,
+                emptyWidget: _listProvider.list.isEmpty ? LoadingEmpty() : null,
+                child: ListView.builder(
+                  padding: EdgeInsets.all(0.0),
+                  itemBuilder: (context, index) {
+                    return NewsItem(
+                      title: _provider.list[index].account_name,
+                      time: _provider.list[index].created_at,
+                      author: _provider.list[index].city,
+                      imageUrl: _provider.list[index].avatar_300,
+                    );
+                  },
+                  itemCount: _provider.list.length,
+                ),
 
-                  ],
-                );
-              }
-          )
-
-      ),
+                onRefresh: isSupportPull ? _refresh : null,
+                onLoad: _loadMore,
+              );
+            }
+        )
     );
   }
 }

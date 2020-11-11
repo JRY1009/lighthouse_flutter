@@ -38,6 +38,7 @@ dependencies:
   permission_handler: ^5.0.0+hotfix.5
   encrypt: ^4.1.0
   flutter_easyrefresh: ^2.1.6
+  extended_nested_scroll_view: ^1.0.1
   flutter_spinkit: ^4.1.2+1
   umeng_analytics_plugin: ^1.0.3
   lpinyin: ^1.1.0

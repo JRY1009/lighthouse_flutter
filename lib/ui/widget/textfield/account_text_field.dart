@@ -54,11 +54,18 @@ class _AccountTextFieldState extends State<AccountTextField> {
             hintStyle: TextStyles.textGray14,
             focusedBorder: BorderStyles.underlineInputMain,
             enabledBorder: BorderStyles.underlineInputGray,
-            prefixIcon: Container(
-                child: FlatButton(
+            prefixIcon: InkWell(
+                onTap: () {
+                  widget.focusNode.unfocus();
+                  widget.focusNode.canRequestFocus = false;
+                  Future.delayed(Duration(milliseconds: 100), () {
+                    widget.focusNode.canRequestFocus = true;
+                  });
+                  widget.onPrefixPressed();
+                },
+                child: Container(
                     padding: EdgeInsets.all(10.0),
-                    minWidth: 70,
-                    onPressed: widget.onPrefixPressed,
+                    constraints: BoxConstraints(minWidth: 70),
                     child:Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,

@@ -4,6 +4,7 @@ import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/dimens.dart';
 import 'package:lighthouse/ui/page2nd/home_page.dart';
+import 'package:lighthouse/ui/page2nd/info_page.dart';
 import 'package:lighthouse/ui/page2nd/news_page.dart';
 import 'package:lighthouse/ui/provider/main_provider.dart';
 import 'package:lighthouse/ui/widget/auto_image.dart';
@@ -40,11 +41,11 @@ class _MainPageState extends State<MainPage> {
   }
   
   void initData() {
-    _appBarTitles = [S.current.home, S.current.news, S.current.money, S.current.mine];
+    _appBarTitles = [S.current.home, S.current.info, S.current.money, S.current.mine];
     _pageList = [
       HomePage(),
-      Container(color: Colours.red),
-      NewsPage(supportPullRefresh: true),
+      InfoPage(),
+      NewsPage(isSupportPull: true),
       Container(color: Colours.default_line),
     ];
   }
@@ -57,8 +58,8 @@ class _MainPageState extends State<MainPage> {
           LocalImage('tab_home', width: _imageSize, color: Colours.app_main_500,),
         ],
         [
-          LocalImage('tab_news', width: _imageSize, color: Colours.unselected_item_color,),
-          LocalImage('tab_news', width: _imageSize, color: Colours.app_main_500,),
+          LocalImage('tab_info', width: _imageSize, color: Colours.unselected_item_color,),
+          LocalImage('tab_info', width: _imageSize, color: Colours.app_main_500,),
         ],
         [
           LocalImage('tab_money', width: _imageSize, color: Colours.unselected_item_color,),

@@ -10,11 +10,9 @@ import 'package:lighthouse/router/routers.dart';
 import 'package:lighthouse/ui/item/area_item.dart';
 import 'package:lighthouse/ui/provider/list_provider.dart';
 import 'package:lighthouse/ui/widget/button/back_button_ex.dart';
-import 'package:lighthouse/ui/widget/common_scroll_view.dart';
 import 'package:lighthouse/ui/widget/easyrefresh/first_refresh.dart';
 import 'package:lighthouse/ui/widget/easyrefresh/loading_empty.dart';
 import 'package:lighthouse/ui/widget/textfield/search_text_field.dart';
-import 'package:lighthouse/utils/other_util.dart';
 import 'package:provider/provider.dart';
 
 
@@ -39,7 +37,6 @@ class _AreaPageState extends State<AreaPage> {
   ListProvider<Area> _listProvider = ListProvider<Area>();
   List<Area> _allList = [];
   List<Area> _searchList = [];
-
 
   _AreaPageState({this.areaCode});
 
@@ -132,7 +129,7 @@ class _AreaPageState extends State<AreaPage> {
                       ),
                     ),
                     Expanded(child: EasyRefresh.custom(
-                      header: BallPulseHeader(color: Colours.app_main),
+                      header: MaterialHeader(valueColor: AlwaysStoppedAnimation<Color>(Colours.app_main)),
                       firstRefresh: true,
                       firstRefreshWidget: FirstRefresh(),
                       emptyWidget: _listProvider.list.isEmpty ? LoadingEmpty() : null,

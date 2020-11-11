@@ -1,6 +1,5 @@
 
 
-import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
@@ -12,28 +11,32 @@ import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as
 
 
 
-class HomePage extends StatefulWidget {
+class InfoPage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _InfoPageState createState() => _InfoPageState();
 }
 
-class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<HomePage>, SingleTickerProviderStateMixin {
+class _InfoPageState extends State<InfoPage> with AutomaticKeepAliveClientMixin<InfoPage>, SingleTickerProviderStateMixin {
 
   @override
   bool get wantKeepAlive => true;
 
+  TabController _tabController;
+
   double _appBarOpacity = 0;
   double _toolbarHeight = 80;
 
-  final _newsPageKey = GlobalKey<NewsPageState>();
-
   @override
   void initState() {
+    _tabController = TabController(length: 2, vsync: this);
+
     super.initState();
   }
 
   @override
   void dispose() {
+    _tabController.dispose();
+
     super.dispose();
   }
 
@@ -50,29 +53,13 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
     }
   }
 
-  Future<void> _refresh()  {
-    if (_newsPageKey.currentState != null) {
-      return _newsPageKey.currentState.refresh(showHeader: false);
-    }
-
-    return Future<void>.delayed(const Duration(seconds: 1), () {
-
-    });
-//    await Future.wait<dynamic>([demo1,demo2,demo3]).then((e){
-//
-//      print(e);//[true,true,false]
-//    }).catchError((e){
-//
-//    });
-  }
-
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      body: NestedScrollViewRefreshIndicator(
-        onRefresh: _refresh,
-        child: NotificationListener<ScrollNotification>(
+      body: Stack(
+        children: <Widget>[
+          NotificationListener<ScrollNotification>(
             onNotification: (ScrollNotification notification) {
               if (notification.depth == 0 && notification is ScrollUpdateNotification) {
                 _scrollNotify(notification.metrics.pixels);
@@ -85,12 +72,40 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
                 return _toolbarHeight;
               },
               innerScrollPositionKeyBuilder: () {
-                return Key('Tab0');
+                String index = 'Tab';
+                index += _tabController.index.toString();
+                return Key(index);
               },
               headerSliverBuilder: (context, innerBoxIsScrolled) => _headerSliverBuilder(context),
-              body: extended.NestedScrollViewInnerScrollPositionKeyWidget(Key('Tab0'), NewsPage(key: _newsPageKey, isSupportPull: false)),
+              body: Column(
+                children: <Widget>[
+                  TabBar(
+                    controller: _tabController,
+                    labelColor: Colours.app_main,
+                    indicatorColor: Colours.app_main,
+                    indicatorSize: TabBarIndicatorSize.label,
+                    indicatorWeight: 2.0,
+                    isScrollable: false,
+                    unselectedLabelColor: Colours.unselected_item_color,
+                    tabs: const <Tab>[
+                      Tab(text: 'Tab0'),
+                      Tab(text: 'Tab1'),
+                    ],
+                  ),
+                  Expanded(
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: <Widget>[
+                        extended.NestedScrollViewInnerScrollPositionKeyWidget(Key('Tab0'), NewsPage(isSupportPull: true)),
+                        extended.NestedScrollViewInnerScrollPositionKeyWidget(Key('Tab1'), NewsPage(isSupportPull: true)),
+                      ],
+                    ),
+                  )
+                ],
+              )
             ),
           ),
+        ],
       ),
     );
   }
@@ -112,26 +127,6 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
           floating: false, // 不随着滑动隐藏标题
           pinned: true, // 固定在顶部
           flexibleSpace: _flexibleSpeceBuilder()
-      ),
-      SliverToBoxAdapter(
-        child: Container(
-          color: Colours.toast_error,
-          height: 1,
-        ),
-      ),
-      SliverPersistentHeader(
-        pinned: true,
-        delegate: SliverAppBarDelegate(
-          DecoratedBox(
-            decoration: BoxDecoration(
-              color: Colours.toast_warn,
-            ),
-            child: Container(
-              height: 80.0,
-              padding: const EdgeInsets.only(top: 8.0),
-            ),
-          ), 80.0,
-        ),
       ),
     ];
   }
@@ -219,28 +214,5 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
         ],
       ),
     );
-  }
-}
-
-class SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-  final Widget widget;
-  final double height;
-  SliverAppBarDelegate(this.widget, this.height);
-
-  // minHeight 和 maxHeight 的值设置为相同时，header就不会收缩了
-  @override
-  double get minExtent => height;
-
-  @override
-  double get maxExtent => height;
-
-  @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return widget;
-  }
-
-  @override
-  bool shouldRebuild(SliverAppBarDelegate oldDelegate) {
-    return true;
   }
 }

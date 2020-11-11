@@ -50,7 +50,7 @@ class CommonFooter extends Footer {
     Duration completeDuration = const Duration(seconds: 1),
     bool enableInfiniteLoad = true,
     bool enableHapticFeedback = true,
-    bool overScroll = true,
+    bool overScroll = false,
     bool safeArea = true,
     EdgeInsets padding,
     this.key,
@@ -380,7 +380,7 @@ class CommonFooterWidgetState extends State<CommonFooterWidget>
         child: Container(
           alignment: Alignment.centerRight,
           padding: EdgeInsets.only(
-            right: 5.0,
+            right: 1.0,
           ),
           child: (widget.loadState == LoadMode.load ||
               widget.loadState == LoadMode.armed) &&
@@ -389,7 +389,7 @@ class CommonFooterWidgetState extends State<CommonFooterWidget>
             width: 20.0,
             height: 20.0,
             child: CircularProgressIndicator(
-              strokeWidth: 2.0,
+              strokeWidth: 1.5,
               valueColor: AlwaysStoppedAnimation(
                 widget.classicalFooter.textColor,
               ),
@@ -440,7 +440,7 @@ class CommonFooterWidgetState extends State<CommonFooterWidget>
           width: 20.0,
           height: 20.0,
           child: CircularProgressIndicator(
-            strokeWidth: 2.0,
+            strokeWidth: 1.5,
             valueColor: AlwaysStoppedAnimation(
               widget.classicalFooter.textColor,
             ),

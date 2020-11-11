@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:lighthouse/res/colors.dart';
 
 /// 资讯列表详情
 class NewsItem extends StatelessWidget {
@@ -25,8 +26,11 @@ class NewsItem extends StatelessWidget {
     return InkWell(
       onTap: () {},
       child: Container(
-        height: 80.0,
+        height: 90.0,
         width: double.infinity,
+        decoration: BoxDecoration(
+            border: Border(bottom: BorderSide(width: 0.6, color: Colours.default_line))
+        ),
         child: Row(
           children: <Widget>[
             Expanded(
@@ -38,6 +42,7 @@ class NewsItem extends StatelessWidget {
                     children: <Widget>[
                       Expanded(
                         child: Container(
+                          alignment: Alignment.topLeft,
                           child: Text(title,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
@@ -46,6 +51,7 @@ class NewsItem extends StatelessWidget {
                         ),
                       ),
                       Container(
+                        alignment: Alignment.topLeft,
                         margin: EdgeInsets.only(top: 2.0),
                         child: Text('$author  $time',
                           style: TextStyle(fontSize: 12, color: Colors.grey),

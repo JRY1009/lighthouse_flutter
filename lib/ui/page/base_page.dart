@@ -7,10 +7,10 @@ import 'package:lighthouse/ui/widget/loading_dialog.dart';
 abstract class IBasePage {
 
   BuildContext getContext();
-  /// 显示Progress
+  // 显示Progress
   void showProgress({String content, bool showContent = true});
 
-  /// 关闭Progress
+  // 关闭Progress
   void closeProgress();
 }
 
