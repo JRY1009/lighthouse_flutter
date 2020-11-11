@@ -29,7 +29,7 @@ class DioUtil {
     dio.options.connectTimeout = 10000;
     dio.options.receiveTimeout = 5000;
     dio.interceptors.add(AuthInterceptor());
-    dio.interceptors.add(LogInterceptor(responseBody: true)); //是否开启请求日志
+    //dio.interceptors.add(LogInterceptor(responseBody: true)); //是否开启请求日志
   }
 
 //get请求

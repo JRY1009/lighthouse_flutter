@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
+import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/page2nd/news_page.dart';
 import 'package:lighthouse/utils/image_util.dart';
 import 'package:lighthouse/utils/screen_util.dart';
@@ -13,11 +14,16 @@ import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as
 
 
 class HomePage extends StatefulWidget {
+
+  HomePage({
+    Key key,
+  }) : super(key: key);
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<HomePage>, SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, AutomaticKeepAliveClientMixin<HomePage>, SingleTickerProviderStateMixin {
 
   @override
   bool get wantKeepAlive => true;
@@ -25,7 +31,10 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
   double _appBarOpacity = 0;
   double _toolbarHeight = 80;
 
-  final _newsPageKey = GlobalKey<NewsPageState>();
+  ScrollController _nestedController = ScrollController();
+
+  final _nestedRefreshKey = GlobalKey<NestedScrollViewRefreshIndicatorState>();
+  final _newsPageKey = GlobalKey<BasePageMixin>();
 
   @override
   void initState() {
@@ -34,7 +43,29 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
 
   @override
   void dispose() {
+    _nestedController.dispose();
     super.dispose();
+  }
+
+  @override
+  Future<void> refresh({slient = false}) {
+    _nestedController.animateTo(-0.0001, duration: Duration(milliseconds: 100), curve: Curves.linear);
+    _nestedRefreshKey.currentState?.show(atTop: true);
+
+    return _refresh();
+  }
+
+  Future<void> _refresh()  {
+    return _newsPageKey.currentState != null ?
+      _newsPageKey.currentState.refresh(slient: true) :
+      Future<void>.delayed(const Duration(milliseconds: 100));
+
+//    await Future.wait<dynamic>([demo1,demo2,demo3]).then((e){
+//
+//      print(e);//[true,true,false]
+//    }).catchError((e){
+//
+//    });
   }
 
   void _scrollNotify(double scrollY) {
@@ -50,27 +81,12 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
     }
   }
 
-  Future<void> _refresh()  {
-    if (_newsPageKey.currentState != null) {
-      return _newsPageKey.currentState.refresh(showHeader: false);
-    }
-
-    return Future<void>.delayed(const Duration(seconds: 1), () {
-
-    });
-//    await Future.wait<dynamic>([demo1,demo2,demo3]).then((e){
-//
-//      print(e);//[true,true,false]
-//    }).catchError((e){
-//
-//    });
-  }
-
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
       body: NestedScrollViewRefreshIndicator(
+        key: _nestedRefreshKey,
         onRefresh: _refresh,
         child: NotificationListener<ScrollNotification>(
             onNotification: (ScrollNotification notification) {
@@ -80,6 +96,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
               return false;
             },
             child: extended.NestedScrollView(
+              controller: _nestedController,
               physics: const ClampingScrollPhysics(),
               pinnedHeaderSliverHeightBuilder: () {
                 return _toolbarHeight;

@@ -7,6 +7,10 @@ import 'package:lighthouse/ui/widget/loading_dialog.dart';
 abstract class IBasePage {
 
   BuildContext getContext();
+
+  // 刷新
+  Future<void> refresh({slient = false});
+
   // 显示Progress
   void showProgress({String content, bool showContent = true});
 
@@ -23,13 +27,10 @@ mixin BasePageMixin<T extends StatefulWidget> on State<T> implements IBasePage {
   BuildContext getContext() {
     return context;
   }
-  
+
   @override
-  void closeProgress() {
-    if (mounted && _isShowDialog) {
-      _isShowDialog = false;
-      Routers.goBack(context);
-    }
+  Future<void> refresh({slient = false}) {
+
   }
 
   @override
@@ -57,6 +58,14 @@ mixin BasePageMixin<T extends StatefulWidget> on State<T> implements IBasePage {
         /// 异常原因主要是页面没有build完成就调用Progress。
         print(e);
       }
+    }
+  }
+
+  @override
+  void closeProgress() {
+    if (mounted && _isShowDialog) {
+      _isShowDialog = false;
+      Routers.goBack(context);
     }
   }
 

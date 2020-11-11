@@ -21,6 +21,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "article" : MessageLookupByLibrary.simpleMessage("文章"),
     "cancel" : MessageLookupByLibrary.simpleMessage("cancel"),
     "clickRegister" : MessageLookupByLibrary.simpleMessage("点此注册"),
     "close" : MessageLookupByLibrary.simpleMessage("Close"),
@@ -51,6 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "search" : MessageLookupByLibrary.simpleMessage("搜索"),
     "settings" : MessageLookupByLibrary.simpleMessage("Settings"),
     "welcomeLogin" : MessageLookupByLibrary.simpleMessage("Welcome Login"),
-    "welcomeRegist" : MessageLookupByLibrary.simpleMessage("Welcome Regist")
+    "welcomeRegist" : MessageLookupByLibrary.simpleMessage("Welcome Regist"),
+    "x724" : MessageLookupByLibrary.simpleMessage("7x24")
   };
 }

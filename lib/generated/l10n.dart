@@ -285,6 +285,26 @@ class S {
     );
   }
 
+  /// `7x24`
+  String get x724 {
+    return Intl.message(
+      '7x24',
+      name: 'x724',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `文章`
+  String get article {
+    return Intl.message(
+      '文章',
+      name: 'article',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `正在加载...`
   String get loading {
     return Intl.message(

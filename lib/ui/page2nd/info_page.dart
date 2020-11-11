@@ -1,9 +1,11 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
+import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/page2nd/news_page.dart';
 import 'package:lighthouse/utils/image_util.dart';
 import 'package:lighthouse/utils/screen_util.dart';
@@ -12,14 +14,22 @@ import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as
 
 
 class InfoPage extends StatefulWidget {
+
+  InfoPage({
+    Key key,
+  }) : super(key: key);
+
   @override
   _InfoPageState createState() => _InfoPageState();
 }
 
-class _InfoPageState extends State<InfoPage> with AutomaticKeepAliveClientMixin<InfoPage>, SingleTickerProviderStateMixin {
+class _InfoPageState extends State<InfoPage> with BasePageMixin<InfoPage>, AutomaticKeepAliveClientMixin<InfoPage>, SingleTickerProviderStateMixin {
 
   @override
   bool get wantKeepAlive => true;
+
+  List<GlobalKey<BasePageMixin>> _keyList;
+  List<String> _tabTitles ;
 
   TabController _tabController;
 
@@ -28,9 +38,16 @@ class _InfoPageState extends State<InfoPage> with AutomaticKeepAliveClientMixin<
 
   @override
   void initState() {
+    super.initState();
+
     _tabController = TabController(length: 2, vsync: this);
 
-    super.initState();
+    _tabTitles = [S.current.x724, S.current.article];
+
+    _keyList = [
+      GlobalKey<BasePageMixin>(debugLabel: _tabTitles[0]),
+      GlobalKey<BasePageMixin>(debugLabel: _tabTitles[1]),
+    ];
   }
 
   @override
@@ -38,6 +55,11 @@ class _InfoPageState extends State<InfoPage> with AutomaticKeepAliveClientMixin<
     _tabController.dispose();
 
     super.dispose();
+  }
+
+  @override
+  Future<void> refresh({slient = false}) {
+    return _keyList[_tabController.index]?.currentState.refresh();
   }
 
   void _scrollNotify(double scrollY) {
@@ -72,9 +94,7 @@ class _InfoPageState extends State<InfoPage> with AutomaticKeepAliveClientMixin<
                 return _toolbarHeight;
               },
               innerScrollPositionKeyBuilder: () {
-                String index = 'Tab';
-                index += _tabController.index.toString();
-                return Key(index);
+                return Key(_tabTitles[_tabController.index]);
               },
               headerSliverBuilder: (context, innerBoxIsScrolled) => _headerSliverBuilder(context),
               body: Column(
@@ -87,17 +107,17 @@ class _InfoPageState extends State<InfoPage> with AutomaticKeepAliveClientMixin<
                     indicatorWeight: 2.0,
                     isScrollable: false,
                     unselectedLabelColor: Colours.unselected_item_color,
-                    tabs: const <Tab>[
-                      Tab(text: 'Tab0'),
-                      Tab(text: 'Tab1'),
+                    tabs: <Tab>[
+                      Tab(text: _tabTitles[0]),
+                      Tab(text: _tabTitles[1]),
                     ],
                   ),
                   Expanded(
                     child: TabBarView(
                       controller: _tabController,
                       children: <Widget>[
-                        extended.NestedScrollViewInnerScrollPositionKeyWidget(Key('Tab0'), NewsPage(isSupportPull: true)),
-                        extended.NestedScrollViewInnerScrollPositionKeyWidget(Key('Tab1'), NewsPage(isSupportPull: true)),
+                        extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[0]), NewsPage(key: _keyList[0], isSupportPull: true)),
+                        extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[1]), NewsPage(key: _keyList[1], isSupportPull: true)),
                       ],
                     ),
                   )

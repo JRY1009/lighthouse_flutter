@@ -7,6 +7,7 @@ import 'package:lighthouse/net/dio_util.dart';
 import 'package:lighthouse/net/model/news.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/ui/item/news_item.dart';
+import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/provider/list_provider.dart';
 import 'package:lighthouse/ui/widget/easyrefresh/common_footer.dart';
 import 'package:lighthouse/ui/widget/easyrefresh/first_refresh.dart';
@@ -16,8 +17,7 @@ import 'package:provider/provider.dart';
 
 
 class NewsPage extends StatefulWidget {
-
-
+  
   final bool isSupportPull;  //是否支持手动下拉刷新
 
   NewsPage({
@@ -26,25 +26,25 @@ class NewsPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  NewsPageState createState() {
-    return NewsPageState(isSupportPull: isSupportPull);
+  _NewsPageState createState() {
+    return _NewsPageState(isSupportPull: isSupportPull);
   }
 }
 
-class NewsPageState extends State<NewsPage> with AutomaticKeepAliveClientMixin<NewsPage>, SingleTickerProviderStateMixin {
+class _NewsPageState extends State<NewsPage> with BasePageMixin<NewsPage>, AutomaticKeepAliveClientMixin<NewsPage>, SingleTickerProviderStateMixin {
 
   @override
   bool get wantKeepAlive => true;
 
   bool isSupportPull;
 
-  EasyRefreshController _controller = EasyRefreshController();
+  EasyRefreshController _easyController = EasyRefreshController();
   ListProvider<News> _listProvider = ListProvider<News>();
   int _page = 0;
-  int _pageSize = 10;
+  int _pageSize = 20;
   bool _init = false;
 
-  NewsPageState({
+  _NewsPageState({
     this.isSupportPull
   });
 
@@ -57,16 +57,20 @@ class NewsPageState extends State<NewsPage> with AutomaticKeepAliveClientMixin<N
 
   @override
   void dispose() {
-    _controller.dispose();
+    _easyController.dispose();
     super.dispose();
   }
 
-  Future<void> refresh({showHeader = false}) {
-    if (showHeader) {
-      _controller.callRefresh();
-    } else {
+  @override
+  Future<void> refresh({slient = false}) {
+    if (slient) {
       _page = 0;
       return _requestData();
+      
+    } else {
+      return Future<void>.delayed(const Duration(milliseconds: 100), () {
+        _easyController.callRefresh();
+      });
     }
   }
 
@@ -115,11 +119,11 @@ class NewsPageState extends State<NewsPage> with AutomaticKeepAliveClientMixin<N
   void _finishRequest({bool success, bool noMore}) {
     if (_page == 0) {
       if (success) {
-        _controller.resetLoadState();
+        _easyController.resetLoadState();
       }
-      _controller.finishRefresh(success: success, noMore: noMore);
+      _easyController.finishRefresh(success: success, noMore: noMore);
     } else {
-      _controller.finishLoad(success: success, noMore: noMore);
+      _easyController.finishLoad(success: success, noMore: noMore);
     }
 
     if (!_init) {
@@ -138,7 +142,7 @@ class NewsPageState extends State<NewsPage> with AutomaticKeepAliveClientMixin<N
               return !_init ? FirstRefresh() : EasyRefresh(
                 header: isSupportPull ? MaterialHeader(valueColor: AlwaysStoppedAnimation<Color>(Colours.app_main)) : null,
                 footer:  CommonFooter(enableInfiniteLoad: !_provider.noMore),
-                controller: _controller,
+                controller: _easyController,
 //                firstRefresh配合NestedScrollView使用会造成刷新跳动问题
 //                firstRefresh: true,
 //                firstRefreshWidget: FirstRefresh(),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/dimens.dart';
+import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/page2nd/home_page.dart';
 import 'package:lighthouse/ui/page2nd/info_page.dart';
 import 'package:lighthouse/ui/page2nd/news_page.dart';
@@ -16,17 +17,18 @@ class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
 
   static const double _imageSize = 25.0;
 
+  List<GlobalKey<BasePageMixin>> _keyList;
   List<Widget> _pageList;
   List<String> _appBarTitles ;
   final PageController _pageController = PageController();
 
   MainProvider provider = MainProvider();
 
-  List<BottomNavigationBarItem> _list;
+  List<BottomNavigationBarItem> _bottomBarItemList;
 
   @override
   void initState() {
@@ -42,16 +44,22 @@ class _MainPageState extends State<MainPage> {
   
   void initData() {
     _appBarTitles = [S.current.home, S.current.info, S.current.money, S.current.mine];
+    _keyList = [
+      GlobalKey<BasePageMixin>(debugLabel: _appBarTitles[0]),
+      GlobalKey<BasePageMixin>(debugLabel: _appBarTitles[1]),
+      GlobalKey<BasePageMixin>(debugLabel: _appBarTitles[2]),
+      GlobalKey<BasePageMixin>(debugLabel: _appBarTitles[3]),
+    ];
     _pageList = [
-      HomePage(),
-      InfoPage(),
-      NewsPage(isSupportPull: true),
+      HomePage(key: _keyList[0]),
+      InfoPage(key: _keyList[1]),
+      NewsPage(key: _keyList[2]),
       Container(color: Colours.default_line),
     ];
   }
 
   List<BottomNavigationBarItem> _buildBottomNavigationBarItem() {
-    if (_list == null) {
+    if (_bottomBarItemList == null) {
       const _tabImages = [
         [
           LocalImage('tab_home', width: _imageSize, color: Colours.unselected_item_color,),
@@ -70,7 +78,7 @@ class _MainPageState extends State<MainPage> {
           LocalImage('tab_mine', width: _imageSize, color: Colours.app_main_500,),
         ]
       ];
-      _list = List.generate(_tabImages.length, (i) {
+      _bottomBarItemList = List.generate(_tabImages.length, (i) {
         return BottomNavigationBarItem(
           icon: Container(margin: EdgeInsets.only(bottom: 3), child: _tabImages[i][0]),
           activeIcon: Container(margin: EdgeInsets.only(bottom: 3), child: _tabImages[i][1]),
@@ -78,7 +86,7 @@ class _MainPageState extends State<MainPage> {
         );
       });
     }
-    return _list;
+    return _bottomBarItemList;
   }
 
   @override
@@ -100,7 +108,13 @@ class _MainPageState extends State<MainPage> {
                 unselectedFontSize: Dimens.font_sp10,
                 selectedItemColor: Theme.of(context).primaryColor,
                 unselectedItemColor: Colours.unselected_item_color,
-                onTap: (index) => _pageController.jumpToPage(index),
+                onTap: (index) {
+                  if (provider.value == index) {
+                    _keyList[index].currentState?.refresh();
+                  } else {
+                    _pageController.jumpToPage(index);
+                  }
+                },
               );
             },
           ),

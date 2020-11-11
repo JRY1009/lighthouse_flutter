@@ -8,6 +8,7 @@ import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/router/routers.dart';
 import 'package:lighthouse/ui/item/area_item.dart';
+import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/provider/list_provider.dart';
 import 'package:lighthouse/ui/widget/button/back_button_ex.dart';
 import 'package:lighthouse/ui/widget/easyrefresh/first_refresh.dart';
@@ -28,7 +29,7 @@ class AreaPage extends StatefulWidget {
   }
 }
 
-class _AreaPageState extends State<AreaPage> {
+class _AreaPageState extends State<AreaPage> with BasePageMixin<AreaPage> {
 
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchNode = FocusNode();
