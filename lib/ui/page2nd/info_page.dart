@@ -6,6 +6,7 @@ import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
+import 'package:lighthouse/ui/page2nd/article_page.dart';
 import 'package:lighthouse/ui/page2nd/news_page.dart';
 import 'package:lighthouse/utils/image_util.dart';
 import 'package:lighthouse/utils/screen_util.dart';
@@ -116,8 +117,8 @@ class _InfoPageState extends State<InfoPage> with BasePageMixin<InfoPage>, Autom
                     child: TabBarView(
                       controller: _tabController,
                       children: <Widget>[
-                        extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[0]), NewsPage(key: _keyList[0], isSupportPull: true)),
-                        extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[1]), NewsPage(key: _keyList[1], isSupportPull: true)),
+                        extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[0]), ArticlePage(key: _keyList[0], isSupportPull: true)),
+                        extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[1]), ArticlePage(key: _keyList[1], isSupportPull: true)),
                       ],
                     ),
                   )
@@ -160,14 +161,7 @@ class _InfoPageState extends State<InfoPage> with BasePageMixin<InfoPage>, Autom
         decoration: BoxDecoration(
           color: Colours.white,
           borderRadius: BorderRadius.circular(3.0),
-          boxShadow: [
-            BoxShadow(
-              color: Colours.normal_border_shadow,
-              offset: Offset(0.0, 4.0),
-              blurRadius: 30.0,
-              spreadRadius: 1.0,
-            ),
-          ],
+          boxShadow: BoxShadows.normalBoxShadow,
         ),
         child: Row(
           children: <Widget>[

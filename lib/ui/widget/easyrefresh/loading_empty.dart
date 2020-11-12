@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/ui/widget/auto_image.dart';
+import 'package:lighthouse/ui/widget/image/local_image.dart';
 
 class LoadingEmpty extends StatelessWidget {
 

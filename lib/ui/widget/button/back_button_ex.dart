@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/ui/widget/auto_image.dart';
 
 class BackButtonEx extends StatelessWidget {
 

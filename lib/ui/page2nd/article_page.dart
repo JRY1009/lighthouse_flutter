@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:lighthouse/constant/constant.dart';
@@ -16,36 +17,35 @@ import 'package:lighthouse/utils/toast_util.dart';
 import 'package:provider/provider.dart';
 
 
-class NewsPage extends StatefulWidget {
+class ArticlePage extends StatefulWidget {
   
   final bool isSupportPull;  //是否支持手动下拉刷新
 
-  NewsPage({
+  ArticlePage({
     Key key,
     this.isSupportPull = true
   }) : super(key: key);
 
   @override
-  _NewsPageState createState() {
-    return _NewsPageState(isSupportPull: isSupportPull);
+  _ArticlePageState createState() {
+    return _ArticlePageState(isSupportPull: isSupportPull);
   }
 }
 
-class _NewsPageState extends State<NewsPage> with BasePageMixin<NewsPage>, AutomaticKeepAliveClientMixin<NewsPage>, SingleTickerProviderStateMixin {
+class _ArticlePageState extends State<ArticlePage> with BasePageMixin<ArticlePage>, AutomaticKeepAliveClientMixin<ArticlePage>, SingleTickerProviderStateMixin {
 
   @override
   bool get wantKeepAlive => true;
 
   bool isSupportPull;
 
-  ScrollController _nestedController = ScrollController();
   EasyRefreshController _easyController = EasyRefreshController();
   ListProvider<News> _listProvider = ListProvider<News>();
   int _page = 0;
   int _pageSize = 20;
   bool _init = false;
 
-  _NewsPageState({
+  _ArticlePageState({
     this.isSupportPull
   });
 
@@ -67,7 +67,7 @@ class _NewsPageState extends State<NewsPage> with BasePageMixin<NewsPage>, Autom
     if (slient) {
       _page = 0;
       return _requestData();
-      
+
     } else {
       return Future<void>.delayed(const Duration(milliseconds: 100), () {
         _easyController.callRefresh();
@@ -153,7 +153,7 @@ class _NewsPageState extends State<NewsPage> with BasePageMixin<NewsPage>, Autom
                   padding: EdgeInsets.all(0.0),
                   itemBuilder: (context, index) {
                     return NewsItem(
-                      title: _provider.list[index].account_name,
+                      title: _provider.list[index].account_name + '杜绝浪费矿机时空裂缝接SDK龙卷风克雷登斯荆防颗粒圣诞节快乐福建省断开连接付款了圣诞节疯狂了圣诞节',
                       time: _provider.list[index].created_at,
                       author: _provider.list[index].city,
                       imageUrl: _provider.list[index].avatar_300,

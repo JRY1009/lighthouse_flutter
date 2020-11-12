@@ -3,6 +3,8 @@
   "logout": "Logout",
   "welcomeLogin": "Welcome Login",
   "welcomeRegist": "Welcome Regist",
+  "loginNow": "立即登录",
+  "loginGuide": "登录后可同步数据",
   "loginPhone": "Phone Number",
   "loginPhoneHint": "Please enter your phone number",
   "loginPhoneError": "Phone number cannot be empty!",

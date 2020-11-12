@@ -136,20 +136,20 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
           height: 1,
         ),
       ),
-      SliverPersistentHeader(
-        pinned: true,
-        delegate: SliverAppBarDelegate(
-          DecoratedBox(
-            decoration: BoxDecoration(
-              color: Colours.toast_warn,
-            ),
-            child: Container(
-              height: 80.0,
-              padding: const EdgeInsets.only(top: 8.0),
-            ),
-          ), 80.0,
-        ),
-      ),
+//      SliverPersistentHeader(
+//        pinned: true,
+//        delegate: SliverAppBarDelegate(
+//          DecoratedBox(
+//            decoration: BoxDecoration(
+//              color: Colours.toast_warn,
+//            ),
+//            child: Container(
+//              height: 80.0,
+//              padding: const EdgeInsets.only(top: 8.0),
+//            ),
+//          ), 80.0,
+//        ),
+//      ),
     ];
   }
 
@@ -162,14 +162,7 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
         decoration: BoxDecoration(
           color: Colours.white,
           borderRadius: BorderRadius.circular(3.0),
-          boxShadow: [
-            BoxShadow(
-              color: Colours.normal_border_shadow,
-              offset: Offset(0.0, 4.0),
-              blurRadius: 30.0,
-              spreadRadius: 1.0,
-            ),
-          ],
+          boxShadow: BoxShadows.normalBoxShadow,
         ),
         child: Row(
           children: <Widget>[

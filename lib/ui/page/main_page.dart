@@ -6,9 +6,10 @@ import 'package:lighthouse/res/dimens.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/page2nd/home_page.dart';
 import 'package:lighthouse/ui/page2nd/info_page.dart';
+import 'package:lighthouse/ui/page2nd/mine_page.dart';
 import 'package:lighthouse/ui/page2nd/news_page.dart';
 import 'package:lighthouse/ui/provider/main_provider.dart';
-import 'package:lighthouse/ui/widget/auto_image.dart';
+import 'package:lighthouse/ui/widget/image/local_image.dart';
 import 'package:lighthouse/utils/double_tap_back_exit_app.dart';
 import 'package:provider/provider.dart';
 
@@ -54,7 +55,7 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
       HomePage(key: _keyList[0]),
       InfoPage(key: _keyList[1]),
       NewsPage(key: _keyList[2]),
-      Container(color: Colours.default_line),
+      MinePage(key: _keyList[3]),
     ];
   }
 

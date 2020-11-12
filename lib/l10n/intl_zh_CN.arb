@@ -3,6 +3,8 @@
   "logout": "登出",
   "welcomeLogin": "欢迎登录",
   "welcomeRegist": "欢迎注册",
+  "loginNow": "立即登录",
+  "loginGuide": "登录后可同步数据",
   "loginPhone": "手机号",
   "loginPhoneHint": "请输入手机号",
   "loginPhoneError": "手机号不能为空!",

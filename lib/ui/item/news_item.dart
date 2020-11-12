@@ -26,7 +26,7 @@ class NewsItem extends StatelessWidget {
     return InkWell(
       onTap: () {},
       child: Container(
-        height: 90.0,
+        height: 100.0,
         width: double.infinity,
         decoration: BoxDecoration(
             border: Border(bottom: BorderSide(width: 0.6, color: Colours.default_line))
@@ -37,7 +37,6 @@ class NewsItem extends StatelessWidget {
               flex: 1,
               child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                  color: Colors.white,
                   child: Column(
                     children: <Widget>[
                       Expanded(
@@ -61,17 +60,28 @@ class NewsItem extends StatelessWidget {
                   )),
             ),
             Container(
-              padding: EdgeInsets.only(left: 5, right: 10),
-              width: 100.0,
-              child: AspectRatio(
-                aspectRatio: 1.2,
-                child: CachedNetworkImage(
-                    fit: BoxFit.fill,
-                    placeholder: (context, url) => Container(
-                      color: Colors.grey[200],
+              padding: EdgeInsets.all(10),
+              color: Colors.white,
+              child: CachedNetworkImage(
+                imageUrl: imageUrl ?? '',
+                fit: BoxFit.fill,
+                imageBuilder: (context, imageProvider) => Container(
+                  height: 80,
+                  width: 80,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(50)),
+                    border: Border.all(color: Colours.toast_warn, width: 2, style: BorderStyle.solid),
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
                     ),
-                    imageUrl: imageUrl ?? ''),
+                  ),
+                ),
+                placeholder: (context, url) => Container(
+                  color: Colors.grey[200],
+                ),
               ),
+
             ),
           ],
         ),

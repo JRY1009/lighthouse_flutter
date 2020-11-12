@@ -171,11 +171,11 @@ class CommonFooterWidgetState extends State<CommonFooterWidget>
   }
 
   String get _loadedText {
-    return widget.classicalFooter.loadedText ?? '';
+    return widget.classicalFooter.loadedText ?? S.current.loading;
   }
 
   String get _loadFailedText {
-    return widget.classicalFooter.loadFailedText ?? '';
+    return widget.classicalFooter.loadFailedText ?? S.current.loading;
   }
 
   /// 没有更多文字

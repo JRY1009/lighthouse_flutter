@@ -102,7 +102,7 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
       setState(() {
         _area_code = result;
       });
-    });
+    }, transition: TransitionType.materialFullScreenDialog);
   }
 
   void _forgetPwd() {

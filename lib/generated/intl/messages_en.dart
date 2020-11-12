@@ -32,6 +32,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "info" : MessageLookupByLibrary.simpleMessage("资讯"),
     "loading" : MessageLookupByLibrary.simpleMessage("正在加载..."),
     "login" : MessageLookupByLibrary.simpleMessage("Login"),
+    "loginGuide" : MessageLookupByLibrary.simpleMessage("登录后可同步数据"),
+    "loginNow" : MessageLookupByLibrary.simpleMessage("立即登录"),
     "loginPhone" : MessageLookupByLibrary.simpleMessage("Phone Number"),
     "loginPhoneError" : MessageLookupByLibrary.simpleMessage("Phone number cannot be empty!"),
     "loginPhoneHint" : MessageLookupByLibrary.simpleMessage("Please enter your phone number"),

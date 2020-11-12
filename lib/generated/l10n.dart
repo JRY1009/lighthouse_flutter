@@ -75,6 +75,26 @@ class S {
     );
   }
 
+  /// `立即登录`
+  String get loginNow {
+    return Intl.message(
+      '立即登录',
+      name: 'loginNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `登录后可同步数据`
+  String get loginGuide {
+    return Intl.message(
+      '登录后可同步数据',
+      name: 'loginGuide',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Phone Number`
   String get loginPhone {
     return Intl.message(

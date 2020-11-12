@@ -5,7 +5,6 @@ import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/ui/widget/auto_image.dart';
 
 //登陆注册界面edittext输入框
 class AccountTextField extends StatefulWidget {
