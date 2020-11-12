@@ -57,7 +57,7 @@ class _MineAppBarState extends State<MineAppBar> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Container(
-                          padding: EdgeInsets.only(left: 28, bottom: 20),
+                          padding: EdgeInsets.only(left: 28),
                           child: InkWell(
                             onTap: widget.onAvatarPressed,
                             child: CircleImage(

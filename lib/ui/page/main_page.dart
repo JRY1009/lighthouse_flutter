@@ -1,8 +1,14 @@
 
+import 'dart:async';
+
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:lighthouse/event/event.dart';
+import 'package:lighthouse/event/user_event.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/dimens.dart';
+import 'package:lighthouse/router/routers.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/page2nd/home_page.dart';
 import 'package:lighthouse/ui/page2nd/info_page.dart';
@@ -11,6 +17,7 @@ import 'package:lighthouse/ui/page2nd/news_page.dart';
 import 'package:lighthouse/ui/provider/main_provider.dart';
 import 'package:lighthouse/ui/widget/image/local_image.dart';
 import 'package:lighthouse/utils/double_tap_back_exit_app.dart';
+import 'package:lighthouse/utils/log_util.dart';
 import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget {
@@ -19,6 +26,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
+
+  StreamSubscription _userSubscription;
 
   static const double _imageSize = 25.0;
 
@@ -35,12 +44,23 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
   void initState() {
     super.initState();
     initData();
+
+    _userSubscription = Event.eventBus.on<UserEvent>().listen((event) {
+
+      if (event.state == UserEventState.logout) {
+        Routers.navigateTo(context, Routers.loginPage);
+      }
+    });
   }
 
   @override
   void dispose() {
+    if (_userSubscription != null) {
+      _userSubscription.cancel();
+    }
     _pageController.dispose();
     super.dispose();
+    LogUtil.v('_MainPageState dispose' );
   }
   
   void initData() {

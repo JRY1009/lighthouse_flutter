@@ -5,7 +5,9 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/intercept.dart';
+import 'package:lighthouse/net/rt_account.dart';
 import 'package:lighthouse/utils/log_util.dart';
+import 'package:lighthouse/utils/toast_util.dart';
 
 class DioUtil {
 
@@ -95,7 +97,7 @@ class DioUtil {
       LogUtil.v('返回值: ' + response.toString(), tag: _TAG);
     }
 
-    String jsonString = json.encode(response.data);
+    String jsonString = json.encode(response?.data);
     Map<String, dynamic> dataMap = json.decode(jsonString);
 
     if (dataMap == null) {
@@ -106,6 +108,12 @@ class DioUtil {
         });
       }
     } else if (dataMap[Constant.ERRNO] != Constant.ERRNO_OK) {
+
+      if (dataMap[Constant.ERRNO] == Constant.ERRNO_FORBIDDEN) {
+        ToastUtil.error(dataMap[Constant.MESSAGE]);
+        RTAccount.instance().logout();
+      }
+
       if (errorCallBack != null) {
         errorCallBack(dataMap);
       }

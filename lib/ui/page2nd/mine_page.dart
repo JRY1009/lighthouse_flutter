@@ -1,15 +1,21 @@
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:lighthouse/event/event.dart';
+import 'package:lighthouse/event/user_event.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/net/model/account.dart';
 import 'package:lighthouse/net/rt_account.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
+import 'package:lighthouse/router/routers.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/widget/appbar/mine_appbar.dart';
 import 'package:lighthouse/ui/widget/clickbar/mine_clickbar.dart';
 import 'package:lighthouse/ui/widget/common_scroll_view.dart';
+import 'package:lighthouse/utils/log_util.dart';
 import 'package:lighthouse/utils/toast_util.dart';
 
 class MinePage extends StatefulWidget {
@@ -22,10 +28,39 @@ class MinePage extends StatefulWidget {
   _MinePageState createState() => _MinePageState();
 }
 
-class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, AutomaticKeepAliveClientMixin<MinePage> {
+class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, AutomaticKeepAliveClientMixin<MinePage>, SingleTickerProviderStateMixin {
 
   @override
   bool get wantKeepAlive => true;
+
+  StreamSubscription _userSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _userSubscription = Event.eventBus.on<UserEvent>().listen((event) {
+      setState(() {
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    if (_userSubscription != null) {
+      _userSubscription.cancel();
+    }
+
+    super.dispose();
+  }
+
+  void _mineAppbarPresed() {
+    if (RTAccount.instance().isLogin()) {
+      ToastUtil.normal('点你就是点鸡');
+    } else {
+      Routers.navigateTo(context, Routers.loginPage);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +80,7 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
           children: <Widget>[
             MineAppBar(
               account: account,
-              onPressed: () => ToastUtil.normal('点你就是点鸡'),
+              onPressed: () => _mineAppbarPresed(),
               onActionPressed: () => ToastUtil.normal('点你就是点鸡 通知'),
               onAvatarPressed: () => ToastUtil.normal('点你就是点鸡 头像'),
             ),
@@ -100,7 +135,7 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
                         boxShadow: BoxShadows.normalBoxShadow,
                       ),
                       child: FlatButton(
-                          onPressed: () => ToastUtil.normal('logout'),
+                          onPressed: () => RTAccount.instance().logout(),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(14.0))),
                           padding: EdgeInsets.all(0.0),
                           child: Container(

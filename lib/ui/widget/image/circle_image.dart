@@ -13,8 +13,7 @@ class CircleImage extends StatelessWidget {
     this.borderColor = Colours.white,
     this.borderWidth = 1,
     this.boxShadow
-  }) : assert(imageUrl != null, 'The [imageUrl] argument must not be null.'),
-       super(key: key);
+  }) : super(key: key);
   
   final String imageUrl;
   final double radius;

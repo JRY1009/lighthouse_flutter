@@ -3,6 +3,8 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:lighthouse/event/event.dart';
+import 'package:lighthouse/event/user_event.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
@@ -84,7 +86,9 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
           ToastUtil.success(S.current.loginSuccess);
 
           Navigator.pop(context);
-          Routers.navigateTo(context, Routers.mainPage);
+          Routers.navigateTo(context, Routers.mainPage, clearStack: true);
+
+          Event.eventBus.fire(UserEvent(account, UserEventState.login));
         },
         errorCallBack: (error) {
           closeProgress();

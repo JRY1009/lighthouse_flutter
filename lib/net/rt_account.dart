@@ -1,6 +1,8 @@
 
 import 'dart:convert';
 
+import 'package:lighthouse/event/event.dart';
+import 'package:lighthouse/event/user_event.dart';
 import 'package:lighthouse/net/model/account.dart';
 import 'package:lighthouse/utils/object_util.dart';
 import 'package:lighthouse/utils/sp_util.dart';
@@ -26,6 +28,18 @@ class RTAccount {
 
   bool isLogin() {
     return _activeAccount != null;
+  }
+
+  void logout() {
+    if (_activeAccount != null) {
+
+      _activeAccount.token = '';
+      saveAccount();
+
+      _activeAccount = null;
+    }
+
+    Event.eventBus.fire(UserEvent(null, UserEventState.logout));
   }
 
   saveAccount() async {
