@@ -45,16 +45,6 @@ class S {
     );
   }
 
-  /// `Logout`
-  String get logout {
-    return Intl.message(
-      'Logout',
-      name: 'logout',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Welcome Login`
   String get welcomeLogin {
     return Intl.message(
@@ -70,6 +60,16 @@ class S {
     return Intl.message(
       'Welcome Regist',
       name: 'welcomeRegist',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `退出登录`
+  String get logout {
+    return Intl.message(
+      '退出登录',
+      name: 'logout',
       desc: '',
       args: [],
     );
@@ -380,6 +380,16 @@ class S {
     return Intl.message(
       '没有更多数据',
       name: 'noMoreData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `账户与安全`
+  String get accountSecurity {
+    return Intl.message(
+      '账户与安全',
+      name: 'accountSecurity',
       desc: '',
       args: [],
     );

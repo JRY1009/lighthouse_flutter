@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:lighthouse/constant/constant.dart';
+import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/intercept.dart';
 import 'package:lighthouse/utils/log_util.dart';
 

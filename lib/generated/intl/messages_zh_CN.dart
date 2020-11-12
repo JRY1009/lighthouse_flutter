@@ -21,6 +21,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "accountSecurity" : MessageLookupByLibrary.simpleMessage("账户与安全"),
     "article" : MessageLookupByLibrary.simpleMessage("文章"),
     "cancel" : MessageLookupByLibrary.simpleMessage("取消"),
     "clickRegister" : MessageLookupByLibrary.simpleMessage("点此注册"),
@@ -39,7 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "loginPhoneHint" : MessageLookupByLibrary.simpleMessage("请输入手机号"),
     "loginSuccess" : MessageLookupByLibrary.simpleMessage("登录成功"),
     "logingin" : MessageLookupByLibrary.simpleMessage("登录中..."),
-    "logout" : MessageLookupByLibrary.simpleMessage("登出"),
+    "logout" : MessageLookupByLibrary.simpleMessage("退出登录"),
     "mine" : MessageLookupByLibrary.simpleMessage("我的"),
     "money" : MessageLookupByLibrary.simpleMessage("财富"),
     "noAccount" : MessageLookupByLibrary.simpleMessage("没有账号？"),

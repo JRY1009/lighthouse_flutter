@@ -78,24 +78,20 @@ class _MineAppBarState extends State<MineAppBar> {
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
                                 Container(
-                                    padding: EdgeInsets.only(bottom: 8),
+                                    padding: EdgeInsets.only(bottom: 6),
                                     alignment: Alignment.centerLeft,
-                                    child: Expanded(
-                                        child: Text(widget.account != null ? widget.account.account_name : S.of(context).loginNow,
+                                    child: Text(widget.account != null ? widget.account.account_name : S.of(context).loginNow,
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyles.textGray800_w400_17)
-                                    )
                                 ),
 
                                 Container(
                                   alignment: Alignment.centerLeft,
-                                  child: Expanded(
-                                      child: Text(widget.account != null ? widget.account.phone : S.of(context).loginGuide,
+                                  child: Text(widget.account != null ? widget.account.phone : S.of(context).loginGuide,
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyles.textGray400_w400_14)
-                                  ),
                                 ),
 
                               ],

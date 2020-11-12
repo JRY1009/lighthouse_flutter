@@ -2,7 +2,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:lighthouse/constant/constant.dart';
+import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/model/account.dart';
 import 'package:lighthouse/net/rt_account.dart';
 import 'package:lighthouse/utils/date_util.dart';

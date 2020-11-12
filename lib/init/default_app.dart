@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:lighthouse/constant/constant.dart';
 import 'package:lighthouse/generated/l10n.dart';
+import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/provider/locale_provider.dart';
 import 'package:lighthouse/provider/store.dart';
 import 'package:lighthouse/provider/theme_provider.dart';
