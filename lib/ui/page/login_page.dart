@@ -172,7 +172,7 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
               child: InkWell(
                 child: Text(
                   S.of(context).forgetPassword,
-                  style: TextStyles.textGray14,
+                  style: TextStyles.textGray400_w400_14,
                 ),
                 onTap: _forgetPwd,
               ),
@@ -183,7 +183,7 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
               margin: EdgeInsets.only(bottom: 20.0),
               child: Text.rich(TextSpan(
                   children: [
-                    TextSpan(text: S.of(context).noAccount, style: TextStyles.textGray14),
+                    TextSpan(text: S.of(context).noAccount, style: TextStyles.textGray400_w400_14),
                     TextSpan(text: S.of(context).clickRegister, style: TextStyles.textMain14,
                         recognizer: new TapGestureRecognizer()..onTap = _jump2Register),
                   ]

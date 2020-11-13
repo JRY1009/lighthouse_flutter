@@ -8,18 +8,22 @@ import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
+import 'package:lighthouse/ui/widget/image/gallery_photo.dart';
 import 'package:lighthouse/utils/object_util.dart';
 
 class AvatarSelectDialog extends StatelessWidget {
 
   final bool crop;
   final ValueChanged<String> selectCallback;
+  final Function viewCallback;
+
   final ImagePicker _picker = ImagePicker();
 
   AvatarSelectDialog({
     Key key,
     this.crop = false,
-    this.selectCallback
+    this.selectCallback,
+    this.viewCallback
   }) : super(key: key);
 
   Future<String> _selectImage(ImageSource source) async {
@@ -41,6 +45,7 @@ class AvatarSelectDialog extends StatelessWidget {
 
     return path;
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -107,7 +112,7 @@ class AvatarSelectDialog extends StatelessWidget {
                   ),
 
                   FlatButton(
-                      onPressed: () {},
+                      onPressed: viewCallback,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(bottom: Radius.circular(14.0))),
                       padding: EdgeInsets.all(0.0),
                       child: Container(

@@ -33,7 +33,7 @@ class LoadingEmpty extends StatelessWidget {
           ),
           Text(
             text ?? S.of(context).noData,
-            style: TextStyles.textGray14,
+            style: TextStyles.textGray400_w400_14,
           ),
           Expanded(
             child: SizedBox(),

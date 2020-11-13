@@ -181,7 +181,7 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
                     Container(
                         margin: EdgeInsets.only(left: 24),
                         alignment: Alignment.centerLeft,
-                        child: Text('副标题', style: TextStyles.textGray14,
+                        child: Text('副标题', style: TextStyles.textGray400_w400_14,
                         )),
                   ],)
             ),
@@ -198,7 +198,7 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
                     Gaps.vGap5,
                     Container(
                         alignment: Alignment.centerLeft,
-                        child: Text('副标题2', style: TextStyles.textGray14,)
+                        child: Text('副标题2', style: TextStyles.textGray400_w400_14,)
                     ),
                   ],)
             ),

@@ -5,6 +5,7 @@ import 'package:lighthouse/net/model/account.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/widget/image/circle_image.dart';
+import 'package:lighthouse/utils/object_util.dart';
 
 class MineAppBar extends StatefulWidget {
 
@@ -31,6 +32,18 @@ class _MineAppBarState extends State<MineAppBar> {
 
   @override
   Widget build(BuildContext context) {
+
+    String title = widget.account != null ? widget.account.account_name : S.of(context).loginNow;
+    String subTitle = widget.account != null ? widget.account.phone : S.of(context).loginGuide;
+    if (widget.account != null) {
+      var t = subTitle?.split(' ');
+      subTitle = t?.last;
+
+      if (subTitle.length >= 11) {
+        subTitle = subTitle.replaceRange(subTitle.length - 8, subTitle.length - 4, '****');
+      }
+    }
+
 
     return InkWell(
         onTap: widget.onPressed,
@@ -80,7 +93,7 @@ class _MineAppBarState extends State<MineAppBar> {
                                 Container(
                                     padding: EdgeInsets.only(bottom: 6),
                                     alignment: Alignment.centerLeft,
-                                    child: Text(widget.account != null ? widget.account.account_name : S.of(context).loginNow,
+                                    child: Text(title,
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyles.textGray800_w400_17)
@@ -88,7 +101,7 @@ class _MineAppBarState extends State<MineAppBar> {
 
                                 Container(
                                   alignment: Alignment.centerLeft,
-                                  child: Text(widget.account != null ? widget.account.phone : S.of(context).loginGuide,
+                                  child: Text(subTitle,
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyles.textGray400_w400_14)

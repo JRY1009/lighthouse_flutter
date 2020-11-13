@@ -44,7 +44,7 @@ class DialogeUtil {
 
 
   static void showAvatarSelectDialog(BuildContext context,
-      {bool crop, ValueChanged<String> selectCallback}) {
+      {bool crop, ValueChanged<String> selectCallback, Function viewCallback}) {
 
     showModalBottomSheet(
         context: context,
@@ -52,7 +52,8 @@ class DialogeUtil {
         builder: (context) {
           return AvatarSelectDialog(
               crop: crop,
-              selectCallback: selectCallback
+              selectCallback: selectCallback,
+              viewCallback: viewCallback,
           );
         });
   }

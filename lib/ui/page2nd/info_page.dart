@@ -180,7 +180,7 @@ class _InfoPageState extends State<InfoPage> with BasePageMixin<InfoPage>, Autom
                     Container(
                         margin: EdgeInsets.only(left: 24),
                         alignment: Alignment.centerLeft,
-                        child: Text('副标题', style: TextStyles.textGray14,
+                        child: Text('副标题', style: TextStyles.textGray400_w400_14,
                         )),
                   ],)
             ),
@@ -197,7 +197,7 @@ class _InfoPageState extends State<InfoPage> with BasePageMixin<InfoPage>, Autom
                     Gaps.vGap5,
                     Container(
                         alignment: Alignment.centerLeft,
-                        child: Text('副标题2', style: TextStyles.textGray14,)
+                        child: Text('副标题2', style: TextStyles.textGray400_w400_14,)
                     ),
                   ],)
             ),

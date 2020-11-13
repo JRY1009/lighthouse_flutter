@@ -26,7 +26,7 @@ class FirstRefresh extends StatelessWidget {
             ),
           ),
           Container(
-            child: Text(S.of(context).loading, style: TextStyles.textGray14),
+            child: Text(S.of(context).loading, style: TextStyles.textGray400_w400_14),
           )
         ],
       ),);

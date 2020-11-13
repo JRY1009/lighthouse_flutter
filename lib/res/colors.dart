@@ -30,8 +30,7 @@ class Colours {
   static const Color button_disabled = Color(0xffbfbfbf);
 
   static const Color text_black = Color(0xFF000000);
-  static const Color text_gray = Color(0xFF999999);
-  static const Color text_gray_c = Color(0xFFcccccc);
+  static const Color text_red = Color(0xFFEB5757);
 
   static const Color default_line = Color(0xFFEEEEEE);
   static const Color text_disabled = Color(0xFFD4E2FA);

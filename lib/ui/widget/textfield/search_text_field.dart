@@ -44,7 +44,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
             counterText: "",
             hintText: S.of(context).search,
             contentPadding: EdgeInsets.only(left: 10, right: 10),
-            hintStyle: TextStyles.textGray14,
+            hintStyle: TextStyles.textGray400_w400_14,
             focusedBorder: BorderStyles.outlineInputR50Main,
             enabledBorder: BorderStyles.outlineInputR50Gray,
             prefixIcon: Container(

@@ -36,11 +36,6 @@ class TextStyles {
     color: Colours.text_black,
   );
 
-  static const TextStyle textGray14 = TextStyle(
-    fontSize: 14.0,
-    color: Colours.text_gray,
-  );
-
   static const TextStyle textWhite14 = TextStyle(
     fontSize: 14.0,
     color: Colours.white,
@@ -74,6 +69,13 @@ class TextStyles {
       fontWeight: FontWeight.w400,
       fontSize: 14
   );
+
+  static const TextStyle textRed400_w400_15 = TextStyle(
+      color: Colours.text_red,
+      fontWeight: FontWeight.w400,
+      fontSize: 15
+  );
+
 }
 
 class BorderStyles {

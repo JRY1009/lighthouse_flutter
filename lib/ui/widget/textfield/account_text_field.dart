@@ -50,7 +50,7 @@ class _AccountTextFieldState extends State<AccountTextField> {
             counterText: "",
             hintText: S.of(context).loginPhoneHint,
             contentPadding: EdgeInsets.only(top: 16, bottom: 16),
-            hintStyle: TextStyles.textGray14,
+            hintStyle: TextStyles.textGray400_w400_14,
             focusedBorder: BorderStyles.underlineInputMain,
             enabledBorder: BorderStyles.underlineInputGray,
             prefixIcon: InkWell(
