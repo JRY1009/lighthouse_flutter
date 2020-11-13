@@ -75,6 +75,16 @@ class S {
     );
   }
 
+  /// `确定要退出当前账号吗？`
+  String get logoutConfirm {
+    return Intl.message(
+      '确定要退出当前账号吗？',
+      name: 'logoutConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `立即登录`
   String get loginNow {
     return Intl.message(
@@ -225,11 +235,21 @@ class S {
     );
   }
 
-  /// `cancel`
+  /// `Cancel`
   String get cancel {
     return Intl.message(
-      'cancel',
+      'Cancel',
       name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `确定`
+  String get confirm {
+    return Intl.message(
+      '确定',
+      name: 'confirm',
       desc: '',
       args: [],
     );

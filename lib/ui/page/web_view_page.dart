@@ -6,7 +6,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/ui/widget/button/back_button_ex.dart';
+import 'package:lighthouse/ui/widget/button/back_button.dart';
 
 class WebViewPage extends StatefulWidget {
   final String url;

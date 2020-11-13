@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:lighthouse/router/routers.dart';
-import 'package:lighthouse/ui/widget/loading_dialog.dart';
+import 'package:lighthouse/ui/widget/dialog/loading_dialog.dart';
 
 
 abstract class IBasePage {

@@ -16,6 +16,7 @@ class Colours {
 
   static const Color gray_200 = Color(0xffD6DCE4);
   static const Color gray_400 = Color(0xff93A2B4);
+  static const Color gray_500 = Color(0xff72859D);
   static const Color gray_800 = Color(0xff333A50);
 
   static const Color normal_border_shadow = Color(0x10001132);

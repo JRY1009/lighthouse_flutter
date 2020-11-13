@@ -15,7 +15,8 @@ import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/widget/appbar/mine_appbar.dart';
 import 'package:lighthouse/ui/widget/clickbar/mine_clickbar.dart';
 import 'package:lighthouse/ui/widget/common_scroll_view.dart';
-import 'package:lighthouse/utils/log_util.dart';
+import 'package:lighthouse/ui/widget/dialog/cupertino_alert_dialog.dart';
+import 'package:lighthouse/ui/widget/dialog/dialog_util.dart';
 import 'package:lighthouse/utils/toast_util.dart';
 
 class MinePage extends StatefulWidget {
@@ -60,6 +61,20 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
     } else {
       Routers.navigateTo(context, Routers.loginPage);
     }
+  }
+
+  void _logout() {
+    DialogeUtil.showCupertinoAlertDialog(context,
+      title: S.of(context).logout,
+      content: S.of(context).logoutConfirm,
+      cancel: S.of(context).cancel,
+      confirm: S.of(context).confirm,
+      cancelPressed: () => Navigator.of(context).pop(),
+      confirmPressed: () {
+        Navigator.of(context).pop();
+        RTAccount.instance().logout();
+      }
+    );
   }
 
   @override
@@ -135,7 +150,7 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
                         boxShadow: BoxShadows.normalBoxShadow,
                       ),
                       child: FlatButton(
-                          onPressed: () => RTAccount.instance().logout(),
+                          onPressed: () => _logout(),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(14.0))),
                           padding: EdgeInsets.all(0.0),
                           child: Container(
