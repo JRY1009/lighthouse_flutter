@@ -15,7 +15,6 @@ import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/widget/appbar/mine_appbar.dart';
 import 'package:lighthouse/ui/widget/clickbar/mine_clickbar.dart';
 import 'package:lighthouse/ui/widget/common_scroll_view.dart';
-import 'package:lighthouse/ui/widget/dialog/cupertino_alert_dialog.dart';
 import 'package:lighthouse/ui/widget/dialog/dialog_util.dart';
 import 'package:lighthouse/utils/toast_util.dart';
 
@@ -57,7 +56,7 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
 
   void _mineAppbarPresed() {
     if (RTAccount.instance().isLogin()) {
-      ToastUtil.normal('点你就是点鸡');
+      Routers.navigateTo(context, Routers.settingPage);
     } else {
       Routers.navigateTo(context, Routers.loginPage);
     }
@@ -95,7 +94,7 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
           children: <Widget>[
             MineAppBar(
               account: account,
-              onPressed: () => _mineAppbarPresed(),
+              onPressed: _mineAppbarPresed,
               onActionPressed: () => ToastUtil.normal('点你就是点鸡 通知'),
               onAvatarPressed: () => ToastUtil.normal('点你就是点鸡 头像'),
             ),
@@ -118,7 +117,7 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
                               title: S.of(context).accountSecurity,
                               icon: Icon(Icons.security, color: Colours.gray_800, size: 20),
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(14.0))),
-                              onPressed: () => ToastUtil.normal('点你就是点鸡 1')
+                              onPressed: _mineAppbarPresed
                           ),
                           MineClickBar(
                               title: S.of(context).accountSecurity,
@@ -142,7 +141,7 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
 
                     Gaps.vGap18,
 
-                    Container(
+                    RTAccount.instance().isLogin() ? Container(
                       margin: EdgeInsets.symmetric(horizontal: 12),
                       decoration: BoxDecoration(
                         color: Colours.white,
@@ -164,7 +163,7 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
                               )
                           )
                       ),
-                    )
+                    ) : Gaps.empty
 
 
                   ]

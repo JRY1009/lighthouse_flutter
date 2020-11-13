@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static _notInlinedMessages(_) => <String, Function> {
     "accountSecurity" : MessageLookupByLibrary.simpleMessage("账户与安全"),
     "article" : MessageLookupByLibrary.simpleMessage("文章"),
+    "camera" : MessageLookupByLibrary.simpleMessage("拍照"),
     "cancel" : MessageLookupByLibrary.simpleMessage("取消"),
     "clickRegister" : MessageLookupByLibrary.simpleMessage("点此注册"),
     "close" : MessageLookupByLibrary.simpleMessage("关闭"),
@@ -30,6 +31,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "countryArea" : MessageLookupByLibrary.simpleMessage("国家/地区"),
     "doubleTapExit" : MessageLookupByLibrary.simpleMessage("再次点击退出应用"),
     "forgetPassword" : MessageLookupByLibrary.simpleMessage("忘记密码？"),
+    "gallery" : MessageLookupByLibrary.simpleMessage("相册"),
     "home" : MessageLookupByLibrary.simpleMessage("首页"),
     "info" : MessageLookupByLibrary.simpleMessage("资讯"),
     "loading" : MessageLookupByLibrary.simpleMessage("正在加载..."),
@@ -45,6 +47,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "logoutConfirm" : MessageLookupByLibrary.simpleMessage("确定要退出当前账号吗？"),
     "mine" : MessageLookupByLibrary.simpleMessage("我的"),
     "money" : MessageLookupByLibrary.simpleMessage("财富"),
+    "myAvatar" : MessageLookupByLibrary.simpleMessage("我的头像"),
     "noAccount" : MessageLookupByLibrary.simpleMessage("没有账号？"),
     "noData" : MessageLookupByLibrary.simpleMessage("暂无数据"),
     "noMoreData" : MessageLookupByLibrary.simpleMessage("没有更多数据"),
@@ -56,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "repeatPassword" : MessageLookupByLibrary.simpleMessage("重复密码"),
     "search" : MessageLookupByLibrary.simpleMessage("搜索"),
     "settings" : MessageLookupByLibrary.simpleMessage("设置"),
+    "viewFullSize" : MessageLookupByLibrary.simpleMessage("看大图"),
     "welcomeLogin" : MessageLookupByLibrary.simpleMessage("欢迎登录"),
     "welcomeRegist" : MessageLookupByLibrary.simpleMessage("欢迎注册"),
     "x724" : MessageLookupByLibrary.simpleMessage("7x24")

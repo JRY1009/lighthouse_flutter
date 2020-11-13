@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/res/styles.dart';
 
 //loading加载框
 class LoadingDialog extends Dialog {

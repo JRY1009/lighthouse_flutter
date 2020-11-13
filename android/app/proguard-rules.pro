@@ -147,25 +147,6 @@
     @android.webkit.JavascriptInterface <methods>;
 }
 
-# banner 的混淆代码
--keep class com.youth.banner.** {
-    *;
- }
-
- -keep class tv.danmaku.ijk.** { *; }
- -dontwarn tv.danmaku.ijk.**
- -keep class com.dueeeke.videoplayer.** { *; }
- -dontwarn com.dueeeke.videoplayer.**
-
- -keep class com.google.android.exoplayer2.** { *; }
- -dontwarn com.google.android.exoplayer2.**
-
- -keep class com.aplayer.** { *; }
- -dontwarn com.aplayer.**
-
- -dontwarn com.yanzhenjie.permission.**
-
-
 -keep class com.fblock.lighthouse.trans.data.** { *; }
 
 #crashreporter
@@ -329,3 +310,8 @@ native <methods>;
 
 ######################Matisse#########################
 -dontwarn com.squareup.picasso.**
+
+######################ucrop#########################
+-dontwarn com.yalantis.ucrop**
+-keep class com.yalantis.ucrop** { *; }
+-keep interface com.yalantis.ucrop** { *; }

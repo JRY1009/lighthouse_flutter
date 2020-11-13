@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lighthouse/ui/page/area_page.dart';
 import 'package:lighthouse/ui/page/login_page.dart';
 import 'package:lighthouse/ui/page/main_page.dart';
+import 'package:lighthouse/ui/page/setting_page.dart';
 import 'package:lighthouse/ui/page/web_view_page.dart';
 
 var webviewPageHandler = new Handler(
@@ -27,4 +28,9 @@ var areaPageHandler = new Handler(
 var mainPageHandler = new Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
       return MainPage();
+    });
+
+var settingPageHandler = new Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+      return SettingPage();
     });

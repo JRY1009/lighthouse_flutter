@@ -414,6 +414,46 @@ class S {
       args: [],
     );
   }
+
+  /// `我的头像`
+  String get myAvatar {
+    return Intl.message(
+      '我的头像',
+      name: 'myAvatar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `拍照`
+  String get camera {
+    return Intl.message(
+      '拍照',
+      name: 'camera',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `相册`
+  String get gallery {
+    return Intl.message(
+      '相册',
+      name: 'gallery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `看大图`
+  String get viewFullSize {
+    return Intl.message(
+      '看大图',
+      name: 'viewFullSize',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -36,5 +36,9 @@
   "search": "搜索",
   "noData": "暂无数据",
   "noMoreData": "没有更多数据",
-  "accountSecurity": "账户与安全"
+  "accountSecurity": "账户与安全",
+  "myAvatar": "我的头像",
+  "camera": "拍照",
+  "gallery": "相册",
+  "viewFullSize": "看大图"
 }

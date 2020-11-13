@@ -1,7 +1,10 @@
 
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:lighthouse/res/colors.dart';
+import 'package:lighthouse/ui/widget/dialog/avatar_select_dialog.dart';
 import 'package:lighthouse/ui/widget/dialog/cupertino_alert_dialog.dart';
 import 'package:lighthouse/utils/object_util.dart';
 
@@ -13,8 +16,8 @@ class DialogeUtil {
     List<Widget> actions = [];
     if (ObjectUtil.isNotEmpty(cancel)) {
       actions.add(CupertinoDialogAction(
-        child: Text(cancel, style: TextStyle(fontSize: 17, color: Colours.gray_500)),
-        onPressed: cancelPressed
+          child: Text(cancel, style: TextStyle(fontSize: 17, color: Colours.gray_500)),
+          onPressed: cancelPressed
       ));
     }
 
@@ -29,12 +32,27 @@ class DialogeUtil {
         context: context,
         builder: (BuildContext context) {
           return CupertinoAlertDialog(
-            title: ObjectUtil.isEmpty(title) ? null : Text(title, style: TextStyle(fontSize: 17, color: Colours.gray_800)),
-            content: ObjectUtil.isEmpty(content) ? null : Container(
-              margin: EdgeInsets.only(top: 10, bottom: 5),
-              child: Text(content, style: TextStyle(fontSize: 13, color: Colours.gray_800)),
-            ),
-            actions: actions
+              title: ObjectUtil.isEmpty(title) ? null : Text(title, style: TextStyle(fontSize: 17, color: Colours.gray_800)),
+              content: ObjectUtil.isEmpty(content) ? null : Container(
+                margin: EdgeInsets.only(top: 10, bottom: 5),
+                child: Text(content, style: TextStyle(fontSize: 13, color: Colours.gray_800)),
+              ),
+              actions: actions
+          );
+        });
+  }
+
+
+  static void showAvatarSelectDialog(BuildContext context,
+      {bool crop, ValueChanged<String> selectCallback}) {
+
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: Colours.transparent,
+        builder: (context) {
+          return AvatarSelectDialog(
+              crop: crop,
+              selectCallback: selectCallback
           );
         });
   }

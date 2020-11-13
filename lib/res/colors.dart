@@ -29,7 +29,7 @@ class Colours {
   static const Color border_gray = Color(0xffbfbfbf);
   static const Color button_disabled = Color(0xffbfbfbf);
 
-  static const Color text_black = Color(0xFF333333);
+  static const Color text_black = Color(0xFF000000);
   static const Color text_gray = Color(0xFF999999);
   static const Color text_gray_c = Color(0xFFcccccc);
 
