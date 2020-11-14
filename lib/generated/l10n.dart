@@ -474,6 +474,46 @@ class S {
       args: [],
     );
   }
+
+  /// `查看详细信息`
+  String get viewDetail {
+    return Intl.message(
+      '查看详细信息',
+      name: 'viewDetail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `市场总值`
+  String get proTotalMarketValue {
+    return Intl.message(
+      '市场总值',
+      name: 'proTotalMarketValue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `24H量`
+  String get pro24hVolume {
+    return Intl.message(
+      '24H量',
+      name: 'pro24hVolume',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `全网算力（EH/S）`
+  String get proComputePower {
+    return Intl.message(
+      '全网算力（EH/S）',
+      name: 'proComputePower',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -2,18 +2,14 @@
 
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
-import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/page2nd/news_page.dart';
-import 'package:lighthouse/ui/widget/clickbar/mine_clickbar.dart';
-import 'package:lighthouse/utils/image_util.dart';
+import 'package:lighthouse/ui/widget/appbar/home_flexible_appbar.dart';
 import 'package:lighthouse/utils/screen_util.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
-import 'package:lighthouse/utils/toast_util.dart';
-
 
 
 class HomePage extends StatefulWidget {
@@ -131,7 +127,10 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
           expandedHeight: 500.0,
           floating: false, // 不随着滑动隐藏标题
           pinned: true, // 固定在顶部
-          flexibleSpace: _flexibleSpeceBuilder()
+          flexibleSpace: FlexibleSpaceBar(
+            collapseMode: CollapseMode.pin,
+            background: HomeFlexibleAppBar(),
+          )
       ),
       SliverToBoxAdapter(
         child: Container(
@@ -139,20 +138,7 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
           height: 1,
         ),
       ),
-//      SliverPersistentHeader(
-//        pinned: true,
-//        delegate: SliverAppBarDelegate(
-//          DecoratedBox(
-//            decoration: BoxDecoration(
-//              color: Colours.toast_warn,
-//            ),
-//            child: Container(
-//              height: 80.0,
-//              padding: const EdgeInsets.only(top: 8.0),
-//            ),
-//          ), 80.0,
-//        ),
-//      ),
+
     ];
   }
 
@@ -211,70 +197,4 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
     );
   }
 
-  Widget _flexibleSpeceBuilder() {
-    return FlexibleSpaceBar(
-      collapseMode: CollapseMode.pin,
-      background: Stack(
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              color: Colours.transparent,
-              image: DecorationImage(
-                image: AssetImage(ImageUtil.getImgPath('bg_home')),
-                fit: BoxFit.fill,
-              ),
-            ),
-            child: AspectRatio (
-              aspectRatio: 1.45,
-            ),
-          ),
-          Container(  //占满
-            padding: EdgeInsets.symmetric(horizontal: 12),
-            color: Colours.transparent,
-            child: Column(
-              children: [
-                Gaps.vGap50,
-                Container(
-                  alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.only(left: 10),
-                  child: Text(S.of(context).appName, style: TextStyles.textWhite24,),
-                ),
-                Gaps.vGap4,
-                Container(
-                  alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.only(left: 10),
-                  child: Text(S.of(context).slogan, style: TextStyles.textWhite15,),
-                ),
-                Gaps.vGap32,
-
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-  final Widget widget;
-  final double height;
-  SliverAppBarDelegate(this.widget, this.height);
-
-  // minHeight 和 maxHeight 的值设置为相同时，header就不会收缩了
-  @override
-  double get minExtent => height;
-
-  @override
-  double get maxExtent => height;
-
-  @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return widget;
-  }
-
-  @override
-  bool shouldRebuild(SliverAppBarDelegate oldDelegate) {
-    return true;
-  }
 }

@@ -42,5 +42,9 @@
   "myAvatar": "我的头像",
   "camera": "拍照",
   "gallery": "相册",
-  "viewFullSize": "看大图"
+  "viewFullSize": "看大图",
+  "viewDetail": "查看详细信息",
+  "proTotalMarketValue": "市场总值",
+  "pro24hVolume": "24H量",
+  "proComputePower": "全网算力（EH/S）"
 }

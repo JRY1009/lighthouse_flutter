@@ -6,6 +6,7 @@ class Colours {
   static const Color dark_app_main = Color(0xFF3842Ff);
 
   static const Color normal_bg = Color(0xFFF3F6FF);
+  static const Color bubble_bg = Color(0xFFE6EDFF);
 
   static const Color toast_bg = Color(0xffffffff);
   static const Color toast_error = Color(0xffF46363);
