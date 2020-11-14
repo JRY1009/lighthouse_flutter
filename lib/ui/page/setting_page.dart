@@ -14,7 +14,6 @@ import 'package:lighthouse/router/fade_route.dart';
 import 'package:lighthouse/router/routers.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/widget/button/back_button.dart';
-import 'package:lighthouse/ui/widget/clickbar/mine_clickbar.dart';
 import 'package:lighthouse/ui/widget/clickbar/setting_avatar_clickbar.dart';
 import 'package:lighthouse/ui/widget/clickbar/setting_clickbar.dart';
 import 'package:lighthouse/ui/widget/common_scroll_view.dart';
@@ -69,7 +68,7 @@ class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPag
   void _viewAvatar() {
 
     Account account = RTAccount.instance().getActiveAccount();
-    List<Gallery> galleryList = [Gallery(id: 'avatar', resource: account?.avatar_300), Gallery(id: 'avatar', resource: account?.avatar_300), Gallery(id: 'avatar', resource: account?.avatar_300)];
+    List<Gallery> galleryList = [Gallery(id: 'avatar', resource: account?.avatar_300)];
 
     Navigator.push(
       context,

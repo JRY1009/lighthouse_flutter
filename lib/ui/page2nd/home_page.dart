@@ -3,11 +3,16 @@
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:lighthouse/res/colors.dart';
+import 'package:lighthouse/res/gaps.dart';
+import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/page2nd/news_page.dart';
 import 'package:lighthouse/ui/widget/appbar/home_flexible_appbar.dart';
 import 'package:lighthouse/ui/widget/appbar/home_pinned_appbar.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
+import 'package:lighthouse/ui/widget/appbar/home_quote_treemap_bar.dart';
+import 'package:lighthouse/ui/widget/image/local_image.dart';
+import 'package:lighthouse/utils/image_util.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -82,6 +87,7 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
+      backgroundColor: Colours.normal_bg,
       body: NestedScrollViewRefreshIndicator(
         key: _nestedRefreshKey,
         onRefresh: _refresh,
@@ -118,11 +124,11 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
           primary: false,
           actions: null,
           automaticallyImplyLeading : false,
-          brightness: _appBarOpacity > 0.5 ? Brightness.light : Brightness.dark,
           backgroundColor: Colours.normal_bg,
+          brightness: _appBarOpacity > 0.5 ? Brightness.light : Brightness.dark,
           title: HomePinnedAppBar(height: _toolbarHeight, appBarOpacity: _appBarOpacity),
           centerTitle: true,
-          expandedHeight: 500.0,
+          expandedHeight: 480.0,
           floating: false, // 不随着滑动隐藏标题
           pinned: true, // 固定在顶部
           flexibleSpace: FlexibleSpaceBar(
@@ -131,10 +137,7 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
           )
       ),
       SliverToBoxAdapter(
-        child: Container(
-          color: Colours.toast_error,
-          height: 1,
-        ),
+        child: HomeQuoteTreemapBar(),
       ),
     ];
   }

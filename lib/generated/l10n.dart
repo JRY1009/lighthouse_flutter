@@ -485,6 +485,26 @@ class S {
     );
   }
 
+  /// `全球行情`
+  String get globalQuote {
+    return Intl.message(
+      '全球行情',
+      name: 'globalQuote',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `热力图`
+  String get treemap {
+    return Intl.message(
+      '热力图',
+      name: 'treemap',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `市场总值`
   String get proTotalMarketValue {
     return Intl.message(

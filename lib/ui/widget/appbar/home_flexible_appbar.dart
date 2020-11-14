@@ -63,7 +63,7 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
           ),
         ),
         Container(  //占满
-          height: 500,
+          height: 480,
           padding: EdgeInsets.symmetric(horizontal: 12),
           color: Colours.transparent,
           child: Column(
