@@ -87,6 +87,7 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
                 decoration: BoxDecoration(
                   color: Colours.white,
                   borderRadius: BorderRadius.all(Radius.circular(14.0)),
+                  boxShadow: BoxShadows.normalBoxShadow,
                 ),
                 child: Column(
                   children: [

@@ -5,6 +5,7 @@ import 'package:lighthouse/net/model/account.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
+import 'package:lighthouse/ui/widget/chart/line_chart.dart';
 import 'package:lighthouse/ui/widget/tab/bubble_indicator.dart';
 import 'package:lighthouse/ui/widget/tab/quotation_tab.dart';
 import 'package:lighthouse/utils/image_util.dart';
@@ -51,7 +52,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
         children: [
           Container(
             height: 170,
-            color: Colours.red,
+            child: SimpleLineChart(),
           ),
           Container(
             height: 75,
