@@ -2,14 +2,17 @@
 
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
+import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/page2nd/news_page.dart';
+import 'package:lighthouse/ui/widget/clickbar/mine_clickbar.dart';
 import 'package:lighthouse/utils/image_util.dart';
 import 'package:lighthouse/utils/screen_util.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
+import 'package:lighthouse/utils/toast_util.dart';
 
 
 
@@ -57,8 +60,8 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
 
   Future<void> _refresh()  {
     return _newsPageKey.currentState != null ?
-      _newsPageKey.currentState.refresh(slient: true) :
-      Future<void>.delayed(const Duration(milliseconds: 100));
+    _newsPageKey.currentState.refresh(slient: true) :
+    Future<void>.delayed(const Duration(milliseconds: 100));
 
 //    await Future.wait<dynamic>([demo1,demo2,demo3]).then((e){
 //
@@ -89,25 +92,25 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
         key: _nestedRefreshKey,
         onRefresh: _refresh,
         child: NotificationListener<ScrollNotification>(
-            onNotification: (ScrollNotification notification) {
-              if (notification.depth == 0 && notification is ScrollUpdateNotification) {
-                _scrollNotify(notification.metrics.pixels);
-              }
-              return false;
+          onNotification: (ScrollNotification notification) {
+            if (notification.depth == 0 && notification is ScrollUpdateNotification) {
+              _scrollNotify(notification.metrics.pixels);
+            }
+            return false;
+          },
+          child: extended.NestedScrollView(
+            controller: _nestedController,
+            physics: const ClampingScrollPhysics(),
+            pinnedHeaderSliverHeightBuilder: () {
+              return _toolbarHeight;
             },
-            child: extended.NestedScrollView(
-              controller: _nestedController,
-              physics: const ClampingScrollPhysics(),
-              pinnedHeaderSliverHeightBuilder: () {
-                return _toolbarHeight;
-              },
-              innerScrollPositionKeyBuilder: () {
-                return Key('Tab0');
-              },
-              headerSliverBuilder: (context, innerBoxIsScrolled) => _headerSliverBuilder(context),
-              body: extended.NestedScrollViewInnerScrollPositionKeyWidget(Key('Tab0'), NewsPage(key: _newsPageKey, isSupportPull: false)),
-            ),
+            innerScrollPositionKeyBuilder: () {
+              return Key('Tab0');
+            },
+            headerSliverBuilder: (context, innerBoxIsScrolled) => _headerSliverBuilder(context),
+            body: extended.NestedScrollViewInnerScrollPositionKeyWidget(Key('Tab0'), NewsPage(key: _newsPageKey, isSupportPull: false)),
           ),
+        ),
       ),
     );
   }
@@ -214,17 +217,38 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
       background: Stack(
         children: <Widget>[
           Container(
-              height: 285,
-              decoration: BoxDecoration(
-                color: Colours.transparent,
-                image: DecorationImage(
-                  image: AssetImage(ImageUtil.getImgPath('bg_home')),
-                  fit: BoxFit.fill,
-                ),
-              )
+            decoration: BoxDecoration(
+              color: Colours.transparent,
+              image: DecorationImage(
+                image: AssetImage(ImageUtil.getImgPath('bg_home')),
+                fit: BoxFit.fill,
+              ),
+            ),
+            child: AspectRatio (
+              aspectRatio: 1.45,
+            ),
           ),
           Container(  //占满
+            padding: EdgeInsets.symmetric(horizontal: 12),
             color: Colours.transparent,
+            child: Column(
+              children: [
+                Gaps.vGap50,
+                Container(
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(left: 10),
+                  child: Text(S.of(context).appName, style: TextStyles.textWhite24,),
+                ),
+                Gaps.vGap4,
+                Container(
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(left: 10),
+                  child: Text(S.of(context).slogan, style: TextStyles.textWhite15,),
+                ),
+                Gaps.vGap32,
+
+              ],
+            ),
           ),
         ],
       ),

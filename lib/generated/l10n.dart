@@ -35,6 +35,26 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `区块灯塔`
+  String get appName {
+    return Intl.message(
+      '区块灯塔',
+      name: 'appName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `照亮数字世界之海`
+  String get slogan {
+    return Intl.message(
+      '照亮数字世界之海',
+      name: 'slogan',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Login`
   String get login {
     return Intl.message(

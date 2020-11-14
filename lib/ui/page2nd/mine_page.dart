@@ -167,7 +167,8 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
 
 
                   ]
-              ),)
+              ),
+            )
 
           ],
         )

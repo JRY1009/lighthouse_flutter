@@ -13,6 +13,7 @@ import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/page2nd/home_page.dart';
 import 'package:lighthouse/ui/page2nd/info_page.dart';
 import 'package:lighthouse/ui/page2nd/mine_page.dart';
+import 'package:lighthouse/ui/page2nd/money_page.dart';
 import 'package:lighthouse/ui/page2nd/news_page.dart';
 import 'package:lighthouse/ui/provider/main_provider.dart';
 import 'package:lighthouse/ui/widget/image/local_image.dart';
@@ -74,7 +75,7 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
     _pageList = [
       HomePage(key: _keyList[0]),
       InfoPage(key: _keyList[1]),
-      NewsPage(key: _keyList[2]),
+      MoneyPage(key: _keyList[2]),
       MinePage(key: _keyList[3]),
     ];
   }

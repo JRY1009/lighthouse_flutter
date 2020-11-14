@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/dimens.dart';
 
 /// 间隔
@@ -29,7 +30,7 @@ class Gaps {
   static const Widget vGap32 = SizedBox(height: Dimens.gap_dp32);
   static const Widget vGap50 = SizedBox(height: Dimens.gap_dp50);
 
-  static const Widget line = Divider();
+  static const Widget line = Divider(color: Colours.default_line, height: 0.6);
 
   static const Widget vLine = SizedBox(
     width: 0.6,

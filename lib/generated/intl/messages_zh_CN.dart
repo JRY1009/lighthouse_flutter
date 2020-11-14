@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "accountSecurity" : MessageLookupByLibrary.simpleMessage("账户与安全"),
+    "appName" : MessageLookupByLibrary.simpleMessage("区块灯塔"),
     "article" : MessageLookupByLibrary.simpleMessage("文章"),
     "camera" : MessageLookupByLibrary.simpleMessage("拍照"),
     "cancel" : MessageLookupByLibrary.simpleMessage("取消"),
@@ -59,6 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "repeatPassword" : MessageLookupByLibrary.simpleMessage("重复密码"),
     "search" : MessageLookupByLibrary.simpleMessage("搜索"),
     "settings" : MessageLookupByLibrary.simpleMessage("设置"),
+    "slogan" : MessageLookupByLibrary.simpleMessage("照亮数字世界之海"),
     "viewFullSize" : MessageLookupByLibrary.simpleMessage("看大图"),
     "welcomeLogin" : MessageLookupByLibrary.simpleMessage("欢迎登录"),
     "welcomeRegist" : MessageLookupByLibrary.simpleMessage("欢迎注册"),
