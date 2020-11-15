@@ -485,6 +485,16 @@ class S {
     );
   }
 
+  /// `全部`
+  String get all {
+    return Intl.message(
+      '全部',
+      name: 'all',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `全球行情`
   String get globalQuote {
     return Intl.message(
@@ -500,6 +510,26 @@ class S {
     return Intl.message(
       '热力图',
       name: 'treemap',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `区块链里程碑`
+  String get blockMileStone {
+    return Intl.message(
+      '区块链里程碑',
+      name: 'blockMileStone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `最新资讯`
+  String get latestInfo {
+    return Intl.message(
+      '最新资讯',
+      name: 'latestInfo',
       desc: '',
       args: [],
     );

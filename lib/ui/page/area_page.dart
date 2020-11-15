@@ -129,28 +129,30 @@ class _AreaPageState extends State<AreaPage> with BasePageMixin<AreaPage> {
                         onTextChanged: _search,
                       ),
                     ),
-                    Expanded(child: EasyRefresh.custom(
-                      header: MaterialHeader(valueColor: AlwaysStoppedAnimation<Color>(Colours.app_main)),
-                      firstRefresh: true,
-                      firstRefreshWidget: FirstRefresh(),
-                      emptyWidget: _listProvider.list.isEmpty ? LoadingEmpty() : null,
-                      slivers: <Widget>[
-                        SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                                (context, index) {
-                              return AreaItem(
-                                title: '+' + _provider.list[index].code + '  ' + _provider.list[index].name,
-                                check: areaCode == ('+' + _provider.list[index].code),
-                                onPressed: () { _selectArea(_provider.list[index]); },
-                              );
-                            },
-                            childCount: _provider.list.length,
-                          ),
-                        ),
-                      ],
-                      onRefresh: _refresh,
-                      onLoad: null,
-                    ))
+                    Expanded(
+                        child: EasyRefresh.custom(
+                          header: MaterialHeader(valueColor: AlwaysStoppedAnimation<Color>(Colours.app_main)),
+                          firstRefresh: true,
+                          firstRefreshWidget: FirstRefresh(),
+                          emptyWidget: _listProvider.list.isEmpty ? LoadingEmpty() : null,
+                          slivers: <Widget>[
+                            SliverList(
+                              delegate: SliverChildBuilderDelegate(
+                                    (context, index) {
+                                  return AreaItem(
+                                    title: '+' + _provider.list[index].code + '  ' + _provider.list[index].name,
+                                    check: areaCode == ('+' + _provider.list[index].code),
+                                    onPressed: () { _selectArea(_provider.list[index]); },
+                                  );
+                                },
+                                childCount: _provider.list.length,
+                              ),
+                            ),
+                          ],
+                          onRefresh: _refresh,
+                          onLoad: null,
+                        )
+                    )
 
                   ],
                 );

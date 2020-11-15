@@ -32,5 +32,6 @@ class Constant {
   static const String URL_RESET_PASSWORD = '/user/resetPassword';
   static const String URL_GET_ACCOUNT_INFO = '/user/getAccountInfo';
 
+  static const String URL_GET_MILESTONES = '/friends/previewDailyShare';
   static const String URL_GET_NEWS = '/user/selectAccounts';
 }

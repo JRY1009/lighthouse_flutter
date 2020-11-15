@@ -27,8 +27,8 @@ class RoundImage extends StatelessWidget {
       imageUrl: imageUrl ?? '',
       fit: fit,
       imageBuilder: (context, imageProvider) => Container(
-        height: width,
-        width: height,
+        height: height,
+        width: width,
         decoration: BoxDecoration(
           borderRadius: borderRadius,
           image: DecorationImage(

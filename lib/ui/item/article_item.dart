@@ -5,7 +5,7 @@ import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/widget/image/round_image.dart';
 
 /// 资讯列表详情
-class NewsItem extends StatelessWidget {
+class ArticleItem extends StatelessWidget {
 
   final String newsUrl;
   final String imageUrl;
@@ -13,7 +13,7 @@ class NewsItem extends StatelessWidget {
   final String author;
   final String time;
 
-  const NewsItem(
+  const ArticleItem(
       {Key key,
         this.newsUrl = '',
         this.imageUrl = '',

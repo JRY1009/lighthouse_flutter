@@ -44,8 +44,11 @@
   "gallery": "相册",
   "viewFullSize": "看大图",
   "viewDetail": "查看详细信息",
+  "all": "全部",
   "globalQuote": "全球行情",
   "treemap": "热力图",
+  "blockMileStone": "区块链里程碑",
+  "latestInfo": "最新资讯",
   "proTotalMarketValue": "市场总值",
   "pro24hVolume": "24H量",
   "proComputePower": "全网算力（EH/S）"

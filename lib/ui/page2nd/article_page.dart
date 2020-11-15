@@ -7,7 +7,7 @@ import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
 import 'package:lighthouse/net/model/news.dart';
 import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/ui/item/news_item.dart';
+import 'package:lighthouse/ui/item/article_item.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/provider/list_provider.dart';
 import 'package:lighthouse/ui/widget/easyrefresh/common_footer.dart';
@@ -152,7 +152,7 @@ class _ArticlePageState extends State<ArticlePage> with BasePageMixin<ArticlePag
                 child: ListView.builder(
                   padding: EdgeInsets.all(0.0),
                   itemBuilder: (context, index) {
-                    return NewsItem(
+                    return ArticleItem(
                       title: _provider.list[index].account_name + '杜绝浪费矿机时空裂缝接SDK龙卷风克雷登斯荆防颗粒圣诞节快乐福建省断开连接付款了圣诞节疯狂了圣诞节',
                       time: _provider.list[index].created_at,
                       author: _provider.list[index].city,

@@ -2,17 +2,19 @@
 
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
+import 'package:lighthouse/net/constant.dart';
+import 'package:lighthouse/net/dio_util.dart';
+import 'package:lighthouse/net/model/milestone.dart';
 import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
+import 'package:lighthouse/ui/page2nd/article_page.dart';
 import 'package:lighthouse/ui/page2nd/news_page.dart';
 import 'package:lighthouse/ui/widget/appbar/home_flexible_appbar.dart';
+import 'package:lighthouse/ui/widget/appbar/home_milestone_bar.dart';
 import 'package:lighthouse/ui/widget/appbar/home_pinned_appbar.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
 import 'package:lighthouse/ui/widget/appbar/home_quote_treemap_bar.dart';
-import 'package:lighthouse/ui/widget/image/local_image.dart';
-import 'package:lighthouse/utils/image_util.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -36,11 +38,15 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
   ScrollController _nestedController = ScrollController();
 
   final _nestedRefreshKey = GlobalKey<NestedScrollViewRefreshIndicatorState>();
-  final _newsPageKey = GlobalKey<BasePageMixin>();
+  final _articlePageKey = GlobalKey<BasePageMixin>();
+
+  List<MileStone> _mileStones = [];
 
   @override
   void initState() {
     super.initState();
+
+    _requestData().then((value) => setState((){}));
   }
 
   @override
@@ -58,16 +64,38 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
   }
 
   Future<void> _refresh()  {
-    return _newsPageKey.currentState != null ?
-    _newsPageKey.currentState.refresh(slient: true) :
-    Future<void>.delayed(const Duration(milliseconds: 100));
 
-//    await Future.wait<dynamic>([demo1,demo2,demo3]).then((e){
-//
-//      print(e);//[true,true,false]
-//    }).catchError((e){
-//
-//    });
+    return Future.wait<dynamic>([
+      _articlePageKey.currentState != null ?
+      _articlePageKey.currentState.refresh(slient: true) :
+      Future<void>.delayed(const Duration(milliseconds: 100)),
+
+      _requestData()
+
+    ]).then((e){
+      setState(() {
+      });
+    });
+  }
+
+  Future<void> _requestData() {
+    Map<String, dynamic> params = {
+      'sex': 2,
+    };
+
+    return DioUtil.getInstance().post(Constant.URL_GET_MILESTONES, params: params,
+        successCallBack: (data, headers) {
+          if (data == null || data['data'] == null) {
+            return;
+          }
+
+          List<MileStone> dataList = MileStone.fromJsonList(data['data']) ?? [];
+          _mileStones.clear();
+          _mileStones.addAll(dataList);
+        },
+        errorCallBack: (error) {
+
+        });
   }
 
   void _scrollNotify(double scrollY) {
@@ -108,7 +136,20 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
               return Key('Tab0');
             },
             headerSliverBuilder: (context, innerBoxIsScrolled) => _headerSliverBuilder(context),
-            body: extended.NestedScrollViewInnerScrollPositionKeyWidget(Key('Tab0'), NewsPage(key: _newsPageKey, isSupportPull: false)),
+            body: extended.NestedScrollViewInnerScrollPositionKeyWidget(
+                Key('Tab0'),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 12 , vertical: 9),
+
+                  decoration: BoxDecoration(
+                    color: Colours.white,
+                    borderRadius: BorderRadius.all(Radius.circular(14.0)),
+                    boxShadow: BoxShadows.normalBoxShadow,
+                  ),
+                  child: ArticlePage(key: _articlePageKey, isSupportPull: false),
+                )
+
+            ),
           ),
         ),
       ),
@@ -128,7 +169,7 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
           brightness: _appBarOpacity > 0.5 ? Brightness.light : Brightness.dark,
           title: HomePinnedAppBar(height: _toolbarHeight, appBarOpacity: _appBarOpacity),
           centerTitle: true,
-          expandedHeight: 480.0,
+          expandedHeight: 490.0,
           floating: false, // 不随着滑动隐藏标题
           pinned: true, // 固定在顶部
           flexibleSpace: FlexibleSpaceBar(
@@ -138,6 +179,9 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
       ),
       SliverToBoxAdapter(
         child: HomeQuoteTreemapBar(),
+      ),
+      SliverToBoxAdapter(
+        child: HomeMileStoneBar(mileStones: _mileStones),
       ),
     ];
   }

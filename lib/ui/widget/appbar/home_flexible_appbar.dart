@@ -63,19 +63,20 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
           ),
         ),
         Container(  //占满
-          height: 480,
           padding: EdgeInsets.symmetric(horizontal: 12),
           color: Colours.transparent,
           child: Column(
             children: [
               Gaps.vGap50,
               Container(
+                height: 30,
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.only(left: 10),
                 child: Text(S.of(context).appName, style: TextStyles.textWhite24,),
               ),
-              Gaps.vGap4,
+              Gaps.vGap5,
               Container(
+                height: 20,
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.only(left: 10),
                 child: Text(S.of(context).slogan, style: TextStyles.textWhite15,),

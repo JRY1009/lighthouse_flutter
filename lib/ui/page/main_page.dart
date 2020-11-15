@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lighthouse/event/event.dart';
+import 'package:lighthouse/event/main_jump_event.dart';
 import 'package:lighthouse/event/user_event.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/res/colors.dart';
@@ -29,6 +30,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
 
   StreamSubscription _userSubscription;
+  StreamSubscription _mainJumpSubscription;
 
   static const double _imageSize = 25.0;
 
@@ -52,12 +54,22 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
         Routers.navigateTo(context, Routers.loginPage);
       }
     });
+
+    _mainJumpSubscription = Event.eventBus.on<MainJumpEvent>().listen((event) {
+
+      if (event.page.value >= 0) {
+        _pageController.jumpToPage(event.page.value);
+      }
+    });
   }
 
   @override
   void dispose() {
     if (_userSubscription != null) {
       _userSubscription.cancel();
+    }
+    if (_mainJumpSubscription != null) {
+      _mainJumpSubscription.cancel();
     }
     _pageController.dispose();
     super.dispose();

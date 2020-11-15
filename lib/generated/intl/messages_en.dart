@@ -22,8 +22,10 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "accountSecurity" : MessageLookupByLibrary.simpleMessage("账户与安全"),
+    "all" : MessageLookupByLibrary.simpleMessage("全部"),
     "appName" : MessageLookupByLibrary.simpleMessage("区块灯塔"),
     "article" : MessageLookupByLibrary.simpleMessage("文章"),
+    "blockMileStone" : MessageLookupByLibrary.simpleMessage("区块链里程碑"),
     "camera" : MessageLookupByLibrary.simpleMessage("拍照"),
     "cancel" : MessageLookupByLibrary.simpleMessage("Cancel"),
     "clickRegister" : MessageLookupByLibrary.simpleMessage("点此注册"),
@@ -36,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "globalQuote" : MessageLookupByLibrary.simpleMessage("全球行情"),
     "home" : MessageLookupByLibrary.simpleMessage("首页"),
     "info" : MessageLookupByLibrary.simpleMessage("资讯"),
+    "latestInfo" : MessageLookupByLibrary.simpleMessage("最新资讯"),
     "loading" : MessageLookupByLibrary.simpleMessage("正在加载..."),
     "login" : MessageLookupByLibrary.simpleMessage("Login"),
     "loginGuide" : MessageLookupByLibrary.simpleMessage("登录后可同步数据"),
