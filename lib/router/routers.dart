@@ -12,6 +12,7 @@ class Routers {
   static String areaPage = '/areaPage';
   static String mainPage = '/mainPage';
   static String settingPage = '/settingPage';
+  static String spotDetailPage = '/spotDetailPage';
 
   static void init() {
     router = FluroRouter();
@@ -31,6 +32,7 @@ class Routers {
     router.define(areaPage, handler: areaPageHandler);
     router.define(mainPage, handler: mainPageHandler);
     router.define(settingPage, handler: settingPageHandler);
+    router.define(spotDetailPage, handler: spotDetailPageHandler);
   }
 
   // 对参数进行encode，解决参数中有特殊字符，影响fluro路由匹配(https://www.jianshu.com/p/e575787d173c)

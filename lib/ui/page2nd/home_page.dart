@@ -9,7 +9,6 @@ import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/page2nd/article_page.dart';
-import 'package:lighthouse/ui/page2nd/news_page.dart';
 import 'package:lighthouse/ui/widget/appbar/home_flexible_appbar.dart';
 import 'package:lighthouse/ui/widget/appbar/home_milestone_bar.dart';
 import 'package:lighthouse/ui/widget/appbar/home_pinned_appbar.dart';

@@ -35,9 +35,6 @@ class _InfoPageState extends State<InfoPage> with BasePageMixin<InfoPage>, Autom
 
   TabController _tabController;
 
-  double _appBarOpacity = 0;
-  double _toolbarHeight = 80;
-
   @override
   void initState() {
     super.initState();

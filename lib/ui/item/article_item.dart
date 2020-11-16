@@ -81,7 +81,6 @@ class ArticleItem extends StatelessWidget {
             ),
             Container(
               margin: EdgeInsets.only(right: 18),
-              color: Colors.white,
               child: RoundImage(imageUrl ?? '',
                 width: 88,
                 height: 66,

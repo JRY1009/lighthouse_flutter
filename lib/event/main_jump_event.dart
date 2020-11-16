@@ -1,4 +1,3 @@
-
 class MainJumpEvent {
   MainJumpPage page;
   Map<String, dynamic> params;

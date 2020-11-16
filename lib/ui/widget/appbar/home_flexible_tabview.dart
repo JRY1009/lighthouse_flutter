@@ -5,6 +5,7 @@ import 'package:lighthouse/net/model/account.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
+import 'package:lighthouse/router/routers.dart';
 import 'package:lighthouse/ui/widget/chart/line_chart.dart';
 import 'package:lighthouse/ui/widget/tab/bubble_indicator.dart';
 import 'package:lighthouse/ui/widget/tab/quotation_tab.dart';
@@ -140,25 +141,29 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
               ],
             ),
           ),
-          Container(
-            height: 20,
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                    flex: 1,
-                    child: Container(
-                      alignment: Alignment.centerRight,
-                      child: Text(S.of(context).viewDetail,
-                        style: TextStyles.textGray500_w400_12,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    )
-                ),
-                Icon(Icons.keyboard_arrow_right, color: Colours.gray_500, size: 20),
-              ],
+          InkWell(
+            onTap: () => Routers.navigateTo(context, Routers.mainPage),
+            child: Container(
+              height: 20,
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                      flex: 1,
+                      child: Container(
+                        alignment: Alignment.centerRight,
+                        child: Text(S.of(context).viewDetail,
+                          style: TextStyles.textGray500_w400_12,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      )
+                  ),
+                  Icon(Icons.keyboard_arrow_right, color: Colours.gray_500, size: 20),
+                ],
+              ),
             ),
-          ),
+          )
+
         ],
       ),
     );

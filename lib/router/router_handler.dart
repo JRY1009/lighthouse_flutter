@@ -5,6 +5,7 @@ import 'package:lighthouse/ui/page/area_page.dart';
 import 'package:lighthouse/ui/page/login_page.dart';
 import 'package:lighthouse/ui/page/main_page.dart';
 import 'package:lighthouse/ui/page/setting_page.dart';
+import 'package:lighthouse/ui/page/spot_detail_page.dart';
 import 'package:lighthouse/ui/page/web_view_page.dart';
 
 var webviewPageHandler = new Handler(
@@ -33,4 +34,10 @@ var mainPageHandler = new Handler(
 var settingPageHandler = new Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
       return SettingPage();
+    });
+
+var spotDetailPageHandler = new Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+      String spotCoin = params['spotCoin']?.first;
+      return SpotDetailPage();
     });

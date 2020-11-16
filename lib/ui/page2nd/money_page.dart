@@ -140,10 +140,9 @@ class _MoneyPageState extends State<MoneyPage> with BasePageMixin<MoneyPage>, Au
   List<Widget> _headerSliverBuilder(BuildContext context) {
     return <Widget>[
       SliverAppBar(
-          toolbarHeight: _toolbarHeight,
           titleSpacing: 0,
           elevation: 0.0,
-          primary: false,
+          primary: true,
           actions: null,
           automaticallyImplyLeading : false,
           brightness: _appBarOpacity > 0.5 ? Brightness.light : Brightness.dark,
@@ -174,7 +173,7 @@ class _MoneyPageState extends State<MoneyPage> with BasePageMixin<MoneyPage>, Au
 
   Widget _titleBuilder() {
     return  Opacity(
-      opacity: _appBarOpacity,
+      opacity: 1,
       child: Container(
         padding: EdgeInsets.only(top: ScreenUtil.getStatusBarH(context)),
         height: _toolbarHeight,

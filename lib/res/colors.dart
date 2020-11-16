@@ -15,6 +15,7 @@ class Colours {
   static const Color toast_shadow_dark = Color(0x1028293D);
   static const Color toast_shadow_light = Color(0x20606170);
 
+  static const Color gray_100 = Color(0xffF3F6FF);
   static const Color gray_200 = Color(0xffD6DCE4);
   static const Color gray_400 = Color(0xff93A2B4);
   static const Color gray_500 = Color(0xff72859D);
@@ -31,7 +32,8 @@ class Colours {
   static const Color button_disabled = Color(0xffbfbfbf);
 
   static const Color text_black = Color(0xFF000000);
-  static const Color text_red = Color(0xFFEB5757);
+  static const Color text_red = Color(0xFFFF3E6C);
+  static const Color text_green = Color(0xFF0BB970);
 
   static const Color default_line = Color(0xFFEEEEEE);
   static const Color text_disabled = Color(0xFFD4E2FA);
