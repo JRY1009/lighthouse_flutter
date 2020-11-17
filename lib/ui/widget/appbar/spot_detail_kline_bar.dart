@@ -99,7 +99,11 @@ class _SpotDetailKLineBarState extends State<SpotDetailKLineBar> with AutomaticK
           ),
 
           Expanded(
-            child: HomeFlexibleTabView(),
+            child: Container(
+              height: 170,
+              padding: EdgeInsets.symmetric(horizontal: 12),
+              child: SimpleLineChart(),
+            ),
           )
         ],
       ),

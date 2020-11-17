@@ -1,7 +1,11 @@
 
 
+import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:lighthouse/generated/l10n.dart';
+import 'package:lighthouse/net/constant.dart';
+import 'package:lighthouse/net/dio_util.dart';
+import 'package:lighthouse/net/model/milestone.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
@@ -35,23 +39,29 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
   List<GlobalKey<BasePageMixin>> _keyList;
   List<String> _tabTitles ;
 
+  ScrollController _nestedController = ScrollController();
+  final _nestedRefreshKey = GlobalKey<NestedScrollViewRefreshIndicatorState>();
+
   TabController _tabController;
 
   double _appBarOpacity = 0;
-  double _toolbarHeight = 80;
 
   @override
   void initState() {
     super.initState();
 
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
 
-    _tabTitles = [S.current.x724, S.current.article];
+    _tabTitles = [S.current.simpleInfo, S.current.quote, S.current.data, S.current.info];
 
     _keyList = [
       GlobalKey<BasePageMixin>(debugLabel: _tabTitles[0]),
       GlobalKey<BasePageMixin>(debugLabel: _tabTitles[1]),
+      GlobalKey<BasePageMixin>(debugLabel: _tabTitles[2]),
+      GlobalKey<BasePageMixin>(debugLabel: _tabTitles[3]),
     ];
+
+    _requestData().then((value) => setState((){}));
   }
 
   @override
@@ -63,7 +73,40 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
 
   @override
   Future<void> refresh({slient = false}) {
-    return _keyList[_tabController.index]?.currentState.refresh();
+    _nestedController.animateTo(-0.0001, duration: Duration(milliseconds: 100), curve: Curves.linear);
+    _nestedRefreshKey.currentState?.show(atTop: true);
+
+    return _refresh();
+  }
+
+  Future<void> _refresh()  {
+
+    return Future.wait<dynamic>([
+      _keyList[_tabController.index]?.currentState.refresh(slient: true),
+
+      _requestData()
+
+    ]).then((e){
+      setState(() {
+      });
+    });
+  }
+
+  Future<void> _requestData() {
+    Map<String, dynamic> params = {
+      'sex': 1,
+    };
+
+    return DioUtil.getInstance().post(Constant.URL_GET_MILESTONES, params: params,
+        successCallBack: (data, headers) {
+          if (data == null || data['data'] == null) {
+            return;
+          }
+
+        },
+        errorCallBack: (error) {
+
+        });
   }
 
   void _scrollNotify(double scrollY) {
@@ -92,59 +135,73 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
           centerTitle: true,
           title: _titleBuilder()
       ),
-      body: Stack(
-        children: <Widget>[
-          NotificationListener<ScrollNotification>(
-            onNotification: (ScrollNotification notification) {
-              if (notification.depth == 0 && notification is ScrollUpdateNotification) {
-                _scrollNotify(notification.metrics.pixels);
-              }
-              return false;
-            },
-            child: extended.NestedScrollView(
-                physics: const ClampingScrollPhysics(),
-                pinnedHeaderSliverHeightBuilder: () {
-                  return _toolbarHeight;
-                },
-                innerScrollPositionKeyBuilder: () {
-                  return Key(_tabTitles[_tabController.index]);
-                },
-                headerSliverBuilder: (context, innerBoxIsScrolled) => _headerSliverBuilder(context),
-                body: Column(
-                  children: <Widget>[
-                    TabBar(
+      body: NestedScrollViewRefreshIndicator(
+        key: _nestedRefreshKey,
+        onRefresh: _refresh,
+        child: NotificationListener<ScrollNotification>(
+          onNotification: (ScrollNotification notification) {
+            if (notification.depth == 0 && notification is ScrollUpdateNotification) {
+              _scrollNotify(notification.metrics.pixels);
+            }
+            return false;
+          },
+          child: extended.NestedScrollView(
+              physics: const ClampingScrollPhysics(),
+              pinnedHeaderSliverHeightBuilder: () {
+                return 0;
+              },
+              innerScrollPositionKeyBuilder: () {
+                return Key(_tabTitles[_tabController.index]);
+              },
+              headerSliverBuilder: (context, innerBoxIsScrolled) => _headerSliverBuilder(context),
+              body: Column(
+                children: <Widget>[
+                  Container(
+                    height: 40,
+                    margin: EdgeInsets.symmetric(horizontal: 12, vertical: 9),
+                    decoration: BoxDecoration(
+                      color: Colours.white,
+                      borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                      boxShadow: BoxShadows.normalBoxShadow,
+                    ),
+                    child: TabBar(
                       controller: _tabController,
-                      labelColor: Colours.app_main,
-                      indicatorColor: Colours.app_main,
+                      labelColor: Colours.gray_800,
+                      indicatorColor: Colours.gray_100,
+                      unselectedLabelColor: Colours.gray_500,
                       indicatorSize: TabBarIndicatorSize.tab,
                       indicator: new BubbleTabIndicator(
-                        indicatorHeight: 30.0,
-                        indicatorRadius: 10,
-                        indicatorColor: Colours.gray_200,
+                        insets: const EdgeInsets.symmetric(horizontal: 3),
+                        indicatorHeight: 34.0,
+                        indicatorRadius: 14,
+                        indicatorColor: Colours.gray_100,
                         tabBarIndicatorSize: TabBarIndicatorSize.tab,
                       ),
-                      indicatorWeight: 2.0,
                       isScrollable: false,
-                      unselectedLabelColor: Colours.unselected_item_color,
                       tabs: <Tab>[
                         Tab(text: _tabTitles[0]),
                         Tab(text: _tabTitles[1]),
+                        Tab(text: _tabTitles[2]),
+                        Tab(text: _tabTitles[3]),
                       ],
                     ),
-                    Expanded(
-                      child: TabBarView(
-                        controller: _tabController,
-                        children: <Widget>[
-                          extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[0]), ArticlePage(key: _keyList[0], isSupportPull: true)),
-                          extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[1]), ArticlePage(key: _keyList[1], isSupportPull: true)),
-                        ],
-                      ),
-                    )
-                  ],
-                )
-            ),
+                  ),
+
+                  Expanded(
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: <Widget>[
+                        extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[0]), ArticlePage(key: _keyList[0], isSupportPull: false)),
+                        extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[1]), ArticlePage(key: _keyList[1], isSupportPull: false)),
+                        extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[2]), ArticlePage(key: _keyList[2], isSupportPull: false)),
+                        extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[3]), ArticlePage(key: _keyList[3], isSupportPull: false)),
+                      ],
+                    ),
+                  )
+                ],
+              )
           ),
-        ],
+        ),
       ),
     );
   }
@@ -166,11 +223,9 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-            alignment: Alignment.centerLeft,
             child: Text('BTC', style: TextStyles.textBlack16,
             )),
         _appBarOpacity > 0.5 ? Container(
-            alignment: Alignment.centerLeft,
             child: Text('12342.21 1.23%', style: TextStyles.textGray400_w400_14,
             )
         ) : Gaps.empty

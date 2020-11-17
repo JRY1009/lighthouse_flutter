@@ -142,7 +142,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
             ),
           ),
           InkWell(
-            onTap: () => Routers.navigateTo(context, Routers.mainPage),
+            onTap: () => Routers.navigateTo(context, Routers.spotDetailPage),
             child: Container(
               height: 20,
               child: Row(

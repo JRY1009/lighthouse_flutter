@@ -47,7 +47,8 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
 
     return Container(
       height: 64,
-      padding: EdgeInsets.fromLTRB(12, 0, 12, 9),
+      padding: EdgeInsets.symmetric(horizontal: 12),
+      margin: EdgeInsets.only(bottom: 9),
       decoration: BoxDecoration(
         color: Colours.white,
         boxShadow: BoxShadows.normalBoxShadow,

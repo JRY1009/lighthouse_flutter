@@ -99,14 +99,13 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
                         borderRadius: BorderRadius.all(Radius.circular(12.0)),
                       ),
                       margin: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                      padding: EdgeInsets.symmetric(horizontal: 2),
                       child: TabBar(
                         controller: _tabController,
                         labelColor: Colours.gray_800,
                         unselectedLabelColor: Colours.gray_400,
                         indicatorSize: TabBarIndicatorSize.tab,
                         indicator: new BubbleTabIndicator(
-                          insets: const EdgeInsets.symmetric(horizontal: 0),
+                          insets: const EdgeInsets.symmetric(horizontal: 2),
                           indicatorHeight: 55.0,
                           indicatorRadius: 10,
                           indicatorColor: Colours.white,

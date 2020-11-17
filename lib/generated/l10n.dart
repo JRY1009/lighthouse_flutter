@@ -535,6 +535,36 @@ class S {
     );
   }
 
+  /// `简况`
+  String get simpleInfo {
+    return Intl.message(
+      '简况',
+      name: 'simpleInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `行情`
+  String get quote {
+    return Intl.message(
+      '行情',
+      name: 'quote',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `数据`
+  String get data {
+    return Intl.message(
+      '数据',
+      name: 'data',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `市场总值`
   String get proTotalMarketValue {
     return Intl.message(
