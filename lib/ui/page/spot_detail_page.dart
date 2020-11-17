@@ -12,6 +12,7 @@ import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/page2nd/article_page.dart';
 import 'package:lighthouse/ui/page2nd/spot_brief_info_page.dart';
+import 'package:lighthouse/ui/page2nd/spot_data_page.dart';
 import 'package:lighthouse/ui/widget/appbar/spot_detail_appbar.dart';
 import 'package:lighthouse/ui/widget/appbar/spot_detail_kline_bar.dart';
 import 'package:lighthouse/ui/widget/button/back_button.dart';
@@ -194,7 +195,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
                       children: <Widget>[
                         extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[0]), SpotBriefInfoPage(key: _keyList[0])),
                         extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[1]), ArticlePage(key: _keyList[1], isSupportPull: false)),
-                        extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[2]), ArticlePage(key: _keyList[2], isSupportPull: false)),
+                        extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[2]), SpotDataPage(key: _keyList[2])),
                         extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[3]), ArticlePage(key: _keyList[3], isSupportPull: false)),
                       ],
                     ),

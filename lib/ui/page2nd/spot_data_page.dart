@@ -16,18 +16,18 @@ import 'package:lighthouse/ui/widget/common_scroll_view.dart';
 import 'package:lighthouse/utils/other_util.dart';
 import 'package:lighthouse/utils/toast_util.dart';
 
-class SpotBriefInfoPage extends StatefulWidget {
+class SpotDataPage extends StatefulWidget {
 
-  const SpotBriefInfoPage({
+  const SpotDataPage({
     Key key,
   }): super(key: key);
 
 
   @override
-  _SpotBriefInfoPageState createState() => _SpotBriefInfoPageState();
+  _SpotDataPageState createState() => _SpotDataPageState();
 }
 
-class _SpotBriefInfoPageState extends State<SpotBriefInfoPage> with BasePageMixin<SpotBriefInfoPage>, AutomaticKeepAliveClientMixin<SpotBriefInfoPage>, SingleTickerProviderStateMixin{
+class _SpotDataPageState extends State<SpotDataPage> with BasePageMixin<SpotDataPage>, AutomaticKeepAliveClientMixin<SpotDataPage>, SingleTickerProviderStateMixin{
 
   @override
   bool get wantKeepAlive => true;
@@ -77,7 +77,7 @@ class _SpotBriefInfoPageState extends State<SpotBriefInfoPage> with BasePageMixi
 
   @override
   Widget build(BuildContext context) {
-
+    super.build(context);
     return CommonScrollView(
       physics: ClampingScrollPhysics(),
       children: [
