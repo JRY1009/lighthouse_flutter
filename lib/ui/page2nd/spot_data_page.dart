@@ -77,7 +77,7 @@ class _SpotBriefInfoPageState extends State<SpotBriefInfoPage> with BasePageMixi
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+
     return CommonScrollView(
       physics: ClampingScrollPhysics(),
       children: [

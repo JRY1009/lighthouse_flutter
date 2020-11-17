@@ -136,6 +136,8 @@ class _ArticlePageState extends State<ArticlePage> with BasePageMixin<ArticlePag
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return ChangeNotifierProvider<ListProvider<News>>(
         create: (_) => _listProvider,
         child: Consumer<ListProvider<News>>(

@@ -136,6 +136,7 @@ class _NewsPageState extends State<NewsPage> with BasePageMixin<NewsPage>, Autom
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return ChangeNotifierProvider<ListProvider<News>>(
         create: (_) => _listProvider,
         child: Consumer<ListProvider<News>>(
