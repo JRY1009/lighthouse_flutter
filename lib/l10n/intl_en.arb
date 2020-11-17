@@ -49,9 +49,10 @@
   "treemap": "热力图",
   "blockMileStone": "区块链里程碑",
   "latestInfo": "最新资讯",
-  "simpleInfo": "简况",
+  "briefInfo": "简况",
   "quote": "行情",
   "data": "数据",
+  "moreLink": "更多链接",
   "proTotalMarketValue": "市场总值",
   "pro24hVolume": "24H量",
   "proComputePower": "全网算力（EH/S）"

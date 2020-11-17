@@ -536,10 +536,10 @@ class S {
   }
 
   /// `简况`
-  String get simpleInfo {
+  String get briefInfo {
     return Intl.message(
       '简况',
-      name: 'simpleInfo',
+      name: 'briefInfo',
       desc: '',
       args: [],
     );
@@ -560,6 +560,16 @@ class S {
     return Intl.message(
       '数据',
       name: 'data',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `更多链接`
+  String get moreLink {
+    return Intl.message(
+      '更多链接',
+      name: 'moreLink',
       desc: '',
       args: [],
     );

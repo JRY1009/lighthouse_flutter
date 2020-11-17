@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:keyboard_actions/keyboard_actions_item.dart';
 import 'package:keyboard_actions/keyboard_actions_config.dart';
 import 'package:lighthouse/generated/l10n.dart';
+import 'package:lighthouse/utils/toast_util.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class OtherUtil {
   OtherUtil._internal();
@@ -28,4 +30,12 @@ class OtherUtil {
     );
   }
 
+  ///处理链接
+  static void launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      ToastUtil.error("暂不能处理这条链接:$url");
+    }
+  }
 }

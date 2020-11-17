@@ -134,7 +134,7 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
                               icon: Icon(Icons.security, color: Colours.gray_800, size: 20),
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(bottom: Radius.circular(14.0))),
                               onPressed: () => ToastUtil.normal('点你就是点鸡 4')
-                          )
+                          ),
                         ],
                       ),
                     ),
