@@ -53,7 +53,18 @@
   "quote": "行情",
   "data": "数据",
   "moreLink": "更多链接",
+  "updateTime": "更新时间",
   "proTotalMarketValue": "市场总值",
   "pro24hVolume": "24H量",
-  "proComputePower": "全网算力（EH/S）"
+  "proComputePower": "全网算力（EH/S）",
+  "proMarketValue": "市值",
+  "proTotalVolum": "总量",
+  "proCirculation": "流通量",
+  "proCirculationRatio": "流通量比",
+  "proAddressAssetsDistribution": "地址资产分布",
+  "proAddressTotalAmount": "地址总数",
+  "proAddressAmount": "地址数量",
+  "proBalanceRange": "余额范围",
+  "proProportion": "占比",
+  "proCompareYesterday": "较昨日"
 }

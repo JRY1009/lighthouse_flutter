@@ -64,8 +64,8 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
                   alignment: Alignment.centerLeft,
                   child: Text.rich(TextSpan(
                       children: [
-                        TextSpan(text: '\$', style: TextStyles.textRed400_w400_12),
-                        TextSpan(text: '12222.12', style: TextStyles.textRed400_w400_22),
+                        TextSpan(text: '\$', style: TextStyles.textRed_w400_12),
+                        TextSpan(text: '12222.12', style: TextStyles.textRed_w400_22),
                         WidgetSpan(child: Icon(Icons.arrow_downward, color: Colours.text_red, size: 14),)
                       ]
                   ))
@@ -88,7 +88,7 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
                   margin: EdgeInsets.only(top: 10),
                   alignment: Alignment.centerLeft,
                   child: Text('+11.11%',
-                    style: TextStyles.textRed400_w400_12,
+                    style: TextStyles.textRed_w400_12,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   )
@@ -97,7 +97,7 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
                   margin: EdgeInsets.only(top: 10),
                   alignment: Alignment.centerLeft,
                   child: Text('-123,22',
-                    style: TextStyles.textRed400_w400_12,
+                    style: TextStyles.textRed_w400_12,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   )

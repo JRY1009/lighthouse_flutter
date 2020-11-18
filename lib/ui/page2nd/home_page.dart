@@ -139,7 +139,6 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
                 Key('Tab0'),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 12 , vertical: 9),
-
                   decoration: BoxDecoration(
                     color: Colours.white,
                     borderRadius: BorderRadius.all(Radius.circular(14.0)),

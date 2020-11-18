@@ -17,6 +17,7 @@ class Colours {
 
   static const Color gray_100 = Color(0xffF3F6FF);
   static const Color gray_200 = Color(0xffD6DCE4);
+  static const Color gray_300 = Color(0xffC0C9DF);
   static const Color gray_400 = Color(0xff93A2B4);
   static const Color gray_500 = Color(0xff72859D);
   static const Color gray_800 = Color(0xff333A50);
@@ -34,6 +35,7 @@ class Colours {
   static const Color text_black = Color(0xFF000000);
   static const Color text_red = Color(0xFFFF3E6C);
   static const Color text_green = Color(0xFF0BB970);
+  static const Color text_green_light = Color(0xFF4EDDB6);
 
   static const Color default_line = Color(0xFFEEEEEE);
   static const Color text_disabled = Color(0xFFD4E2FA);

@@ -15,6 +15,11 @@ class TextStyles {
     color: Colours.app_main,
   );
 
+  static const TextStyle textMain12 = TextStyle(
+    fontSize: 12.0,
+    color: Colours.app_main,
+  );
+
   static const TextStyle textBlackBold26 = TextStyle(
       fontSize: 26.0,
       fontWeight: FontWeight.bold,
@@ -103,28 +108,36 @@ class TextStyles {
       color: Colours.gray_400, fontWeight: FontWeight.w400, fontSize: 12
   );
 
-  static const TextStyle textRed400_w400_12 = TextStyle(
+  static const TextStyle textGray300_w400_12 = TextStyle(
+      color: Colours.gray_300, fontWeight: FontWeight.w400, fontSize: 12
+  );
+
+  static const TextStyle textRed_w400_12 = TextStyle(
       color: Colours.text_red, fontWeight: FontWeight.w400, fontSize: 12
   );
 
-  static const TextStyle textRed400_w400_15 = TextStyle(
+  static const TextStyle textRed_w400_15 = TextStyle(
       color: Colours.text_red, fontWeight: FontWeight.w400, fontSize: 15
   );
 
-  static const TextStyle textRed400_w400_22 = TextStyle(
+  static const TextStyle textRed_w400_22 = TextStyle(
       color: Colours.text_red, fontWeight: FontWeight.w400, fontSize: 22
   );
 
-  static const TextStyle textGreen400_w400_12 = TextStyle(
+  static const TextStyle textGreen_w400_12 = TextStyle(
       color: Colours.text_green, fontWeight: FontWeight.w400, fontSize: 12
   );
 
-  static const TextStyle textGreen400_w400_15 = TextStyle(
+  static const TextStyle textGreen_w400_15 = TextStyle(
       color: Colours.text_green, fontWeight: FontWeight.w400, fontSize: 15
   );
 
-  static const TextStyle textGreen400_w400_22 = TextStyle(
+  static const TextStyle textGreen_w400_22 = TextStyle(
       color: Colours.text_green, fontWeight: FontWeight.w400, fontSize: 22
+  );
+
+  static const TextStyle textGreenLight_w400_12 = TextStyle(
+      color: Colours.text_green_light, fontWeight: FontWeight.w400, fontSize: 12
   );
 }
 

@@ -575,6 +575,16 @@ class S {
     );
   }
 
+  /// `更新时间`
+  String get updateTime {
+    return Intl.message(
+      '更新时间',
+      name: 'updateTime',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `市场总值`
   String get proTotalMarketValue {
     return Intl.message(
@@ -600,6 +610,106 @@ class S {
     return Intl.message(
       '全网算力（EH/S）',
       name: 'proComputePower',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `市值`
+  String get proMarketValue {
+    return Intl.message(
+      '市值',
+      name: 'proMarketValue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `总量`
+  String get proTotalVolum {
+    return Intl.message(
+      '总量',
+      name: 'proTotalVolum',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `流通量`
+  String get proCirculation {
+    return Intl.message(
+      '流通量',
+      name: 'proCirculation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `流通量比`
+  String get proCirculationRatio {
+    return Intl.message(
+      '流通量比',
+      name: 'proCirculationRatio',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `地址资产分布`
+  String get proAddressAssetsDistribution {
+    return Intl.message(
+      '地址资产分布',
+      name: 'proAddressAssetsDistribution',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `地址总数`
+  String get proAddressTotalAmount {
+    return Intl.message(
+      '地址总数',
+      name: 'proAddressTotalAmount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `地址数量`
+  String get proAddressAmount {
+    return Intl.message(
+      '地址数量',
+      name: 'proAddressAmount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `余额范围`
+  String get proBalanceRange {
+    return Intl.message(
+      '余额范围',
+      name: 'proBalanceRange',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `占比`
+  String get proProportion {
+    return Intl.message(
+      '占比',
+      name: 'proProportion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `较昨日`
+  String get proCompareYesterday {
+    return Intl.message(
+      '较昨日',
+      name: 'proCompareYesterday',
       desc: '',
       args: [],
     );

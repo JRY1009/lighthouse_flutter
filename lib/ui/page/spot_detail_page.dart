@@ -196,7 +196,17 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
                         extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[0]), SpotBriefInfoPage(key: _keyList[0])),
                         extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[1]), ArticlePage(key: _keyList[1], isSupportPull: false)),
                         extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[2]), SpotDataPage(key: _keyList[2])),
-                        extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[3]), ArticlePage(key: _keyList[3], isSupportPull: false)),
+                        extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[3]),
+                            Container(
+                              margin: EdgeInsets.symmetric(horizontal: 12 , vertical: 9),
+                              decoration: BoxDecoration(
+                                color: Colours.white,
+                                borderRadius: BorderRadius.all(Radius.circular(14.0)),
+                                boxShadow: BoxShadows.normalBoxShadow,
+                              ),
+                              child: ArticlePage(key: _keyList[2], isSupportPull: false),
+                            )
+                        )
                       ],
                     ),
                   )

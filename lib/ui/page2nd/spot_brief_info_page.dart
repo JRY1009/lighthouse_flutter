@@ -13,6 +13,7 @@ import 'package:lighthouse/ui/item/milestone_item.dart';
 import 'package:lighthouse/ui/item/spot_brief_info_item.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/widget/common_scroll_view.dart';
+import 'package:lighthouse/ui/widget/easyrefresh/first_refresh.dart';
 import 'package:lighthouse/utils/other_util.dart';
 import 'package:lighthouse/utils/toast_util.dart';
 
@@ -33,11 +34,12 @@ class _SpotBriefInfoPageState extends State<SpotBriefInfoPage> with BasePageMixi
   bool get wantKeepAlive => true;
 
   List<SpotBriefInfo> _briefList = [];
+  bool _init = false;
 
   @override
   void initState() {
     super.initState();
-    _requestData().then((value) => setState((){}));
+    _requestData();
   }
 
   @override
@@ -47,7 +49,7 @@ class _SpotBriefInfoPageState extends State<SpotBriefInfoPage> with BasePageMixi
 
   @override
   Future<void> refresh({slient = false}) {
-    return _requestData().then((value) => setState((){}));
+    return _requestData();
   }
 
   Future<void> _requestData() {
@@ -62,6 +64,7 @@ class _SpotBriefInfoPageState extends State<SpotBriefInfoPage> with BasePageMixi
     return DioUtil.getInstance().post(Constant.URL_GET_NEWS, params: params,
         successCallBack: (data, headers) {
           if (data == null || data['data'] == null) {
+            _finishRequest(success: false);
             return;
           }
 
@@ -69,16 +72,26 @@ class _SpotBriefInfoPageState extends State<SpotBriefInfoPage> with BasePageMixi
 
           _briefList.clear();
           _briefList.addAll(briefList);
+          _finishRequest(success: true);
         },
         errorCallBack: (error) {
+          _finishRequest(success: false);
           ToastUtil.error(error[Constant.MESSAGE]);
         });
+  }
+
+  void _finishRequest({bool success}) {
+    if (!_init) {
+      _init = true;
+    }
+
+    setState((){});
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return CommonScrollView(
+    return !_init ? FirstRefresh() : CommonScrollView(
       physics: ClampingScrollPhysics(),
       children: [
         Container(

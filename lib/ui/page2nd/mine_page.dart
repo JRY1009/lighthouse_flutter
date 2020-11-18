@@ -157,7 +157,7 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
                               height: 50.0,
                               width: double.infinity,
                               child: Text(S.of(context).logout,
-                                style: TextStyles.textRed400_w400_15,
+                                style: TextStyles.textRed_w400_15,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               )

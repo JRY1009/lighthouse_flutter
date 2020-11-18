@@ -4,9 +4,8 @@ import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/widget/dialog/dialog_util.dart';
-import 'package:lighthouse/ui/widget/image/round_image.dart';
 
-/// 资讯列表详情
+
 class SpotBriefInfoItem extends StatelessWidget {
 
   final int index;
