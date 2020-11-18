@@ -66,5 +66,9 @@
   "proAddressAmount": "地址数量",
   "proBalanceRange": "余额范围",
   "proProportion": "占比",
-  "proCompareYesterday": "较昨日"
+  "proCompareYesterday": "较昨日",
+  "proTradePlatformData": "交易平台数据",
+  "proTradePlatform": "交易平台",
+  "proLatestPrice": "最新价",
+  "proRate": "涨幅"
 }

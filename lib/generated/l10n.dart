@@ -714,6 +714,46 @@ class S {
       args: [],
     );
   }
+
+  /// `交易平台数据`
+  String get proTradePlatformData {
+    return Intl.message(
+      '交易平台数据',
+      name: 'proTradePlatformData',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `交易平台`
+  String get proTradePlatform {
+    return Intl.message(
+      '交易平台',
+      name: 'proTradePlatform',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `最新价`
+  String get proLatestPrice {
+    return Intl.message(
+      '最新价',
+      name: 'proLatestPrice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `涨幅`
+  String get proRate {
+    return Intl.message(
+      '涨幅',
+      name: 'proRate',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

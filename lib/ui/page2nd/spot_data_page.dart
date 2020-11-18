@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
 import 'package:lighthouse/net/model/spot_address_assets_distribution.dart';
-import 'package:lighthouse/net/model/spot_brief_info.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
@@ -65,10 +64,10 @@ class _SpotDataPageState extends State<SpotDataPage> with BasePageMixin<SpotData
             return;
           }
 
-          List<SpotAddressAssetsDistribution> datafList = SpotAddressAssetsDistribution.fromJsonList(data['data']['account_info']) ?? [];
+          List<SpotAddressAssetsDistribution> dataList = SpotAddressAssetsDistribution.fromJsonList(data['data']['account_info']) ?? [];
 
           _dataList.clear();
-          _dataList.addAll(datafList);
+          _dataList.addAll(dataList);
           _finishRequest(success: true);
         },
         errorCallBack: (error) {

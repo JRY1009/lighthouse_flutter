@@ -92,6 +92,11 @@ class TextStyles {
       color: Colours.gray_500, fontWeight: FontWeight.w400, fontSize: 12
   );
 
+  static const TextStyle textGray500_w400_10 = TextStyle(
+      color: Colours.gray_500, fontWeight: FontWeight.w400, fontSize: 10
+  );
+
+
   static const TextStyle textGray500_w400_14 = TextStyle(
       color: Colours.gray_500, fontWeight: FontWeight.w400, fontSize: 14
   );
