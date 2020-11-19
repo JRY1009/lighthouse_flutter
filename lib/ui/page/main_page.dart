@@ -1,8 +1,9 @@
 
 import 'dart:async';
 
-import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bugly/flutter_bugly.dart';
+import 'package:flutter_xupdate/flutter_xupdate.dart';
 import 'package:lighthouse/event/event.dart';
 import 'package:lighthouse/event/main_jump_event.dart';
 import 'package:lighthouse/event/user_event.dart';
@@ -15,11 +16,10 @@ import 'package:lighthouse/ui/page2nd/home_page.dart';
 import 'package:lighthouse/ui/page2nd/info_page.dart';
 import 'package:lighthouse/ui/page2nd/mine_page.dart';
 import 'package:lighthouse/ui/page2nd/money_page.dart';
-import 'package:lighthouse/ui/page2nd/news_page.dart';
 import 'package:lighthouse/ui/provider/main_provider.dart';
 import 'package:lighthouse/ui/widget/image/local_image.dart';
+import 'package:lighthouse/utils/device_util.dart';
 import 'package:lighthouse/utils/double_tap_back_exit_app.dart';
-import 'package:lighthouse/utils/log_util.dart';
 import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget {
@@ -46,6 +46,9 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
   @override
   void initState() {
     super.initState();
+
+    FlutterBugly.init(androidAppId: '9e87287cfa', iOSAppId: 'ad8a0b5092');
+
     initData();
 
     _userSubscription = Event.eventBus.on<UserEvent>().listen((event) {
@@ -71,11 +74,12 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
     if (_mainJumpSubscription != null) {
       _mainJumpSubscription.cancel();
     }
+
     _pageController.dispose();
+
     super.dispose();
-    LogUtil.v('_MainPageState dispose' );
   }
-  
+
   void initData() {
     _appBarTitles = [S.current.home, S.current.info, S.current.money, S.current.mine];
     _keyList = [
@@ -90,27 +94,35 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
       MoneyPage(key: _keyList[2]),
       MinePage(key: _keyList[3]),
     ];
+
+    if (DeviceUtil.isAndroid) {
+      FlutterBugly.onCheckUpgrade.listen((_upgradeInfo) {
+
+        FlutterXUpdate.updateByInfo(
+            updateEntity: UpdateEntity(
+                hasUpdate: true,
+                isIgnorable: _upgradeInfo.upgradeType == 1,
+                isForce: _upgradeInfo.upgradeType == 2,
+                versionCode: _upgradeInfo.versionCode,
+                versionName: _upgradeInfo.versionName,
+                updateContent: _upgradeInfo.newFeature,
+                downloadUrl: _upgradeInfo.apkUrl,
+                apkSize: (_upgradeInfo.fileSize / 1024).toInt(),
+                apkMd5: _upgradeInfo.apkMd5
+            ),
+            themeColor: '#FF2872FC',
+        );
+      });
+    }
   }
 
   List<BottomNavigationBarItem> _buildBottomNavigationBarItem() {
     if (_bottomBarItemList == null) {
       const _tabImages = [
-        [
-          LocalImage('tab_home', width: _imageSize, color: Colours.unselected_item_color,),
-          LocalImage('tab_home', width: _imageSize, color: Colours.app_main_500,),
-        ],
-        [
-          LocalImage('tab_info', width: _imageSize, color: Colours.unselected_item_color,),
-          LocalImage('tab_info', width: _imageSize, color: Colours.app_main_500,),
-        ],
-        [
-          LocalImage('tab_money', width: _imageSize, color: Colours.unselected_item_color,),
-          LocalImage('tab_money', width: _imageSize, color: Colours.app_main_500,),
-        ],
-        [
-          LocalImage('tab_mine', width: _imageSize, color: Colours.unselected_item_color,),
-          LocalImage('tab_mine', width: _imageSize, color: Colours.app_main_500,),
-        ]
+        [LocalImage('tab_home', width: _imageSize, color: Colours.unselected_item_color), LocalImage('tab_home', width: _imageSize, color: Colours.app_main_500)],
+        [LocalImage('tab_info', width: _imageSize, color: Colours.unselected_item_color), LocalImage('tab_info', width: _imageSize, color: Colours.app_main_500)],
+        [LocalImage('tab_money', width: _imageSize, color: Colours.unselected_item_color), LocalImage('tab_money', width: _imageSize, color: Colours.app_main_500)],
+        [LocalImage('tab_mine', width: _imageSize, color: Colours.unselected_item_color), LocalImage('tab_mine', width: _imageSize, color: Colours.app_main_500)]
       ];
       _bottomBarItemList = List.generate(_tabImages.length, (i) {
         return BottomNavigationBarItem(
@@ -129,36 +141,36 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
       create: (_) => provider,
       child: DoubleTapBackExitApp(
         child: Scaffold(
-          bottomNavigationBar: Consumer<MainProvider>(
-            builder: (_, provider, __) {
-              return BottomNavigationBar(
-                backgroundColor: Colours.white,
-                items: _buildBottomNavigationBarItem(),
-                type: BottomNavigationBarType.fixed,
-                currentIndex: provider.value,
-                elevation: 5.0,
-                iconSize: 21.0,
-                selectedFontSize: Dimens.font_sp10,
-                unselectedFontSize: Dimens.font_sp10,
-                selectedItemColor: Theme.of(context).primaryColor,
-                unselectedItemColor: Colours.unselected_item_color,
-                onTap: (index) {
-                  if (provider.value == index) {
-                    _keyList[index].currentState?.refresh();
-                  } else {
-                    _pageController.jumpToPage(index);
-                  }
-                },
-              );
-            },
-          ),
-          // 使用PageView的原因参看 https://zhuanlan.zhihu.com/p/58582876
-          body: PageView(
-            physics: const NeverScrollableScrollPhysics(), // 禁止滑动
-            controller: _pageController,
-            onPageChanged: (int index) => provider.value = index,
-            children: _pageList,
-          )
+            bottomNavigationBar: Consumer<MainProvider>(
+              builder: (_, provider, __) {
+                return BottomNavigationBar(
+                  backgroundColor: Colours.white,
+                  items: _buildBottomNavigationBarItem(),
+                  type: BottomNavigationBarType.fixed,
+                  currentIndex: provider.value,
+                  elevation: 5.0,
+                  iconSize: 21.0,
+                  selectedFontSize: Dimens.font_sp10,
+                  unselectedFontSize: Dimens.font_sp10,
+                  selectedItemColor: Theme.of(context).primaryColor,
+                  unselectedItemColor: Colours.unselected_item_color,
+                  onTap: (index) {
+                    if (provider.value == index) {
+                      _keyList[index].currentState?.refresh();
+                    } else {
+                      _pageController.jumpToPage(index);
+                    }
+                  },
+                );
+              },
+            ),
+            // 使用PageView的原因参看 https://zhuanlan.zhihu.com/p/58582876
+            body: PageView(
+              physics: const NeverScrollableScrollPhysics(), // 禁止滑动
+              controller: _pageController,
+              onPageChanged: (int index) => provider.value = index,
+              children: _pageList,
+            )
         ),
       ),
     );

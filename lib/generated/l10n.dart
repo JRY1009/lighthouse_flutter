@@ -435,6 +435,16 @@ class S {
     );
   }
 
+  /// `检查更新`
+  String get checkUpdate {
+    return Intl.message(
+      '检查更新',
+      name: 'checkUpdate',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `我的头像`
   String get myAvatar {
     return Intl.message(

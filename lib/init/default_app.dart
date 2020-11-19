@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bugly/flutter_bugly.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_xupdate/flutter_xupdate.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/provider/locale_provider.dart';
@@ -38,14 +39,30 @@ class DefaultApp {
   //程序初始化操作
   static void initApp() {
 
-    FlutterBugly.init(androidAppId: '9e87287cfa', iOSAppId: 'ad8a0b5092');
-
     LogUtil.init(isDebug: Constant.isTestEnvironment);
 
     if (DeviceUtil.isAndroid) {
       // 透明状态栏
       const SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor: Colors.transparent);
       SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+
+      FlutterXUpdate.init(
+        ///是否输出日志
+          debug: !Constant.isReleaseMode,
+          ///是否使用post请求
+          isPost: false,
+          ///post请求是否是上传json
+          isPostJson: false,
+          ///是否开启自动模式
+          isWifiOnly: false,
+          ///是否开启自动模式
+          isAutoMode: false,
+          ///需要设置的公共参数
+          supportSilentInstall: false,
+          ///在下载过程中，如果点击了取消的话，是否弹出切换下载方式的重试提示弹窗
+          enableRetry: false
+      );
+
     }
 
   }

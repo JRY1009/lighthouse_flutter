@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "briefInfo" : MessageLookupByLibrary.simpleMessage("简况"),
     "camera" : MessageLookupByLibrary.simpleMessage("拍照"),
     "cancel" : MessageLookupByLibrary.simpleMessage("Cancel"),
+    "checkUpdate" : MessageLookupByLibrary.simpleMessage("检查更新"),
     "clickRegister" : MessageLookupByLibrary.simpleMessage("点此注册"),
     "close" : MessageLookupByLibrary.simpleMessage("Close"),
     "confirm" : MessageLookupByLibrary.simpleMessage("确定"),

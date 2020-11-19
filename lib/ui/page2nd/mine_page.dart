@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bugly/flutter_bugly.dart';
 import 'package:lighthouse/event/event.dart';
 import 'package:lighthouse/event/user_event.dart';
 import 'package:lighthouse/generated/l10n.dart';
@@ -130,10 +131,10 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
                               onPressed: () => ToastUtil.normal('点你就是点鸡 3')
                           ),
                           MineClickBar(
-                              title: S.of(context).accountSecurity,
-                              icon: Icon(Icons.security, color: Colours.gray_800, size: 20),
+                              title: S.of(context).checkUpdate,
+                              icon: Icon(Icons.update, color: Colours.gray_800, size: 20),
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(bottom: Radius.circular(14.0))),
-                              onPressed: () => ToastUtil.normal('点你就是点鸡 4')
+                              onPressed: () => FlutterBugly.checkUpgrade()
                           ),
                         ],
                       ),

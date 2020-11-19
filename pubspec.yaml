@@ -47,6 +47,7 @@ dependencies:
   photo_view: ^0.10.2
   fl_chart: ^0.12.0
   flutter_bugly: ^0.3.0+2
+  flutter_xupdate: ^1.0.0
 
   # WebView插件 https://github.com/flutter/plugins/tree/master/packages/webview_flutter
   webview_flutter: ^1.0.6
