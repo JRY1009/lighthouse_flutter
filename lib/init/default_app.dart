@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bugly/flutter_bugly.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/net/constant.dart';
@@ -26,6 +27,7 @@ class DefaultApp {
       androidKey: '5fa62c2745b2b751a925bf49',
       iosKey: '5fa62c921c520d3073a2536f',
     );
+
     await SPUtil.init();
 
     runApp(Store.init(MyApp()));
@@ -35,6 +37,8 @@ class DefaultApp {
 
   //程序初始化操作
   static void initApp() {
+
+    FlutterBugly.init(androidAppId: '9e87287cfa', iOSAppId: 'ad8a0b5092');
 
     LogUtil.init(isDebug: Constant.isTestEnvironment);
 

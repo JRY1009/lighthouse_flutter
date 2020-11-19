@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bugly/flutter_bugly.dart';
+import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/utils/date_util.dart';
 import 'package:lighthouse/utils/object_util.dart';
 import 'package:lighthouse/utils/path_util.dart';
@@ -47,6 +49,12 @@ class AppInit {
   static void reportErrorAndLog(FlutterErrorDetails details) {
     print(details);
     saveErrorToFile(details.toString());
+
+    if (Constant.isReleaseMode) {
+      FlutterBugly.uploadException(
+          message: details.exception.toString(),
+          detail: details.stack.toString());
+    }
   }
 
   static Future<void> saveErrorToFile(String error) async {
