@@ -1,12 +1,13 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
-import 'package:lighthouse/net/model/news.dart';
+import 'package:lighthouse/net/model/article.dart';
 import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/ui/item/news_item.dart';
+import 'package:lighthouse/ui/item/article_item.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/provider/list_provider.dart';
 import 'package:lighthouse/ui/widget/easyrefresh/common_footer.dart';
@@ -16,36 +17,35 @@ import 'package:lighthouse/utils/toast_util.dart';
 import 'package:provider/provider.dart';
 
 
-class NewsPage extends StatefulWidget {
+class ArticleListPage extends StatefulWidget {
   
   final bool isSupportPull;  //是否支持手动下拉刷新
 
-  NewsPage({
+  ArticleListPage({
     Key key,
     this.isSupportPull = true
   }) : super(key: key);
 
   @override
-  _NewsPageState createState() {
-    return _NewsPageState(isSupportPull: isSupportPull);
+  _ArticleListPageState createState() {
+    return _ArticleListPageState(isSupportPull: isSupportPull);
   }
 }
 
-class _NewsPageState extends State<NewsPage> with BasePageMixin<NewsPage>, AutomaticKeepAliveClientMixin<NewsPage>, SingleTickerProviderStateMixin {
+class _ArticleListPageState extends State<ArticleListPage> with BasePageMixin<ArticleListPage>, AutomaticKeepAliveClientMixin<ArticleListPage>, SingleTickerProviderStateMixin {
 
   @override
   bool get wantKeepAlive => true;
 
   bool isSupportPull;
 
-  ScrollController _nestedController = ScrollController();
   EasyRefreshController _easyController = EasyRefreshController();
-  ListProvider<News> _listProvider = ListProvider<News>();
+  ListProvider<Article> _listProvider = ListProvider<Article>();
   int _page = 0;
   int _pageSize = 20;
   bool _init = false;
 
-  _NewsPageState({
+  _ArticleListPageState({
     this.isSupportPull
   });
 
@@ -67,7 +67,7 @@ class _NewsPageState extends State<NewsPage> with BasePageMixin<NewsPage>, Autom
     if (slient) {
       _page = 0;
       return _requestData();
-      
+
     } else {
       return Future<void>.delayed(const Duration(milliseconds: 100), () {
         _easyController.callRefresh();
@@ -100,7 +100,7 @@ class _NewsPageState extends State<NewsPage> with BasePageMixin<NewsPage>, Autom
             return;
           }
 
-          List<News> newsList = News.fromJsonList(data['data']['account_info']) ?? [];
+          List<Article> newsList = Article.fromJsonList(data['data']['account_info']) ?? [];
           if (_page == 0) {
             _listProvider.clear();
             _listProvider.addAll(newsList);
@@ -137,9 +137,10 @@ class _NewsPageState extends State<NewsPage> with BasePageMixin<NewsPage>, Autom
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return ChangeNotifierProvider<ListProvider<News>>(
+
+    return ChangeNotifierProvider<ListProvider<Article>>(
         create: (_) => _listProvider,
-        child: Consumer<ListProvider<News>>(
+        child: Consumer<ListProvider<Article>>(
             builder: (_, _provider, __) {
               return !_init ? FirstRefresh() : EasyRefresh(
                 header: isSupportPull ? MaterialHeader(valueColor: AlwaysStoppedAnimation<Color>(Colours.app_main)) : null,
@@ -153,8 +154,8 @@ class _NewsPageState extends State<NewsPage> with BasePageMixin<NewsPage>, Autom
                 child: ListView.builder(
                   padding: EdgeInsets.all(0.0),
                   itemBuilder: (context, index) {
-                    return NewsItem(
-                      title: _provider.list[index].account_name,
+                    return ArticleItem(
+                      title: _provider.list[index].account_name + '杜绝浪费矿机时空裂缝接SDK龙卷风克雷登斯荆防颗粒圣诞节快乐福建省断开连接付款了圣诞节疯狂了圣诞节',
                       time: _provider.list[index].created_at,
                       author: _provider.list[index].city,
                       imageUrl: _provider.list[index].avatar_300,

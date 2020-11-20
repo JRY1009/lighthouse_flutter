@@ -1,13 +1,12 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
 import 'package:lighthouse/net/model/news.dart';
 import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/ui/item/article_item.dart';
+import 'package:lighthouse/ui/item/news_item.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/provider/list_provider.dart';
 import 'package:lighthouse/ui/widget/easyrefresh/common_footer.dart';
@@ -17,35 +16,36 @@ import 'package:lighthouse/utils/toast_util.dart';
 import 'package:provider/provider.dart';
 
 
-class ArticlePage extends StatefulWidget {
+class NewsListPage extends StatefulWidget {
   
   final bool isSupportPull;  //是否支持手动下拉刷新
 
-  ArticlePage({
+  NewsListPage({
     Key key,
     this.isSupportPull = true
   }) : super(key: key);
 
   @override
-  _ArticlePageState createState() {
-    return _ArticlePageState(isSupportPull: isSupportPull);
+  _NewsListPageState createState() {
+    return _NewsListPageState(isSupportPull: isSupportPull);
   }
 }
 
-class _ArticlePageState extends State<ArticlePage> with BasePageMixin<ArticlePage>, AutomaticKeepAliveClientMixin<ArticlePage>, SingleTickerProviderStateMixin {
+class _NewsListPageState extends State<NewsListPage> with BasePageMixin<NewsListPage>, AutomaticKeepAliveClientMixin<NewsListPage>, SingleTickerProviderStateMixin {
 
   @override
   bool get wantKeepAlive => true;
 
   bool isSupportPull;
 
+  ScrollController _nestedController = ScrollController();
   EasyRefreshController _easyController = EasyRefreshController();
   ListProvider<News> _listProvider = ListProvider<News>();
   int _page = 0;
   int _pageSize = 20;
   bool _init = false;
 
-  _ArticlePageState({
+  _NewsListPageState({
     this.isSupportPull
   });
 
@@ -67,7 +67,7 @@ class _ArticlePageState extends State<ArticlePage> with BasePageMixin<ArticlePag
     if (slient) {
       _page = 0;
       return _requestData();
-
+      
     } else {
       return Future<void>.delayed(const Duration(milliseconds: 100), () {
         _easyController.callRefresh();
@@ -137,7 +137,6 @@ class _ArticlePageState extends State<ArticlePage> with BasePageMixin<ArticlePag
   @override
   Widget build(BuildContext context) {
     super.build(context);
-
     return ChangeNotifierProvider<ListProvider<News>>(
         create: (_) => _listProvider,
         child: Consumer<ListProvider<News>>(
@@ -154,8 +153,8 @@ class _ArticlePageState extends State<ArticlePage> with BasePageMixin<ArticlePag
                 child: ListView.builder(
                   padding: EdgeInsets.all(0.0),
                   itemBuilder: (context, index) {
-                    return ArticleItem(
-                      title: _provider.list[index].account_name + '杜绝浪费矿机时空裂缝接SDK龙卷风克雷登斯荆防颗粒圣诞节快乐福建省断开连接付款了圣诞节疯狂了圣诞节',
+                    return NewsItem(
+                      title: _provider.list[index].account_name,
                       time: _provider.list[index].created_at,
                       author: _provider.list[index].city,
                       imageUrl: _provider.list[index].avatar_300,

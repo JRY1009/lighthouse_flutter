@@ -53,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "logingin" : MessageLookupByLibrary.simpleMessage("登录中..."),
     "logout" : MessageLookupByLibrary.simpleMessage("退出登录"),
     "logoutConfirm" : MessageLookupByLibrary.simpleMessage("确定要退出当前账号吗？"),
+    "milestone" : MessageLookupByLibrary.simpleMessage("里程碑"),
     "mine" : MessageLookupByLibrary.simpleMessage("我的"),
     "money" : MessageLookupByLibrary.simpleMessage("财富"),
     "moreLink" : MessageLookupByLibrary.simpleMessage("更多链接"),

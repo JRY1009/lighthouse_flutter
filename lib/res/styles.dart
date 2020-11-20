@@ -61,6 +61,11 @@ class TextStyles {
     color: Colours.white,
   );
 
+  static const TextStyle textWhite18 = TextStyle(
+    fontSize: 18.0,
+    color: Colours.white,
+  );
+
   static const TextStyle textWhite24 = TextStyle(
     fontSize: 24.0,
     color: Colours.white,

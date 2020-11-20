@@ -525,6 +525,16 @@ class S {
     );
   }
 
+  /// `里程碑`
+  String get milestone {
+    return Intl.message(
+      '里程碑',
+      name: 'milestone',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `区块链里程碑`
   String get blockMileStone {
     return Intl.message(

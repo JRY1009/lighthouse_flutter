@@ -108,7 +108,7 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
               alignment: Alignment.centerLeft,
               width: double.infinity,
               color: Colours.normal_bg,
-              height: 183.0,
+              height: 188.0,
               child: _buildHeader(),
             ),
             content: _buildItem(),
@@ -126,7 +126,7 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
     return Column(
       children: [
         Container(
-          height: 110,
+          height: 115,
           margin: EdgeInsets.symmetric(horizontal: 12 , vertical: 9),
           decoration: BoxDecoration(
             color: Colours.white,

@@ -315,3 +315,7 @@ native <methods>;
 -dontwarn com.yalantis.ucrop**
 -keep class com.yalantis.ucrop** { *; }
 -keep interface com.yalantis.ucrop** { *; }
+
+######################bugly#########################
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}

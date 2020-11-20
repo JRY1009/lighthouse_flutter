@@ -6,11 +6,8 @@ import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
-import 'package:lighthouse/ui/page2nd/article_page.dart';
-import 'package:lighthouse/ui/page2nd/news_page.dart';
+import 'package:lighthouse/ui/page2nd/article_list_page.dart';
 import 'package:lighthouse/ui/widget/tab/round_indicator.dart';
-import 'package:lighthouse/utils/image_util.dart';
-import 'package:lighthouse/utils/screen_util.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
 
 
@@ -104,8 +101,8 @@ class _InfoPageState extends State<InfoPage> with BasePageMixin<InfoPage>, Autom
                 child: TabBarView(
                   controller: _tabController,
                   children: <Widget>[
-                    extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[0]), ArticlePage(key: _keyList[0], isSupportPull: true)),
-                    extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[1]), ArticlePage(key: _keyList[1], isSupportPull: true)),
+                    extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[0]), ArticleListPage(key: _keyList[0], isSupportPull: true)),
+                    extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[1]), ArticleListPage(key: _keyList[1], isSupportPull: true)),
                   ],
                 ),
               )

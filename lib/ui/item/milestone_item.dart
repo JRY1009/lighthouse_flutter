@@ -78,7 +78,7 @@ class MileStoneItem extends StatelessWidget {
                 flex: 1,
                 child: Container(
                     padding: EdgeInsets.fromLTRB(20, 20, 18, isLast ? 20 : 6),
-                    child: Text(content + '第三方递四方速递发送到发送到发送到发第三方士大夫沙雕放松的发送到发送到范德萨范德萨范德萨',
+                    child: Text((content ?? '') + '第三方递四方速递发送到发送到发送到发第三方士大夫沙雕放松的发送到发送到范德萨范德萨范德萨',
                         strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
                         style: TextStyles.textGray800_w400_15
                 ),

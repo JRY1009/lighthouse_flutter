@@ -18,11 +18,14 @@ class KLineTab extends StatelessWidget {
     this.text,
     this.icon,
     this.select,
+    this.padding,
     this.iconMargin = const EdgeInsets.only(bottom: 10.0),
     this.child,
   }) : assert(text != null || child != null || icon != null),
         assert(text == null || child == null),
         super(key: key);
+
+  final EdgeInsetsGeometry padding;
 
   final bool select;
   /// The text to display as the tab's label.
@@ -49,12 +52,15 @@ class KLineTab extends StatelessWidget {
   Widget _buildLabelText() {
     return child ?? Container(
       height: 24.0,
+      padding: padding,
       alignment: Alignment.center,
-      decoration: select ? null : BoxDecoration(
-        color: Colours.gray_100,
+      decoration: BoxDecoration(
+        color: select ? Colours.app_main : Colours.gray_100,
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
       ),
-      child: Text(text, softWrap: false, overflow: TextOverflow.fade),
+      child: Text(text, softWrap: false, overflow: TextOverflow.fade,
+          style: select ? TextStyle(fontSize: 13, color: Colours.white) : TextStyle(fontSize: 13, color: Colours.gray_500)
+      ),
     );
   }
 

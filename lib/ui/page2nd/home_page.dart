@@ -8,7 +8,7 @@ import 'package:lighthouse/net/model/milestone.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
-import 'package:lighthouse/ui/page2nd/article_page.dart';
+import 'package:lighthouse/ui/page2nd/article_list_page.dart';
 import 'package:lighthouse/ui/widget/appbar/home_flexible_appbar.dart';
 import 'package:lighthouse/ui/widget/appbar/home_milestone_bar.dart';
 import 'package:lighthouse/ui/widget/appbar/home_pinned_appbar.dart';
@@ -144,7 +144,7 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
                     borderRadius: BorderRadius.all(Radius.circular(14.0)),
                     boxShadow: BoxShadows.normalBoxShadow,
                   ),
-                  child: ArticlePage(key: _articlePageKey, isSupportPull: false),
+                  child: ArticleListPage(key: _articlePageKey, isSupportPull: false),
                 )
 
             ),

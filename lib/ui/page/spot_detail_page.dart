@@ -5,12 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
-import 'package:lighthouse/net/model/milestone.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
-import 'package:lighthouse/ui/page2nd/article_page.dart';
+import 'package:lighthouse/ui/page2nd/article_list_page.dart';
 import 'package:lighthouse/ui/page2nd/spot_brief_info_page.dart';
 import 'package:lighthouse/ui/page2nd/spot_data_page.dart';
 import 'package:lighthouse/ui/page2nd/spot_quote_page.dart';
@@ -18,8 +17,6 @@ import 'package:lighthouse/ui/widget/appbar/spot_detail_appbar.dart';
 import 'package:lighthouse/ui/widget/appbar/spot_detail_kline_bar.dart';
 import 'package:lighthouse/ui/widget/button/back_button.dart';
 import 'package:lighthouse/ui/widget/tab/bubble_indicator.dart';
-import 'package:lighthouse/utils/image_util.dart';
-import 'package:lighthouse/utils/screen_util.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
 
 
@@ -205,7 +202,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
                                 borderRadius: BorderRadius.all(Radius.circular(14.0)),
                                 boxShadow: BoxShadows.normalBoxShadow,
                               ),
-                              child: ArticlePage(key: _keyList[2], isSupportPull: false),
+                              child: ArticleListPage(key: _keyList[2], isSupportPull: false),
                             )
                         )
                       ],

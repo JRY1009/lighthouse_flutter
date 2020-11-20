@@ -54,7 +54,6 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
         boxShadow: BoxShadows.normalBoxShadow,
       ),
       child: Row (
-
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,7 +110,7 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                  margin: EdgeInsets.only(top: 10),
+                  margin: EdgeInsets.only(top: 8),
                   alignment: Alignment.centerRight,
                   child: Text('24H额',
                     style: TextStyles.textGray400_w400_12,
@@ -120,7 +119,7 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
                   )
               ),
               Container(
-                  margin: EdgeInsets.only(top: 10),
+                  margin: EdgeInsets.only(top: 8),
                   alignment: Alignment.centerRight,
                   child: Text('24H量',
                     style: TextStyles.textGray400_w400_12,

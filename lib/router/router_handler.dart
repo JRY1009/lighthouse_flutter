@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lighthouse/ui/page/area_page.dart';
 import 'package:lighthouse/ui/page/login_page.dart';
 import 'package:lighthouse/ui/page/main_page.dart';
+import 'package:lighthouse/ui/page/milestone_page.dart';
 import 'package:lighthouse/ui/page/setting_page.dart';
 import 'package:lighthouse/ui/page/spot_detail_page.dart';
 import 'package:lighthouse/ui/page/web_view_page.dart';
@@ -40,4 +41,9 @@ var spotDetailPageHandler = new Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
       String spotCoin = params['spotCoin']?.first;
       return SpotDetailPage();
+    });
+
+var milestonePageHandler = new Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+      return MileStonePage();
     });

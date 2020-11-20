@@ -8,6 +8,7 @@ import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/net/model/milestone.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
+import 'package:lighthouse/router/routers.dart';
 import 'package:lighthouse/ui/item/milestone_item.dart';
 
 class HomeMileStoneBar extends StatefulWidget {
@@ -43,29 +44,32 @@ class _HomeMileStoneBarState extends State<HomeMileStoneBar>{
 
     return Column(
       children: <Widget>[
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 12, vertical: 9),
-          height: 20,
-          child: Row(
-            children: [
-              Expanded(
-                  flex: 1,
-                  child: Container(
-                    alignment: Alignment.centerLeft,
-                    child: Text(S.of(context).blockMileStone,
-                      style: TextStyles.textGray500_w400_14,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  )
-              ),
-              Container(
-                alignment: Alignment.centerLeft,
-                child: Text(S.of(context).all, style: TextStyles.textGray400_w400_12),
-              ),
-              Icon(Icons.keyboard_arrow_right, color: Colours.gray_400, size: 16),
-            ],
-          ),
+        InkWell(
+          onTap: () => Routers.navigateTo(context, Routers.milestonePage),
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 12, vertical: 9),
+            height: 20,
+            child: Row(
+              children: [
+                Expanded(
+                    flex: 1,
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(S.of(context).blockMileStone,
+                        style: TextStyles.textGray500_w400_14,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    )
+                ),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(S.of(context).all, style: TextStyles.textGray400_w400_12),
+                ),
+                Icon(Icons.keyboard_arrow_right, color: Colours.gray_400, size: 16),
+              ],
+            ),
+          )
         ),
         Container(
           margin: EdgeInsets.symmetric(horizontal: 12 , vertical: 9),
