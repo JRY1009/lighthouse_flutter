@@ -9,6 +9,7 @@ class Routers {
 
   static String webviewPage = '/webviewPage';
   static String loginPage = '/loginPage';
+  static String loginSmsPage = '/loginSmsPage';
   static String areaPage = '/areaPage';
   static String mainPage = '/mainPage';
   static String settingPage = '/settingPage';
@@ -30,6 +31,7 @@ class Routers {
 
     router.define(webviewPage, handler: webviewPageHandler);
     router.define(loginPage, handler: loginPageHandler);
+    router.define(loginSmsPage, handler: loginSmsPageHandler);
     router.define(areaPage, handler: areaPageHandler);
     router.define(mainPage, handler: mainPageHandler);
     router.define(settingPage, handler: settingPageHandler);

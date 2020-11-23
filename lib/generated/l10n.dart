@@ -75,6 +75,26 @@ class S {
     );
   }
 
+  /// `密码登录`
+  String get pwdLogin {
+    return Intl.message(
+      '密码登录',
+      name: 'pwdLogin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `验证码登录`
+  String get smsLogin {
+    return Intl.message(
+      '验证码登录',
+      name: 'smsLogin',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Welcome Regist`
   String get welcomeRegist {
     return Intl.message(
@@ -150,6 +170,46 @@ class S {
     return Intl.message(
       'Phone number cannot be empty!',
       name: 'loginPhoneError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `验证码`
+  String get verifyCode {
+    return Intl.message(
+      '验证码',
+      name: 'verifyCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `获取验证码`
+  String get getVerifyCode {
+    return Intl.message(
+      '获取验证码',
+      name: 'getVerifyCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请输入验证码`
+  String get verifyCodeHint {
+    return Intl.message(
+      '请输入验证码',
+      name: 'verifyCodeHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `秒后重发`
+  String get verifyRetry {
+    return Intl.message(
+      '秒后重发',
+      name: 'verifyRetry',
       desc: '',
       args: [],
     );

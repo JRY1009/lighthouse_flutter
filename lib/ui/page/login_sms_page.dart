@@ -19,23 +19,24 @@ import 'package:lighthouse/ui/widget/button/gradient_button.dart';
 import 'package:lighthouse/ui/widget/common_scroll_view.dart';
 import 'package:lighthouse/ui/widget/textfield/account_text_field.dart';
 import 'package:lighthouse/ui/widget/textfield/pwd_text_field.dart';
+import 'package:lighthouse/ui/widget/textfield/verify_text_field.dart';
 import 'package:lighthouse/utils/date_util.dart';
 import 'package:lighthouse/utils/encrypt_util.dart';
 import 'package:lighthouse/utils/object_util.dart';
 import 'package:lighthouse/utils/other_util.dart';
 import 'package:lighthouse/utils/toast_util.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginSmsPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _LoginSmsPageState createState() => _LoginSmsPageState();
 }
 
-class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
+class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSmsPage> {
 
   final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _pwdController = TextEditingController();
+  final TextEditingController _verifyController = TextEditingController();
   final FocusNode _phoneNode = FocusNode();
-  final FocusNode _pwdNode = FocusNode();
+  final FocusNode _verifyNode = FocusNode();
 
   String _area_code;
   bool _loginEnabled = false;
@@ -55,7 +56,7 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
 
   void _checkInput() {
     setState(() {
-      if (ObjectUtil.isEmpty(_phoneController.text) || ObjectUtil.isEmpty(_pwdController.text)) {
+      if (ObjectUtil.isEmpty(_phoneController.text) || ObjectUtil.isEmpty(_verifyController.text)) {
         _loginEnabled = false;
       } else {
         _loginEnabled = true;
@@ -65,7 +66,7 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
 
   void _login() {
     String phone = _area_code + ' ' + _phoneController.text;
-    String pwd = _pwdController.text;
+    String pwd = _verifyController.text;
     int nonce = DateUtil.getNowDateMs() * 1000;
     String pwdMd5 = EncryptUtil.encodeMd5(EncryptUtil.encodeMd5(pwd) + nonce.toString());
 
@@ -89,6 +90,7 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
           Routers.navigateTo(context, Routers.mainPage, clearStack: true);
 
           Event.eventBus.fire(UserEvent(account, UserEventState.login));
+
         },
         errorCallBack: (error) {
           closeProgress();
@@ -109,9 +111,9 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
     }, transition: TransitionType.materialFullScreenDialog);
   }
 
-  void _smsLogin() {
+  void _pwdLogin() {
 
-    Routers.navigateTo(context, Routers.loginSmsPage, clearStack: true);
+    Routers.navigateTo(context, Routers.loginPage, clearStack: true);
   }
 
   void _jump2Register() {
@@ -121,6 +123,11 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
     };
 
     Routers.navigateTo(context, Routers.webviewPage, params: params);
+  }
+
+  Future<bool> _getVCode() {
+    ToastUtil.normal('获取验证码 click');
+    return Future.value(true);
   }
 
   @override
@@ -135,11 +142,11 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
           automaticallyImplyLeading: false,
         ),
         body: CommonScrollView(
-          keyboardConfig: OtherUtil.getKeyboardActionsConfig(context, <FocusNode>[_phoneNode, _pwdNode]),
+          keyboardConfig: OtherUtil.getKeyboardActionsConfig(context, <FocusNode>[_phoneNode, _verifyNode]),
           padding: const EdgeInsets.only(left: 24.0, right: 24.0, top: 20.0),
           children: <Widget>[
             Text(
-              S.of(context).pwdLogin,
+              S.of(context).smsLogin,
               style: TextStyles.textBlackBold26,
             ),
             Gaps.vGap32,
@@ -151,10 +158,11 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
               onPrefixPressed: _selectArea,
             ),
             Gaps.vGap16,
-            PwdTextField(
-              focusNode: _pwdNode,
-              controller: _pwdController,
+            VerifyTextField(
+              focusNode: _verifyNode,
+              controller: _verifyController,
               onTextChanged: _checkInput,
+              getVCode: _getVCode,
             ),
             Gaps.vGap16,
             GradientButton(
@@ -172,10 +180,10 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
               alignment: Alignment.centerRight,
               child: InkWell(
                 child: Text(
-                  S.of(context).smsLogin,
+                  S.of(context).pwdLogin,
                   style: TextStyles.textGray400_w400_14,
                 ),
-                onTap: _smsLogin,
+                onTap: _pwdLogin,
               ),
             ),
           ],

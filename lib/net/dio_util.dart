@@ -80,12 +80,16 @@ class DioUtil {
 
       LogUtil.e('请求异常: ' + error.toString(), tag: _TAG);
 
+      Map<String, dynamic> dataMap = {
+        Constant.ERRNO: Constant.ERRNO_DIO_ERROR,
+        Constant.MESSAGE: error.message,
+      };
+
       if (errorCallBack != null) {
-        errorCallBack({
-          Constant.ERRNO: Constant.ERRNO_DIO_ERROR,
-          Constant.MESSAGE: error.message,
-        });
+        errorCallBack(dataMap);
       }
+
+      return dataMap;
     }
 
     // debug模式打印相关数据
@@ -101,11 +105,13 @@ class DioUtil {
     Map<String, dynamic> dataMap = json.decode(jsonString);
 
     if (dataMap == null) {
+      dataMap = {
+        Constant.ERRNO: Constant.ERRNO_UNKNOWN,
+        Constant.MESSAGE: Constant.ERRNO_UNKNOWN_MESSAGE,
+      };
+
       if (errorCallBack != null) {
-        errorCallBack({
-          Constant.ERRNO: Constant.ERRNO_UNKNOWN,
-          Constant.MESSAGE: Constant.ERRNO_UNKNOWN_MESSAGE,
-        });
+        errorCallBack(dataMap);
       }
     } else if (dataMap[Constant.ERRNO] != Constant.ERRNO_OK) {
 
@@ -122,6 +128,6 @@ class DioUtil {
         successCallBack(dataMap, response.headers);
       }
     }
+    return dataMap;
   }
-
 }

@@ -3,6 +3,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lighthouse/ui/page/area_page.dart';
 import 'package:lighthouse/ui/page/login_page.dart';
+import 'package:lighthouse/ui/page/login_sms_page.dart';
 import 'package:lighthouse/ui/page/main_page.dart';
 import 'package:lighthouse/ui/page/milestone_page.dart';
 import 'package:lighthouse/ui/page/setting_page.dart';
@@ -18,8 +19,13 @@ var webviewPageHandler = new Handler(
 
 var loginPageHandler = new Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  return LoginPage();
-});
+      return LoginPage();
+    });
+
+var loginSmsPageHandler = new Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+      return LoginSmsPage();
+    });
 
 var areaPageHandler = new Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
