@@ -48,14 +48,8 @@ class _NormalTextFieldState extends State<NormalTextField> {
             hintText: widget.hint,
             contentPadding: EdgeInsets.only(left: 16, right: 10),
             hintStyle: TextStyles.textGray400_w400_14,
-            focusedBorder:  OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(0.0)),
-                borderSide:  BorderSide(color: Colours.white)
-            ),
-            enabledBorder:  OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(0.0)),
-                borderSide:  BorderSide(color: Colours.white)
-            ),
+            focusedBorder: BorderStyles.outlineInputR0White,
+            enabledBorder: BorderStyles.outlineInputR0White,
             suffixIcon: !_isEmptyText() ? IconButton(
               iconSize: 20.0,
               icon: Icon(Icons.close, color: Colours.text_black, size: 20),

@@ -101,7 +101,7 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
         FlutterXUpdate.updateByInfo(
             updateEntity: UpdateEntity(
                 hasUpdate: true,
-                isIgnorable: _upgradeInfo.upgradeType == 1,
+                isIgnorable: false,
                 isForce: _upgradeInfo.upgradeType == 2,
                 versionCode: _upgradeInfo.versionCode,
                 versionName: _upgradeInfo.versionName,

@@ -55,20 +55,20 @@ class S {
     );
   }
 
-  /// `Login`
+  /// `登录`
   String get login {
     return Intl.message(
-      'Login',
+      '登录',
       name: 'login',
       desc: '',
       args: [],
     );
   }
 
-  /// `Welcome Login`
+  /// `欢迎登录`
   String get welcomeLogin {
     return Intl.message(
-      'Welcome Login',
+      '欢迎登录',
       name: 'welcomeLogin',
       desc: '',
       args: [],
@@ -95,10 +95,10 @@ class S {
     );
   }
 
-  /// `Welcome Regist`
+  /// `欢迎注册`
   String get welcomeRegist {
     return Intl.message(
-      'Welcome Regist',
+      '欢迎注册',
       name: 'welcomeRegist',
       desc: '',
       args: [],
@@ -145,30 +145,30 @@ class S {
     );
   }
 
-  /// `Phone Number`
+  /// `手机号`
   String get loginPhone {
     return Intl.message(
-      'Phone Number',
+      '手机号',
       name: 'loginPhone',
       desc: '',
       args: [],
     );
   }
 
-  /// `Please enter your phone number`
+  /// `请输入手机号`
   String get loginPhoneHint {
     return Intl.message(
-      'Please enter your phone number',
+      '请输入手机号',
       name: 'loginPhoneHint',
       desc: '',
       args: [],
     );
   }
 
-  /// `Phone number cannot be empty!`
+  /// `手机号不能为空!`
   String get loginPhoneError {
     return Intl.message(
-      'Phone number cannot be empty!',
+      '手机号不能为空!',
       name: 'loginPhoneError',
       desc: '',
       args: [],
@@ -215,110 +215,160 @@ class S {
     );
   }
 
-  /// `Password`
+  /// `密码`
   String get password {
     return Intl.message(
-      'Password',
+      '密码',
       name: 'password',
       desc: '',
       args: [],
     );
   }
 
-  /// `Please enter your password`
+  /// `请输入密码`
   String get passwordHint {
     return Intl.message(
-      'Please enter your password',
+      '请输入密码',
       name: 'passwordHint',
       desc: '',
       args: [],
     );
   }
 
-  /// `Password cannot be less than 6 digits!`
+  /// `密码不能少于6位!`
   String get passwordError {
     return Intl.message(
-      'Password cannot be less than 6 digits!',
+      '密码不能少于6位!',
       name: 'passwordError',
       desc: '',
       args: [],
     );
   }
 
-  /// `Forget Password?`
+  /// `忘记密码？`
   String get forgetPassword {
     return Intl.message(
-      'Forget Password?',
+      '忘记密码？',
       name: 'forgetPassword',
       desc: '',
       args: [],
     );
   }
 
-  /// `Login Success`
+  /// `登录成功`
   String get loginSuccess {
     return Intl.message(
-      'Login Success',
+      '登录成功',
       name: 'loginSuccess',
       desc: '',
       args: [],
     );
   }
 
-  /// `Register`
+  /// `注册`
   String get register {
     return Intl.message(
-      'Register',
+      '注册',
       name: 'register',
       desc: '',
       args: [],
     );
   }
 
-  /// `Repeat Password`
+  /// `密码`
+  String get newPassword {
+    return Intl.message(
+      '密码',
+      name: 'newPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `重复密码`
   String get repeatPassword {
     return Intl.message(
-      'Repeat Password',
+      '重复密码',
       name: 'repeatPassword',
       desc: '',
       args: [],
     );
   }
 
-  /// `Register Success`
+  /// `修改密码`
+  String get modifyPassword {
+    return Intl.message(
+      '修改密码',
+      name: 'modifyPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `密码不一致`
+  String get passwordNotSame {
+    return Intl.message(
+      '密码不一致',
+      name: 'passwordNotSame',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `修改成功`
+  String get modifySuccess {
+    return Intl.message(
+      '修改成功',
+      name: 'modifySuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `确定修改`
+  String get confirmNotify {
+    return Intl.message(
+      '确定修改',
+      name: 'confirmNotify',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `注册成功`
   String get registerSuccess {
     return Intl.message(
-      'Register Success',
+      '注册成功',
       name: 'registerSuccess',
       desc: '',
       args: [],
     );
   }
 
-  /// `Settings`
+  /// `设置`
   String get settings {
     return Intl.message(
-      'Settings',
+      '设置',
       name: 'settings',
       desc: '',
       args: [],
     );
   }
 
-  /// `Close`
+  /// `关闭`
   String get close {
     return Intl.message(
-      'Close',
+      '关闭',
       name: 'close',
       desc: '',
       args: [],
     );
   }
 
-  /// `Cancel`
+  /// `取消`
   String get cancel {
     return Intl.message(
-      'Cancel',
+      '取消',
       name: 'cancel',
       desc: '',
       args: [],

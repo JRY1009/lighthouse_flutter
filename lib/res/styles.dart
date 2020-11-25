@@ -163,6 +163,11 @@ class BorderStyles {
       borderSide:  BorderSide(color: Colours.border_gray)
   );
 
+  static const OutlineInputBorder outlineInputR0White = OutlineInputBorder(
+      borderRadius: BorderRadius.all(Radius.circular(0.0)),
+      borderSide:  BorderSide(color: Colours.white)
+  );
+
   static const UnderlineInputBorder underlineInputMain = UnderlineInputBorder(
       borderSide:  BorderSide(color: Colours.app_main)
   );

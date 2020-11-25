@@ -14,13 +14,23 @@ class SettingClickBar extends StatefulWidget {
   final Function() onPressed;
 
   final ShapeBorder shape;
+
+  final TextStyle titleStyle;
+
+  final EdgeInsetsGeometry padding;
+
+  final bool iconSpace;
+
   // 构造函数
   SettingClickBar({
     Key key,
     @required this.title,
+    this.titleStyle,
     this.subTitle,
     this.onPressed,
     this.shape,
+    this.padding,
+    this.iconSpace = true
   }) : super(key: key);
 
   @override
@@ -35,11 +45,11 @@ class _SettingClickBarState extends State<SettingClickBar> {
       color: Colours.white,
       shape: widget.shape,
       padding: EdgeInsets.all(0.0),
-      onPressed: widget.onPressed,
+      onPressed: widget.onPressed ?? (){},
       child: Container(
           height: 52.0,
           width: double.infinity,
-          padding: EdgeInsets.only(left: 16, right: 16),
+          padding: widget.padding ?? EdgeInsets.only(left: 16, right: 16),
           decoration: BoxDecoration(
               border: Border(bottom: BorderSide(width: 0.6, color: Colours.default_line))
           ),
@@ -48,7 +58,7 @@ class _SettingClickBarState extends State<SettingClickBar> {
               Expanded(
                 flex: 1,
                 child: Text(widget.title,
-                  style: TextStyles.textGray800_w400_16,
+                  style: widget.titleStyle ?? TextStyles.textGray800_w400_16,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -56,7 +66,6 @@ class _SettingClickBarState extends State<SettingClickBar> {
               Expanded(
                   flex: 1,
                   child: Container(
-                    padding: EdgeInsets.only(right: 5),
                     alignment: Alignment.centerRight,
                     child: Text(widget.subTitle ?? '',
                       style: TextStyles.textGray400_w400_14,
@@ -65,7 +74,7 @@ class _SettingClickBarState extends State<SettingClickBar> {
                     ),
                   )
               ),
-              widget.onPressed != null ? Icon(Icons.keyboard_arrow_right, color: Colours.gray_200, size: 24) : Container(),
+              widget.onPressed != null ? Icon(Icons.keyboard_arrow_right, color: Colours.gray_200, size: 24) : Container(width: widget.iconSpace ? 24 : 0),
             ],
           )),
     );

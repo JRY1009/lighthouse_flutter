@@ -23,6 +23,18 @@ class Account {
 
   String token;
 
+  String get phoneSecret => _getPhoneSecret();
+
+  String _getPhoneSecret() {
+    var t = phone?.split(' ');
+    String secret = t?.last;
+
+    if (secret.length >= 11) {
+      secret = secret.replaceRange(secret.length - 8, secret.length - 4, '****');
+    }
+    return secret;
+  }
+
   Account({
     this.account_id,
     this.phone,

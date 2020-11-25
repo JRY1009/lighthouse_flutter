@@ -7,6 +7,7 @@ import 'package:lighthouse/ui/page/login_sms_page.dart';
 import 'package:lighthouse/ui/page/main_page.dart';
 import 'package:lighthouse/ui/page/milestone_page.dart';
 import 'package:lighthouse/ui/page/modify_nickname_page.dart';
+import 'package:lighthouse/ui/page/modify_pwd_page.dart';
 import 'package:lighthouse/ui/page/setting_page.dart';
 import 'package:lighthouse/ui/page/spot_detail_page.dart';
 import 'package:lighthouse/ui/page/web_view_page.dart';
@@ -47,6 +48,11 @@ var settingPageHandler = new Handler(
 var modifyNicknamePageHandler = new Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
       return ModifyNicknamePage();
+    });
+
+var modifyPwdPageHandler = new Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+      return ModifyPwdPage();
     });
 
 var spotDetailPageHandler = new Handler(

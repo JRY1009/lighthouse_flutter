@@ -15,12 +15,19 @@ class VerifyTextField extends StatefulWidget {
   final TextEditingController controller;
   final Future<bool> Function() getVCode;
 
+  final Color backgroundColor;
+  final InputBorder focusedBorder;
+  final InputBorder enabledBorder;
+
   VerifyTextField({
     Key key,
     @required this.controller,
     this.focusNode,
     this.onTextChanged,
-    this.getVCode
+    this.getVCode,
+    this.backgroundColor,
+    this.focusedBorder,
+    this.enabledBorder
   }) : super(key: key);
 
   @override
@@ -62,6 +69,7 @@ class _VerifyTextFieldState extends State<VerifyTextField> {
   Widget build(BuildContext context) {
     return Container(
         height: 48.0,
+        color: widget.backgroundColor ?? Colours.transparent,
         child: TextField(
           focusNode: widget.focusNode,
           controller: widget.controller,
@@ -75,15 +83,15 @@ class _VerifyTextFieldState extends State<VerifyTextField> {
               hintText: S.of(context).verifyCodeHint,
               contentPadding: EdgeInsets.only(top: 16, bottom: 16),
               hintStyle: TextStyles.textGray400_w400_14,
-              focusedBorder: BorderStyles.underlineInputMain,
-              enabledBorder: BorderStyles.underlineInputGray,
+              focusedBorder: widget.focusedBorder ?? BorderStyles.underlineInputMain,
+              enabledBorder: widget.enabledBorder ?? BorderStyles.underlineInputGray,
               prefixIcon: Container(
                   child: FlatButton(
                     padding: EdgeInsets.all(10.0),
-                    minWidth: 70,
+                    minWidth: 80,
                     onPressed: null,
                     child: Container(
-                        constraints: BoxConstraints(maxWidth: 50),
+                        constraints: BoxConstraints(maxWidth: 60),
                       alignment: Alignment.centerLeft,
                       child: Text(S.of(context).verifyCode, style: TextStyles.textBlack14)
                     ),

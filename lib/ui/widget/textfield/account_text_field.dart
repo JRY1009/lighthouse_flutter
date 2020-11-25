@@ -64,9 +64,9 @@ class _AccountTextFieldState extends State<AccountTextField> {
                 },
                 child: Container(
                     padding: EdgeInsets.all(10.0),
-                    constraints: BoxConstraints(minWidth: 70),
+                    constraints: BoxConstraints(minWidth: 80),
                     child:Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[

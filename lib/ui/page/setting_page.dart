@@ -129,12 +129,12 @@ class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPag
                   onPressed: () => Routers.loginGuardNavigateTo(context, Routers.modifyNicknamePage),
               ),
               SettingClickBar(
-                  title: S.of(context).accountSecurity,
-                  onPressed: () => ToastUtil.normal('点你就是点鸡 2')
+                  title: S.of(context).loginPhone,
+                  subTitle: account?.phoneSecret,
               ),
               SettingClickBar(
-                  title: S.of(context).accountSecurity,
-                  onPressed: () => ToastUtil.normal('点你就是点鸡 3')
+                  title: S.of(context).modifyPassword,
+                onPressed: () => Routers.loginGuardNavigateTo(context, Routers.modifyPwdPage),
               ),
               SettingClickBar(
                   title: S.of(context).accountSecurity,

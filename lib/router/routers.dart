@@ -15,6 +15,7 @@ class Routers {
   static String mainPage = '/mainPage';
   static String settingPage = '/settingPage';
   static String modifyNicknamePage = '/modifyNicknamePage';
+  static String modifyPwdPage = '/modifyPwdPage';
   static String spotDetailPage = '/spotDetailPage';
   static String milestonePage = '/milestonePage';
 
@@ -38,6 +39,7 @@ class Routers {
     router.define(mainPage, handler: mainPageHandler);
     router.define(settingPage, handler: settingPageHandler);
     router.define(modifyNicknamePage, handler: modifyNicknamePageHandler);
+    router.define(modifyPwdPage, handler: modifyPwdPageHandler);
     router.define(spotDetailPage, handler: spotDetailPageHandler);
     router.define(milestonePage, handler: milestonePageHandler);
   }

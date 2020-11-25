@@ -34,16 +34,7 @@ class _MineAppBarState extends State<MineAppBar> {
   Widget build(BuildContext context) {
 
     String title = widget.account != null ? widget.account.account_name : S.of(context).loginNow;
-    String subTitle = widget.account != null ? widget.account.phone : S.of(context).loginGuide;
-    if (widget.account != null) {
-      var t = subTitle?.split(' ');
-      subTitle = t?.last;
-
-      if (subTitle.length >= 11) {
-        subTitle = subTitle.replaceRange(subTitle.length - 8, subTitle.length - 4, '****');
-      }
-    }
-
+    String subTitle = widget.account != null ? widget.account.phoneSecret : S.of(context).loginGuide;
 
     return InkWell(
         onTap: widget.onPressed,
