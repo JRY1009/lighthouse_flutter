@@ -124,9 +124,9 @@ class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPag
                   onPressed: _avatarSelect
               ),
               SettingClickBar(
-                  title: S.of(context).accountSecurity,
-                  subTitle: S.of(context).accountSecurity,
-                  onPressed: () => ToastUtil.normal('点你就是点鸡 1')
+                  title: S.of(context).modifyNickname,
+                  subTitle: account?.account_name,
+                  onPressed: () => Routers.loginGuardNavigateTo(context, Routers.modifyNicknamePage),
               ),
               SettingClickBar(
                   title: S.of(context).accountSecurity,

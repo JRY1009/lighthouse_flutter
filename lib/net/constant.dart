@@ -31,6 +31,7 @@ class Constant {
   static const String URL_VERIFY_CODE = '/user/verifyCode';
   static const String URL_RESET_PASSWORD = '/user/resetPassword';
   static const String URL_GET_ACCOUNT_INFO = '/user/getAccountInfo';
+  static const String URL_SUB_PERSON_DATA = '/user/subPersonData';
 
   static const String URL_GET_MILESTONES = '/friends/previewDailyShare';
   static const String URL_GET_NEWS = '/user/selectAccounts';

@@ -1,5 +1,6 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:lighthouse/net/rt_account.dart';
 import 'package:lighthouse/router/router_handler.dart';
 import 'package:lighthouse/utils/log_util.dart';
 
@@ -13,6 +14,7 @@ class Routers {
   static String areaPage = '/areaPage';
   static String mainPage = '/mainPage';
   static String settingPage = '/settingPage';
+  static String modifyNicknamePage = '/modifyNicknamePage';
   static String spotDetailPage = '/spotDetailPage';
   static String milestonePage = '/milestonePage';
 
@@ -35,6 +37,7 @@ class Routers {
     router.define(areaPage, handler: areaPageHandler);
     router.define(mainPage, handler: mainPageHandler);
     router.define(settingPage, handler: settingPageHandler);
+    router.define(modifyNicknamePage, handler: modifyNicknamePageHandler);
     router.define(spotDetailPage, handler: spotDetailPageHandler);
     router.define(milestonePage, handler: milestonePageHandler);
   }
@@ -95,5 +98,18 @@ class Routers {
     // FocusScope.of(context).unfocus();
     // https://github.com/flutter/flutter/issues/47128#issuecomment-627551073
     FocusManager.instance.primaryFocus?.unfocus();
+  }
+
+
+  static void loginGuardNavigateTo(BuildContext context, String path,
+      {Map<String, dynamic> params,
+        bool clearStack = false,
+        TransitionType transition = TransitionType.cupertino}) {
+
+    if (RTAccount.instance().isLogin()) {
+      Routers.navigateTo(context, path, params: params, clearStack: clearStack, transition:  transition);
+    } else {
+      Routers.navigateTo(context, Routers.loginPage);
+    }
   }
 }

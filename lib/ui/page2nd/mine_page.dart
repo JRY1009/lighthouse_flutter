@@ -55,14 +55,6 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
     super.dispose();
   }
 
-  void _mineAppbarPresed() {
-    if (RTAccount.instance().isLogin()) {
-      Routers.navigateTo(context, Routers.settingPage);
-    } else {
-      Routers.navigateTo(context, Routers.loginPage);
-    }
-  }
-
   void _logout() {
     DialogeUtil.showCupertinoAlertDialog(context,
       title: S.of(context).logout,
@@ -95,7 +87,7 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
           children: <Widget>[
             MineAppBar(
               account: account,
-              onPressed: _mineAppbarPresed,
+              onPressed: () => Routers.loginGuardNavigateTo(context, Routers.settingPage),
               onActionPressed: () => ToastUtil.normal('点你就是点鸡 通知'),
               onAvatarPressed: () => ToastUtil.normal('点你就是点鸡 头像'),
             ),
@@ -118,7 +110,7 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
                               title: S.of(context).accountSecurity,
                               icon: Icon(Icons.security, color: Colours.gray_800, size: 20),
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(14.0))),
-                              onPressed: _mineAppbarPresed
+                              onPressed: () => Routers.loginGuardNavigateTo(context, Routers.settingPage),
                           ),
                           MineClickBar(
                               title: S.of(context).accountSecurity,

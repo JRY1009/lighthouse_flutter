@@ -505,11 +505,61 @@ class S {
     );
   }
 
+  /// `保存`
+  String get save {
+    return Intl.message(
+      '保存',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `保存成功`
+  String get saveSuccess {
+    return Intl.message(
+      '保存成功',
+      name: 'saveSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `我的头像`
   String get myAvatar {
     return Intl.message(
       '我的头像',
       name: 'myAvatar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `修改昵称`
+  String get modifyNickname {
+    return Intl.message(
+      '修改昵称',
+      name: 'modifyNickname',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `请输入昵称`
+  String get modifyNicknameHint {
+    return Intl.message(
+      '请输入昵称',
+      name: 'modifyNicknameHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `*1~12个字符之间，可以汉字，字母和数字组合，不支持设置空格、特殊符号`
+  String get modifyNicknameTips {
+    return Intl.message(
+      '*1~12个字符之间，可以汉字，字母和数字组合，不支持设置空格、特殊符号',
+      name: 'modifyNicknameTips',
       desc: '',
       args: [],
     );
