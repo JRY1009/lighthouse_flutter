@@ -545,6 +545,56 @@ class S {
     );
   }
 
+  /// `清空缓存`
+  String get clearCache {
+    return Intl.message(
+      '清空缓存',
+      name: 'clearCache',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `缓存大小：`
+  String get cacheSize {
+    return Intl.message(
+      '缓存大小：',
+      name: 'cacheSize',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` 是否清空？`
+  String get clearCacheConfirm {
+    return Intl.message(
+      ' 是否清空？',
+      name: 'clearCacheConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `已清空`
+  String get clearCacheSuccess {
+    return Intl.message(
+      '已清空',
+      name: 'clearCacheSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `分享`
+  String get share {
+    return Intl.message(
+      '分享',
+      name: 'share',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `检查更新`
   String get checkUpdate {
     return Intl.message(

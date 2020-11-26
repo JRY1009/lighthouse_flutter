@@ -1,5 +1,6 @@
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bugly/flutter_bugly.dart';
@@ -17,7 +18,9 @@ import 'package:lighthouse/ui/widget/appbar/mine_appbar.dart';
 import 'package:lighthouse/ui/widget/clickbar/mine_clickbar.dart';
 import 'package:lighthouse/ui/widget/common_scroll_view.dart';
 import 'package:lighthouse/ui/widget/dialog/dialog_util.dart';
+import 'package:lighthouse/utils/path_util.dart';
 import 'package:lighthouse/utils/toast_util.dart';
+import 'package:path_provider/path_provider.dart';
 
 class MinePage extends StatefulWidget {
 
@@ -69,6 +72,29 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
     );
   }
 
+  Future<void> _clearCache() async {
+    Directory cacheDir = await getTemporaryDirectory();
+    double cacheSize = await PathUtils.getTotalSizeOfFilesInDir(cacheDir);
+    if (cacheSize > 0) {
+
+      DialogeUtil.showCupertinoAlertDialog(context,
+        title: S.of(context).clearCache,
+        content: S.of(context).cacheSize + PathUtils.renderSize(cacheSize) + S.of(context).clearCacheConfirm,
+        cancel: S.of(context).cancel,
+        confirm: S.of(context).confirm,
+        cancelPressed: () => Navigator.of(context).pop(),
+        confirmPressed: () async {
+          Navigator.of(context).pop();
+          await PathUtils.delDir(cacheDir);
+          ToastUtil.normal(S.of(context).clearCacheSuccess);
+        }
+    );
+
+    } else {
+      ToastUtil.normal(S.of(context).clearCacheSuccess);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -88,8 +114,8 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
             MineAppBar(
               account: account,
               onPressed: () => Routers.loginGuardNavigateTo(context, Routers.settingPage),
-              onActionPressed: () => ToastUtil.normal('点你就是点鸡 通知'),
-              onAvatarPressed: () => ToastUtil.normal('点你就是点鸡 头像'),
+              onActionPressed: () => ToastUtil.normal('点鸡 通知'),
+              onAvatarPressed: () => Routers.loginGuardNavigateTo(context, Routers.settingPage),
             ),
 
             Padding(
@@ -108,23 +134,23 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
                         children: [
                           MineClickBar(
                               title: S.of(context).accountSecurity,
-                              icon: Icon(Icons.security, color: Colours.gray_800, size: 20),
+                              icon: Icon(Icons.security, color: Colours.gray_350, size: 20),
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(14.0))),
                               onPressed: () => Routers.loginGuardNavigateTo(context, Routers.settingPage),
                           ),
                           MineClickBar(
-                              title: S.of(context).accountSecurity,
-                              icon: Icon(Icons.security, color: Colours.gray_800, size: 20),
-                              onPressed: () => ToastUtil.normal('点你就是点鸡 2')
+                              title: S.of(context).clearCache,
+                              icon: Icon(Icons.cleaning_services, color: Colours.gray_350, size: 20),
+                              onPressed: _clearCache
                           ),
                           MineClickBar(
-                              title: S.of(context).accountSecurity,
-                              icon: Icon(Icons.security, color: Colours.gray_800, size: 20),
+                              title: S.of(context).share,
+                              icon: Icon(Icons.share, color: Colours.gray_350, size: 20),
                               onPressed: () => ToastUtil.normal('点你就是点鸡 3')
                           ),
                           MineClickBar(
                               title: S.of(context).checkUpdate,
-                              icon: Icon(Icons.update, color: Colours.gray_800, size: 20),
+                              icon: Icon(Icons.update, color: Colours.gray_350, size: 20),
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(bottom: Radius.circular(14.0))),
                               onPressed: () => FlutterBugly.checkUpgrade()
                           ),

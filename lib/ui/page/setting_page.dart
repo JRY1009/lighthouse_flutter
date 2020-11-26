@@ -1,5 +1,6 @@
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:lighthouse/event/event.dart';
@@ -87,16 +88,16 @@ class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPag
 
   void _logout() {
     DialogeUtil.showCupertinoAlertDialog(context,
-      title: S.of(context).logout,
-      content: S.of(context).logoutConfirm,
-      cancel: S.of(context).cancel,
-      confirm: S.of(context).confirm,
-      cancelPressed: () => Navigator.of(context).pop(),
-      confirmPressed: () {
-        Navigator.of(context).pop();
-        Routers.goBack(context);
-        RTAccount.instance().logout();
-      }
+        title: S.of(context).logout,
+        content: S.of(context).logoutConfirm,
+        cancel: S.of(context).cancel,
+        confirm: S.of(context).confirm,
+        cancelPressed: () => Navigator.of(context).pop(),
+        confirmPressed: () {
+          Navigator.of(context).pop();
+          Routers.goBack(context);
+          RTAccount.instance().logout();
+        }
     );
   }
 
@@ -135,10 +136,6 @@ class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPag
               SettingClickBar(
                   title: S.of(context).modifyPassword,
                 onPressed: () => Routers.loginGuardNavigateTo(context, Routers.modifyPwdPage),
-              ),
-              SettingClickBar(
-                  title: S.of(context).accountSecurity,
-                  onPressed: () => ToastUtil.normal('点你就是点鸡 4')
               ),
 
               Gaps.vGap18,

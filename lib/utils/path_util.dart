@@ -66,4 +66,48 @@ class PathUtils {
     }
     return dir;
   }
+
+  static Future<Null> delDir(FileSystemEntity file) async {
+    if (file is Directory) {
+      final List<FileSystemEntity> children = file.listSync();
+      for (final FileSystemEntity child in children) {
+        await delDir(child);
+      }
+    }
+    await file.delete();
+  }
+
+  static Future getTotalSizeOfFilesInDir(final FileSystemEntity file) async {
+    if (file is File) {
+      int length = await file.length();
+      return double.parse(length.toString());
+    }
+    if (file is Directory) {
+      final List children = file.listSync();
+      double total = 0;
+      if (children != null)
+        for (final FileSystemEntity child in children)
+          total += await getTotalSizeOfFilesInDir(child);
+      return total;
+    }
+    return 0;
+  }
+
+  static String renderSize(double value) {
+    if (null == value) {
+      return null;
+    }
+    List<String> unitArr = List()
+      ..add('B')
+      ..add('K')
+      ..add('M')
+      ..add('G');
+    int index = 0;
+    while (value > 1024) {
+      index++;
+      value = value / 1024;
+    }
+    String size = value.toStringAsFixed(2);
+    return size + unitArr[index];
+  }
 }
