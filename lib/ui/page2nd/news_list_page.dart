@@ -154,10 +154,12 @@ class _NewsListPageState extends State<NewsListPage> with BasePageMixin<NewsList
                   padding: EdgeInsets.all(0.0),
                   itemBuilder: (context, index) {
                     return NewsItem(
+                      index: index,
                       title: _provider.list[index].account_name,
                       time: _provider.list[index].created_at,
                       author: _provider.list[index].city,
                       imageUrl: _provider.list[index].avatar_300,
+                      isLast: index == (_provider.list.length - 1),
                     );
                   },
                   itemCount: _provider.list.length,

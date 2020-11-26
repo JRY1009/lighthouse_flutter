@@ -1,93 +1,143 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/res/colors.dart';
+import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/ui/widget/image/round_image.dart';
+import 'package:lighthouse/ui/widget/DashLine.dart';
+import 'package:lighthouse/ui/widget/image/local_image.dart';
 
-/// 资讯列表详情
 class NewsItem extends StatelessWidget {
 
+  final int index;
   final String newsUrl;
   final String imageUrl;
   final String title;
   final String author;
   final String time;
+  final bool isLast;
 
   const NewsItem(
       {Key key,
-        this.newsUrl = '',
-        this.imageUrl = '',
-        this.title = '',
-        this.author = '',
+        this.index,
+        this.newsUrl,
+        this.imageUrl,
+        this.title,
+        this.author,
+        this.isLast = false,
         this.time
       })
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
-      onPressed: () {},
-      padding: EdgeInsets.all(0.0),
+    return InkWell(
+      onTap: () {},
       child: Container(
-        height: 100.0,
         width: double.infinity,
-        decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(width: 0.6, color: Colours.default_line))
-        ),
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              flex: 1,
-              child: Container(
-                  padding: EdgeInsets.fromLTRB(17, 18, 10, 17),
-                  child: Column(
+        child: IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                height: double.infinity,
+                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                child: Column(
+                    mainAxisSize: MainAxisSize.max,
                     children: <Widget>[
-                      Expanded(
-                        child: Container(
-                          alignment: Alignment.topLeft,
-                          child: Text(title + '的快乐撒娇的刻录机萨克来得及奥斯卡了佳度了佳度科拉了佳度科拉了佳度科拉科拉屎佳度科拉屎觉得',
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
-                              style: TextStyles.textGray800_w400_15
-                          ),
-                        ),
+                      Container(
+                        width: 0.6,
+                        height: 26,
+                        child: index == 0 ? null : DashLine(strokeWidth: 0.6, color: Colours.gray_200, gap: 3),
                       ),
                       Container(
+                        width: 6,
+                        height: 6,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(3)),
+                          color: Colours.app_main,
+                        ),
+                      ),
+                      Expanded(
+                        child: DashLine(strokeWidth: 0.6, color: Colours.gray_200, gap: 3),
+                      ),
+                    ]
+                ),
+
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  padding: EdgeInsets.fromLTRB(0, 20, 18, isLast ? 20 : 6),
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 20,
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Icon(Icons.web, color: Colours.app_main, size: 16),
-                            Container(
-                              margin: EdgeInsets.only(left: 5),
-                              alignment: Alignment.centerLeft,
-                              child: Text(author, style: TextStyles.textGray400_w400_12),
+                            Text((time ?? '11:11'),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyles.textMain12
                             ),
-                            Expanded(
-                                child: Container(
-                                  margin: EdgeInsets.only(right: 5),
-                                  alignment: Alignment.centerRight,
-                                  child: Text(time??'11-11 11:11',
-                                    style: TextStyles.textGray500_w400_12,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                )
-                            ),
+                            Text(author ?? '',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyles.textGray500_w400_12
+                            )
                           ],
                         ),
                       ),
+
+                      Container(
+                        margin: EdgeInsets.only(top: 10),
+                        alignment: Alignment.centerLeft,
+                        child: Text((title ?? '') + '外媒：中国季节性矿工迁移致BTC算力下降哥哥哥',
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
+                            style: TextStyles.textGray800_w400_16
+                        )
+                      ),
+
+                      Container(
+                          margin: EdgeInsets.only(top: 10),
+                          alignment: Alignment.centerLeft,
+                          child: Text((title ?? '') + '外媒：中国季节性矿工迁移致BTC算力下降外媒：中国季节性矿工迁移致BTC算力下降外媒：中国季节性矿工迁移致BTC算力下降外媒：中国季节性矿工迁移致BTC算力下降外媒：中国季节性矿工迁移致BTC算力下降外媒：中国季节性矿工迁移致BTC算力下降',
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
+                              style: TextStyles.textGray800_w400_14
+                          )
+                      ),
+
+                      Container(
+                        margin: EdgeInsets.only(top: 10),
+                        height: 20,
+                        alignment: Alignment.centerLeft,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(S.of(context).share,
+                                style: TextStyles.textGray500_w400_12
+                            ),
+                            Gaps.hGap4,
+                            Container(
+                              margin: EdgeInsets.only(top: 2),
+                              child: LocalImage('icon_share', width: 12, height: 12),
+                            )
+
+                          ],
+                        ),
+                      )
                     ],
-                  )),
-            ),
-            Container(
-              margin: EdgeInsets.only(right: 18),
-              child: RoundImage(imageUrl ?? '',
-                width: 88,
-                height: 66,
-                borderRadius: BorderRadius.all(Radius.circular(8)),
+                  ),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
