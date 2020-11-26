@@ -2,6 +2,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lighthouse/ui/page/area_page.dart';
+import 'package:lighthouse/ui/page/global_quote_page.dart';
 import 'package:lighthouse/ui/page/login_page.dart';
 import 'package:lighthouse/ui/page/login_sms_page.dart';
 import 'package:lighthouse/ui/page/main_page.dart';
@@ -59,6 +60,11 @@ var spotDetailPageHandler = new Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
       String spotCoin = params['spotCoin']?.first;
       return SpotDetailPage();
+    });
+
+var globalQuotePageHandler = new Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+      return GlobalQuotePage();
     });
 
 var milestonePageHandler = new Handler(

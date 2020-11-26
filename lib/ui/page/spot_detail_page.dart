@@ -35,10 +35,7 @@ class SpotDetailPage extends StatefulWidget {
   _SpotDetailPageState createState() => _SpotDetailPageState();
 }
 
-class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<SpotDetailPage>, AutomaticKeepAliveClientMixin<SpotDetailPage>, SingleTickerProviderStateMixin {
-
-  @override
-  bool get wantKeepAlive => true;
+class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<SpotDetailPage>, SingleTickerProviderStateMixin {
 
   List<GlobalKey<BasePageMixin>> _keyList;
   List<String> _tabTitles ;
@@ -130,7 +127,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+
     return Scaffold(
         backgroundColor: Colours.gray_100,
         appBar: AppBar(

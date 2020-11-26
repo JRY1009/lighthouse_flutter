@@ -4,6 +4,7 @@ import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
+import 'package:lighthouse/router/routers.dart';
 import 'package:lighthouse/ui/widget/image/local_image.dart';
 import 'package:lighthouse/utils/image_util.dart';
 import 'package:lighthouse/utils/toast_util.dart';
@@ -46,7 +47,7 @@ class _HomeQuoteTreemapBarState extends State<HomeQuoteTreemapBar> {
           Expanded(
               flex: 1,
               child: InkWell(
-                  onTap: () => ToastUtil.normal('点我'),
+                  onTap: () => Routers.navigateTo(context, Routers.globalQuotePage),
                   child: Container(
                     height: 82,
                     decoration: BoxDecoration(
