@@ -19,6 +19,7 @@ import 'package:lighthouse/ui/widget/appbar/spot_detail_appbar.dart';
 import 'package:lighthouse/ui/widget/appbar/spot_detail_kline_bar.dart';
 import 'package:lighthouse/ui/widget/button/back_button.dart';
 import 'package:lighthouse/ui/widget/common_scroll_view.dart';
+import 'package:lighthouse/ui/widget/dialog/dialog_util.dart';
 import 'package:lighthouse/ui/widget/shot_view.dart';
 import 'package:lighthouse/ui/widget/tab/bubble_indicator.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
@@ -39,8 +40,6 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
 
   List<GlobalKey<BasePageMixin>> _keyList;
   List<String> _tabTitles ;
-
-  ShotController _shotController = new ShotController();
 
   ScrollController _nestedController = ScrollController();
   final _nestedRefreshKey = GlobalKey<NestedScrollViewRefreshIndicatorState>();
@@ -125,120 +124,130 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
     }
   }
 
+  Future<void> _share() async {
+
+    Uint8List pngBytes = await _keyList[0]?.currentState.screenShot();
+
+    DialogUtil.showShareDialog(context,
+        children: [
+          Container(
+              height: 56,
+              width: double.infinity,
+              alignment: Alignment.center,
+              color: Colours.white,
+              child: Text('BTC', style: TextStyles.textBlack16)
+          ),
+          Container(
+            color: Colours.gray_100,
+            child: Column(
+              children: [
+                SpotDetailAppbar(showShadow: false),
+                SpotDetailKLineBar(),
+                Image.memory(pngBytes),
+              ],
+            ),
+          ),
+        ]
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
-        backgroundColor: Colours.gray_100,
-        appBar: AppBar(
-            leading: BackButtonEx(),
-            elevation: 0,
-            brightness: Brightness.light,
-            backgroundColor: Colours.white,
-            actions: <Widget>[
-              IconButton(
-                  icon: Icon(Icons.share, color: Colours.black,),
-                  onPressed: () async {
-                    Uint8List pngBytes = await _shotController.makeImageUint8List();
-
-                    Navigator.push(context, new MaterialPageRoute(builder: (_) {
-                      return Scaffold(
-                          appBar: AppBar(
-                            title: Text('shot widget'),
-                          ),
-                          body: CommonScrollView(
-                            children: [
-                              Image.memory(pngBytes),
-                            ],
-                          )
-                      );
-                    }));
-                  }),
-            ],
-            centerTitle: true,
-            title: _titleBuilder()
-        ),
-        body: NestedScrollViewRefreshIndicator(
-            key: _nestedRefreshKey,
-            onRefresh: _refresh,
-            child: NotificationListener<ScrollNotification>(
-              onNotification: (ScrollNotification notification) {
-                if (notification.depth == 0 && notification is ScrollUpdateNotification) {
-                  _scrollNotify(notification.metrics.pixels);
-                }
-                return false;
-              },
-              child: ShotView(
-                controller: _shotController,
-                child: extended.NestedScrollView(
-                  physics: const ClampingScrollPhysics(),
-                  pinnedHeaderSliverHeightBuilder: () {
-                    return 0;
-                  },
-                  innerScrollPositionKeyBuilder: () {
-                    return Key(_tabTitles[_tabController.index]);
-                  },
-                  headerSliverBuilder: (context, innerBoxIsScrolled) => _headerSliverBuilder(context),
-                  body: Column(
-                    children: <Widget>[
-                      Container(
-                        height: 40,
-                        margin: EdgeInsets.symmetric(horizontal: 12, vertical: 9),
-                        decoration: BoxDecoration(
-                          color: Colours.white,
-                          borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                          boxShadow: BoxShadows.normalBoxShadow,
-                        ),
-                        child: TabBar(
-                          controller: _tabController,
-                          labelColor: Colours.gray_800,
-                          indicatorColor: Colours.gray_100,
-                          unselectedLabelColor: Colours.gray_500,
-                          indicatorSize: TabBarIndicatorSize.tab,
-                          indicator: new BubbleTabIndicator(
-                            insets: const EdgeInsets.symmetric(horizontal: 3),
-                            indicatorHeight: 34.0,
-                            indicatorRadius: 14,
-                            indicatorColor: Colours.gray_100,
-                            tabBarIndicatorSize: TabBarIndicatorSize.tab,
-                          ),
-                          isScrollable: false,
-                          tabs: <Tab>[
-                            Tab(text: _tabTitles[0]),
-                            Tab(text: _tabTitles[1]),
-                            Tab(text: _tabTitles[2]),
-                            Tab(text: _tabTitles[3]),
-                          ],
-                        ),
-                      ),
-
-                      Expanded(
-                        child: TabBarView(
-                          controller: _tabController,
-                          children: <Widget>[
-                            extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[0]), SpotBriefInfoPage(key: _keyList[0])),
-                            extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[1]), SpotQuotePage(key: _keyList[1])),
-                            extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[2]), SpotDataPage(key: _keyList[2])),
-                            extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[3]),
-                                Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 12 , vertical: 9),
-                                  decoration: BoxDecoration(
-                                    color: Colours.white,
-                                    borderRadius: BorderRadius.all(Radius.circular(14.0)),
-                                    boxShadow: BoxShadows.normalBoxShadow,
-                                  ),
-                                  child: ArticleListPage(key: _keyList[3], isSupportPull: false),
-                                )
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  )
-              ),
+      backgroundColor: Colours.gray_100,
+      appBar: AppBar(
+          leading: BackButtonEx(),
+          elevation: 0,
+          brightness: Brightness.light,
+          backgroundColor: Colours.white,
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(Icons.share, color: Colours.black,),
+                onPressed: _share
             ),
+          ],
+          centerTitle: true,
+          title: _titleBuilder()
+      ),
+      body: NestedScrollViewRefreshIndicator(
+        key: _nestedRefreshKey,
+        onRefresh: _refresh,
+        child: NotificationListener<ScrollNotification>(
+          onNotification: (ScrollNotification notification) {
+            if (notification.depth == 0 && notification is ScrollUpdateNotification) {
+              _scrollNotify(notification.metrics.pixels);
+            }
+            return false;
+          },
+          child: extended.NestedScrollView(
+              physics: const ClampingScrollPhysics(),
+              pinnedHeaderSliverHeightBuilder: () {
+                return 0;
+              },
+              innerScrollPositionKeyBuilder: () {
+                return Key(_tabTitles[_tabController.index]);
+              },
+              headerSliverBuilder: (context, innerBoxIsScrolled) => _headerSliverBuilder(context),
+              body: Column(
+                children: <Widget>[
+                  Container(
+                    height: 40,
+                    margin: EdgeInsets.symmetric(horizontal: 12, vertical: 9),
+                    decoration: BoxDecoration(
+                      color: Colours.white,
+                      borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                      boxShadow: BoxShadows.normalBoxShadow,
+                    ),
+                    child: TabBar(
+                      controller: _tabController,
+                      labelColor: Colours.gray_800,
+                      indicatorColor: Colours.gray_100,
+                      unselectedLabelColor: Colours.gray_500,
+                      indicatorSize: TabBarIndicatorSize.tab,
+                      indicator: new BubbleTabIndicator(
+                        insets: const EdgeInsets.symmetric(horizontal: 3),
+                        indicatorHeight: 34.0,
+                        indicatorRadius: 14,
+                        indicatorColor: Colours.gray_100,
+                        tabBarIndicatorSize: TabBarIndicatorSize.tab,
+                      ),
+                      isScrollable: false,
+                      tabs: <Tab>[
+                        Tab(text: _tabTitles[0]),
+                        Tab(text: _tabTitles[1]),
+                        Tab(text: _tabTitles[2]),
+                        Tab(text: _tabTitles[3]),
+                      ],
+                    ),
+                  ),
+
+                  Expanded(
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: <Widget>[
+                        extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[0]), SpotBriefInfoPage(key: _keyList[0])),
+                        extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[1]), SpotQuotePage(key: _keyList[1])),
+                        extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[2]), SpotDataPage(key: _keyList[2])),
+                        extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[3]),
+                            Container(
+                              margin: EdgeInsets.symmetric(horizontal: 12 , vertical: 9),
+                              decoration: BoxDecoration(
+                                color: Colours.white,
+                                borderRadius: BorderRadius.all(Radius.circular(14.0)),
+                                boxShadow: BoxShadows.normalBoxShadow,
+                              ),
+                              child: ArticleListPage(key: _keyList[3], isSupportPull: false),
+                            )
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              )
           ),
-        )
+        ),
+      ),
     );
   }
 

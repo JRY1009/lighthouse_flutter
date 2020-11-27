@@ -1,5 +1,6 @@
 
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ import 'package:lighthouse/ui/item/spot_brief_info_item.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/widget/common_scroll_view.dart';
 import 'package:lighthouse/ui/widget/easyrefresh/first_refresh.dart';
+import 'package:lighthouse/ui/widget/shot_view.dart';
 import 'package:lighthouse/utils/other_util.dart';
 import 'package:lighthouse/utils/toast_util.dart';
 
@@ -33,6 +35,8 @@ class _SpotBriefInfoPageState extends State<SpotBriefInfoPage> with BasePageMixi
   @override
   bool get wantKeepAlive => true;
 
+  ShotController _shotController = new ShotController();
+
   List<SpotBriefInfo> _briefList = [];
   bool _init = false;
 
@@ -45,6 +49,11 @@ class _SpotBriefInfoPageState extends State<SpotBriefInfoPage> with BasePageMixi
   @override
   void dispose() {
     super.dispose();
+  }
+
+  @override
+  Future<Uint8List> screenShot() {
+    return _shotController.makeImageUint8List();
   }
 
   @override
@@ -92,6 +101,7 @@ class _SpotBriefInfoPageState extends State<SpotBriefInfoPage> with BasePageMixi
   Widget build(BuildContext context) {
     super.build(context);
     return !_init ? FirstRefresh() : CommonScrollView(
+      shotController: _shotController,
       physics: ClampingScrollPhysics(),
       children: [
         Container(

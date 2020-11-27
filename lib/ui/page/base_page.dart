@@ -1,4 +1,6 @@
 
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:lighthouse/router/routers.dart';
 import 'package:lighthouse/ui/widget/dialog/loading_dialog.dart';
@@ -10,6 +12,9 @@ abstract class IBasePage {
 
   // 刷新
   Future<void> refresh({slient = false});
+
+  // 截图
+  Future<Uint8List> screenShot();
 
   // 显示Progress
   void showProgress({String content, bool showContent = true});
@@ -30,6 +35,11 @@ mixin BasePageMixin<T extends StatefulWidget> on State<T> implements IBasePage {
 
   @override
   Future<void> refresh({slient = false}) {
+
+  }
+
+  @override
+  Future<Uint8List> screenShot() {
 
   }
 

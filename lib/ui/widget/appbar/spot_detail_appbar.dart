@@ -14,11 +14,13 @@ import 'package:lighthouse/utils/image_util.dart';
 class SpotDetailAppbar extends StatefulWidget {
 
   final Account account;
+  final bool showShadow;
   final VoidCallback onPressed;
 
   const SpotDetailAppbar({
     Key key,
     this.account,
+    this.showShadow = true,
     this.onPressed,
   }): super(key: key);
 
@@ -51,7 +53,7 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
       margin: EdgeInsets.only(bottom: 9),
       decoration: BoxDecoration(
         color: Colours.white,
-        boxShadow: BoxShadows.normalBoxShadow,
+        boxShadow: !widget.showShadow ? null : BoxShadows.normalBoxShadow,
       ),
       child: Row (
         children: [
