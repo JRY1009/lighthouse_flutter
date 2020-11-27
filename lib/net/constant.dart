@@ -35,4 +35,7 @@ class Constant {
 
   static const String URL_GET_MILESTONES = '/friends/previewDailyShare';
   static const String URL_GET_NEWS = '/user/selectAccounts';
+
+
+  static const String URL_OFFICIAL_WEBSITE = 'https://www.baidu.com';
 }

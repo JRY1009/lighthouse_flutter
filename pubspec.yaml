@@ -44,10 +44,13 @@ dependencies:
   lpinyin: ^1.1.0
   image_picker: ^0.6.7+14
   image_cropper: ^1.3.1
+  image_gallery_saver: ^1.6.6
   photo_view: ^0.10.2
   fl_chart: ^0.12.0
   flutter_bugly: ^0.3.0+2
   flutter_xupdate: ^1.0.0
+  qr_flutter: ^3.1.0
+  share: ^0.6.5+4
 
   # WebView插件 https://github.com/flutter/plugins/tree/master/packages/webview_flutter
   webview_flutter: ^1.0.6

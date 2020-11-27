@@ -158,9 +158,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
             centerTitle: true,
             title: _titleBuilder()
         ),
-        body: ShotView(
-          controller: _shotController,
-          child: NestedScrollViewRefreshIndicator(
+        body: NestedScrollViewRefreshIndicator(
             key: _nestedRefreshKey,
             onRefresh: _refresh,
             child: NotificationListener<ScrollNotification>(
@@ -170,7 +168,9 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
                 }
                 return false;
               },
-              child: extended.NestedScrollView(
+              child: ShotView(
+                controller: _shotController,
+                child: extended.NestedScrollView(
                   physics: const ClampingScrollPhysics(),
                   pinnedHeaderSliverHeightBuilder: () {
                     return 0;
@@ -227,7 +227,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
                                     borderRadius: BorderRadius.all(Radius.circular(14.0)),
                                     boxShadow: BoxShadows.normalBoxShadow,
                                   ),
-                                  child: ArticleListPage(key: _keyList[2], isSupportPull: false),
+                                  child: ArticleListPage(key: _keyList[3], isSupportPull: false),
                                 )
                             )
                           ],

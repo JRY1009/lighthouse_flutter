@@ -625,6 +625,16 @@ class S {
     );
   }
 
+  /// `保存失败`
+  String get saveFailed {
+    return Intl.message(
+      '保存失败',
+      name: 'saveFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `我的头像`
   String get myAvatar {
     return Intl.message(
@@ -1020,6 +1030,16 @@ class S {
     return Intl.message(
       '更多',
       name: 'shareMore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `长按二维码识别下载`
+  String get shareQRDownload {
+    return Intl.message(
+      '长按二维码识别下载',
+      name: 'shareQRDownload',
       desc: '',
       args: [],
     );

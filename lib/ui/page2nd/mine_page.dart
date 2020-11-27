@@ -18,6 +18,7 @@ import 'package:lighthouse/ui/widget/appbar/mine_appbar.dart';
 import 'package:lighthouse/ui/widget/clickbar/mine_clickbar.dart';
 import 'package:lighthouse/ui/widget/common_scroll_view.dart';
 import 'package:lighthouse/ui/widget/dialog/dialog_util.dart';
+import 'package:lighthouse/ui/widget/dialog/share_widget.dart';
 import 'package:lighthouse/utils/path_util.dart';
 import 'package:lighthouse/utils/toast_util.dart';
 import 'package:path_provider/path_provider.dart';

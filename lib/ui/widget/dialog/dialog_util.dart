@@ -1,7 +1,4 @@
 
-
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/ui/widget/dialog/avatar_select_dialog.dart';
@@ -58,14 +55,15 @@ class DialogUtil {
         });
   }
 
-  static void showShareDialog(BuildContext context) {
+  static void showShareDialog(BuildContext context, {List<Widget> children}) {
 
     showModalBottomSheet(
         context: context,
+        isScrollControlled: children != null,
         backgroundColor: Colours.transparent,
         builder: (context) {
           return ShareDialog(
-            crop: false,
+            children: children,
           );
         });
   }

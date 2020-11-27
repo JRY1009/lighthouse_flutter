@@ -13,6 +13,8 @@ import 'package:lighthouse/ui/item/global_quote_item.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/widget/button/back_button.dart';
 import 'package:lighthouse/ui/widget/common_scroll_view.dart';
+import 'package:lighthouse/ui/widget/dialog/dialog_util.dart';
+import 'package:lighthouse/ui/widget/dialog/share_widget.dart';
 import 'package:lighthouse/ui/widget/easyrefresh/first_refresh.dart';
 import 'package:lighthouse/ui/widget/shot_view.dart';
 import 'package:lighthouse/utils/image_util.dart';
@@ -89,6 +91,20 @@ class _GlobalQuotePageState extends State<GlobalQuotePage> with BasePageMixin<Gl
     setState((){});
   }
 
+  Future<void> _share() async {
+    Uint8List pngBytes = await _shotController.makeImageUint8List();
+
+    DialogUtil.showShareDialog(context,
+      children: [
+        ShareQRHeader(),
+        Container(
+          color: Colours.gray_100,
+          child: Image.memory(pngBytes),
+        )
+      ]
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -101,32 +117,17 @@ class _GlobalQuotePageState extends State<GlobalQuotePage> with BasePageMixin<Gl
             backgroundColor: Colours.white,
             actions: <Widget>[
               IconButton(
-                  icon: Icon(Icons.share, color: Colours.black,),
-                  onPressed: () async {
-                    Uint8List pngBytes = await _shotController.makeImageUint8List();
-
-                    Navigator.push(context, new MaterialPageRoute(builder: (_) {
-                      return Scaffold(
-                          appBar: AppBar(
-                            title: Text('shot widget'),
-                          ),
-                          body: CommonScrollView(
-                            children: [
-                              Image.memory(pngBytes),
-                            ],
-                          )
-                      );
-                    }));
-                  }),
+                  icon: Icon(Icons.share, color: Colours.black),
+                  onPressed: _share,
+              )
             ],
             centerTitle: true,
             title: Text(S.of(context).globalQuote, style: TextStyles.textBlack18)
         ),
-        body: ShotView(
-          controller: _shotController,
-          child: RefreshIndicator(
+        body: RefreshIndicator(
             onRefresh: _requestData,
             child: !_init ? FirstRefresh() : CommonScrollView(
+              shotController: _shotController,
               physics: ClampingScrollPhysics(),
               children: [
                 Stack(
@@ -193,7 +194,6 @@ class _GlobalQuotePageState extends State<GlobalQuotePage> with BasePageMixin<Gl
               ],
             )
           ),
-        )
     );
   }
 

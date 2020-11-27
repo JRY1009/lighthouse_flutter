@@ -30,21 +30,21 @@ class GlobalQuoteItem extends StatelessWidget {
     return Container(
       height: 107.0,
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 13),
+      padding: EdgeInsets.fromLTRB(12, 13, 0, 13),
       decoration: BoxDecoration(
-          border: Border.all(color: Colours.gray_200, width: 1.0),
-          borderRadius: BorderRadius.circular(8.0),   //圆角
+        border: Border.all(color: Colours.gray_200, width: 1.0),
+        borderRadius: BorderRadius.circular(8.0),   //圆角
       ),
       child: Column (
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            alignment: Alignment.centerLeft,
-            child: Text('BTC/USDT',
-              style: TextStyles.textBlack13,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            )
+              alignment: Alignment.centerLeft,
+              child: Text('BTC/USDT',
+                style: TextStyles.textBlack13,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              )
           ),
           Container(
             margin: EdgeInsets.only(top: 9),
@@ -60,15 +60,19 @@ class GlobalQuoteItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('+123.33', style: TextStyles.textRed_w400_10,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                Container(
+                  child: Text('+123.33', style: TextStyles.textRed_w400_10,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
                 Gaps.hGap10,
-                Text('+10.01%', style: TextStyles.textRed_w400_10,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
+                Expanded(
+                  child: Text('+10.01%', style: TextStyles.textRed_w400_10,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                )
               ],
             ),
           ),

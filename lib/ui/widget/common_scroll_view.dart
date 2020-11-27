@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 import 'package:keyboard_actions/keyboard_actions_config.dart';
+import 'package:lighthouse/ui/widget/shot_view.dart';
 
 /// 本项目通用的布局（SingleChildScrollView）
 /// 1.底部存在按钮
@@ -22,6 +23,7 @@ class CommonScrollView extends StatelessWidget {
     this.keyboardConfig,
     this.tapOutsideToDismiss = false,
     this.overScroll = 16.0,
+    this.shotController
   }): super(key: key);
 
   final List<Widget> children;
@@ -35,10 +37,18 @@ class CommonScrollView extends StatelessWidget {
   /// 默认弹起位置在TextField的文字下面，可以添加此属性继续向上滑动一段距离。用来露出完整的TextField。
   final double overScroll;
 
+  final ShotController shotController;
+
   @override
   Widget build(BuildContext context) {
 
-    Widget contents = Column(
+    Widget contents = shotController != null ? ShotView(
+      controller: shotController,
+      child: Column(
+        crossAxisAlignment: crossAxisAlignment,
+        children: children,
+      ),
+    ): Column(
       crossAxisAlignment: crossAxisAlignment,
       children: children,
     );

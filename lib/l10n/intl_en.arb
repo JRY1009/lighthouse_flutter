@@ -58,6 +58,7 @@
   "checkUpdate": "检查更新",
   "save": "保存",
   "saveSuccess": "保存成功",
+  "saveFailed": "保存失败",
   "myAvatar": "我的头像",
   "modifyNickname": "修改昵称",
   "modifyNicknameHint": "请输入昵称",
@@ -97,5 +98,6 @@
   "shareWechat": "微信",
   "shareFriend": "朋友圈",
   "shareSave": "保存",
-  "shareMore": "更多"
+  "shareMore": "更多",
+  "shareQRDownload": "长按二维码识别下载"
 }

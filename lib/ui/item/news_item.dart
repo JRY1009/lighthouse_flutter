@@ -1,9 +1,13 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/widget/DashLine.dart';
+import 'package:lighthouse/ui/widget/dialog/dialog_util.dart';
+import 'package:lighthouse/ui/widget/dialog/share_widget.dart';
 import 'package:lighthouse/ui/widget/image/local_image.dart';
 
 class NewsItem extends StatelessWidget {
@@ -28,6 +32,62 @@ class NewsItem extends StatelessWidget {
       })
       : super(key: key);
 
+  Future<void> _share(BuildContext context) async {
+
+    DialogUtil.showShareDialog(context,
+        children: [
+          ShareNewsHeader(),
+          Container(
+            color: Colours.white,
+            padding: EdgeInsets.fromLTRB(16, 20, 18, isLast ? 20 : 6),
+            child: Column(
+              children: [
+                Container(
+                    margin: EdgeInsets.only(top: 10),
+                    alignment: Alignment.centerLeft,
+                    child: Text((title ?? '') + '外媒：中国季节性矿工迁移致BTC算力下降哥哥哥',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
+                        style: TextStyles.textGray800_w400_16
+                    )
+                ),
+                Container(
+                  height: 20,
+                  margin: EdgeInsets.only(top: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text((time ?? '11:11'),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyles.textMain12
+                      ),
+                      Text(author ?? '',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyles.textGray500_w400_12
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                    margin: EdgeInsets.only(top: 10),
+                    alignment: Alignment.centerLeft,
+                    child: Text((title ?? '') + '外媒：中国季节性矿工迁移致BTC算力下降外媒：中国季节性矿工迁移致BTC算力下降外媒：中国季节性矿工迁移致BTC算力下降外媒：中国季节性矿工迁移致BTC算力下降外媒：中国季节性矿工迁移致BTC算力下降外媒：中国季节性矿工迁移致BTC算力下降',
+                        strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
+                        style: TextStyles.textGray800_w400_14
+                    )
+                ),
+
+              ],
+            ),
+          ),
+          ShareQRFoooter()
+        ]
+    );
+  }
+  
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -111,27 +171,31 @@ class NewsItem extends StatelessWidget {
                           )
                       ),
 
-                      Container(
-                        margin: EdgeInsets.only(top: 10),
-                        height: 20,
-                        alignment: Alignment.centerLeft,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(S.of(context).share,
-                                style: TextStyles.textGray500_w400_12
-                            ),
-                            Gaps.hGap4,
-                            Container(
-                              margin: EdgeInsets.only(top: 2),
-                              child: LocalImage('icon_share', width: 12, height: 12),
-                            )
+                      InkWell(
+                        onTap: () => _share(context),
+                        child: Container(
+                          margin: EdgeInsets.only(top: 10),
+                          height: 20,
+                          alignment: Alignment.centerLeft,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(S.of(context).share,
+                                  style: TextStyles.textGray500_w400_12
+                              ),
+                              Gaps.hGap4,
+                              Container(
+                                margin: EdgeInsets.only(top: 2),
+                                child: LocalImage('icon_share', width: 12, height: 12),
+                              )
 
-                          ],
-                        ),
+                            ],
+                          ),
+                        )
                       )
+                      
                     ],
                   ),
                 ),
