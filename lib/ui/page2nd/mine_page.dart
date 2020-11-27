@@ -59,7 +59,7 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
   }
 
   void _logout() {
-    DialogeUtil.showCupertinoAlertDialog(context,
+    DialogUtil.showCupertinoAlertDialog(context,
       title: S.of(context).logout,
       content: S.of(context).logoutConfirm,
       cancel: S.of(context).cancel,
@@ -77,7 +77,7 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
     double cacheSize = await PathUtils.getTotalSizeOfFilesInDir(cacheDir);
     if (cacheSize > 0) {
 
-      DialogeUtil.showCupertinoAlertDialog(context,
+      DialogUtil.showCupertinoAlertDialog(context,
         title: S.of(context).clearCache,
         content: S.of(context).cacheSize + PathUtils.renderSize(cacheSize) + S.of(context).clearCacheConfirm,
         cancel: S.of(context).cancel,
@@ -146,7 +146,7 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
                           MineClickBar(
                               title: S.of(context).share,
                               icon: Icon(Icons.share, color: Colours.gray_350, size: 20),
-                              onPressed: () => ToastUtil.normal('点你就是点鸡 3')
+                              onPressed: () => DialogUtil.showShareDialog(context)
                           ),
                           MineClickBar(
                               title: S.of(context).checkUpdate,

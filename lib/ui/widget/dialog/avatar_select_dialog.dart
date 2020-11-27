@@ -144,9 +144,6 @@ class AvatarSelectDialog extends StatelessWidget {
                       alignment: Alignment.center,
                       height: 56.0,
                       width: double.infinity,
-                      decoration: BoxDecoration(
-                          border: Border(bottom: BorderSide(width: 0.6, color: Colours.default_line))
-                      ),
                       child: Text(S.of(context).cancel,
                         style: TextStyles.textGray800_w400_16,
                         maxLines: 1,

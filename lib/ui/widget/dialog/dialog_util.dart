@@ -6,9 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/ui/widget/dialog/avatar_select_dialog.dart';
 import 'package:lighthouse/ui/widget/dialog/cupertino_alert_dialog.dart';
+import 'package:lighthouse/ui/widget/dialog/share_dialog.dart';
 import 'package:lighthouse/utils/object_util.dart';
 
-class DialogeUtil {
+class DialogUtil {
 
   static void showCupertinoAlertDialog(BuildContext context,
       {String title, String content, String cancel, String confirm, Function cancelPressed, Function confirmPressed}) {
@@ -42,7 +43,6 @@ class DialogeUtil {
         });
   }
 
-
   static void showAvatarSelectDialog(BuildContext context,
       {bool crop, ValueChanged<String> selectCallback, Function viewCallback}) {
 
@@ -54,6 +54,18 @@ class DialogeUtil {
               crop: crop,
               selectCallback: selectCallback,
               viewCallback: viewCallback,
+          );
+        });
+  }
+
+  static void showShareDialog(BuildContext context) {
+
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: Colours.transparent,
+        builder: (context) {
+          return ShareDialog(
+            crop: false,
           );
         });
   }

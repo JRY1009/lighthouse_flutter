@@ -57,7 +57,7 @@ class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPag
   }
 
   void _avatarSelect() {
-    DialogeUtil.showAvatarSelectDialog(context,
+    DialogUtil.showAvatarSelectDialog(context,
       crop: true,
       selectCallback: (path) {
         ToastUtil.normal(path);
@@ -87,7 +87,7 @@ class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPag
   }
 
   void _logout() {
-    DialogeUtil.showCupertinoAlertDialog(context,
+    DialogUtil.showCupertinoAlertDialog(context,
         title: S.of(context).logout,
         content: S.of(context).logoutConfirm,
         cancel: S.of(context).cancel,

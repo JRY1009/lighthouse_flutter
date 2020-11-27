@@ -69,7 +69,7 @@ class SpotBriefInfoItem extends StatelessWidget {
               ),
             ),
             showDetail ? InkWell(
-              onTap: () => DialogeUtil.showCupertinoAlertDialog(context,
+              onTap: () => DialogUtil.showCupertinoAlertDialog(context,
                   title: title,
                   content: title,
                   confirm: S.of(context).confirm,

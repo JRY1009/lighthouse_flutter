@@ -984,6 +984,46 @@ class S {
       args: [],
     );
   }
+
+  /// `微信`
+  String get shareWechat {
+    return Intl.message(
+      '微信',
+      name: 'shareWechat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `朋友圈`
+  String get shareFriend {
+    return Intl.message(
+      '朋友圈',
+      name: 'shareFriend',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `保存`
+  String get shareSave {
+    return Intl.message(
+      '保存',
+      name: 'shareSave',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `更多`
+  String get shareMore {
+    return Intl.message(
+      '更多',
+      name: 'shareMore',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

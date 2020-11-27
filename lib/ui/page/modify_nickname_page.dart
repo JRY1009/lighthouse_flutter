@@ -34,7 +34,9 @@ class _ModifyNicknamePageState extends State<ModifyNicknamePage> with BasePageMi
   void initState() {
     Account account = RTAccount.instance().getActiveAccount();
     _textController.text = account?.account_name;
-    
+
+    _checkInput();
+
     super.initState();
   }
 
