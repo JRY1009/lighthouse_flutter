@@ -11,6 +11,7 @@ import 'package:lighthouse/ui/page/modify_nickname_page.dart';
 import 'package:lighthouse/ui/page/modify_pwd_page.dart';
 import 'package:lighthouse/ui/page/setting_page.dart';
 import 'package:lighthouse/ui/page/spot_detail_page.dart';
+import 'package:lighthouse/ui/page/treemap_page.dart';
 import 'package:lighthouse/ui/page/web_view_page.dart';
 
 var webviewPageHandler = new Handler(
@@ -65,6 +66,11 @@ var spotDetailPageHandler = new Handler(
 var globalQuotePageHandler = new Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
       return GlobalQuotePage();
+    });
+
+var treemapPageHandler = new Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+      return TreemapPage();
     });
 
 var milestonePageHandler = new Handler(

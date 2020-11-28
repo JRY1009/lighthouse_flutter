@@ -96,7 +96,7 @@ class _HomeQuoteTreemapBarState extends State<HomeQuoteTreemapBar> {
           Expanded(
               flex: 1,
               child: InkWell(
-                  onTap: () => ToastUtil.normal('点我2'),
+                  onTap: () => Routers.navigateTo(context, Routers.treemapPage),
                   child: Container(
                     height: 82,
                     decoration: BoxDecoration(

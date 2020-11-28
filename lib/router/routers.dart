@@ -18,6 +18,7 @@ class Routers {
   static String modifyPwdPage = '/modifyPwdPage';
   static String spotDetailPage = '/spotDetailPage';
   static String globalQuotePage = '/globalQuotePage';
+  static String treemapPage = '/treemapPage';
   static String milestonePage = '/milestonePage';
 
   static void init() {
@@ -43,6 +44,7 @@ class Routers {
     router.define(modifyPwdPage, handler: modifyPwdPageHandler);
     router.define(spotDetailPage, handler: spotDetailPageHandler);
     router.define(globalQuotePage, handler: globalQuotePageHandler);
+    router.define(treemapPage, handler: treemapPageHandler);
     router.define(milestonePage, handler: milestonePageHandler);
   }
 
