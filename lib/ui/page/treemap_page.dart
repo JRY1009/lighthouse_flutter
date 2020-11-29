@@ -3,6 +3,7 @@ import 'dart:core';
 import 'package:flutter/services.dart';
 import 'package:flutter_echarts/flutter_echarts.dart';
 import 'package:lighthouse/generated/l10n.dart';
+import 'package:lighthouse/ui/widget/easyrefresh/first_refresh.dart';
 import 'package:lighthouse/utils/toast_util.dart';
 import 'package:flutter/material.dart';
 import 'package:lighthouse/res/colors.dart';
@@ -19,6 +20,8 @@ class TreemapPage extends StatefulWidget {
 }
 
 class _TreemapPageState extends State<TreemapPage> {
+
+  bool _init = false;
 
   @override
   Widget build(BuildContext context) {
@@ -96,24 +99,19 @@ class _TreemapPageState extends State<TreemapPage> {
                     value: [10, 0],
                 },
                 {
-                    name: 'nodeB',            // First tre
-                    colorMappingBy: 'value',    // First leaf of first tree
+                    name: 'nodeB',
                     value: [6, 1],
-                    visualDimension: 1
                 },
                 {
-                    name: 'nodeC',            // Firs
-                    colorMappingBy: 'value',    // First leaf of first tree
+                    name: 'nodeC',
                     value: [5, 2]
                 },
                 {
-                    name: 'nodeD',            // Firs
-                    colorMappingBy: 'value',    // First leaf of first tree
+                    name: 'nodeD',
                     value: [5, 2]
                 },
                 {
-                    name: 'nodeE',            // Firs
-                    colorMappingBy: 'value',    // First leaf of first tree
+                    name: 'nodeE',
                     value: [4, 3]
                 },
                 ]

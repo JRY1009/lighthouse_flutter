@@ -37,12 +37,14 @@ class DioUtil {
 //get请求
   Future get(String url, {Map<String, dynamic> params, Function successCallBack,
       Function errorCallBack}) async {
+    dio.options.baseUrl = Constant.BASE_URL_YAPI;
     return _requstHttp(url, successCallBack, 'get', params, errorCallBack);
   }
 
   //post请求
   Future post(String url, {Map<String, dynamic> params, Function successCallBack,
       Function errorCallBack}) async {
+    dio.options.baseUrl = Constant.BASE_URL;
     return _requstHttp(url, successCallBack, "post", params, errorCallBack);
   }
 
@@ -120,8 +122,14 @@ class DioUtil {
         RTAccount.instance().logout();
       }
 
-      if (errorCallBack != null) {
-        errorCallBack(dataMap);
+      if (method == 'get') {
+        if (successCallBack != null) {
+          successCallBack(dataMap, response.headers);
+        }
+      } else {
+        if (errorCallBack != null) {
+          errorCallBack(dataMap);
+        }
       }
     } else {
       if (successCallBack != null) {

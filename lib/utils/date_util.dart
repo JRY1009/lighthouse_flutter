@@ -12,6 +12,7 @@ enum DateFormat {
   YEAR_MONTH_DAY_HOUR_MINUTE, //yyyy-MM-dd HH:mm
   YEAR_MONTH_DAY, //yyyy-MM-dd
   YEAR_MONTH, //yyyy-MM
+  YEAR_ONLY, //yyyy
   MONTH_DAY, //MM-dd
   MONTH_DAY_HOUR_MINUTE, //MM-dd HH:mm
   HOUR_MINUTE_SECOND, //HH:mm:ss
@@ -22,6 +23,7 @@ enum DateFormat {
   ZH_YEAR_MONTH_DAY_HOUR_MINUTE, //yyyy年MM月dd日 HH时mm分  /  timeSeparate: ":" --> yyyy年MM月dd日 HH:mm
   ZH_YEAR_MONTH_DAY, //yyyy年MM月dd日
   ZH_YEAR_MONTH, //yyyy年MM月
+  ZH_YEAR_ONLY, //yyyy年
   ZH_MONTH_DAY, //MM月dd日
   ZH_MONTH_DAY_HOUR_MINUTE, //MM月dd日 HH时mm分  /  timeSeparate: ":" --> MM月dd日 HH:mm
   ZH_HOUR_MINUTE_SECOND, //HH时mm分ss秒
@@ -182,6 +184,9 @@ class DateUtil {
       case DateFormat.ZH_YEAR_MONTH: //yyyy年MM月
         time = time.substring(0, "yyyy年MM月".length);
         break;
+      case DateFormat.ZH_YEAR_ONLY: //yyyy年
+        time = time.substring(0, "yyyy年".length);
+        break;
       case DateFormat.ZH_MONTH_DAY: //MM月dd日
         time = time.substring("yyyy年".length, "yyyy年MM月dd日".length);
         break;
@@ -228,6 +233,9 @@ class DateUtil {
         break;
       case DateFormat.YEAR_MONTH: //yyyy-MM
         time = time.substring(0, "yyyy-MM".length);
+        break;
+      case DateFormat.YEAR_ONLY: //yyyy
+        time = time.substring(0, "yyyy".length);
         break;
       case DateFormat.MONTH_DAY: //MM-dd
         time = time.substring("yyyy-".length, "yyyy-MM-dd".length);

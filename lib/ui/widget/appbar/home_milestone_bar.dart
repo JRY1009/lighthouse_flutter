@@ -86,8 +86,8 @@ class _HomeMileStoneBarState extends State<HomeMileStoneBar>{
             itemBuilder: (context, index) {
               return MileStoneItem(
                 index: index,
-                content: widget.mileStones[index].daily_desc,
-                time: widget.mileStones[index].created_at,
+                content: widget.mileStones[index].content,
+                time: widget.mileStones[index].date,
                 isLast: index == (min(widget.mileStones.length, 3) - 1),
               );
             },

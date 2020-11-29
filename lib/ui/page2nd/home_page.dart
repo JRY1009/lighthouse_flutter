@@ -79,16 +79,18 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
 
   Future<void> _requestData() {
     Map<String, dynamic> params = {
-      'sex': 2,
+      'tag': 'bitcoin',
+      'page_num': 0,
+      'page_size': 3,
     };
 
-    return DioUtil.getInstance().post(Constant.URL_GET_MILESTONES, params: params,
+    return DioUtil.getInstance().get(Constant.URL_GET_MILESTONES, params: params,
         successCallBack: (data, headers) {
           if (data == null || data['data'] == null) {
             return;
           }
 
-          List<MileStone> dataList = MileStone.fromJsonList(data['data']) ?? [];
+          List<MileStone> dataList = MileStone.fromJsonList(data['data']['records']) ?? [];
           _mileStones.clear();
           _mileStones.addAll(dataList);
         },

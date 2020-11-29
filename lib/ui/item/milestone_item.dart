@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
+import 'package:lighthouse/utils/date_util.dart';
 
 class MileStoneItem extends StatelessWidget {
 
@@ -35,7 +36,7 @@ class MileStoneItem extends StatelessWidget {
                     children: <Widget>[
                       Container(
                         alignment: Alignment.topLeft,
-                        child: Text('2020',
+                        child: Text(DateUtil.getDateStrByTimeStr(time, format: DateFormat.YEAR_ONLY),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyles.textGray400_w400_12
@@ -44,7 +45,9 @@ class MileStoneItem extends StatelessWidget {
                       Container(
                         alignment: Alignment.topLeft,
                         margin: EdgeInsets.only(top: 3.0),
-                        child: Text('11/11', style: TextStyles.textGray800_w400_15),
+                        child: Text(DateUtil.getDateStrByTimeStr(time, format: DateFormat.MONTH_DAY, dateSeparate: '/'),
+                            style: TextStyles.textGray800_w400_15
+                        ),
                       ),
                     ],
                   )

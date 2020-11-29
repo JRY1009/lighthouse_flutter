@@ -89,20 +89,19 @@ class _MileStoneListPageState extends State<MileStoneListPage> with BasePageMixi
 
   Future<void> _requestData() {
     Map<String, dynamic> params = {
-      'auth': 1,
-      'sort': 1,
-      'page': _page,
+      'tag': 'bitcoin',
+      'page_num': _page,
       'page_size': _pageSize,
     };
 
-    return DioUtil.getInstance().post(Constant.URL_GET_NEWS, params: params,
+    return DioUtil.getInstance().get(Constant.URL_GET_MILESTONES, params: params,
         successCallBack: (data, headers) {
           if (data == null || data['data'] == null) {
             _finishRequest(success: false, noMore: false);
             return;
           }
 
-          List<MileStone> newsList = MileStone.fromJsonList(data['data']['account_info']) ?? [];
+          List<MileStone> newsList = MileStone.fromJsonList(data['data']['records']) ?? [];
           if (_page == 0) {
             _listProvider.clear();
             _listProvider.addAll(newsList);
@@ -158,8 +157,8 @@ class _MileStoneListPageState extends State<MileStoneListPage> with BasePageMixi
                   itemBuilder: (context, index) {
                     return MileStoneItem(
                       index: index,
-                      content: _provider.list[index].daily_desc,
-                      time: _provider.list[index].created_at,
+                      content: _provider.list[index].content,
+                      time: _provider.list[index].date,
                       isLast: index == (_provider.list.length - 1),
                     );
                   },

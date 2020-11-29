@@ -91,7 +91,6 @@ flutter:
   assets:
     - assets/images/
     - assets/files/
-    - assets/echarts/
 
 flutter_intl:
   enabled: true

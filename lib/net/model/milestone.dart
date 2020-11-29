@@ -3,23 +3,23 @@ import 'package:lighthouse/utils/object_util.dart';
 
 class MileStone {
 
-  String daily_desc;
-  String created_at ;
+  String content;
+  String date ;
 
   MileStone({
-    this.daily_desc,
-    this.created_at,
+    this.content,
+    this.date,
   });
 
   MileStone.fromJson(Map<String, dynamic> jsonMap) {
-    daily_desc = jsonMap['daily_desc'];
-    created_at = jsonMap['created_at'];
+    content = jsonMap['content'];
+    date = jsonMap['date'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> jsonMap = new Map<String, dynamic>();
-    jsonMap['daily_desc'] = this.daily_desc;
-    jsonMap['created_at'] = this.created_at;
+    jsonMap['content'] = this.content;
+    jsonMap['created_at'] = this.date;
 
     return jsonMap;
   }
