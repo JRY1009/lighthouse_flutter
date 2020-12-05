@@ -96,6 +96,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "proTradePlatformData" : MessageLookupByLibrary.simpleMessage("交易平台数据"),
     "pwdLogin" : MessageLookupByLibrary.simpleMessage("密码登录"),
     "quote" : MessageLookupByLibrary.simpleMessage("行情"),
+    "quoteDefinition" : MessageLookupByLibrary.simpleMessage("BTC/ETH为实时行情数据，其余数据为15分钟延时报价；"),
     "register" : MessageLookupByLibrary.simpleMessage("注册"),
     "registerSuccess" : MessageLookupByLibrary.simpleMessage("注册成功"),
     "repeatPassword" : MessageLookupByLibrary.simpleMessage("重复密码"),

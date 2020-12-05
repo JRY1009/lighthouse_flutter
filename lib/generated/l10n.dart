@@ -745,6 +745,16 @@ class S {
     );
   }
 
+  /// `BTC/ETH为实时行情数据，其余数据为15分钟延时报价；`
+  String get quoteDefinition {
+    return Intl.message(
+      'BTC/ETH为实时行情数据，其余数据为15分钟延时报价；',
+      name: 'quoteDefinition',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `里程碑`
   String get milestone {
     return Intl.message(

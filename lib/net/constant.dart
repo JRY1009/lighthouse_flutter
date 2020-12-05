@@ -23,7 +23,7 @@ class Constant {
 
   static const String PRIVATE_KEY = "5ffF03b858D5Fd16";       //测试环境
   static const String BASE_URL = 'http://testapi.paomian.co';  //测试环境
-  static const String BASE_URL_YAPI = 'https://yapi.baidu.com/mock/14427/gateway';  //测试环境
+  static const String BASE_URL_YAPI = 'http://81.70.145.64:8083/gateway';  //测试环境
 
   static bool get isTestEnvironment => (BASE_URL == 'http://testapi.paomian.co');
 
@@ -35,6 +35,8 @@ class Constant {
   static const String URL_SUB_PERSON_DATA = '/user/subPersonData';
 
   static const String URL_GET_MILESTONES = '/milestone';
+  static const String URL_GET_TREEMAP = '/thermodynamic_diagram';
+
   static const String URL_GET_NEWS = '/user/selectAccounts';
 
 

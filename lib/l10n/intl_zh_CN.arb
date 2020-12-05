@@ -70,6 +70,7 @@
   "all": "全部",
   "globalQuote": "全球行情",
   "treemap": "热力图",
+  "quoteDefinition": "BTC/ETH为实时行情数据，其余数据为15分钟延时报价；",
   "milestone": "里程碑",
   "blockMileStone": "区块链里程碑",
   "latestInfo": "最新资讯",
