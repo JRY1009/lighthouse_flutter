@@ -3,13 +3,13 @@ import 'dart:core';
 import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_echarts/flutter_echarts.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
 import 'package:lighthouse/net/model/tree_node.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/ui/provider/list_provider.dart';
+import 'package:lighthouse/ui/widget/chart/inapp_echart.dart';
 import 'package:lighthouse/ui/widget/dialog/dialog_util.dart';
 import 'package:lighthouse/ui/widget/dialog/share_widget.dart';
 import 'package:lighthouse/ui/widget/easyrefresh/first_refresh.dart';
@@ -36,6 +36,7 @@ class _TreemapPageState extends State<TreemapPage> {
 
   bool _init = false;
 
+  final _echartKey = GlobalKey<InappEchartsState>();
   ShotController _shotController = new ShotController();
 
   @override
@@ -88,13 +89,21 @@ class _TreemapPageState extends State<TreemapPage> {
 
   Future<void> _share() async {
     Uint8List pngBytes = await _shotController.makeImageUint8List();
-
+    Uint8List webBytes = await _echartKey?.currentState.webviewController.takeScreenshot();
     DialogUtil.showShareDialog(context,
         children: [
           ShareQRHeader(),
-          Container(
-            color: Colours.gray_100,
-            child: Image.memory(pngBytes),
+          Stack(
+            children: [
+              Container(
+                color: Colours.white,
+                child: Image.memory(pngBytes),
+              ),
+              Container(
+                color: Colours.white,
+                child: Image.memory(webBytes),
+              )
+            ],
           )
         ]
     );
@@ -123,7 +132,8 @@ class _TreemapPageState extends State<TreemapPage> {
             children: [
               Expanded (
                 child: Container(
-                  child: !_init ? FirstRefresh() : Echarts(
+                  child: !_init ? FirstRefresh() : InappEcharts(
+                    key: _echartKey,
                     option: '''
             {
             series: [{
@@ -149,7 +159,7 @@ class _TreemapPageState extends State<TreemapPage> {
                         itemStyle: {
                             borderColor: '#fff',
                             borderWidth: 1,
-                            gapWidth: 1,
+                            gapWidth: 2,
                         },
 
                     }
@@ -160,14 +170,14 @@ class _TreemapPageState extends State<TreemapPage> {
                         if (params.value[1] >= 0) {
                           var arr = [
                               '{name|' + params.name + '}',
-                              '{label|' + params.value[1] + '}',
+                              '{label|' + params.value[1] + '%'  + '}',
                           ];
           
                           return arr.join('\\n');
                         } else {
                           var arr = [
                               '{name2|' + params.name + '}',
-                              '{label2|' + params.value[1] + '}',
+                              '{label2|' + params.value[1] + '%' + '}',
                           ];
           
                           return arr.join('\\n');

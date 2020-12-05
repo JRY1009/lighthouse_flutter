@@ -53,6 +53,7 @@ dependencies:
   qr_flutter: ^3.1.0
   share: ^0.6.5+4
 
+  flutter_inappwebview: ^4.0.0+4
   # WebView插件 https://github.com/flutter/plugins/tree/master/packages/webview_flutter
   webview_flutter: ^1.0.6
   # 图片缓存 https://github.com/renefloor/flutter_cached_network_image
