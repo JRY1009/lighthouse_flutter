@@ -3,31 +3,27 @@ import 'package:lighthouse/utils/object_util.dart';
 
 class SpotBriefInfo {
 
-  String account_name;
-  String city;
-  String created_at ;
-  String avatar_300;
+  String key;
+  String title;
+  String value ;
 
   SpotBriefInfo({
-    this.account_name,
-    this.city,
-    this.created_at,
-    this.avatar_300,
+    this.key,
+    this.title,
+    this.value,
   });
 
   SpotBriefInfo.fromJson(Map<String, dynamic> jsonMap) {
-    account_name = jsonMap['account_name'];
-    city = jsonMap['city'];
-    created_at = jsonMap['created_at'];
-    avatar_300 = jsonMap['avatar_300'];
+    key = jsonMap['key'];
+    title = jsonMap['title'];
+    value = jsonMap['value'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> jsonMap = new Map<String, dynamic>();
-    jsonMap['account_name'] = this.account_name;
-    jsonMap['city'] = this.city;
-    jsonMap['created_at'] = this.created_at;
-    jsonMap['avatar_300'] = this.avatar_300;
+    jsonMap['key'] = this.key;
+    jsonMap['title'] = this.title;
+    jsonMap['value'] = this.value;
 
     return jsonMap;
   }

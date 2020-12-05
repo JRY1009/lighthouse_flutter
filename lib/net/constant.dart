@@ -35,7 +35,9 @@ class Constant {
   static const String URL_SUB_PERSON_DATA = '/user/subPersonData';
 
   static const String URL_GET_MILESTONES = '/milestone';
+  static const String URL_GET_GLOBAL_QUOTE = '/global_quote';
   static const String URL_GET_TREEMAP = '/thermodynamic_diagram';
+  static const String URL_GET_CHAIN_DETAIL = '/chain/detail';
 
   static const String URL_GET_NEWS = '/user/selectAccounts';
 

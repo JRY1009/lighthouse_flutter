@@ -58,20 +58,16 @@ class _GlobalQuotePageState extends State<GlobalQuotePage> with BasePageMixin<Gl
   Future<void> _requestData() {
 
     Map<String, dynamic> params = {
-      'auth': 1,
-      'sort': 1,
-      'page': 0,
-      'page_size': 10,
     };
 
-    return DioUtil.getInstance().post(Constant.URL_GET_NEWS, params: params,
+    return DioUtil.getInstance().get(Constant.URL_GET_GLOBAL_QUOTE, params: params,
         successCallBack: (data, headers) {
           if (data == null || data['data'] == null) {
             _finishRequest(success: false);
             return;
           }
 
-          List<GlobalQuote> briefList = GlobalQuote.fromJsonList(data['data']['account_info']) ?? [];
+          List<GlobalQuote> briefList = GlobalQuote.fromJsonList(data['data']) ?? [];
 
           _dataList.clear();
           _dataList.addAll(briefList);
@@ -181,9 +177,10 @@ class _GlobalQuotePageState extends State<GlobalQuotePage> with BasePageMixin<Gl
                           itemBuilder: (_, index) {
                             return GlobalQuoteItem(
                               index: index,
-                              tradePlatform: '',
-                              price: '12345.22',
-                              rate: '10.11%',
+                              name: _dataList[index].zh_name,
+                              price: _dataList[index].quote,
+                              change: _dataList[index].change_amount,
+                              rate: _dataList[index].change_percent,
                             );
                           },
                         )

@@ -2,32 +2,35 @@
 import 'package:lighthouse/utils/object_util.dart';
 
 class GlobalQuote {
-
-  String account_name;
-  String city;
-  String created_at ;
-  String avatar_300;
+  String code;
+  String zh_name;
+  double quote ;
+  double change_amount;
+  double change_percent;
 
   GlobalQuote({
-    this.account_name,
-    this.city,
-    this.created_at,
-    this.avatar_300,
+    this.code,
+    this.zh_name,
+    this.quote,
+    this.change_amount,
+    this.change_percent,
   });
 
   GlobalQuote.fromJson(Map<String, dynamic> jsonMap) {
-    account_name = jsonMap['account_name'];
-    city = jsonMap['city'];
-    created_at = jsonMap['created_at'];
-    avatar_300 = jsonMap['avatar_300'];
+    code = jsonMap['code'];
+    zh_name = jsonMap['zh_name'];
+    quote = jsonMap['quote'];
+    change_amount = jsonMap['change_amount'];
+    change_percent = jsonMap['change_percent'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> jsonMap = new Map<String, dynamic>();
-    jsonMap['account_name'] = this.account_name;
-    jsonMap['city'] = this.city;
-    jsonMap['created_at'] = this.created_at;
-    jsonMap['avatar_300'] = this.avatar_300;
+    jsonMap['code'] = this.code;
+    jsonMap['zh_name'] = this.zh_name;
+    jsonMap['quote'] = this.quote;
+    jsonMap['change_amount'] = this.change_amount;
+    jsonMap['change_percent'] = this.change_percent;
 
     return jsonMap;
   }

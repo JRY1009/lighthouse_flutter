@@ -71,17 +71,13 @@ class SpotBriefInfoItem extends StatelessWidget {
             showDetail ? InkWell(
               onTap: () => DialogUtil.showCupertinoAlertDialog(context,
                   title: title,
-                  content: title,
+                  content: subTitle,
                   confirm: S.of(context).confirm,
                   confirmPressed: () => Navigator.of(context).pop()
               ),
               child: Icon(Icons.info_outline, color: Colours.gray_400, size: 20),
             ) : Container(),
-            Expanded(
-                flex: 1,
-                child: Container()
-            ),
-            Container(
+            Expanded(child: Container(
               padding: EdgeInsets.only(right: 5),
               alignment: Alignment.centerRight,
               child: Text(subTitle ?? '',
@@ -89,7 +85,8 @@ class SpotBriefInfoItem extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
-            )
+            ))
+
           ],
         )
     );

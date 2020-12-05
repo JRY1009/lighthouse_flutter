@@ -7,9 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
+import 'package:lighthouse/net/model/friend_link.dart';
+import 'package:lighthouse/net/model/milestone.dart';
 import 'package:lighthouse/net/model/spot_brief_info.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
+import 'package:lighthouse/router/routers.dart';
 import 'package:lighthouse/ui/item/milestone_item.dart';
 import 'package:lighthouse/ui/item/spot_brief_info_item.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
@@ -38,6 +41,9 @@ class _SpotBriefInfoPageState extends State<SpotBriefInfoPage> with BasePageMixi
   ShotController _shotController = new ShotController();
 
   List<SpotBriefInfo> _briefList = [];
+  List<FriendLink> _friendLinkList = [];
+  List<MileStone> _milestoneList = [];
+
   bool _init = false;
 
   @override
@@ -64,23 +70,29 @@ class _SpotBriefInfoPageState extends State<SpotBriefInfoPage> with BasePageMixi
   Future<void> _requestData() {
 
     Map<String, dynamic> params = {
-      'auth': 1,
-      'sort': 1,
-      'page': 0,
-      'page_size': 10,
+      'chain': 'bitcoin',
     };
 
-    return DioUtil.getInstance().post(Constant.URL_GET_NEWS, params: params,
+    return DioUtil.getInstance().get(Constant.URL_GET_CHAIN_DETAIL, params: params,
         successCallBack: (data, headers) {
           if (data == null || data['data'] == null) {
             _finishRequest(success: false);
             return;
           }
 
-          List<SpotBriefInfo> briefList = SpotBriefInfo.fromJsonList(data['data']['account_info']) ?? [];
+          List<SpotBriefInfo> briefList = SpotBriefInfo.fromJsonList(data['data']['chain_detail']) ?? [];
+          List<FriendLink> linkList = FriendLink.fromJsonList(data['data']['friend_link']) ?? [];
+          List<MileStone> milestoneList = FriendLink.fromJsonList(data['data']['milestone']) ?? [];
 
           _briefList.clear();
           _briefList.addAll(briefList);
+
+          _friendLinkList.clear();
+          _friendLinkList.addAll(linkList);
+
+          _milestoneList.clear();
+          _milestoneList.addAll(milestoneList);
+
           _finishRequest(success: true);
         },
         errorCallBack: (error) {
@@ -120,9 +132,9 @@ class _SpotBriefInfoPageState extends State<SpotBriefInfoPage> with BasePageMixi
                   itemBuilder: (context, index) {
                     return SpotBriefInfoItem(
                       index: index,
-                      title: _briefList[index].account_name,
-                      subTitle: _briefList[index].city,
-                      showDetail: index == 2,
+                      title: _briefList[index].title,
+                      subTitle: _briefList[index].value,
+                      showDetail: _briefList[index].value.length > 30,
                     );
                   },
                   itemCount: _briefList.length,
@@ -142,13 +154,13 @@ class _SpotBriefInfoPageState extends State<SpotBriefInfoPage> with BasePageMixi
                     crossAxisCount: 3,
                     childAspectRatio: 5.0,
                   ),
-                  itemCount: _briefList.length,
+                  itemCount: _friendLinkList.length,
                   itemBuilder: (_, index) {
                     return Text.rich(
                         TextSpan(
-                          text: _briefList[index].account_name,
+                          text: _friendLinkList[index].name,
                           style: TextStyles.textMain14,
-                          recognizer: new TapGestureRecognizer()..onTap = () => OtherUtil.launchURL('https://www.baidu.com/'),
+                          recognizer: new TapGestureRecognizer()..onTap = () => OtherUtil.launchURL(_friendLinkList[index].url),
                         )
                     );
                   },
@@ -169,26 +181,29 @@ class _SpotBriefInfoPageState extends State<SpotBriefInfoPage> with BasePageMixi
               Container(
                 margin: const EdgeInsets.fromLTRB(15, 18, 16, 9),
                 height: 20,
-                child: Row(
-                  children: [
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: Text(S.of(context).blockMileStone,
-                        style: TextStyles.textGray800_w400_14,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                child: InkWell(
+                  onTap: () => Routers.navigateTo(context, Routers.milestonePage),
+                  child: Row(
+                    children: [
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child: Text(S.of(context).blockMileStone,
+                          style: TextStyles.textGray800_w400_14,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: Container(),
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: Text(S.of(context).all, style: TextStyles.textGray400_w400_12),
-                    ),
-                    Icon(Icons.keyboard_arrow_right, color: Colours.gray_400, size: 16),
-                  ],
-                ),
+                      Expanded(
+                        child: Container(),
+                      ),
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child: Text(S.of(context).all, style: TextStyles.textGray400_w400_12),
+                      ),
+                      Icon(Icons.keyboard_arrow_right, color: Colours.gray_400, size: 16),
+                    ],
+                  ),
+                )
               ),
 
               ListView.builder(
@@ -198,12 +213,12 @@ class _SpotBriefInfoPageState extends State<SpotBriefInfoPage> with BasePageMixi
                 itemBuilder: (context, index) {
                   return MileStoneItem(
                     index: index,
-                    content: _briefList[index].account_name,
-                    time: _briefList[index].account_name,
-                    isLast: index == (min(_briefList.length, 3) - 1),
+                    content: _milestoneList[index].content,
+                    time: _milestoneList[index].date,
+                    isLast: index == (min(_milestoneList.length, 3) - 1),
                   );
                 },
-                itemCount: min(_briefList.length, 3),
+                itemCount: min(_milestoneList.length, 3),
               ),
             ],
           ),

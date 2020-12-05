@@ -9,18 +9,21 @@ class GlobalQuoteItem extends StatelessWidget {
 
   final int index;
 
-  final String tradePlatform;
+  final String name;
 
-  final String price;
+  final double price;
 
-  final String rate;
+  final double change;
+
+  final double rate;
 
 
   const GlobalQuoteItem(
       {Key key,
         this.index,
-        this.tradePlatform,
+        this.name,
         this.price,
+        this.change,
         this.rate,
       })
       : super(key: key);
@@ -40,7 +43,7 @@ class GlobalQuoteItem extends StatelessWidget {
         children: [
           Container(
               alignment: Alignment.centerLeft,
-              child: Text('BTC/USDT',
+              child: Text(name ?? '',
                 style: TextStyles.textBlack13,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -49,7 +52,7 @@ class GlobalQuoteItem extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(top: 9),
             alignment: Alignment.centerLeft,
-            child: Text('\$12332.12', style: TextStyles.textRed_w400_14,
+            child: Text(price.toString(), style: rate >= 0 ? TextStyles.textRed_w400_14 : TextStyles.textGreen_w400_14,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,),
           ),
@@ -61,14 +64,14 @@ class GlobalQuoteItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  child: Text('+123.33', style: TextStyles.textRed_w400_10,
+                  child: Text((change >= 0 ? '+' : '') + change.toString(), style: rate >= 0 ? TextStyles.textRed_w400_10 : TextStyles.textGreen_w400_10,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 Gaps.hGap10,
                 Expanded(
-                  child: Text('+10.01%', style: TextStyles.textRed_w400_10,
+                  child: Text((rate >= 0 ? '+' : '') + rate.toString() + '%', style: rate >= 0 ? TextStyles.textRed_w400_10 : TextStyles.textGreen_w400_10,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
