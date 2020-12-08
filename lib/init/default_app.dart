@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bugly/flutter_bugly.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_xupdate/flutter_xupdate.dart';
 import 'package:lighthouse/generated/l10n.dart';

@@ -14,7 +14,8 @@ class LocalImage extends StatelessWidget {
     this.cacheHeight,
     this.fit,
     this.format = ImageFormat.png,
-    this.color
+    this.color,
+    this.gaplessPlayback = false
   }): super(key: key);
 
   final String image;
@@ -25,6 +26,7 @@ class LocalImage extends StatelessWidget {
   final BoxFit fit;
   final ImageFormat format;
   final Color color;
+  final bool gaplessPlayback;
   
   @override
   Widget build(BuildContext context) {
@@ -39,6 +41,7 @@ class LocalImage extends StatelessWidget {
       color: color,
       /// 忽略图片语义
       excludeFromSemantics: true,
+      gaplessPlayback: gaplessPlayback,
     );
   }
 }

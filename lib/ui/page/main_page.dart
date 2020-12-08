@@ -17,6 +17,7 @@ import 'package:lighthouse/ui/page2nd/info_page.dart';
 import 'package:lighthouse/ui/page2nd/mine_page.dart';
 import 'package:lighthouse/ui/page2nd/money_page.dart';
 import 'package:lighthouse/ui/provider/main_provider.dart';
+import 'package:lighthouse/ui/widget/image/frame_animation_image.dart';
 import 'package:lighthouse/ui/widget/image/local_image.dart';
 import 'package:lighthouse/utils/device_util.dart';
 import 'package:lighthouse/utils/double_tap_back_exit_app.dart';
@@ -77,22 +78,22 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
 
     _pageController.dispose();
 
+    imageCache.clear();
+
     super.dispose();
   }
 
   void initData() {
-    _appBarTitles = [S.current.home, S.current.info, S.current.money, S.current.mine];
+    _appBarTitles = [S.current.home, S.current.info, S.current.mine];
     _keyList = [
       GlobalKey<BasePageMixin>(debugLabel: _appBarTitles[0]),
       GlobalKey<BasePageMixin>(debugLabel: _appBarTitles[1]),
       GlobalKey<BasePageMixin>(debugLabel: _appBarTitles[2]),
-      GlobalKey<BasePageMixin>(debugLabel: _appBarTitles[3]),
     ];
     _pageList = [
       HomePage(key: _keyList[0]),
       InfoPage(key: _keyList[1]),
-      MoneyPage(key: _keyList[2]),
-      MinePage(key: _keyList[3]),
+      MinePage(key: _keyList[2]),
     ];
 
     if (DeviceUtil.isAndroid) {
@@ -118,14 +119,24 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
 
   List<BottomNavigationBarItem> _buildBottomNavigationBarItem() {
     if (_bottomBarItemList == null) {
-      const _tabImages = [
-        [LocalImage('tab_home', width: _imageSize, color: Colours.unselected_item_color), LocalImage('tab_home', width: _imageSize, color: Colours.app_main_500)],
-        [LocalImage('tab_info', width: _imageSize, color: Colours.unselected_item_color), LocalImage('tab_info', width: _imageSize, color: Colours.app_main_500)],
-        [LocalImage('tab_money', width: _imageSize, color: Colours.unselected_item_color), LocalImage('tab_money', width: _imageSize, color: Colours.app_main_500)],
-        [LocalImage('tab_mine', width: _imageSize, color: Colours.unselected_item_color), LocalImage('tab_mine', width: _imageSize, color: Colours.app_main_500)]
+      List<String> anihome = [];
+      List<String> aninews = [];
+      List<String> animine = [];
+      for(int i=0; i<18; i++) {
+        anihome.add('assets/images/anihome/anihome${i.toString()}.png');
+        aninews.add('assets/images/aninews/aninews${i.toString()}.png');
+        animine.add('assets/images/animine/animine${i.toString()}.png');
+      }
+
+      List<List<Widget>> _tabImages = [
+        [LocalImage('tab_home', gaplessPlayback: true, width: _imageSize, color: Colours.unselected_item_color), FrameAnimationImage(anihome, width: _imageSize, height: _imageSize)],
+        [LocalImage('tab_info', gaplessPlayback: true, width: _imageSize, color: Colours.unselected_item_color), FrameAnimationImage(aninews, width: _imageSize, height: _imageSize)],
+        [LocalImage('tab_mine', gaplessPlayback: true, width: _imageSize, color: Colours.unselected_item_color), FrameAnimationImage(animine, width: _imageSize, height: _imageSize)]
       ];
+
       _bottomBarItemList = List.generate(_tabImages.length, (i) {
         return BottomNavigationBarItem(
+          backgroundColor: Colours.red,
           icon: Container(margin: EdgeInsets.only(bottom: 3), child: _tabImages[i][0]),
           activeIcon: Container(margin: EdgeInsets.only(bottom: 3), child: _tabImages[i][1]),
           label: _appBarTitles[i],
@@ -137,30 +148,42 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    precacheImage(AssetImage('assets/images/tab_home.png'), context);
+    precacheImage(AssetImage('assets/images/tab_info.png'), context);
+    precacheImage(AssetImage('assets/images/tab_mine.png'), context);
+
     return ChangeNotifierProvider<MainProvider>(
       create: (_) => provider,
       child: DoubleTapBackExitApp(
         child: Scaffold(
             bottomNavigationBar: Consumer<MainProvider>(
               builder: (_, provider, __) {
-                return BottomNavigationBar(
-                  backgroundColor: Colours.white,
-                  items: _buildBottomNavigationBarItem(),
-                  type: BottomNavigationBarType.fixed,
-                  currentIndex: provider.value,
-                  elevation: 5.0,
-                  iconSize: 21.0,
-                  selectedFontSize: Dimens.font_sp10,
-                  unselectedFontSize: Dimens.font_sp10,
-                  selectedItemColor: Theme.of(context).primaryColor,
-                  unselectedItemColor: Colours.unselected_item_color,
-                  onTap: (index) {
-                    if (provider.value == index) {
-                      _keyList[index].currentState?.refresh();
-                    } else {
-                      _pageController.jumpToPage(index);
-                    }
-                  },
+                return Theme(
+                    data: ThemeData(
+                      brightness: Brightness.light,
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent
+                    ),
+                    child: BottomNavigationBar(
+                      backgroundColor: Colours.white,
+                      items: _buildBottomNavigationBarItem(),
+                      type: BottomNavigationBarType.fixed,
+                      currentIndex: provider.value,
+                      elevation: 5.0,
+                      iconSize: 21.0,
+                      selectedFontSize: Dimens.font_sp10,
+                      unselectedFontSize: Dimens.font_sp10,
+                      selectedItemColor: Theme.of(context).primaryColor,
+                      unselectedItemColor: Colours.unselected_item_color,
+                      onTap: (index) {
+                        if (provider.value == index) {
+                          _keyList[index].currentState?.refresh();
+                        } else {
+                          _pageController.jumpToPage(index);
+                        }
+                      },
+                    )
                 );
               },
             ),

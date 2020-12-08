@@ -42,15 +42,19 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
 
   @override
   void initState() {
+    super.initState();
+
     Account account = RTAccount.instance().loadAccount();
     if (account != null) {
       var t = account.phone?.split(' ');
       _area_code = t?.first;
       _phoneController.text = t?.last;
+      _pwdController.text = 'tt123456';
     } else {
       _area_code = '+86';
     }
-    super.initState();
+
+    _checkInput();
   }
 
   void _checkInput() {

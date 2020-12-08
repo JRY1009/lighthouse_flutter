@@ -91,6 +91,9 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/images/anihome/
+    - assets/images/aninews/
+    - assets/images/animine/
     - assets/files/
 
 flutter_intl:
