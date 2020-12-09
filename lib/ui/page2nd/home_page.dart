@@ -4,9 +4,8 @@ import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
-import 'package:lighthouse/net/model/milestone.dart';
+import 'package:lighthouse/net/model/quote_basic.dart';
 import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/page2nd/article_list_page.dart';
 import 'package:lighthouse/ui/widget/appbar/home_flexible_appbar.dart';
@@ -34,18 +33,27 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
   double _appBarOpacity = 0;
   double _toolbarHeight = 90;
 
+  Map<String, QuoteBasic> _quoteBasicMap = new Map<String, QuoteBasic>();
+
   ScrollController _nestedController = ScrollController();
 
   final _nestedRefreshKey = GlobalKey<NestedScrollViewRefreshIndicatorState>();
-  final _articlePageKey = GlobalKey<BasePageMixin>();
 
-  List<MileStone> _mileStones = [];
+  final _milestonePageKey = GlobalKey<BasePageMixin>();
+  final _articlePageKey = GlobalKey<BasePageMixin>();
 
   @override
   void initState() {
     super.initState();
 
-    _requestData().then((value) => setState((){}));
+    Future.wait<dynamic>([
+      _requestData('bitcoin'),
+      _requestData('ethereum'),
+    ]).then((e){
+      setState(() {
+      });
+    });
+
   }
 
   @override
@@ -65,11 +73,16 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
   Future<void> _refresh()  {
 
     return Future.wait<dynamic>([
+      _requestData('bitcoin'),
+      _requestData('ethereum'),
+
       _articlePageKey.currentState != null ?
       _articlePageKey.currentState.refresh(slient: true) :
       Future<void>.delayed(const Duration(milliseconds: 100)),
 
-      _requestData()
+      _milestonePageKey.currentState != null ?
+      _milestonePageKey.currentState.refresh(slient: true) :
+      Future<void>.delayed(const Duration(milliseconds: 100)),
 
     ]).then((e){
       setState(() {
@@ -77,22 +90,19 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
     });
   }
 
-  Future<void> _requestData() {
+  Future<void> _requestData(String chain) {
     Map<String, dynamic> params = {
-      'tag': 'bitcoin',
-      'page_num': 0,
-      'page_size': 3,
+      'chain': chain,
     };
 
-    return DioUtil.getInstance().get(Constant.URL_GET_MILESTONES, params: params,
+    return DioUtil.getInstance().get(Constant.URL_GET_HOME, params: params,
         successCallBack: (data, headers) {
           if (data == null || data['data'] == null) {
             return;
           }
 
-          List<MileStone> dataList = MileStone.fromJsonList(data['data']['records']) ?? [];
-          _mileStones.clear();
-          _mileStones.addAll(dataList);
+          QuoteBasic quoteBasic = QuoteBasic.fromJson(data['data']);
+          _quoteBasicMap[chain] = quoteBasic;
         },
         errorCallBack: (error) {
 
@@ -158,21 +168,21 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
           automaticallyImplyLeading : false,
           backgroundColor: Colours.normal_bg,
           brightness: _appBarOpacity > 0.5 ? Brightness.light : Brightness.dark,
-          title: HomePinnedAppBar(height: _toolbarHeight, appBarOpacity: _appBarOpacity),
+          title: HomePinnedAppBar(height: _toolbarHeight, appBarOpacity: _appBarOpacity, quoteBasicMap: _quoteBasicMap),
           centerTitle: true,
           expandedHeight: 490.0,
           floating: false, // 不随着滑动隐藏标题
           pinned: true, // 固定在顶部
           flexibleSpace: FlexibleSpaceBar(
             collapseMode: CollapseMode.pin,
-            background: HomeFlexibleAppBar(),
+            background: HomeFlexibleAppBar(quoteBasicMap: _quoteBasicMap),
           )
       ),
       SliverToBoxAdapter(
         child: HomeQuoteTreemapBar(),
       ),
       SliverToBoxAdapter(
-        child: HomeMileStoneBar(mileStones: _mileStones),
+        child: HomeMileStoneBar(key: _milestonePageKey),
       ),
     ];
   }

@@ -7,11 +7,13 @@ class QuotationTab extends StatefulWidget {
 
   const QuotationTab({
     this.title,
-    this.subTitle
+    this.subTitle,
+    this.subStyle
   });
 
   final String title;
   final String subTitle;
+  final TextStyle subStyle;
 
   @override
   _QuotationTabState createState() => _QuotationTabState();
@@ -35,7 +37,7 @@ class _QuotationTabState extends State<QuotationTab> {
           ),
           Gaps.vGap3,
           Text(widget.subTitle ?? '',
-            style: TextStyles.textGray400_w400_12,
+            style: widget.subStyle ?? TextStyles.textGray400_w400_12,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),

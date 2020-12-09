@@ -5,20 +5,21 @@ import 'package:flutter/material.dart';
 import 'package:lighthouse/event/event.dart';
 import 'package:lighthouse/event/main_jump_event.dart';
 import 'package:lighthouse/generated/l10n.dart';
+import 'package:lighthouse/net/constant.dart';
+import 'package:lighthouse/net/dio_util.dart';
 import 'package:lighthouse/net/model/milestone.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/router/routers.dart';
 import 'package:lighthouse/ui/item/milestone_item.dart';
+import 'package:lighthouse/ui/page/base_page.dart';
 
 class HomeMileStoneBar extends StatefulWidget {
 
-  final List<MileStone> mileStones;
   final VoidCallback onPressed;
 
   const HomeMileStoneBar({
     Key key,
-    this.mileStones,
     this.onPressed,
   }): super(key: key);
 
@@ -27,16 +28,48 @@ class HomeMileStoneBar extends StatefulWidget {
   _HomeMileStoneBarState createState() => _HomeMileStoneBarState();
 }
 
-class _HomeMileStoneBarState extends State<HomeMileStoneBar>{
+class _HomeMileStoneBarState extends State<HomeMileStoneBar> with BasePageMixin<HomeMileStoneBar>{
+
+  List<MileStone> _mileStones = [];
 
   @override
   void initState() {
     super.initState();
+    _requestData();
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  @override
+  Future<void> refresh({slient = false}) {
+    return _requestData();
+  }
+
+  Future<void> _requestData() {
+    Map<String, dynamic> params = {
+      'page_num': 0,
+      'page_size': 3,
+    };
+
+    return DioUtil.getInstance().get(Constant.URL_GET_MILESTONES, params: params,
+        successCallBack: (data, headers) {
+          if (data == null || data['data'] == null) {
+            return;
+          }
+
+          List<MileStone> dataList = MileStone.fromJsonList(data['data']['records']) ?? [];
+          _mileStones.clear();
+          _mileStones.addAll(dataList);
+
+          setState(() {
+          });
+        },
+        errorCallBack: (error) {
+
+        });
   }
 
   @override
@@ -86,12 +119,12 @@ class _HomeMileStoneBarState extends State<HomeMileStoneBar>{
             itemBuilder: (context, index) {
               return MileStoneItem(
                 index: index,
-                content: widget.mileStones[index].content,
-                time: widget.mileStones[index].date,
-                isLast: index == (min(widget.mileStones.length, 3) - 1),
+                content: _mileStones[index].content,
+                time: _mileStones[index].date,
+                isLast: index == (min(_mileStones.length, 3) - 1),
               );
             },
-            itemCount: min(widget.mileStones.length, 3),
+            itemCount: min(_mileStones.length, 3),
           ),
         ),
 

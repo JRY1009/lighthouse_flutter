@@ -1,24 +1,22 @@
 
 import 'package:flutter/material.dart';
 import 'package:lighthouse/generated/l10n.dart';
-import 'package:lighthouse/net/model/account.dart';
+import 'package:lighthouse/net/model/quote_basic.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/router/routers.dart';
 import 'package:lighthouse/ui/widget/chart/line_chart.dart';
-import 'package:lighthouse/ui/widget/tab/bubble_indicator.dart';
-import 'package:lighthouse/ui/widget/tab/quotation_tab.dart';
-import 'package:lighthouse/utils/image_util.dart';
+import 'package:lighthouse/utils/num_util.dart';
 
 class HomeFlexibleTabView extends StatefulWidget {
 
-  final Account account;
+  final QuoteBasic quoteBasic;
   final VoidCallback onPressed;
 
   const HomeFlexibleTabView({
     Key key,
-    this.account,
+    this.quoteBasic,
     this.onPressed,
   }): super(key: key);
 
@@ -53,7 +51,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
         children: [
           Container(
             height: 170,
-            child: SimpleLineChart(),
+            child: SimpleLineChart(quoteList: widget.quoteBasic.quote_24h),
           ),
           Container(
             height: 75,
@@ -68,7 +66,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
                       children: [
                         Container(
                             alignment: Alignment.centerLeft,
-                            child: Text(S.of(context).proTotalMarketValue,
+                            child: Text(S.of(context).proTotalMarketValue + '（\$）',
                               style: TextStyles.textGray400_w400_12,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -77,7 +75,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
                         Gaps.vGap5,
                         Container(
                             alignment: Alignment.centerLeft,
-                            child: Text('2333.4',
+                            child: Text(NumUtil.getBigVolumFormat(widget.quoteBasic?.market_val, fractionDigits: 2).toString(),
                               style: TextStyles.textBlack20,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -94,7 +92,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
                       children: [
                         Container(
                             alignment: Alignment.centerLeft,
-                            child: Text(S.of(context).pro24hVolume,
+                            child: Text(S.of(context).pro24hVolume + '（${widget.quoteBasic != null ? widget.quoteBasic.pair.split('/').first : ''}）',
                               style: TextStyles.textGray400_w400_12,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -103,7 +101,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
                         Gaps.vGap5,
                         Container(
                             alignment: Alignment.centerLeft,
-                            child: Text('233',
+                            child: Text(NumUtil.getNumByValueDouble(widget.quoteBasic?.vol_24h, 2).toString(),
                               style: TextStyles.textBlack20,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -129,7 +127,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
                         Gaps.vGap5,
                         Container(
                             alignment: Alignment.centerLeft,
-                            child: Text('122.33',
+                            child: Text(NumUtil.getNumByValueDouble(widget.quoteBasic?.hashrate, 2).toString(),
                               style: TextStyles.textBlack20,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,

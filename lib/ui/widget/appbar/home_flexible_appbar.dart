@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/net/model/account.dart';
+import 'package:lighthouse/net/model/quote_basic.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
@@ -9,15 +10,16 @@ import 'package:lighthouse/ui/widget/appbar/home_flexible_tabview.dart';
 import 'package:lighthouse/ui/widget/tab/bubble_indicator.dart';
 import 'package:lighthouse/ui/widget/tab/quotation_tab.dart';
 import 'package:lighthouse/utils/image_util.dart';
+import 'package:lighthouse/utils/num_util.dart';
 
 class HomeFlexibleAppBar extends StatefulWidget {
 
-  final Account account;
+  final Map<String, QuoteBasic> quoteBasicMap;
   final VoidCallback onPressed;
 
   const HomeFlexibleAppBar({
     Key key,
-    this.account,
+    this.quoteBasicMap,
     this.onPressed,
   }): super(key: key);
 
@@ -47,6 +49,16 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
 
   @override
   Widget build(BuildContext context) {
+
+    double btcRate = widget.quoteBasicMap['bitcoin'] != null ? widget.quoteBasicMap['bitcoin'].change_percent : 0;
+    double btcPrice = widget.quoteBasicMap['bitcoin'] != null ? widget.quoteBasicMap['bitcoin'].quote : 0;
+    String btcRateStr = (btcRate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(btcRate, 2).toString() + '%';
+    String btcPriceStr = NumUtil.getNumByValueDouble(btcPrice, 2).toString();
+
+    double ethRate = widget.quoteBasicMap['ethereum'] != null ? widget.quoteBasicMap['ethereum'].change_percent : 0;
+    double ethPrice = widget.quoteBasicMap['ethereum'] != null ? widget.quoteBasicMap['ethereum'].quote : 0;
+    String ethRateStr = (btcRate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(ethRate, 2).toString() + '%';
+    String ethPriceStr = NumUtil.getNumByValueDouble(ethPrice, 2).toString();
 
     return Stack(
       children: <Widget>[
@@ -113,8 +125,16 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
                         ),
                         isScrollable: false,
                         tabs: <QuotationTab>[
-                          QuotationTab(title: 'BTC/USD', subTitle: '12321.92  1.21%',),
-                          QuotationTab(title: 'ETH/USD', subTitle: '12321.92  1.21%',),
+                          QuotationTab(
+                            title: widget.quoteBasicMap['bitcoin']?.pair,
+                            subTitle: btcPriceStr + '  ' + btcRateStr,
+                            subStyle: ethRate >= 0 ? TextStyles.textGreen_w400_12 : TextStyles.textRed_w400_12,
+                          ),
+                          QuotationTab(
+                            title: widget.quoteBasicMap['ethereum']?.pair,
+                            subTitle: ethPriceStr + '  ' + ethRateStr,
+                            subStyle: ethRate >= 0 ? TextStyles.textGreen_w400_12 : TextStyles.textRed_w400_12,
+                          ),
                         ],
                       ),
                     ),
@@ -123,8 +143,8 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
                       child: TabBarView(
                         controller: _tabController,
                         children: <Widget>[
-                          HomeFlexibleTabView(),
-                          HomeFlexibleTabView()
+                          HomeFlexibleTabView(quoteBasic: widget.quoteBasicMap['bitcoin']),
+                          HomeFlexibleTabView(quoteBasic: widget.quoteBasicMap['ethereum'])
                         ],
                       ),
                     )

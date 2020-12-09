@@ -1,9 +1,21 @@
+import 'dart:math';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:lighthouse/net/model/quote.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
+import 'package:lighthouse/utils/num_util.dart';
 
 class SimpleLineChart extends StatefulWidget {
+
+  final List<Quote> quoteList;
+
+  const SimpleLineChart({
+    Key key,
+    this.quoteList
+  }): super(key: key);
+
   @override
   _SimpleLineChartState createState() => _SimpleLineChartState();
 }
@@ -22,12 +34,26 @@ class _SimpleLineChartState extends State<SimpleLineChart> {
   }
 
   LineChartData mainData() {
+
+    int length = widget.quoteList != null ? widget.quoteList.length : 0;
+
+    double minX = 0, maxX = length.toDouble(), minY = 0, maxY = 0;
+    List<FlSpot> spotList = new List();
+    for (int i=0; i<widget.quoteList?.length; i++) {
+      FlSpot spot = FlSpot(i.toDouble(), widget.quoteList[i].quote);
+      spotList.add(spot);
+
+      minY = minY == 0 ? widget.quoteList[i].quote : min(widget.quoteList[i].quote, minY);
+      maxY = max(widget.quoteList[i].quote, maxY);
+    }
+
     return LineChartData(
       lineTouchData: LineTouchData(enabled: false),
       borderData:  FlBorderData(show: true, border: Border.symmetric(horizontal: BorderSide(color: const Color(0xffC6D9FF), width: 0.5))),
       gridData: FlGridData(
         show: true,
         drawVerticalLine: false,
+        horizontalInterval: NumUtil.divideDec(maxY - minY, 3).ceilToDouble(),
         getDrawingHorizontalLine: (value) {
           return FlLine(
             dashArray: [3, 3],
@@ -62,44 +88,22 @@ class _SimpleLineChartState extends State<SimpleLineChart> {
         leftTitles: SideTitles(showTitles: false),
         rightTitles: SideTitles(
           showTitles: true,
+          interval: NumUtil.divideDec(maxY - minY, 3).floorToDouble(),
           getTextStyles: (value) => TextStyles.textGray500_w400_12,
           getTitles: (value) {
-            switch (value.toInt()) {
-              case 0:
-                return '1000';
-              case 1:
-                return '2000';
-              case 2:
-                return '3000';
-              case 3:
-                return '4000';
-            }
-            return '';
+            return value.toInt().toString();
           },
           reservedSize: 28,
           margin: 10,
         ),
       ),
-      minX: 0,
-      maxX: 24,
-      minY: 0,
-      maxY: 3,
+      minX: minX,
+      maxX: maxX,
+      minY: minY,
+      maxY: maxY,
       lineBarsData: [
         LineChartBarData(
-          spots: [
-            FlSpot(0, 0.5),
-            FlSpot(2.6, 2.2),
-            FlSpot(4.9, 2.4),
-            FlSpot(6.8, 1.1),
-            FlSpot(8, 1.4),
-            FlSpot(9, 0.7),
-            FlSpot(11, 2.6),
-            FlSpot(13, 2),
-            FlSpot(14, 1.5),
-            FlSpot(15, 2.5),
-            FlSpot(17, 2.8),
-            FlSpot(19, 2.5),
-          ],
+          spots: spotList,
           isCurved: true,
           colors: [Colours.app_main],
           barWidth: 2,
