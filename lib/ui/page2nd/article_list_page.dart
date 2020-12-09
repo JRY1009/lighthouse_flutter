@@ -7,6 +7,7 @@ import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
 import 'package:lighthouse/net/model/article.dart';
 import 'package:lighthouse/res/colors.dart';
+import 'package:lighthouse/ui/item/article_card_item.dart';
 import 'package:lighthouse/ui/item/article_item.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/provider/list_provider.dart';
@@ -20,10 +21,12 @@ import 'package:provider/provider.dart';
 class ArticleListPage extends StatefulWidget {
   
   final bool isSupportPull;  //是否支持手动下拉刷新
+  final bool isSingleCard;  //每个item是否有单独card
 
   ArticleListPage({
     Key key,
-    this.isSupportPull = true
+    this.isSupportPull = true,
+    this.isSingleCard = false
   }) : super(key: key);
 
   @override
@@ -154,7 +157,14 @@ class _ArticleListPageState extends State<ArticleListPage> with BasePageMixin<Ar
                 child: ListView.builder(
                   padding: EdgeInsets.all(0.0),
                   itemBuilder: (context, index) {
-                    return ArticleItem(
+                    return widget.isSingleCard ? ArticleCardItem(
+                      index: index,
+                      title: _provider.list[index].account_name + '杜绝浪费矿机时空裂缝接SDK龙卷风克雷登斯荆防颗粒圣诞节快乐福建省断开连接付款了圣诞节疯狂了圣诞节',
+                      time: _provider.list[index].created_at,
+                      author: _provider.list[index].city,
+                      imageUrl: _provider.list[index].avatar_300,
+                    ) : ArticleItem(
+                      index: index,
                       title: _provider.list[index].account_name + '杜绝浪费矿机时空裂缝接SDK龙卷风克雷登斯荆防颗粒圣诞节快乐福建省断开连接付款了圣诞节疯狂了圣诞节',
                       time: _provider.list[index].created_at,
                       author: _provider.list[index].city,

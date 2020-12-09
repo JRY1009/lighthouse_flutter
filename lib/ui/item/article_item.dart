@@ -7,6 +7,7 @@ import 'package:lighthouse/ui/widget/image/round_image.dart';
 /// 资讯列表详情
 class ArticleItem extends StatelessWidget {
 
+  final int index;
   final String newsUrl;
   final String imageUrl;
   final String title;
@@ -15,6 +16,7 @@ class ArticleItem extends StatelessWidget {
 
   const ArticleItem(
       {Key key,
+        this.index,
         this.newsUrl = '',
         this.imageUrl = '',
         this.title = '',
