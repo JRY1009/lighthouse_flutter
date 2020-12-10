@@ -1,6 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:lighthouse/net/constant.dart';
+import 'package:lighthouse/net/dio_util.dart';
 import 'package:lighthouse/net/model/account.dart';
+import 'package:lighthouse/net/model/quote.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/widget/chart/line_chart.dart';
@@ -9,12 +12,12 @@ import 'package:lighthouse/ui/widget/tab/kline_tab.dart';
 
 class SpotDetailKLineBar extends StatefulWidget {
 
-  final Account account;
+  final String coin_code;
   final VoidCallback onPressed;
 
   const SpotDetailKLineBar({
     Key key,
-    this.account,
+    this.coin_code,
     this.onPressed,
   }): super(key: key);
 
@@ -28,6 +31,9 @@ class _SpotDetailKLineBarState extends State<SpotDetailKLineBar> with AutomaticK
   @override
   bool get wantKeepAlive => true;
 
+  List<String> _rangeList;
+  Map<String, List<Quote>> _quoteMap = {};
+
   TabController _tabController;
 
   @override
@@ -36,6 +42,9 @@ class _SpotDetailKLineBarState extends State<SpotDetailKLineBar> with AutomaticK
 
     _tabController = TabController(length: 6, vsync: this);
 
+    _rangeList = ['24h', '1w', '1m', '6m', '1y', 'all'];
+
+    _requestData(widget.coin_code, 0);
   }
 
   @override
@@ -43,6 +52,30 @@ class _SpotDetailKLineBarState extends State<SpotDetailKLineBar> with AutomaticK
     _tabController.dispose();
 
     super.dispose();
+  }
+
+  Future<void> _requestData(String coin_code, int index) {
+    Map<String, dynamic> params = {
+      'coin_code': coin_code,
+      'time_range': _rangeList[index],
+    };
+
+    return DioUtil.getInstance().get(Constant.URL_GET_QUOTE, params: params,
+        successCallBack: (data, headers) {
+          if (data == null || data['data'] == null) {
+            return;
+          }
+
+          List<Quote> quoteList = Quote.fromJsonList(data['data']) ?? [];
+          _quoteMap[_rangeList[index]] = quoteList;
+
+          setState(() {
+
+          });
+        },
+        errorCallBack: (error) {
+
+        });
   }
 
   @override
@@ -88,9 +121,13 @@ class _SpotDetailKLineBarState extends State<SpotDetailKLineBar> with AutomaticK
                 KLineTab(text: '全部', select: _tabController.index == 5),
               ],
               onTap: (index) {
-                setState(() {
+                if (_quoteMap[_rangeList[_tabController.index]] != null) {
+                  setState(() {
 
-                });
+                  });
+                } else {
+                  _requestData(widget.coin_code, index);
+                }
               },
             ),
           ),
@@ -99,7 +136,9 @@ class _SpotDetailKLineBarState extends State<SpotDetailKLineBar> with AutomaticK
             child: Container(
               height: 170,
               padding: EdgeInsets.symmetric(horizontal: 12),
-              child: SimpleLineChart(),
+              child: SimpleLineChart(
+                  quoteList: _quoteMap[_rangeList[_tabController.index]],
+                  timeFormat: _tabController.index == 0 ? ChartTimeFormat.HOUR_MINUTE : ChartTimeFormat.MONTH_DAY),
             ),
           )
         ],

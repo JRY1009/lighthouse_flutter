@@ -59,8 +59,8 @@ var modifyPwdPageHandler = new Handler(
 
 var spotDetailPageHandler = new Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-      String spotCoin = params['spotCoin']?.first;
-      return SpotDetailPage();
+      String coin_code = params['coin_code']?.first;
+      return SpotDetailPage(coin_code: coin_code);
     });
 
 var globalQuotePageHandler = new Handler(

@@ -51,7 +51,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
         children: [
           Container(
             height: 170,
-            child: SimpleLineChart(quoteList: widget.quoteBasic.quote_24h),
+            child: SimpleLineChart(quoteList: widget.quoteBasic?.quote_24h),
           ),
           Container(
             height: 75,
@@ -140,7 +140,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
             ),
           ),
           InkWell(
-            onTap: () => Routers.navigateTo(context, Routers.spotDetailPage),
+            onTap: () => Routers.navigateTo(context, Routers.spotDetailPage, params: {'coin_code': widget.quoteBasic != null ? widget.quoteBasic.pair.split('/').first : ''}),
             child: Container(
               height: 20,
               child: Row(

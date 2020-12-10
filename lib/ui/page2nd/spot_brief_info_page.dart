@@ -24,8 +24,11 @@ import 'package:lighthouse/utils/toast_util.dart';
 
 class SpotBriefInfoPage extends StatefulWidget {
 
+  final String coin_code;
+
   const SpotBriefInfoPage({
     Key key,
+    this.coin_code
   }): super(key: key);
 
 

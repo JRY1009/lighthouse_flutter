@@ -28,8 +28,11 @@ import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as
 
 class SpotDetailPage extends StatefulWidget {
 
+  final String coin_code;
+
   SpotDetailPage({
     Key key,
+    this.coin_code
   }) : super(key: key);
 
   @override
@@ -37,6 +40,7 @@ class SpotDetailPage extends StatefulWidget {
 }
 
 class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<SpotDetailPage>, SingleTickerProviderStateMixin {
+
 
   List<GlobalKey<BasePageMixin>> _keyList;
   List<String> _tabTitles ;
@@ -135,14 +139,14 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
               width: double.infinity,
               alignment: Alignment.center,
               color: Colours.white,
-              child: Text('BTC', style: TextStyles.textBlack16)
+              child: Text(widget.coin_code, style: TextStyles.textBlack16)
           ),
           Container(
             color: Colours.gray_100,
             child: Column(
               children: [
                 SpotDetailAppbar(showShadow: false),
-                SpotDetailKLineBar(),
+                SpotDetailKLineBar(coin_code: widget.coin_code),
                 Image.memory(pngBytes),
               ],
             ),
@@ -247,7 +251,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
         child: SpotDetailAppbar(),
       ),
       SliverToBoxAdapter(
-        child: SpotDetailKLineBar(),
+        child: SpotDetailKLineBar(coin_code: widget.coin_code),
       ),
     ];
   }
@@ -258,7 +262,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-            child: Text('BTC', style: TextStyles.textBlack16,
+            child: Text(widget.coin_code, style: TextStyles.textBlack16,
             )),
         _appBarOpacity > 0.5 ? Container(
             child: Text('12342.21 1.23%', style: TextStyles.textGray400_w400_14,

@@ -5,15 +5,24 @@ import 'package:flutter/material.dart';
 import 'package:lighthouse/net/model/quote.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
+import 'package:lighthouse/ui/widget/easyrefresh/first_refresh.dart';
+import 'package:lighthouse/utils/date_util.dart';
 import 'package:lighthouse/utils/num_util.dart';
+
+enum ChartTimeFormat {
+  MONTH_DAY, //MM-dd
+  HOUR_MINUTE, //HH:mm
+}
 
 class SimpleLineChart extends StatefulWidget {
 
   final List<Quote> quoteList;
+  final ChartTimeFormat timeFormat;
 
   const SimpleLineChart({
     Key key,
-    this.quoteList
+    this.quoteList,
+    this.timeFormat
   }): super(key: key);
 
   @override
@@ -24,11 +33,14 @@ class _SimpleLineChartState extends State<SimpleLineChart> {
 
   @override
   Widget build(BuildContext context) {
+    bool _inited = widget.quoteList != null && widget.quoteList.length > 0;
+
     return Container(
       padding: EdgeInsets.only(top: 10),
       width: double.infinity,
-      child: LineChart(
+      child: !_inited ? FirstRefresh() : LineChart(
         mainData(),
+        swapAnimationDuration:const Duration(milliseconds: 0),
       ),
     );
   }
@@ -37,9 +49,9 @@ class _SimpleLineChartState extends State<SimpleLineChart> {
 
     int length = widget.quoteList != null ? widget.quoteList.length : 0;
 
-    double minX = 0, maxX = length.toDouble(), minY = 0, maxY = 0;
+    double minX = 0, maxX = max(0, length.toDouble() - 1), minY = 0, maxY = 0;
     List<FlSpot> spotList = new List();
-    for (int i=0; i<widget.quoteList?.length; i++) {
+    for (int i=0; i<length; i++) {
       FlSpot spot = FlSpot(i.toDouble(), widget.quoteList[i].quote);
       spotList.add(spot);
 
@@ -47,13 +59,16 @@ class _SimpleLineChartState extends State<SimpleLineChart> {
       maxY = max(widget.quoteList[i].quote, maxY);
     }
 
+    minY = minY.floorToDouble();
+    maxY = maxY.ceilToDouble();
+
     return LineChartData(
       lineTouchData: LineTouchData(enabled: false),
       borderData:  FlBorderData(show: true, border: Border.symmetric(horizontal: BorderSide(color: const Color(0xffC6D9FF), width: 0.5))),
       gridData: FlGridData(
         show: true,
         drawVerticalLine: false,
-        horizontalInterval: NumUtil.divideDec(maxY - minY, 3).ceilToDouble(),
+        horizontalInterval: max(1, NumUtil.divideDec(maxY - minY, 3).ceilToDouble()),
         getDrawingHorizontalLine: (value) {
           return FlLine(
             dashArray: [3, 3],
@@ -69,17 +84,24 @@ class _SimpleLineChartState extends State<SimpleLineChart> {
           reservedSize: 22,
           getTextStyles: (value) => TextStyles.textGray500_w400_12,
           getTitles: (value) {
-            switch (value.toInt()) {
-              case 1:
-                return '00:00';
-              case 6:
-                return '06:00';
-              case 12:
-                return '12:00';
-              case 18:
-                return '18:00';
-              case 23:
-                return '24:00';
+            if (value.toInt() == 0) {
+              if (widget.timeFormat == ChartTimeFormat.MONTH_DAY) {
+                return '    ' + DateUtil.getDateStrByTimeStr(widget.quoteList[0].date, format: DateFormat.MONTH_DAY, dateSeparate: '/');
+              } else {
+                return '    ' + widget.quoteList[0].hour.toString() + ':00';
+              }
+            } else if (value.toInt() == maxX) {
+              if (widget.timeFormat == ChartTimeFormat.MONTH_DAY) {
+                return DateUtil.getDateStrByTimeStr(widget.quoteList[maxX.toInt()].date, format: DateFormat.MONTH_DAY, dateSeparate: '/') + '    ';
+              } else {
+                return widget.quoteList[maxX.toInt()].hour.toString() + ':00    ';
+              }
+            } else if (NumUtil.remainder(value.toInt(), NumUtil.divideDec(maxX - minX, 4).ceilToDouble()).toInt() == 0 && value.toInt() != 0 && value.toInt() != maxX) {
+              if (widget.timeFormat == ChartTimeFormat.MONTH_DAY) {
+                return DateUtil.getDateStrByTimeStr(widget.quoteList[value.toInt()].date, format: DateFormat.MONTH_DAY, dateSeparate: '/');
+              } else {
+                return widget.quoteList[value.toInt()].hour.toString() + ':00';
+              }
             }
             return '';
           },
@@ -88,7 +110,7 @@ class _SimpleLineChartState extends State<SimpleLineChart> {
         leftTitles: SideTitles(showTitles: false),
         rightTitles: SideTitles(
           showTitles: true,
-          interval: NumUtil.divideDec(maxY - minY, 3).floorToDouble(),
+          interval: max(1, NumUtil.divideDec(maxY - minY, 3).floorToDouble()),
           getTextStyles: (value) => TextStyles.textGray500_w400_12,
           getTitles: (value) {
             return value.toInt().toString();
