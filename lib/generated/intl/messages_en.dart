@@ -77,6 +77,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "passwordError" : MessageLookupByLibrary.simpleMessage("密码不能少于6位!"),
     "passwordHint" : MessageLookupByLibrary.simpleMessage("请输入密码"),
     "passwordNotSame" : MessageLookupByLibrary.simpleMessage("密码不一致"),
+    "pro24hAmount" : MessageLookupByLibrary.simpleMessage("24H额"),
     "pro24hVolume" : MessageLookupByLibrary.simpleMessage("24H量"),
     "proAddressAmount" : MessageLookupByLibrary.simpleMessage("地址数量"),
     "proAddressAssetsDistribution" : MessageLookupByLibrary.simpleMessage("地址资产分布"),

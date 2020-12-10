@@ -81,6 +81,7 @@
   "updateTime": "更新时间",
   "proTotalMarketValue": "市场总值",
   "pro24hVolume": "24H量",
+  "pro24hAmount": "24H额",
   "proComputePower": "全网算力（EH/S）",
   "proMarketValue": "市值",
   "proTotalVolum": "总量",

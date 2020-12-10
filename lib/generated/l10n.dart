@@ -855,6 +855,16 @@ class S {
     );
   }
 
+  /// `24H额`
+  String get pro24hAmount {
+    return Intl.message(
+      '24H额',
+      name: 'pro24hAmount',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `全网算力（EH/S）`
   String get proComputePower {
     return Intl.message(

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/net/model/account.dart';
+import 'package:lighthouse/net/model/quote_basic.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
@@ -10,16 +11,17 @@ import 'package:lighthouse/ui/widget/chart/line_chart.dart';
 import 'package:lighthouse/ui/widget/tab/bubble_indicator.dart';
 import 'package:lighthouse/ui/widget/tab/quotation_tab.dart';
 import 'package:lighthouse/utils/image_util.dart';
+import 'package:lighthouse/utils/num_util.dart';
 
 class SpotDetailAppbar extends StatefulWidget {
 
-  final Account account;
+  final QuoteBasic quoteBasic;
   final bool showShadow;
   final VoidCallback onPressed;
 
   const SpotDetailAppbar({
     Key key,
-    this.account,
+    this.quoteBasic,
     this.showShadow = true,
     this.onPressed,
   }): super(key: key);
@@ -47,6 +49,21 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
   @override
   Widget build(BuildContext context) {
 
+    double rate = widget.quoteBasic != null ? widget.quoteBasic.change_percent : 0;
+    double price = widget.quoteBasic != null ? widget.quoteBasic.quote : 0;
+    double priceCny = NumUtil.multiply(price, 6.5);
+    double change_amount = widget.quoteBasic != null ? widget.quoteBasic.change_amount : 0;
+    double amount_24h = widget.quoteBasic != null ? widget.quoteBasic.amount_24h : 0;
+    double vol_24h = widget.quoteBasic != null ? widget.quoteBasic.vol_24h : 0;
+
+    String coin_code = widget.quoteBasic != null ? widget.quoteBasic.coin_code : '';
+    String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate, 2).toString() + '%';
+    String priceStr = NumUtil.getNumByValueDouble(price, 2).toString();
+    String priceCnyStr = NumUtil.getNumByValueDouble(priceCny, 2).toString();
+    String changeAmountStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(change_amount, 2).toString();
+    String amount24Str = NumUtil.getNumByValueDouble(amount_24h, 2).toString();
+    String vol24Str = NumUtil.getNumByValueDouble(vol_24h, 2).toString();
+
     return Container(
       height: 64,
       padding: EdgeInsets.symmetric(horizontal: 12),
@@ -65,16 +82,20 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
                   alignment: Alignment.centerLeft,
                   child: Text.rich(TextSpan(
                       children: [
-                        TextSpan(text: '\$', style: TextStyles.textRed_w400_12),
-                        TextSpan(text: '12222.12', style: TextStyles.textRed_w400_22),
-                        WidgetSpan(child: Icon(Icons.arrow_downward, color: Colours.text_red, size: 14),)
+                        TextSpan(text: '\$', style: rate >= 0 ? TextStyles.textGreen_w400_12 : TextStyles.textRed_w400_12),
+                        TextSpan(text: priceStr, style: rate >= 0 ? TextStyles.textGreen_w400_22 : TextStyles.textRed_w400_22),
+                        WidgetSpan(
+                          child: Icon(rate >= 0 ? Icons.arrow_upward : Icons.arrow_downward,
+                              color: rate >= 0 ? Colours.text_green : Colours.text_red,
+                              size: 14)
+                        )
                       ]
                   ))
               ),
               Container(
                   margin: EdgeInsets.only(top: 5),
                   alignment: Alignment.centerLeft,
-                  child: Text('≈￥82333.4',
+                  child: Text('≈￥' + priceCnyStr,
                     style: TextStyles.textGray500_w400_12,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -88,8 +109,8 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
               Container(
                   margin: EdgeInsets.only(top: 10),
                   alignment: Alignment.centerLeft,
-                  child: Text('+11.11%',
-                    style: TextStyles.textRed_w400_12,
+                  child: Text(rateStr,
+                    style: rate >= 0 ? TextStyles.textGreen_w400_12 : TextStyles.textRed_w400_12,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   )
@@ -97,8 +118,8 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
               Container(
                   margin: EdgeInsets.only(top: 10),
                   alignment: Alignment.centerLeft,
-                  child: Text('-123,22',
-                    style: TextStyles.textRed_w400_12,
+                  child: Text(changeAmountStr,
+                    style: rate >= 0 ? TextStyles.textGreen_w400_12 : TextStyles.textRed_w400_12,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   )
@@ -114,7 +135,7 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
               Container(
                   margin: EdgeInsets.only(top: 8),
                   alignment: Alignment.centerRight,
-                  child: Text('24H额',
+                  child: Text(S.of(context).pro24hAmount,
                     style: TextStyles.textGray400_w400_12,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -123,7 +144,7 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
               Container(
                   margin: EdgeInsets.only(top: 8),
                   alignment: Alignment.centerRight,
-                  child: Text('24H量',
+                  child: Text(S.of(context).pro24hVolume,
                     style: TextStyles.textGray400_w400_12,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -141,7 +162,7 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
                 Container(
                     margin: EdgeInsets.only(top: 10),
                     alignment: Alignment.centerLeft,
-                    child: Text('\$23,172,066,359',
+                    child: Text('\$' + amount24Str,
                       style: TextStyles.textGray800_w400_12,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -150,7 +171,7 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
                 Container(
                     margin: EdgeInsets.only(top: 10),
                     alignment: Alignment.centerLeft,
-                    child: Text('1,776,069 BTC',
+                    child: Text(vol24Str + coin_code,
                       style: TextStyles.textGray800_w400_12,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,

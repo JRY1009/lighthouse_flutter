@@ -5,14 +5,17 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
-import 'package:lighthouse/net/model/spot_trade_platform_data.dart';
+import 'package:lighthouse/net/model/spot_exchange_quote.dart';
+import 'package:lighthouse/net/model/spot_exchange_quote_basic.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/ui/item/spot_trade_platform_data_item.dart';
+import 'package:lighthouse/ui/item/spot_exchange_quote_item.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/widget/easyrefresh/first_refresh.dart';
 import 'package:lighthouse/ui/widget/easyrefresh/loading_empty.dart';
+import 'package:lighthouse/utils/num_util.dart';
+import 'package:lighthouse/utils/object_util.dart';
 import 'package:lighthouse/utils/toast_util.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
@@ -32,7 +35,9 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
   @override
   bool get wantKeepAlive => true;
 
-  List<SpotTradePlatformData> _dataList = [];
+  SpotExchangeQuoteBasic _exchangeQuoteBasic;
+  List<SpotExchangeQuote> _quoteList = [];
+
   bool _init = false;
 
   @override
@@ -54,23 +59,19 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
   Future<void> _requestData() {
 
     Map<String, dynamic> params = {
-      'auth': 1,
-      'sort': 1,
-      'page': 0,
-      'page_size': 20,
+      'chain': 'bitcoin',
     };
 
-    return DioUtil.getInstance().post(Constant.URL_GET_NEWS, params: params,
+    return DioUtil.getInstance().get(Constant.URL_GET_CHAIN_QUOTE, params: params,
         successCallBack: (data, headers) {
           if (data == null || data['data'] == null) {
             _finishRequest(success: false);
             return;
           }
 
-          List<SpotTradePlatformData> dataList = SpotTradePlatformData.fromJsonList(data['data']['account_info']) ?? [];
+          _exchangeQuoteBasic = SpotExchangeQuoteBasic.fromJson(data['data']);
+          _quoteList = _exchangeQuoteBasic?.exchange_quote_list;
 
-          _dataList.clear();
-          _dataList.addAll(dataList);
           _finishRequest(success: true);
         },
         errorCallBack: (error) {
@@ -94,7 +95,7 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
     EasyRefresh(
       topBouncing: false,
       bottomBouncing: false,
-      emptyWidget: _dataList.isEmpty ? LoadingEmpty() : null,
+      emptyWidget: ObjectUtil.isEmpty(_quoteList) ? LoadingEmpty() : null,
       child: ListView.builder(
         padding: EdgeInsets.all(0.0),
         itemBuilder: (context, index) {
@@ -118,6 +119,18 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
   }
 
   Widget _buildHeader() {
+
+    double rate = _exchangeQuoteBasic != null ? _exchangeQuoteBasic.change_percent : 0;
+    double price = _exchangeQuoteBasic != null ? _exchangeQuoteBasic.quote : 0;
+    double cny = _exchangeQuoteBasic != null ? _exchangeQuoteBasic.cny : 0;
+    double change_amount = _exchangeQuoteBasic != null ? _exchangeQuoteBasic.change_amount : 0;
+
+    String groupStr = _exchangeQuoteBasic != null ? _exchangeQuoteBasic.data_src : '';
+    String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate, 2).toString() + '%';
+    String priceStr = NumUtil.getNumByValueDouble(price, 2).toString();
+    String cnyStr = NumUtil.getNumByValueDouble(cny, 2).toString();
+    String changeAmountStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(change_amount, 2).toString();
+
     return Column(
       children: [
         Container(
@@ -149,17 +162,20 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
                       alignment: Alignment.bottomLeft,
                       child: Text.rich(TextSpan(
                           children: [
-                            TextSpan(text: '\$', style: TextStyles.textRed_w400_12),
-                            TextSpan(text: '12222.12', style: TextStyles.textRed_w400_22),
-                            WidgetSpan(child: Icon(Icons.arrow_downward, color: Colours.text_red, size: 14),)
+                            TextSpan(text: '\$', style: rate >= 0 ? TextStyles.textGreen_w400_12 : TextStyles.textRed_w400_12),
+                            TextSpan(text: priceStr, style: rate >= 0 ? TextStyles.textGreen_w400_22 : TextStyles.textRed_w400_22),
+                            WidgetSpan(
+                              child: Icon(rate >= 0 ? Icons.arrow_upward : Icons.arrow_downward,
+                                  color: rate >= 0 ? Colours.text_green : Colours.text_red,
+                                  size: 14),)
                           ]
                       ))
                   ),
                   Container(
                       margin: EdgeInsets.only(right: 15),
                       alignment: Alignment.bottomRight,
-                      child: Text('+11.11%  +123,22',
-                        style: TextStyles.textRed_w400_12,
+                      child: Text(rateStr + '  ' + changeAmountStr,
+                        style: rate >= 0 ? TextStyles.textGreen_w400_12 : TextStyles.textRed_w400_12,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       )
@@ -174,7 +190,7 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
                   Container(
                       margin: EdgeInsets.only(left: 15),
                       alignment: Alignment.centerLeft,
-                      child: Text('≈￥82333.4',
+                      child: Text('≈￥' + cnyStr,
                         style: TextStyles.textGray500_w400_12,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -184,7 +200,7 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
                   Container(
                       margin: EdgeInsets.only(right: 15),
                       alignment: Alignment.centerLeft,
-                      child: Text('CME GROUP',
+                      child: Text(groupStr,
                         style: TextStyles.textGray500_w400_12,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -204,12 +220,12 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
           decoration: BoxDecoration(
             color: Colours.white,
             borderRadius: BorderRadius.vertical(top: Radius.circular(14.0)),
-            boxShadow: BoxShadows.normalBoxShadow,
           ),
           child: Row (
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
+                  width: 100,
                   child: Text(S.of(context).proTradePlatform, style: TextStyles.textGray500_w400_12,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,)
@@ -243,12 +259,13 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
   }
 
   Widget _buildItem() {
-    final list = List.generate(_dataList.length, (i) {
-      return SpotTradePlatformDataItem(
+    final list = List.generate(_quoteList.length, (i) {
+      return SpotExchangeQuoteItem(
         index: i,
-        tradePlatform: '',
-        price: '12345.22',
-        rate: '10.11%',
+        tradePlatform: _quoteList[i].name,
+        price: _quoteList[i].quote,
+        rate: _quoteList[i].change_percent,
+        cny: _quoteList[i].cny,
       );
     });
     return Container(
@@ -258,9 +275,8 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
         decoration: BoxDecoration(
           color: Colours.white,
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(14.0)),
-          boxShadow: BoxShadows.normalBoxShadow,
         ),
-        child:Column(
+        child: Column(
             children: list
         )
     );

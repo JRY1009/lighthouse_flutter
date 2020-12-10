@@ -3,30 +3,39 @@ import 'package:flutter/material.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
+import 'package:lighthouse/utils/num_util.dart';
 
 
-class SpotTradePlatformDataItem extends StatelessWidget {
+class SpotExchangeQuoteItem extends StatelessWidget {
 
   final int index;
 
   final String tradePlatform;
 
-  final String price;
+  final double price;
 
-  final String rate;
+  final double cny;
+
+  final double rate;
 
 
-  const SpotTradePlatformDataItem(
+  const SpotExchangeQuoteItem(
       {Key key,
         this.index,
         this.tradePlatform,
         this.price,
+        this.cny,
         this.rate,
       })
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+    String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate, 2).toString() + '%';
+    String priceStr = NumUtil.getNumByValueDouble(price, 2).toString();
+    String cnyStr = NumUtil.getNumByValueDouble(cny, 2).toString();
+
     return Container(
       height: 55.0,
       width: double.infinity,
@@ -37,11 +46,12 @@ class SpotTradePlatformDataItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
+            width: 100,
             child: Row(
               children: [
                 Icon(Icons.fire_extinguisher, color: Colours.text_black, size: 20),
                 Gaps.hGap4,
-                Text('Huobi',
+                Text(tradePlatform,
                   style: TextStyles.textGray800_w400_12,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -56,12 +66,13 @@ class SpotTradePlatformDataItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('\$12345.33', style: TextStyles.textGray800_w400_14,
+                Text('\$' + priceStr,
+                  style: rate >= 0 ? TextStyles.textGreen_w400_14 : TextStyles.textRed_w400_14,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 Gaps.vGap3,
-                Text('≈￥82345.33', style: TextStyles.textGray500_w400_10,
+                Text('≈￥' + cnyStr, style: TextStyles.textGray500_w400_10,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -71,7 +82,8 @@ class SpotTradePlatformDataItem extends StatelessWidget {
           Container(
             width: 70,
             alignment: Alignment.centerRight,
-            child: Text('+10.12%', style: TextStyles.textGray800_w400_12,
+            child: Text(rateStr,
+              style: rate >= 0 ? TextStyles.textGreen_w400_12 : TextStyles.textRed_w400_12,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,),
           ),

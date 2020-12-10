@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
+import 'package:lighthouse/net/model/quote_basic.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
@@ -23,6 +24,7 @@ import 'package:lighthouse/ui/widget/dialog/dialog_util.dart';
 import 'package:lighthouse/ui/widget/shot_view.dart';
 import 'package:lighthouse/ui/widget/tab/bubble_indicator.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
+import 'package:lighthouse/utils/num_util.dart';
 
 
 
@@ -41,6 +43,7 @@ class SpotDetailPage extends StatefulWidget {
 
 class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<SpotDetailPage>, SingleTickerProviderStateMixin {
 
+  QuoteBasic _quoteBasic;
 
   List<GlobalKey<BasePageMixin>> _keyList;
   List<String> _tabTitles ;
@@ -100,15 +103,20 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
 
   Future<void> _requestData() {
     Map<String, dynamic> params = {
-      'sex': 1,
+      'chain': 'bitcoin',
     };
 
-    return DioUtil.getInstance().post(Constant.URL_GET_MILESTONES, params: params,
+    return DioUtil.getInstance().get(Constant.URL_GET_CHAIN_DETAIL, params: params,
         successCallBack: (data, headers) {
           if (data == null || data['data'] == null) {
             return;
           }
 
+          _quoteBasic = QuoteBasic.fromJson(data['data']);
+
+          setState(() {
+
+          });
         },
         errorCallBack: (error) {
 
@@ -248,7 +256,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
   List<Widget> _headerSliverBuilder(BuildContext context) {
     return <Widget>[
       SliverToBoxAdapter(
-        child: SpotDetailAppbar(),
+        child: SpotDetailAppbar(quoteBasic: _quoteBasic),
       ),
       SliverToBoxAdapter(
         child: SpotDetailKLineBar(coin_code: widget.coin_code),
@@ -257,6 +265,11 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
   }
 
   Widget _titleBuilder() {
+    double rate = _quoteBasic != null ? _quoteBasic.change_percent : 0;
+    double price = _quoteBasic != null ? _quoteBasic.quote : 0;
+    String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate, 2).toString() + '%';
+    String priceStr = NumUtil.getNumByValueDouble(price, 2).toString();
+
     return  Column(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
@@ -265,7 +278,8 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
             child: Text(widget.coin_code, style: TextStyles.textBlack16,
             )),
         _appBarOpacity > 0.5 ? Container(
-            child: Text('12342.21 1.23%', style: TextStyles.textGray400_w400_14,
+            child: Text(priceStr + '  ' + rateStr,
+              style: rate >= 0 ? TextStyles.textGreen_w400_14 : TextStyles.textRed_w400_14,
             )
         ) : Gaps.empty
       ],
