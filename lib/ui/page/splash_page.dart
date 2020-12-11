@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:lighthouse/router/routers.dart';
+import 'package:lighthouse/ui/widget/image/local_image.dart';
 
 class SplashPage extends StatefulWidget {
   SplashPage({Key key}) : super(key: key);
@@ -38,23 +39,23 @@ class SplashPageState extends State<SplashPage> {
           automaticallyImplyLeading: false,
         ),
         body: new Stack(
-//          children: <Widget>[
-//            Container(
-//              alignment: Alignment.center,
-//              child: LocalImage('img_splash_slogan',
-//                width: 81.0,
-//                height: 81.0,
-//              ),
-//            ),
-//            Container(
-//              alignment: Alignment.bottomCenter,
-//              margin: EdgeInsets.only(bottom: 40),
-//              child: LocalImage('img_splash_foot',
-//                width: 120.0,
-//                height: 10.0,
-//              ),
-//            )
-//          ],
+         children: <Widget>[
+           // Container(
+           //   alignment: Alignment.center,
+           //   child: LocalImage('logo',
+           //     width: 81.0,
+           //     height: 81.0,
+           //   ),
+           // ),
+           // Container(
+           //   alignment: Alignment.bottomCenter,
+           //   margin: EdgeInsets.only(bottom: 40),
+           //   child: LocalImage('img_splash_foot',
+           //     width: 120.0,
+           //     height: 10.0,
+           //   ),
+           // )
+         ],
         ));
   }
 }

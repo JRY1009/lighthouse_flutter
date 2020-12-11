@@ -153,7 +153,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
             color: Colours.gray_100,
             child: Column(
               children: [
-                SpotDetailAppbar(showShadow: false),
+                SpotDetailAppbar(showShadow: false, quoteBasic: _quoteBasic),
                 SpotDetailKLineBar(coin_code: widget.coin_code),
                 Image.memory(pngBytes),
               ],

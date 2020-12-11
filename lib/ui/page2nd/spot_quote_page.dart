@@ -144,6 +144,7 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
           child: Column (
             children: [
               Container(
+                height: 20,
                 alignment: Alignment.topLeft,
                 margin: const EdgeInsets.only(left: 15, top: 18),
                 child: Text(S.of(context).proTradePlatformData,
@@ -152,12 +153,13 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              Gaps.vGap15,
+              Gaps.vGap12,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Container(
+                      height: 30,
                       margin: EdgeInsets.only(left: 15),
                       alignment: Alignment.bottomLeft,
                       child: Text.rich(TextSpan(
@@ -172,6 +174,7 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
                       ))
                   ),
                   Container(
+                      height: 15,
                       margin: EdgeInsets.only(right: 15),
                       alignment: Alignment.bottomRight,
                       child: Text(rateStr + '  ' + changeAmountStr,
@@ -188,6 +191,7 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
+                      height: 15,
                       margin: EdgeInsets.only(left: 15),
                       alignment: Alignment.centerLeft,
                       child: Text('≈￥' + cnyStr,
@@ -198,6 +202,7 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
                   ),
 
                   Container(
+                      height: 15,
                       margin: EdgeInsets.only(right: 15),
                       alignment: Alignment.centerLeft,
                       child: Text(groupStr,

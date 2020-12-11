@@ -61,8 +61,8 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
     String priceStr = NumUtil.getNumByValueDouble(price, 2).toString();
     String priceCnyStr = NumUtil.getNumByValueDouble(priceCny, 2).toString();
     String changeAmountStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(change_amount, 2).toString();
-    String amount24Str = NumUtil.getNumByValueDouble(amount_24h, 2).toString();
-    String vol24Str = NumUtil.getNumByValueDouble(vol_24h, 2).toString();
+    String amount24Str = NumUtil.getBigVolumFormat(amount_24h, fractionDigits: 2).toString();
+    String vol24Str = NumUtil.getBigVolumFormat(vol_24h, fractionDigits: 2).toString();
 
     return Container(
       height: 64,
@@ -154,32 +154,32 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
           ),
 
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 10),
+            margin: EdgeInsets.symmetric(horizontal: 5),
             alignment: Alignment.centerLeft,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                    margin: EdgeInsets.only(top: 10),
-                    alignment: Alignment.centerLeft,
-                    child: Text('\$' + amount24Str,
-                      style: TextStyles.textGray800_w400_12,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    )
-                ),
-                Container(
-                    margin: EdgeInsets.only(top: 10),
-                    alignment: Alignment.centerLeft,
-                    child: Text(vol24Str + coin_code,
-                      style: TextStyles.textGray800_w400_12,
+                    margin: EdgeInsets.only(top: 8),
+                        alignment: Alignment.centerLeft,
+                        child: Text('\$' + amount24Str,
+                          style: TextStyles.textGray800_w400_12,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        )
+                    ),
+                  Container(
+                      margin: EdgeInsets.only(top: 8),
+                      alignment: Alignment.centerLeft,
+                      child: Text(vol24Str + coin_code,
+                        style: TextStyles.textGray800_w400_12,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     )
                 ),
               ],
             ),
-          )
+          ),
 
         ],
       ),
