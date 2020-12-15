@@ -128,7 +128,7 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
                           QuotationTab(
                             title: widget.quoteBasicMap['bitcoin']?.pair,
                             subTitle: btcPriceStr + '  ' + btcRateStr,
-                            subStyle: ethRate >= 0 ? TextStyles.textGreen_w400_12 : TextStyles.textRed_w400_12,
+                            subStyle: btcRate >= 0 ? TextStyles.textGreen_w400_12 : TextStyles.textRed_w400_12,
                           ),
                           QuotationTab(
                             title: widget.quoteBasicMap['ethereum']?.pair,

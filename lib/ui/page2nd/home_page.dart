@@ -1,7 +1,12 @@
 
 
+import 'dart:async';
+
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
+import 'package:lighthouse/event/event.dart';
+import 'package:lighthouse/event/main_jump_event.dart';
+import 'package:lighthouse/event/ws_event.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
 import 'package:lighthouse/net/model/quote_basic.dart';
@@ -42,6 +47,8 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
   final _milestonePageKey = GlobalKey<BasePageMixin>();
   final _articlePageKey = GlobalKey<BasePageMixin>();
 
+  StreamSubscription _quoteSubscription;
+
   @override
   void initState() {
     super.initState();
@@ -54,6 +61,19 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
       });
     });
 
+    _quoteSubscription = Event.eventBus.on<WsEvent>().listen((event) {
+
+      if (event.quoteWs != null) {
+        if (event.quoteWs.coin_code == 'btc' && _quoteBasicMap['bitcoin'] != null) {
+          _quoteBasicMap['bitcoin'].quote = event.quoteWs.quote;
+        } else if (event.quoteWs.coin_code == 'eth' && _quoteBasicMap['ethereum'] != null) {
+          _quoteBasicMap['ethereum'].quote = event.quoteWs.quote;
+        }
+
+        setState(() {
+        });
+      }
+    });
   }
 
   @override

@@ -1,5 +1,6 @@
 
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bugly/flutter_bugly.dart';
@@ -7,7 +8,9 @@ import 'package:flutter_xupdate/flutter_xupdate.dart';
 import 'package:lighthouse/event/event.dart';
 import 'package:lighthouse/event/main_jump_event.dart';
 import 'package:lighthouse/event/user_event.dart';
+import 'package:lighthouse/event/ws_event.dart';
 import 'package:lighthouse/generated/l10n.dart';
+import 'package:lighthouse/net/model/quote_ws.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/dimens.dart';
 import 'package:lighthouse/router/routers.dart';
@@ -15,10 +18,10 @@ import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/page2nd/home_page.dart';
 import 'package:lighthouse/ui/page2nd/info_page.dart';
 import 'package:lighthouse/ui/page2nd/mine_page.dart';
-import 'package:lighthouse/ui/page2nd/money_page.dart';
 import 'package:lighthouse/ui/provider/main_provider.dart';
 import 'package:lighthouse/ui/widget/image/frame_animation_image.dart';
 import 'package:lighthouse/ui/widget/image/local_image.dart';
+import 'package:lighthouse/net/websocket_util.dart';
 import 'package:lighthouse/utils/device_util.dart';
 import 'package:lighthouse/utils/double_tap_back_exit_app.dart';
 import 'package:provider/provider.dart';
@@ -47,9 +50,6 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
   @override
   void initState() {
     super.initState();
-
-    FlutterBugly.init(androidAppId: '9e87287cfa', iOSAppId: 'ad8a0b5092');
-
     initData();
 
     _userSubscription = Event.eventBus.on<UserEvent>().listen((event) {
@@ -64,6 +64,27 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
       if (event.page.value >= 0) {
         _pageController.jumpToPage(event.page.value);
       }
+    });
+
+    WebSocketUtil.instance().initWebSocket(onOpen: () {
+
+      Map<String, dynamic> params = {
+        'op': 'subscribe',
+        'message': 'quote.eth,quote.btc',
+      };
+
+      WebSocketUtil.instance().sendMessage(json.encode(params));
+
+    }, onMessage: (data) {
+
+      print(data);
+      Map<String, dynamic> dataMap = json.decode(data);
+      if (dataMap != null) {
+        QuoteWs quoteWs = QuoteWs.fromJson(dataMap);
+        Event.eventBus.fire(WsEvent(quoteWs, WsEventState.quote));
+      }
+
+    }, onError: (e) {
     });
   }
 
@@ -84,6 +105,8 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
   }
 
   void initData() {
+    FlutterBugly.init(androidAppId: '9e87287cfa', iOSAppId: 'ad8a0b5092');
+
     _appBarTitles = [S.current.home, S.current.info, S.current.mine];
     _keyList = [
       GlobalKey<BasePageMixin>(debugLabel: _appBarTitles[0]),

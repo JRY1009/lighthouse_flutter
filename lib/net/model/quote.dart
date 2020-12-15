@@ -1,5 +1,6 @@
 
 import 'package:lighthouse/utils/object_util.dart';
+import 'package:lighthouse/utils/date_util.dart';
 
 class Quote {
 
@@ -30,7 +31,7 @@ class Quote {
 
   static List<Quote> fromJsonList(List<dynamic> mapList) {
     if (ObjectUtil.isEmptyList(mapList)) {
-      return null;
+      return [new Quote(hour: 0, quote: 0, date: DateUtil.getDateStrByDateTime(DateTime.now(), format: DateFormat.YEAR_MONTH_DAY))];
     }
 
     List<Quote> items = new List<Quote>();
