@@ -40,6 +40,7 @@ class Constant {
   static const String URL_GET_TREEMAP = '/thermodynamic_diagram';
   static const String URL_GET_CHAIN_DETAIL = '/chain/detail';
   static const String URL_GET_CHAIN_QUOTE = '/chain/quote';
+  static const String URL_GET_CHAIN_DATA = '/chain/data';
   static const String URL_GET_QUOTE = '/quote';
 
   static const String URL_GET_NEWS = '/user/selectAccounts';

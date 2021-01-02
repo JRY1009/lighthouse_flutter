@@ -3,31 +3,27 @@ import 'package:lighthouse/utils/object_util.dart';
 
 class SpotAddressAssetsDistribution {
 
-  String account_name;
-  String city;
-  String created_at ;
-  String avatar_300;
+  String range;
+  int address_count;
+  String compare_yesterday_ratio ;
 
   SpotAddressAssetsDistribution({
-    this.account_name,
-    this.city,
-    this.created_at,
-    this.avatar_300,
+    this.range,
+    this.address_count,
+    this.compare_yesterday_ratio,
   });
 
   SpotAddressAssetsDistribution.fromJson(Map<String, dynamic> jsonMap) {
-    account_name = jsonMap['account_name'];
-    city = jsonMap['city'];
-    created_at = jsonMap['created_at'];
-    avatar_300 = jsonMap['avatar_300'];
+    range = jsonMap['range'];
+    address_count = jsonMap['address_count'];
+    compare_yesterday_ratio = jsonMap['compare_yesterday_ratio'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> jsonMap = new Map<String, dynamic>();
-    jsonMap['account_name'] = this.account_name;
-    jsonMap['city'] = this.city;
-    jsonMap['created_at'] = this.created_at;
-    jsonMap['avatar_300'] = this.avatar_300;
+    jsonMap['range'] = this.range;
+    jsonMap['address_count'] = this.address_count;
+    jsonMap['compare_yesterday_ratio'] = this.compare_yesterday_ratio;
 
     return jsonMap;
   }
