@@ -1064,6 +1064,16 @@ class S {
       args: [],
     );
   }
+
+  /// `微信未安装`
+  String get shareWxNotInstalled {
+    return Intl.message(
+      '微信未安装',
+      name: 'shareWxNotInstalled',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

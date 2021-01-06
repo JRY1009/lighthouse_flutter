@@ -101,5 +101,6 @@
   "shareFriend": "朋友圈",
   "shareSave": "保存",
   "shareMore": "更多",
-  "shareQRDownload": "长按二维码识别下载"
+  "shareQRDownload": "长按二维码识别下载",
+  "shareWxNotInstalled": "微信未安装"
 }

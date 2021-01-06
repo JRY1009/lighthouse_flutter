@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_xupdate/flutter_xupdate.dart';
+import 'package:fluwx/fluwx.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/provider/locale_provider.dart';
@@ -28,6 +29,12 @@ class DefaultApp {
       iosKey: '5fa62c921c520d3073a2536f',
     );
 
+    await registerWxApi(
+        appId: "wxfdba5c8a01643f82",
+        doOnAndroid: true,
+        doOnIOS: true,
+        universalLink: "https://your.univerallink.com/link/");
+
     await SPUtil.init();
 
     runApp(Store.init(MyApp()));
@@ -39,6 +46,7 @@ class DefaultApp {
   static void initApp() {
 
     LogUtil.init(isDebug: Constant.isTestEnvironment);
+
 
     if (DeviceUtil.isAndroid) {
       // 透明状态栏

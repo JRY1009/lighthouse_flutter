@@ -52,6 +52,7 @@ dependencies:
   flutter_xupdate: ^1.0.0
   qr_flutter: ^3.1.0
   share: ^0.6.5+4
+  fluwx: ^2.5.0+1
   decimal: ^0.3.5
   web_socket_channel: ^1.1.0
 

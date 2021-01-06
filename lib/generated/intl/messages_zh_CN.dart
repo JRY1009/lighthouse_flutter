@@ -112,6 +112,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "shareQRDownload" : MessageLookupByLibrary.simpleMessage("长按二维码识别下载"),
     "shareSave" : MessageLookupByLibrary.simpleMessage("保存"),
     "shareWechat" : MessageLookupByLibrary.simpleMessage("微信"),
+    "shareWxNotInstalled" : MessageLookupByLibrary.simpleMessage("微信未安装"),
     "slogan" : MessageLookupByLibrary.simpleMessage("照亮数字世界之海"),
     "smsLogin" : MessageLookupByLibrary.simpleMessage("验证码登录"),
     "treemap" : MessageLookupByLibrary.simpleMessage("热力图"),

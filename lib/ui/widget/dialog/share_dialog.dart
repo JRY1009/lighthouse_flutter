@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:fluwx/fluwx.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/net/constant.dart';
@@ -76,11 +77,32 @@ class ShareDialog extends StatelessWidget {
     }
   }
 
+  Future<void> _shareImage(BuildContext context, WeChatScene scene) async {
+    if (children == null) {
+      Share.share(Constant.URL_OFFICIAL_WEBSITE);
+
+      Navigator.pop(context);
+
+    } else {
+      bool result = await isWeChatInstalled;
+      if (!result) {
+        ToastUtil.waring(S.of(context).shareWxNotInstalled);
+        return;
+      }
+      
+      Uint8List pngBytes = await _shotController.makeImageUint8List();
+
+      shareToWeChat(WeChatShareImageModel(WeChatImage.binary(pngBytes), scene: scene));
+
+      Navigator.pop(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
 
     Widget shareWechat = InkWell(
-      onTap: () => ToastUtil.normal('click 1'),
+      onTap: () => _shareImage(context, WeChatScene.SESSION),
       child: Container(
         child: Column(
           children: [
@@ -98,7 +120,7 @@ class ShareDialog extends StatelessWidget {
     );
 
     Widget shareFriend = InkWell(
-      onTap: () => ToastUtil.normal('click 2'),
+      onTap: () => _shareImage(context, WeChatScene.TIMELINE),
       child: Container(
         child: Column(
           children: [
