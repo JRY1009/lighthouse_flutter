@@ -65,19 +65,19 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
   }
 
   void _login() {
-    String phone = _area_code + ' ' + _phoneController.text;
-    String pwd = _verifyController.text;
+    //String phone = _area_code + ' ' + _phoneController.text;
+    String phone = _phoneController.text;
+    String verify = _verifyController.text;
     int nonce = DateUtil.getNowDateMs() * 1000;
-    String pwdMd5 = EncryptUtil.encodeMd5(EncryptUtil.encodeMd5(pwd) + nonce.toString());
 
     Map<String, dynamic> params = {
       'phone': phone,
-      'password': pwdMd5,
+      'verification_code': verify,
       'nonce': nonce,
     };
 
     showProgress(content: S.current.logingin);
-    DioUtil.getInstance().post(Constant.URL_LOGIN, params: params,
+    DioUtil.getInstance().post(Constant.URL_REGISTER, params: params,
         successCallBack: (data, headers) {
           closeProgress();
           Account account = Account.fromJson(data['data']);

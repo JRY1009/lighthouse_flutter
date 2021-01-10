@@ -33,7 +33,7 @@ class _MineAppBarState extends State<MineAppBar> {
   @override
   Widget build(BuildContext context) {
 
-    String title = widget.account != null ? widget.account.account_name : S.of(context).loginNow;
+    String title = widget.account != null ? widget.account.nick_name : S.of(context).loginNow;
     String subTitle = widget.account != null ? widget.account.phoneSecret : S.of(context).loginGuide;
 
     return InkWell(
@@ -65,7 +65,7 @@ class _MineAppBarState extends State<MineAppBar> {
                           child: InkWell(
                             onTap: widget.onAvatarPressed,
                             child: CircleImage(
-                                widget.account?.avatar_300,
+                                widget.account?.head_ico,
                                 radius: 32,
                                 borderWidth: 3,
                                 borderColor: Colours.white,

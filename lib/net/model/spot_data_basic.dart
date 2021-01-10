@@ -3,10 +3,10 @@ import 'package:lighthouse/net/model/spot_address_assets_distribution.dart';
 
 class SpotDataBasic {
 
-  double turnover;
-  double turnover_market_vol;
-  double total_supply;
-  double total_supply_market_vol;
+  int turnover;
+  int turnover_market_vol;
+  int total_supply;
+  int total_supply_market_vol;
   int address_count;
   List<SpotAddressAssetsDistribution> address_balance_list;
 

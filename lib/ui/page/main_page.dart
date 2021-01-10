@@ -77,7 +77,7 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
 
     }, onMessage: (data) {
 
-      print(data);
+      //print(data);
       Map<String, dynamic> dataMap = json.decode(data);
       if (dataMap != null) {
         QuoteWs quoteWs = QuoteWs.fromJson(dataMap);

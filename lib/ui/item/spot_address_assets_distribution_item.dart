@@ -70,7 +70,7 @@ class SpotAddressAssetsDistributionItem extends StatelessWidget {
           Container(
             width: 70,
             alignment: Alignment.centerRight,
-            child: Text('+10.12%', style: TextStyles.textGray800_w400_12,
+            child: Text(compareYesterday, style: TextStyles.textGray800_w400_12,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,),
           ),

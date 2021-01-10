@@ -33,7 +33,7 @@ class _ModifyNicknamePageState extends State<ModifyNicknamePage> with BasePageMi
   @override
   void initState() {
     Account account = RTAccount.instance().getActiveAccount();
-    _textController.text = account?.account_name;
+    _textController.text = account?.nick_name;
 
     _checkInput();
 
@@ -62,7 +62,7 @@ class _ModifyNicknamePageState extends State<ModifyNicknamePage> with BasePageMi
         successCallBack: (data, headers) {
           closeProgress();
           Account account = RTAccount.instance().getActiveAccount();
-          account?.account_name = nickname;
+          account?.nick_name = nickname;
           RTAccount.instance().setActiveAccount(account);
 
           ToastUtil.success(S.current.saveSuccess);

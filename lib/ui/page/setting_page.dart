@@ -69,7 +69,7 @@ class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPag
   void _viewAvatar() {
 
     Account account = RTAccount.instance().getActiveAccount();
-    List<Gallery> galleryList = [Gallery(id: 'avatar', resource: account?.avatar_300)];
+    List<Gallery> galleryList = [Gallery(id: 'avatar', resource: account?.head_ico)];
 
     Navigator.push(
       context,
@@ -126,7 +126,7 @@ class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPag
               ),
               SettingClickBar(
                   title: S.of(context).modifyNickname,
-                  subTitle: account?.account_name,
+                  subTitle: account?.nick_name,
                   onPressed: () => Routers.loginGuardNavigateTo(context, Routers.modifyNicknamePage),
               ),
               SettingClickBar(

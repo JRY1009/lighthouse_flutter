@@ -3,17 +3,20 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/net/model/spot_address_assets_distribution.dart';
+import 'package:lighthouse/net/model/spot_data_basic.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/item/spot_address_assets_distribution_item.dart';
 
 class SpotDataAddressAssetsDistributionBar extends StatefulWidget {
 
+  final SpotDataBasic spotDataBasic;
   final List<SpotAddressAssetsDistribution> dataList;
   final VoidCallback onPressed;
 
   const SpotDataAddressAssetsDistributionBar({
     Key key,
+    this.spotDataBasic,
     this.dataList,
     this.onPressed,
   }): super(key: key);
@@ -90,10 +93,10 @@ class _SpotDataAddressAssetsDistributionBarState extends State<SpotDataAddressAs
               child: Row (
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('733237372个',
+                  Text(widget.spotDataBasic.address_count.toString(),
                     style: TextStyles.textGray800_w400_12,
                   ),
-                  Text('18540121.04487096BTC',
+                  Text(widget.spotDataBasic.total_supply.toString(),
                     style: TextStyles.textGray800_w400_12,
                   ),
                 ],
@@ -172,10 +175,10 @@ class _SpotDataAddressAssetsDistributionBarState extends State<SpotDataAddressAs
               itemBuilder: (context, index) {
                 return SpotAddressAssetsDistributionItem(
                   index: index,
-                  balanceRange: '100,000 ~ 10,000',
-                  addressAmount: '1000000',
+                  balanceRange: widget.dataList[index].range,
+                  addressAmount: widget.dataList[index].address_count.toString(),
                   proportion: '10.11%',
-                  compareYesterday: '10.11%',
+                  compareYesterday: widget.dataList[index].compare_yesterday_ratio,
                 );
               },
               itemCount: widget.dataList.length,

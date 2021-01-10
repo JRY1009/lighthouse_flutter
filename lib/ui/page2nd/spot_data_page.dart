@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
 import 'package:lighthouse/net/model/spot_address_assets_distribution.dart';
+import 'package:lighthouse/net/model/spot_data_basic.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
@@ -29,6 +30,7 @@ class _SpotDataPageState extends State<SpotDataPage> with BasePageMixin<SpotData
   @override
   bool get wantKeepAlive => true;
 
+  SpotDataBasic _spotDataBasic;
   List<SpotAddressAssetsDistribution> _dataList = [];
   bool _init = false;
 
@@ -51,20 +53,18 @@ class _SpotDataPageState extends State<SpotDataPage> with BasePageMixin<SpotData
   Future<void> _requestData() {
 
     Map<String, dynamic> params = {
-      'auth': 1,
-      'sort': 1,
-      'page': 0,
-      'page_size': 10,
+      'chain': 'bitcoin',
     };
 
-    return DioUtil.getInstance().post(Constant.URL_GET_NEWS, params: params,
+    return DioUtil.getInstance().get(Constant.URL_GET_CHAIN_DATA, params: params,
         successCallBack: (data, headers) {
           if (data == null || data['data'] == null) {
             _finishRequest(success: false);
             return;
           }
 
-          List<SpotAddressAssetsDistribution> dataList = SpotAddressAssetsDistribution.fromJsonList(data['data']['account_info']) ?? [];
+          _spotDataBasic = SpotDataBasic.fromJson(data['data']);
+          List<SpotAddressAssetsDistribution> dataList = _spotDataBasic?.address_balance_list;
 
           _dataList.clear();
           _dataList.addAll(dataList);
@@ -115,7 +115,7 @@ class _SpotDataPageState extends State<SpotDataPage> with BasePageMixin<SpotData
           ),
         ),
 
-        SpotDataAddressAssetsDistributionBar(dataList: _dataList,),
+        SpotDataAddressAssetsDistributionBar(spotDataBasic: _spotDataBasic, dataList: _dataList,),
       ],
     );
   }

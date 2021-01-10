@@ -59,7 +59,7 @@ class _SettingAvatarClickBarState extends State<SettingAvatarClickBar> {
                 padding: EdgeInsets.only(right: 5),
                 alignment: Alignment.centerRight,
                 child: CircleImage(
-                  widget.account?.avatar_300,
+                  widget.account?.head_ico,
                   radius: 23,
                   borderWidth: 0,
                   borderColor: Colours.white,
