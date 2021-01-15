@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/res/styles.dart';
+import 'package:lighthouse/ui/widget/common_scroll_view.dart';
 import 'package:lighthouse/ui/widget/image/local_image.dart';
 
 class LoadingEmpty extends StatelessWidget {
@@ -16,31 +17,19 @@ class LoadingEmpty extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Expanded(
-            child: SizedBox(),
-            flex: 2,
-          ),
-          SizedBox(
-            width: 100.0,
-            height: 100.0,
-            child: LocalImage(image ?? 'img_nodata'),
-          ),
-          Text(
-            text ?? S.of(context).noData,
-            style: TextStyles.textGray400_w400_14,
-          ),
-          Expanded(
-            child: SizedBox(),
-            flex: 3,
-          ),
-        ],
+    return CommonScrollView(children: [
+      Container(
+        alignment: Alignment.center,
+        margin: EdgeInsets.only(top: 50),
+        child: LocalImage('img_nodata', width: 100, height: 100,),
       ),
-    );
+      Container(
+        alignment: Alignment.center,
+        child: Text(
+          text ?? S.of(context).noData,
+          style: TextStyles.textGray400_w400_12,
+        ),
+      )
+    ]);
   }
 }

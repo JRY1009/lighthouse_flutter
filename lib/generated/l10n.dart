@@ -1015,6 +1015,16 @@ class S {
     );
   }
 
+  /// `优质资产对比`
+  String get proAssetsCompare {
+    return Intl.message(
+      '优质资产对比',
+      name: 'proAssetsCompare',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `微信`
   String get shareWechat {
     return Intl.message(

@@ -26,12 +26,12 @@ class DioUtil {
   Dio dio = new Dio();
 
   DioUtil() {
-    dio.options.baseUrl = Constant.BASE_URL;
+    dio.options.baseUrl = Constant.BASE_URL_YAPI;
     dio.options.contentType = ContentType.parse("application/json;charset=UTF-8").toString();
     dio.options.connectTimeout = 10000;
     dio.options.receiveTimeout = 5000;
     dio.interceptors.add(AuthInterceptor());
-    //dio.interceptors.add(LogInterceptor(responseBody: true)); //是否开启请求日志
+    dio.interceptors.add(LogInterceptor(responseBody: true)); //是否开启请求日志
   }
 
 //get请求
@@ -44,7 +44,6 @@ class DioUtil {
   //post请求
   Future post(String url, {Map<String, dynamic> params, Function successCallBack,
       Function errorCallBack}) async {
-    dio.options.baseUrl = Constant.BASE_URL;
     return _requstHttp(url, successCallBack, "post", params, errorCallBack);
   }
 
@@ -66,7 +65,7 @@ class DioUtil {
         }
       } else if (method == 'post') {
         if (params != null && params.isNotEmpty) {
-          response = await dio.post(url, data: params);
+          response = await dio.post(url, queryParameters: params);
         } else {
           response = await dio.post(url);
         }

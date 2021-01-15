@@ -45,9 +45,11 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
   void initState() {
     Account account = RTAccount.instance().loadAccount();
     if (account != null) {
-      var t = account.phone?.split(' ');
-      _area_code = t?.first;
-      _phoneController.text = t?.last;
+      // var t = account.phone?.split(' ');
+      // _area_code = t?.first;
+      // _phoneController.text = t?.last;
+      _area_code = '+86';
+      _phoneController.text = account.phone;
     } else {
       _area_code = '+86';
     }
@@ -77,11 +79,12 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
     };
 
     showProgress(content: S.current.logingin);
-    DioUtil.getInstance().post(Constant.URL_REGISTER, params: params,
+    DioUtil.getInstance().post(Constant.URL_LOGIN, params: params,
         successCallBack: (data, headers) {
           closeProgress();
-          Account account = Account.fromJson(data['data']);
-          account.token = headers.value(Constant.KEY_USER_TOKEN);
+          Account account = Account.fromJson(data['data']['account_info']);
+          account.token =data['data']['token'];
+          //account.token = headers.value(Constant.KEY_USER_TOKEN);
           RTAccount.instance().setActiveAccount(account);
           RTAccount.instance().saveAccount();
           ToastUtil.success(S.current.loginSuccess);
@@ -125,9 +128,29 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
     Routers.navigateTo(context, Routers.webviewPage, params: params);
   }
 
-  Future<bool> _getVCode() {
-    ToastUtil.normal('获取验证码 click');
-    return Future.value(true);
+  Future<bool> _getVCode() async {
+    String phone = _phoneController.text;
+    if (ObjectUtil.isEmptyString(phone)) {
+      ToastUtil.normal('请填写手机号');
+      return Future.value(false);
+    }
+
+    Map<String, dynamic> params = {
+      'phone': phone,
+      'sms_type' : 1
+    };
+
+    Map<String, dynamic> dataMap = await DioUtil.getInstance().post(Constant.URL_VERIFY_CODE, params: params,
+        successCallBack: (data, headers) {
+          ToastUtil.normal('已发送验证码');
+
+        },
+        errorCallBack: (error) {
+          closeProgress();
+          ToastUtil.error(error[Constant.MESSAGE]);
+        });
+
+    return Future.value(dataMap != null && dataMap[Constant.ERRNO] == Constant.ERRNO_OK);
   }
 
   @override

@@ -4,8 +4,8 @@ class Constant {
   static const bool isReleaseMode = kReleaseMode;
 
   static const String ERRNO = 'errno';
-  static const String MESSAGE = 'message';
-  static const String ERRNO_OK = "OK";
+  static const String MESSAGE = 'msg';
+  static const String ERRNO_OK = "10000";
   static const String ERRNO_DIO_ERROR = "DIOERROR";
   static const String ERRNO_UNKNOWN = "UNKNOWN";
   static const String ERRNO_UNKNOWN_MESSAGE = "UNKNOWN MESSAGE";
@@ -25,11 +25,11 @@ class Constant {
   static const String BASE_URL = 'http://testapi.paomian.co';  //测试环境
   static const String BASE_URL_YAPI = 'http://81.70.145.64:8083/gateway';  //测试环境
 
-  static bool get isTestEnvironment => (BASE_URL == 'http://testapi.paomian.co');
+  static bool get isTestEnvironment => (BASE_URL_YAPI == 'http://81.70.145.64:8083/gateway');
 
-  static const String URL_LOGIN = '/user/login';
-  static const String URL_REGISTER = '/user/register';
-  static const String URL_VERIFY_CODE = '/user/verifyCode';
+  static const String URL_LOGIN = '/login';
+  static const String URL_REGISTER = '/reg';
+  static const String URL_VERIFY_CODE = '/sms/send';
   static const String URL_RESET_PASSWORD = '/user/resetPassword';
   static const String URL_GET_ACCOUNT_INFO = '/user/getAccountInfo';
   static const String URL_SUB_PERSON_DATA = '/user/subPersonData';

@@ -133,8 +133,8 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                  margin: EdgeInsets.only(top: 8),
                   alignment: Alignment.centerRight,
+                  height: 20,
                   child: Text(S.of(context).pro24hAmount,
                     style: TextStyles.textGray400_w400_12,
                     maxLines: 1,
@@ -144,6 +144,7 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
               Container(
                   margin: EdgeInsets.only(top: 8),
                   alignment: Alignment.centerRight,
+                  height: 20,
                   child: Text(S.of(context).pro24hVolume,
                     style: TextStyles.textGray400_w400_12,
                     maxLines: 1,
@@ -160,19 +161,20 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
+                    alignment: Alignment.centerLeft,
+                    height: 20,
+                    child: Text('\$' + amount24Str,
+                      style: TextStyles.textGray800_w400_12,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    )
+                ),
+                Container(
                     margin: EdgeInsets.only(top: 8),
-                        alignment: Alignment.centerLeft,
-                        child: Text('\$' + amount24Str,
-                          style: TextStyles.textGray800_w400_12,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        )
-                    ),
-                  Container(
-                      margin: EdgeInsets.only(top: 8),
-                      alignment: Alignment.centerLeft,
-                      child: Text(vol24Str + coin_code,
-                        style: TextStyles.textGray800_w400_12,
+                    alignment: Alignment.centerLeft,
+                    height: 20,
+                    child: Text(vol24Str + coin_code,
+                      style: TextStyles.textGray800_w400_12,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     )

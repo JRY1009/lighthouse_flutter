@@ -75,7 +75,7 @@ class ToastUtil {
                   constraints: BoxConstraints(maxWidth: ScreenUtil.instance().screenWidth - 160),
                   child: Padding(
                       padding: const EdgeInsets.only(left: 5, top: 3),
-                      child: Text(msg,
+                      child: Text(msg ?? '',
                           strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
                           style: TextStyle(fontSize: 15, color: Colours.white))
                   ))

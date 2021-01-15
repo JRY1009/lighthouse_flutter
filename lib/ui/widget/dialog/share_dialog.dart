@@ -77,18 +77,19 @@ class ShareDialog extends StatelessWidget {
     }
   }
 
-  Future<void> _shareImage(BuildContext context, WeChatScene scene) async {
+  Future<void> _shareWechat(BuildContext context, WeChatScene scene) async {
+    bool result = await isWeChatInstalled;
+    if (!result) {
+      ToastUtil.waring(S.of(context).shareWxNotInstalled);
+      return;
+    }
+
     if (children == null) {
-      Share.share(Constant.URL_OFFICIAL_WEBSITE);
+      shareToWeChat(WeChatShareWebPageModel(Constant.URL_OFFICIAL_WEBSITE, scene: scene));
 
       Navigator.pop(context);
 
     } else {
-      bool result = await isWeChatInstalled;
-      if (!result) {
-        ToastUtil.waring(S.of(context).shareWxNotInstalled);
-        return;
-      }
       
       Uint8List pngBytes = await _shotController.makeImageUint8List();
 
@@ -102,7 +103,7 @@ class ShareDialog extends StatelessWidget {
   Widget build(BuildContext context) {
 
     Widget shareWechat = InkWell(
-      onTap: () => _shareImage(context, WeChatScene.SESSION),
+      onTap: () => _shareWechat(context, WeChatScene.SESSION),
       child: Container(
         child: Column(
           children: [
@@ -120,7 +121,7 @@ class ShareDialog extends StatelessWidget {
     );
 
     Widget shareFriend = InkWell(
-      onTap: () => _shareImage(context, WeChatScene.TIMELINE),
+      onTap: () => _shareWechat(context, WeChatScene.TIMELINE),
       child: Container(
         child: Column(
           children: [

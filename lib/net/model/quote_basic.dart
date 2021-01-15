@@ -25,13 +25,13 @@ class QuoteBasic {
   QuoteBasic.fromJson(Map<String, dynamic> jsonMap) {
     pair = jsonMap['pair'];
     coin_code = jsonMap['coin_code'];
-    market_val = jsonMap['market_val'];
-    change_percent = jsonMap['change_percent'];
-    change_amount = jsonMap['change_amount'];
-    quote = jsonMap['quote'];
-    vol_24h = jsonMap['vol_24h'];
-    amount_24h = jsonMap['amount_24h'];
-    hashrate = jsonMap['hashrate'];
+    market_val = jsonMap['market_val'] ?? 0;
+    change_percent = jsonMap['change_percent'] ?? 0;
+    change_amount = jsonMap['change_amount'] ?? 0;
+    quote = jsonMap['quote'] ?? 0;
+    vol_24h = jsonMap['vol_24h'] ?? 0;
+    amount_24h = jsonMap['amount_24h'] ?? 0;
+    hashrate = jsonMap['hashrate'] ?? 0;
     quote_24h = Quote.fromJsonList(jsonMap['quote_24h']);
   }
 

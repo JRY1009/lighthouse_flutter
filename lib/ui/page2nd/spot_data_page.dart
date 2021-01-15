@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
 import 'package:lighthouse/net/model/spot_address_assets_distribution.dart';
@@ -8,6 +9,7 @@ import 'package:lighthouse/net/model/spot_data_basic.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
+import 'package:lighthouse/ui/widget/appbar/spot_data_treemap.dart';
 import 'package:lighthouse/ui/widget/appbar/spot_data_address_assets_distribution_bar.dart';
 import 'package:lighthouse/ui/widget/appbar/spot_data_circulation_bar.dart';
 import 'package:lighthouse/ui/widget/common_scroll_view.dart';
@@ -90,7 +92,7 @@ class _SpotDataPageState extends State<SpotDataPage> with BasePageMixin<SpotData
     return !_init ? FirstRefresh() : CommonScrollView(
       physics: ClampingScrollPhysics(),
       children: [
-        SpotDataCirculationBar(),
+        SpotDataCirculationBar(spotDataBasic: _spotDataBasic),
 
         Container(
           margin: const EdgeInsets.fromLTRB(12, 9, 12, 9),
@@ -102,15 +104,20 @@ class _SpotDataPageState extends State<SpotDataPage> with BasePageMixin<SpotData
           child: Column(
             children: [
               Container(
-                alignment: Alignment.center,
-                height: 200,
-                child: Text('Treemap [TODO]',
-                  style: TextStyles.textGray800_w400_14,
+                alignment: Alignment.topLeft,
+                margin: const EdgeInsets.only(left: 15, top: 18),
+                child: Text(S.of(context).proAssetsCompare,
+                  style: TextStyles.textGray800_w400_15,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-
+              Container(
+                alignment: Alignment.center,
+                margin: const EdgeInsets.only(left: 15, top: 12, right: 15, bottom: 15),
+                height: 200,
+                child: SpotTreemap(),
+              )
             ],
           ),
         ),

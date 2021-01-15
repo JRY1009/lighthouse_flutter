@@ -46,9 +46,11 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
 
     Account account = RTAccount.instance().loadAccount();
     if (account != null) {
-      var t = account.phone?.split(' ');
-      _area_code = t?.first;
-      _phoneController.text = t?.last;
+      // var t = account.phone?.split(' ');
+      // _area_code = t?.first;
+      // _phoneController.text = t?.last;
+      _area_code = '+86';
+      _phoneController.text = account.phone;
       _pwdController.text = 'tt123456';
     } else {
       _area_code = '+86';
@@ -59,7 +61,7 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
 
   void _checkInput() {
     setState(() {
-      if (ObjectUtil.isEmpty(_phoneController.text) || ObjectUtil.isEmpty(_pwdController.text)) {
+      if (ObjectUtil.isEmpty(_phoneController.text)) {
         _loginEnabled = false;
       } else {
         _loginEnabled = true;
@@ -68,15 +70,20 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
   }
 
   void _login() {
-    String phone = _area_code + ' ' + _phoneController.text;
+    String phone = _phoneController.text;
     String pwd = _pwdController.text;
     int nonce = DateUtil.getNowDateMs() * 1000;
     String pwdMd5 = EncryptUtil.encodeMd5(EncryptUtil.encodeMd5(pwd) + nonce.toString());
 
+    // Map<String, dynamic> params = {
+    //   'phone': phone,
+    //   'password': pwdMd5,
+    //   'nonce': nonce,
+    // };
+
     Map<String, dynamic> params = {
       'phone': phone,
-      'password': pwdMd5,
-      'nonce': nonce,
+      'password': '123456',
     };
 
     showProgress(content: S.current.logingin);
@@ -84,7 +91,8 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
         successCallBack: (data, headers) {
           closeProgress();
           Account account = Account.fromJson(data['data']);
-          account.token = headers.value(Constant.KEY_USER_TOKEN);
+          account.token =data['data']['token'];
+          //account.token = headers.value(Constant.KEY_USER_TOKEN);
           RTAccount.instance().setActiveAccount(account);
           RTAccount.instance().saveAccount();
           ToastUtil.success(S.current.loginSuccess);

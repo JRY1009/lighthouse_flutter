@@ -1,17 +1,20 @@
 
 import 'package:flutter/material.dart';
 import 'package:lighthouse/generated/l10n.dart';
-import 'package:lighthouse/net/model/account.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
+import 'package:lighthouse/utils/num_util.dart';
+import 'package:lighthouse/net/model/spot_data_basic.dart';
 import 'package:lighthouse/ui/widget/percent/linear_percent_indicator.dart';
 
 class SpotDataCirculationBar extends StatefulWidget {
 
+  final SpotDataBasic spotDataBasic;
   final VoidCallback onPressed;
 
   const SpotDataCirculationBar({
     Key key,
+    this.spotDataBasic,
     this.onPressed,
   }): super(key: key);
 
@@ -34,6 +37,13 @@ class _SpotDataCirculationBarState extends State<SpotDataCirculationBar> {
 
   @override
   Widget build(BuildContext context) {
+    int turnover = widget.spotDataBasic != null ? widget.spotDataBasic.turnover : 0;
+    int turnover_market_vol = widget.spotDataBasic != null ? widget.spotDataBasic.turnover_market_vol : 0;
+
+    double lp = turnover_market_vol == 0 ? 0 : NumUtil.divideDec(widget.spotDataBasic.turnover, widget.spotDataBasic.turnover_market_vol).toDouble() / 100;
+    double rp = turnover_market_vol == 0 ? 0 : NumUtil.divideDec(widget.spotDataBasic.turnover_market_vol - widget.spotDataBasic.turnover, widget.spotDataBasic.turnover_market_vol).toDouble() / 100;
+    String lpStr = NumUtil.getNumByValueDouble(lp, 2).toString() + "%";
+    String rpStr = NumUtil.getNumByValueDouble(rp, 2).toString() + "%";
 
     return Container(
         margin: EdgeInsets.symmetric(horizontal: 12 , vertical: 9),
@@ -61,10 +71,10 @@ class _SpotDataCirculationBarState extends State<SpotDataCirculationBar> {
               child: Row (
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('50%',
+                  Text(lpStr,
                     style: TextStyles.textMain12,
                   ),
-                  Text('50%',
+                  Text(rpStr,
                     style: TextStyles.textGreenLight_w400_12,
                   ),
                 ],
@@ -77,7 +87,7 @@ class _SpotDataCirculationBarState extends State<SpotDataCirculationBar> {
                 animation: true,
                 lineHeight: 8.0,
                 animationDuration: 1000,
-                percent: 0.50,
+                percent: lp,
                 animateFromLastPercent: true,
                 linearStrokeCap: LinearStrokeCap.roundHalf,
                 progressColor: Colours.app_main,
@@ -109,7 +119,7 @@ class _SpotDataCirculationBarState extends State<SpotDataCirculationBar> {
                     ),
                   ),
                   Container(
-                    child: Text('10000BTC / \$1,123,324.00',
+                    child: Text(widget.spotDataBasic.turnover.toString() + '/\$' + widget.spotDataBasic.turnover_market_vol.toString(),
                       style: TextStyles.textGray800_w400_12,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -141,7 +151,7 @@ class _SpotDataCirculationBarState extends State<SpotDataCirculationBar> {
                     ),
                   ),
                   Container(
-                    child: Text('10000BTC / \$1,123,324.00',
+                    child: Text(widget.spotDataBasic.total_supply.toString() + '/\$' + widget.spotDataBasic.total_supply_market_vol.toString(),
                       style: TextStyles.textGray800_w400_12,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,

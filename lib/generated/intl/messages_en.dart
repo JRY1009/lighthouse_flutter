@@ -82,6 +82,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "proAddressAmount" : MessageLookupByLibrary.simpleMessage("地址数量"),
     "proAddressAssetsDistribution" : MessageLookupByLibrary.simpleMessage("地址资产分布"),
     "proAddressTotalAmount" : MessageLookupByLibrary.simpleMessage("地址总数"),
+    "proAssetsCompare" : MessageLookupByLibrary.simpleMessage("优质资产对比"),
     "proBalanceRange" : MessageLookupByLibrary.simpleMessage("余额范围"),
     "proCirculation" : MessageLookupByLibrary.simpleMessage("流通量"),
     "proCirculationRatio" : MessageLookupByLibrary.simpleMessage("流通量比"),
