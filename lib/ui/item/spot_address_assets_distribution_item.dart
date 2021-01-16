@@ -8,6 +8,8 @@ class SpotAddressAssetsDistributionItem extends StatelessWidget {
 
   final int index;
 
+  final Color color;
+
   final String balanceRange;
 
   final String addressAmount;
@@ -19,6 +21,7 @@ class SpotAddressAssetsDistributionItem extends StatelessWidget {
   const SpotAddressAssetsDistributionItem(
       {Key key,
         this.index,
+        this.color,
         this.balanceRange,
         this.addressAmount,
         this.proportion,
@@ -42,7 +45,7 @@ class SpotAddressAssetsDistributionItem extends StatelessWidget {
             height: 8,
             margin: const EdgeInsets.only(right: 3),
             decoration: BoxDecoration(
-              color: Colours.app_main,
+              color: color,
               borderRadius: BorderRadius.all(Radius.circular(4.0)),
             ),
           ),
@@ -63,7 +66,7 @@ class SpotAddressAssetsDistributionItem extends StatelessWidget {
           Container(
             width: 70,
             alignment: Alignment.centerRight,
-            child: Text('10.99%', style: TextStyles.textGray800_w400_12,
+            child: Text(proportion, style: TextStyles.textGray800_w400_12,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,),
           ),

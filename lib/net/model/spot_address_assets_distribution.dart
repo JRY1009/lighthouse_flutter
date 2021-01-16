@@ -1,4 +1,5 @@
 
+import 'package:flutter/material.dart';
 import 'package:lighthouse/utils/object_util.dart';
 
 class SpotAddressAssetsDistribution {
@@ -6,6 +7,25 @@ class SpotAddressAssetsDistribution {
   String range;
   int address_count;
   String compare_yesterday_ratio ;
+
+  Color getColor(int index) {
+    switch (index % 7) {
+      case 0:
+        return Color(0xffa8f250);
+      case 1:
+        return Color(0xff683250);
+      case 2:
+        return Color(0xff845bef);
+      case 3:
+        return Color(0xff13d38e);
+      case 4:
+        return Color(0xff845bef);
+      case 5:
+        return Color(0xfff8b2a0);
+      case 6:
+        return Color(0xff0293ee);
+    }
+  }
 
   SpotAddressAssetsDistribution({
     this.range,

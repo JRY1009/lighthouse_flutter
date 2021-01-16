@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:lighthouse/router/routers.dart';
-import 'package:lighthouse/ui/widget/image/local_image.dart';
 
 class SplashPage extends StatefulWidget {
   SplashPage({Key key}) : super(key: key);
@@ -21,7 +20,7 @@ class SplashPageState extends State<SplashPage> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Navigator.pop(context);
-      Routers.navigateTo(context, Routers.loginPage, clearStack: true, transition: TransitionType.none);
+      Routers.navigateTo(context, Routers.loginSmsPage, clearStack: true, transition: TransitionType.none);
     });
 //    Future.delayed(new Duration(seconds: 1), () {
 //

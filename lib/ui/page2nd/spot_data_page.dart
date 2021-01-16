@@ -14,6 +14,7 @@ import 'package:lighthouse/ui/widget/appbar/spot_data_address_assets_distributio
 import 'package:lighthouse/ui/widget/appbar/spot_data_circulation_bar.dart';
 import 'package:lighthouse/ui/widget/common_scroll_view.dart';
 import 'package:lighthouse/ui/widget/easyrefresh/first_refresh.dart';
+import 'package:lighthouse/utils/log_util.dart';
 import 'package:lighthouse/utils/toast_util.dart';
 
 class SpotDataPage extends StatefulWidget {
@@ -39,12 +40,36 @@ class _SpotDataPageState extends State<SpotDataPage> with BasePageMixin<SpotData
   @override
   void initState() {
     super.initState();
-    _requestData();
+    Future.delayed(new Duration(milliseconds: 100), () {
+      if (mounted) {
+        _requestData();
+      }
+    });
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+
+  @override
+  void didUpdateWidget(SpotDataPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+    } else if (state == AppLifecycleState.paused) {
+    } else if (state == AppLifecycleState.inactive) {
+    } else if (state == AppLifecycleState.detached) {
+    }
   }
 
   @override
@@ -83,7 +108,9 @@ class _SpotDataPageState extends State<SpotDataPage> with BasePageMixin<SpotData
       _init = true;
     }
 
-    setState((){});
+    if (mounted) {
+      setState((){});
+    }
   }
 
   @override
@@ -116,7 +143,7 @@ class _SpotDataPageState extends State<SpotDataPage> with BasePageMixin<SpotData
                 alignment: Alignment.center,
                 margin: const EdgeInsets.only(left: 15, top: 12, right: 15, bottom: 15),
                 height: 200,
-                child: SpotTreemap(),
+                //child: SpotTreemap(),
               )
             ],
           ),

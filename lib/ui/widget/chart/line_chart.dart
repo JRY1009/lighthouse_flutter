@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:lighthouse/net/model/quote.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/ui/widget/easyrefresh/first_refresh.dart';
+import 'package:lighthouse/ui/widget/easyrefresh/first_refresh_top.dart';
+import 'package:lighthouse/ui/widget/easyrefresh/loading_empty_top.dart';
 import 'package:lighthouse/utils/date_util.dart';
 import 'package:lighthouse/utils/num_util.dart';
 
@@ -33,12 +34,13 @@ class _SimpleLineChartState extends State<SimpleLineChart> {
 
   @override
   Widget build(BuildContext context) {
-    bool _inited = widget.quoteList != null && widget.quoteList.length > 0;
+    bool _inited = widget.quoteList != null;
+    int length = widget.quoteList != null ? widget.quoteList.length : 0;
 
     return Container(
       padding: EdgeInsets.only(top: 10),
       width: double.infinity,
-      child: !_inited ? FirstRefresh() : LineChart(
+      child: !_inited ? FirstRefreshTop() : length == 0 ? LoadingEmptyTop(top: 20,) : LineChart(
         mainData(),
         swapAnimationDuration:const Duration(milliseconds: 0),
       ),

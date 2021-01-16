@@ -40,8 +40,8 @@ class _SpotDataCirculationBarState extends State<SpotDataCirculationBar> {
     int turnover = widget.spotDataBasic != null ? widget.spotDataBasic.turnover : 0;
     int turnover_market_vol = widget.spotDataBasic != null ? widget.spotDataBasic.turnover_market_vol : 0;
 
-    double lp = turnover_market_vol == 0 ? 0 : NumUtil.divideDec(widget.spotDataBasic.turnover, widget.spotDataBasic.turnover_market_vol).toDouble() / 100;
-    double rp = turnover_market_vol == 0 ? 0 : NumUtil.divideDec(widget.spotDataBasic.turnover_market_vol - widget.spotDataBasic.turnover, widget.spotDataBasic.turnover_market_vol).toDouble() / 100;
+    double lp = turnover_market_vol == 0 ? 0 : NumUtil.divideDec(widget.spotDataBasic.turnover, widget.spotDataBasic.turnover_market_vol).toDouble() * 100;
+    double rp = turnover_market_vol == 0 ? 0 : NumUtil.divideDec(widget.spotDataBasic.turnover_market_vol - widget.spotDataBasic.turnover, widget.spotDataBasic.turnover_market_vol).toDouble() * 100;
     String lpStr = NumUtil.getNumByValueDouble(lp, 2).toString() + "%";
     String rpStr = NumUtil.getNumByValueDouble(rp, 2).toString() + "%";
 

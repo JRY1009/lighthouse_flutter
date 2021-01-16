@@ -69,12 +69,11 @@ class _SpotDetailKLineBarState extends State<SpotDetailKLineBar> with AutomaticK
           List<Quote> quoteList = Quote.fromJsonList(data['data']) ?? [];
           _quoteMap[_rangeList[index]] = quoteList;
 
-          setState(() {
-
-          });
+          setState(() {});
         },
         errorCallBack: (error) {
-
+          _quoteMap[_rangeList[index]] = [];
+          setState(() {});
         });
   }
 

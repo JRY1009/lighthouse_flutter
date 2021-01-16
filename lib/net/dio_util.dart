@@ -31,13 +31,12 @@ class DioUtil {
     dio.options.connectTimeout = 10000;
     dio.options.receiveTimeout = 5000;
     dio.interceptors.add(AuthInterceptor());
-    dio.interceptors.add(LogInterceptor(responseBody: true)); //是否开启请求日志
+    //dio.interceptors.add(LogInterceptor(request:false, requestHeader:false, responseHeader: false, responseBody: false)); //是否开启请求日志
   }
 
 //get请求
   Future get(String url, {Map<String, dynamic> params, Function successCallBack,
       Function errorCallBack}) async {
-    dio.options.baseUrl = Constant.BASE_URL_YAPI;
     return _requstHttp(url, successCallBack, 'get', params, errorCallBack);
   }
 
@@ -121,14 +120,8 @@ class DioUtil {
         RTAccount.instance().logout();
       }
 
-      if (method == 'get') {
-        if (successCallBack != null) {
-          successCallBack(dataMap, response.headers);
-        }
-      } else {
-        if (errorCallBack != null) {
-          errorCallBack(dataMap);
-        }
+      if (errorCallBack != null) {
+        errorCallBack(dataMap);
       }
     } else {
       if (successCallBack != null) {

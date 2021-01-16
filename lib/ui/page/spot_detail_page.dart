@@ -19,11 +19,10 @@ import 'package:lighthouse/ui/page2nd/spot_quote_page.dart';
 import 'package:lighthouse/ui/widget/appbar/spot_detail_appbar.dart';
 import 'package:lighthouse/ui/widget/appbar/spot_detail_kline_bar.dart';
 import 'package:lighthouse/ui/widget/button/back_button.dart';
-import 'package:lighthouse/ui/widget/common_scroll_view.dart';
 import 'package:lighthouse/ui/widget/dialog/dialog_util.dart';
-import 'package:lighthouse/ui/widget/shot_view.dart';
 import 'package:lighthouse/ui/widget/tab/bubble_indicator.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
+import 'package:lighthouse/utils/log_util.dart';
 import 'package:lighthouse/utils/num_util.dart';
 
 
@@ -60,6 +59,8 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
     super.initState();
 
     _tabController = TabController(length: 4, vsync: this);
+    _tabController.addListener((){
+    });
 
     _tabTitles = [S.current.briefInfo, S.current.quote, S.current.data, S.current.info];
 
@@ -76,8 +77,20 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
   @override
   void dispose() {
     _tabController.dispose();
-
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      LogUtil.v('SpotDetailPage: resumed', tag: 'SpotDetailPage');
+    } else if (state == AppLifecycleState.paused) {
+      LogUtil.v('SpotDetailPage: paused', tag: 'SpotDetailPage');
+    } else if (state == AppLifecycleState.inactive) {
+      LogUtil.v('SpotDetailPage: inactive', tag: 'SpotDetailPage');
+    } else if (state == AppLifecycleState.detached) {
+      LogUtil.v('SpotDetailPage: detached', tag: 'SpotDetailPage');
+    }
   }
 
   @override

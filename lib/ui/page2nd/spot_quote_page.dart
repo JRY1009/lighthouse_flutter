@@ -14,6 +14,7 @@ import 'package:lighthouse/ui/item/spot_exchange_quote_item.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/widget/easyrefresh/first_refresh.dart';
 import 'package:lighthouse/ui/widget/easyrefresh/loading_empty.dart';
+import 'package:lighthouse/utils/log_util.dart';
 import 'package:lighthouse/utils/num_util.dart';
 import 'package:lighthouse/utils/object_util.dart';
 import 'package:lighthouse/utils/toast_util.dart';
@@ -43,7 +44,12 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
   @override
   void initState() {
     super.initState();
-    _requestData();
+
+    Future.delayed(new Duration(milliseconds: 100), () {
+      if (mounted) {
+        _requestData();
+      }
+    });
   }
 
   @override
@@ -52,12 +58,21 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
+  void didUpdateWidget(SpotQuotePage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Future<void> refresh({slient = false}) {
     return _requestData();
   }
 
   Future<void> _requestData() {
-
     Map<String, dynamic> params = {
       'chain': 'bitcoin',
     };
@@ -85,7 +100,9 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
       _init = true;
     }
 
-    setState((){});
+    if (mounted) {
+      setState((){});
+    }
   }
 
   @override

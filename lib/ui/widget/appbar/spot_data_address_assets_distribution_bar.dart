@@ -7,6 +7,7 @@ import 'package:lighthouse/net/model/spot_data_basic.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/item/spot_address_assets_distribution_item.dart';
+import 'package:lighthouse/utils/num_util.dart';
 
 class SpotDataAddressAssetsDistributionBar extends StatefulWidget {
 
@@ -42,6 +43,11 @@ class _SpotDataAddressAssetsDistributionBarState extends State<SpotDataAddressAs
 
   @override
   Widget build(BuildContext context) {
+
+    int total_count = 0;
+    for (int i=0; i<widget.dataList.length; i++) {
+      total_count += widget.dataList[i].address_count;
+    }
 
     return Container(
         margin: EdgeInsets.symmetric(horizontal: 12 , vertical: 9),
@@ -173,11 +179,15 @@ class _SpotDataAddressAssetsDistributionBarState extends State<SpotDataAddressAs
               primary: false,
               padding: const EdgeInsets.only(left: 15, right: 15),
               itemBuilder: (context, index) {
+                double proportion = total_count == 0 ? 0 : NumUtil.divide(widget.dataList[index].address_count, total_count).toDouble() * 100;
+                String proportionStr = NumUtil.getNumByValueDouble(proportion, 2).toString() + "%";
+
                 return SpotAddressAssetsDistributionItem(
                   index: index,
+                  color: widget.dataList[index].getColor(index),
                   balanceRange: widget.dataList[index].range,
                   addressAmount: widget.dataList[index].address_count.toString(),
-                  proportion: '10.11%',
+                  proportion: proportionStr,
                   compareYesterday: widget.dataList[index].compare_yesterday_ratio,
                 );
               },
@@ -189,50 +199,27 @@ class _SpotDataAddressAssetsDistributionBarState extends State<SpotDataAddressAs
   }
 
   List<PieChartSectionData> showingSections() {
-    return List.generate(4, (i) {
+    int total_count = 0;
+    for (int i=0; i<widget.dataList.length; i++) {
+      total_count += widget.dataList[i].address_count;
+    }
+
+    return List.generate(widget.dataList.length, (i) {
+
+      double proportion = total_count == 0 ? 0 : NumUtil.divide(widget.dataList[i].address_count, total_count).toDouble() * 100;
+      String proportionStr = NumUtil.getNumByValueDouble(proportion, 2).toString() + "%";
+
       final isTouched = i == touchedIndex;
       final double fontSize = isTouched ? 25 : 16;
       final double radius = isTouched ? 60 : 50;
-      switch (i) {
-        case 0:
-          return PieChartSectionData(
-            color: const Color(0xff0293ee),
-            value: 40,
-            title: '40%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
-          );
-        case 1:
-          return PieChartSectionData(
-            color: const Color(0xfff8b250),
-            value: 30,
-            title: '30%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
-          );
-        case 2:
-          return PieChartSectionData(
-            color: const Color(0xff845bef),
-            value: 15,
-            title: '15%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
-          );
-        case 3:
-          return PieChartSectionData(
-            color: const Color(0xff13d38e),
-            value: 15,
-            title: '15%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
-          );
-        default:
-          return null;
-      }
+      return PieChartSectionData(
+        color: widget.dataList[i].getColor(i),
+        value: proportion,
+        title: proportionStr,
+        radius: radius,
+        titleStyle: TextStyle(
+            fontSize: proportion < 5 ? 0 : fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
+      );
     });
   }
 }

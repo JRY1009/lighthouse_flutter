@@ -52,7 +52,11 @@ class _SpotBriefInfoPageState extends State<SpotBriefInfoPage> with BasePageMixi
   @override
   void initState() {
     super.initState();
-    _requestData();
+    Future.delayed(new Duration(milliseconds: 100), () {
+      if (mounted) {
+        _requestData();
+      }
+    });
   }
 
   @override
@@ -109,7 +113,9 @@ class _SpotBriefInfoPageState extends State<SpotBriefInfoPage> with BasePageMixi
       _init = true;
     }
 
-    setState((){});
+    if (mounted) {
+      setState((){});
+    }
   }
 
   @override
