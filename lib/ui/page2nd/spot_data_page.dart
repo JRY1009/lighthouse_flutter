@@ -9,9 +9,9 @@ import 'package:lighthouse/net/model/spot_data_basic.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
-import 'package:lighthouse/ui/widget/appbar/spot_data_treemap.dart';
 import 'package:lighthouse/ui/widget/appbar/spot_data_address_assets_distribution_bar.dart';
 import 'package:lighthouse/ui/widget/appbar/spot_data_circulation_bar.dart';
+import 'package:lighthouse/ui/widget/appbar/spot_data_treemap.dart';
 import 'package:lighthouse/ui/widget/common_scroll_view.dart';
 import 'package:lighthouse/ui/widget/easyrefresh/first_refresh.dart';
 import 'package:lighthouse/utils/log_util.dart';
@@ -28,7 +28,7 @@ class SpotDataPage extends StatefulWidget {
   _SpotDataPageState createState() => _SpotDataPageState();
 }
 
-class _SpotDataPageState extends State<SpotDataPage> with BasePageMixin<SpotDataPage>, AutomaticKeepAliveClientMixin<SpotDataPage>, SingleTickerProviderStateMixin{
+class _SpotDataPageState extends State<SpotDataPage> with WidgetsBindingObserver, BasePageMixin<SpotDataPage>, AutomaticKeepAliveClientMixin<SpotDataPage>, SingleTickerProviderStateMixin{
 
   @override
   bool get wantKeepAlive => true;
@@ -40,6 +40,8 @@ class _SpotDataPageState extends State<SpotDataPage> with BasePageMixin<SpotData
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addObserver(this);
     Future.delayed(new Duration(milliseconds: 100), () {
       if (mounted) {
         _requestData();
@@ -50,17 +52,27 @@ class _SpotDataPageState extends State<SpotDataPage> with BasePageMixin<SpotData
   @override
   void dispose() {
     super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    LogUtil.v('SpotDataPage: didChangeDependencies', tag: 'SpotDataPage');
   }
 
 
   @override
   void didUpdateWidget(SpotDataPage oldWidget) {
     super.didUpdateWidget(oldWidget);
+    LogUtil.v('SpotDataPage: didUpdateWidget', tag: 'SpotDataPage');
+  }
+
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    LogUtil.v('SpotDataPage: deactivate', tag: 'SpotDataPage');
   }
 
   @override
@@ -70,6 +82,7 @@ class _SpotDataPageState extends State<SpotDataPage> with BasePageMixin<SpotData
     } else if (state == AppLifecycleState.inactive) {
     } else if (state == AppLifecycleState.detached) {
     }
+    LogUtil.v('SpotDataPage: ' + state.toString(), tag: 'SpotDataPage');
   }
 
   @override
@@ -143,7 +156,7 @@ class _SpotDataPageState extends State<SpotDataPage> with BasePageMixin<SpotData
                 alignment: Alignment.center,
                 margin: const EdgeInsets.only(left: 15, top: 12, right: 15, bottom: 15),
                 height: 200,
-                //child: SpotTreemap(),
+                child: SpotTreemap(),
               )
             ],
           ),

@@ -85,11 +85,31 @@ class S {
     );
   }
 
+  /// `请输入账户密码，推荐一键登录`
+  String get pwdLoginTips {
+    return Intl.message(
+      '请输入账户密码，推荐一键登录',
+      name: 'pwdLoginTips',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `验证码登录`
   String get smsLogin {
     return Intl.message(
       '验证码登录',
       name: 'smsLogin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `验证即登录，新手机号自动注册`
+  String get smsLoginTips {
+    return Intl.message(
+      '验证即登录，新手机号自动注册',
+      name: 'smsLoginTips',
       desc: '',
       args: [],
     );
@@ -210,6 +230,16 @@ class S {
     return Intl.message(
       '秒后重发',
       name: 'verifyRetry',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `已发送验证码`
+  String get verifySended {
+    return Intl.message(
+      '已发送验证码',
+      name: 'verifySended',
       desc: '',
       args: [],
     );
@@ -400,6 +430,36 @@ class S {
     return Intl.message(
       '点此注册',
       name: 'clickRegister',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `登录即代表您已同意`
+  String get loginPolicy {
+    return Intl.message(
+      '登录即代表您已同意',
+      name: 'loginPolicy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `《用户注册协议》`
+  String get registAgreement {
+    return Intl.message(
+      '《用户注册协议》',
+      name: 'registAgreement',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `《隐私政策》`
+  String get privatePolicy {
+    return Intl.message(
+      '《隐私政策》',
+      name: 'privatePolicy',
       desc: '',
       args: [],
     );

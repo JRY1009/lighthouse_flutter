@@ -149,7 +149,7 @@ class _ArticleListPageState extends State<ArticleListPage> with BasePageMixin<Ar
         create: (_) => _listProvider,
         child: Consumer<ListProvider<Article>>(
             builder: (_, _provider, __) {
-              return !_init ? FirstRefreshTop() : EasyRefresh(
+              return !_init ? FirstRefreshTop() : _listProvider.list.isEmpty ? LoadingEmptyTop() : EasyRefresh(
                 header: isSupportPull ? MaterialHeader(valueColor: AlwaysStoppedAnimation<Color>(Colours.app_main)) : null,
                 footer:  CommonFooter(enableInfiniteLoad: !_provider.noMore),
                 controller: _easyController,

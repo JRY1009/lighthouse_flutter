@@ -17,6 +17,8 @@ import 'package:lighthouse/router/routers.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/widget/button/gradient_button.dart';
 import 'package:lighthouse/ui/widget/common_scroll_view.dart';
+import 'package:lighthouse/ui/widget/image/circle_image.dart';
+import 'package:lighthouse/ui/widget/image/local_image.dart';
 import 'package:lighthouse/ui/widget/textfield/account_text_field.dart';
 import 'package:lighthouse/ui/widget/textfield/pwd_text_field.dart';
 import 'package:lighthouse/ui/widget/textfield/verify_text_field.dart';
@@ -131,7 +133,7 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
   Future<bool> _getVCode() async {
     String phone = _phoneController.text;
     if (ObjectUtil.isEmptyString(phone)) {
-      ToastUtil.normal('请填写手机号');
+      ToastUtil.normal(S.current.loginPhoneHint);
       return Future.value(false);
     }
 
@@ -142,11 +144,9 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
 
     Map<String, dynamic> dataMap = await DioUtil.getInstance().post(Constant.URL_VERIFY_CODE, params: params,
         successCallBack: (data, headers) {
-          ToastUtil.normal('已发送验证码');
-
+          ToastUtil.normal(S.current.verifySended);
         },
         errorCallBack: (error) {
-          closeProgress();
           ToastUtil.error(error[Constant.MESSAGE]);
         });
 
@@ -168,9 +168,44 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
           keyboardConfig: OtherUtil.getKeyboardActionsConfig(context, <FocusNode>[_phoneNode, _verifyNode]),
           padding: const EdgeInsets.only(left: 24.0, right: 24.0, top: 20.0),
           children: <Widget>[
-            Text(
-              S.of(context).smsLogin,
-              style: TextStyles.textBlackBold26,
+            Gaps.vGap32,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                    child: LocalImage('logo', width: 60, height: 60),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                      padding: EdgeInsets.only(left: 15, top: 10),
+                      alignment: Alignment.topLeft,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Container(
+                              height: 22,
+                              padding: EdgeInsets.only(bottom: 1),
+                              alignment: Alignment.centerLeft,
+                              child: Text(S.of(context).smsLogin,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyles.textGray800_w400_17)
+                          ),
+
+                          Container(
+                              height: 22,
+                              alignment: Alignment.centerLeft,
+                              child: Text(S.of(context).smsLoginTips,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyles.textGray400_w400_12)
+                          ),
+
+                        ],
+                      )),
+                ),
+              ],
             ),
             Gaps.vGap32,
             AccountTextField(
@@ -187,7 +222,7 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
               onTextChanged: _checkInput,
               getVCode: _getVCode,
             ),
-            Gaps.vGap16,
+            Gaps.vGap46,
             GradientButton(
               width: double.infinity,
               height: 48,
@@ -198,13 +233,14 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
               ],
               onPressed: _loginEnabled ? _login : null,
             ),
+            Gaps.vGap16,
             Container(
               height: 40.0,
-              alignment: Alignment.centerRight,
+              alignment: Alignment.center,
               child: InkWell(
                 child: Text(
                   S.of(context).pwdLogin,
-                  style: TextStyles.textGray400_w400_14,
+                  style: TextStyles.textGray500_w400_15,
                 ),
                 onTap: _pwdLogin,
               ),
@@ -215,8 +251,11 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
               margin: EdgeInsets.only(bottom: 20.0),
               child: Text.rich(TextSpan(
                   children: [
-                    TextSpan(text: S.of(context).noAccount, style: TextStyles.textGray400_w400_14),
-                    TextSpan(text: S.of(context).clickRegister, style: TextStyles.textMain14,
+                    TextSpan(text: S.of(context).loginPolicy, style: TextStyles.textGray400_w400_14),
+                    TextSpan(text: S.of(context).registAgreement, style: TextStyles.textMain14,
+                        recognizer: new TapGestureRecognizer()..onTap = _jump2Register),
+                    TextSpan(text: '、', style: TextStyles.textGray400_w400_14),
+                    TextSpan(text: S.of(context).privatePolicy, style: TextStyles.textMain14,
                         recognizer: new TapGestureRecognizer()..onTap = _jump2Register),
                   ]
               ))

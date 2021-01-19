@@ -76,6 +76,12 @@ class TextStyles {
     color: Colours.white,
   );
 
+  static const TextStyle textGray800_w400_20 = TextStyle(
+      color: Colours.gray_800,
+      fontWeight: FontWeight.w400,
+      fontSize: 20
+  );
+
   static const TextStyle textGray800_w400_17 = TextStyle(
       color: Colours.gray_800,
       fontWeight: FontWeight.w400,
@@ -100,6 +106,10 @@ class TextStyles {
 
   static const TextStyle textGray500_w400_16 = TextStyle(
       color: Colours.gray_500, fontWeight: FontWeight.w400, fontSize: 16
+  );
+
+  static const TextStyle textGray500_w400_15 = TextStyle(
+      color: Colours.gray_500, fontWeight: FontWeight.w400, fontSize: 15
   );
 
   static const TextStyle textGray500_w400_14 = TextStyle(

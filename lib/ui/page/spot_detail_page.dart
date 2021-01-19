@@ -40,7 +40,7 @@ class SpotDetailPage extends StatefulWidget {
   _SpotDetailPageState createState() => _SpotDetailPageState();
 }
 
-class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<SpotDetailPage>, SingleTickerProviderStateMixin {
+class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObserver, BasePageMixin<SpotDetailPage>, SingleTickerProviderStateMixin {
 
   QuoteBasic _quoteBasic;
 
@@ -57,6 +57,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
 
     _tabController = TabController(length: 4, vsync: this);
     _tabController.addListener((){
@@ -78,6 +79,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
   void dispose() {
     _tabController.dispose();
     super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
   }
 
   @override
@@ -151,29 +153,34 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
 
   Future<void> _share() async {
 
-    Uint8List pngBytes = await _keyList[0]?.currentState.screenShot();
+    _tabController.animateTo(0);
 
-    DialogUtil.showShareDialog(context,
-        children: [
-          Container(
-              height: 56,
-              width: double.infinity,
-              alignment: Alignment.center,
-              color: Colours.white,
-              child: Text(widget.coin_code, style: TextStyles.textBlack16)
-          ),
-          Container(
-            color: Colours.gray_100,
-            child: Column(
-              children: [
-                SpotDetailAppbar(showShadow: false, quoteBasic: _quoteBasic),
-                SpotDetailKLineBar(coin_code: widget.coin_code),
-                Image.memory(pngBytes),
-              ],
+    Future.delayed(new Duration(milliseconds: 100), () async {
+
+      Uint8List pngBytes = await _keyList[0]?.currentState.screenShot();
+      DialogUtil.showShareDialog(context,
+          children: [
+            Container(
+                height: 56,
+                width: double.infinity,
+                alignment: Alignment.center,
+                color: Colours.white,
+                child: Text(widget.coin_code, style: TextStyles.textBlack16)
             ),
-          ),
-        ]
-    );
+            Container(
+              color: Colours.gray_100,
+              child: Column(
+                children: [
+                  SpotDetailAppbar(showShadow: false, quoteBasic: _quoteBasic),
+                  SpotDetailKLineBar(coin_code: widget.coin_code),
+                  Image.memory(pngBytes),
+                ],
+              ),
+            ),
+          ]
+      );
+    });
+
   }
 
   @override

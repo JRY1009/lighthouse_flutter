@@ -14,7 +14,6 @@ import 'package:lighthouse/ui/item/spot_exchange_quote_item.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/widget/easyrefresh/first_refresh.dart';
 import 'package:lighthouse/ui/widget/easyrefresh/loading_empty.dart';
-import 'package:lighthouse/utils/log_util.dart';
 import 'package:lighthouse/utils/num_util.dart';
 import 'package:lighthouse/utils/object_util.dart';
 import 'package:lighthouse/utils/toast_util.dart';
@@ -127,7 +126,7 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
             content: _buildItem(),
           );
         },
-        itemCount: 2,
+        itemCount: 1,
       ),
 
       onRefresh: null,

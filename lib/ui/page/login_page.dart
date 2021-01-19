@@ -17,6 +17,7 @@ import 'package:lighthouse/router/routers.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/widget/button/gradient_button.dart';
 import 'package:lighthouse/ui/widget/common_scroll_view.dart';
+import 'package:lighthouse/ui/widget/image/local_image.dart';
 import 'package:lighthouse/ui/widget/textfield/account_text_field.dart';
 import 'package:lighthouse/ui/widget/textfield/pwd_text_field.dart';
 import 'package:lighthouse/utils/date_util.dart';
@@ -150,11 +151,47 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
           keyboardConfig: OtherUtil.getKeyboardActionsConfig(context, <FocusNode>[_phoneNode, _pwdNode]),
           padding: const EdgeInsets.only(left: 24.0, right: 24.0, top: 20.0),
           children: <Widget>[
-            Text(
-              S.of(context).pwdLogin,
-              style: TextStyles.textBlackBold26,
+            Gaps.vGap32,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  child: LocalImage('logo', width: 60, height: 60,),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                      padding: EdgeInsets.only(left: 15, top: 10),
+                      alignment: Alignment.topLeft,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Container(
+                              height: 22,
+                              padding: EdgeInsets.only(bottom: 1),
+                              alignment: Alignment.centerLeft,
+                              child: Text(S.of(context).pwdLogin,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyles.textGray800_w400_17)
+                          ),
+
+                          Container(
+                              height: 22,
+                              alignment: Alignment.centerLeft,
+                              child: Text(S.of(context).pwdLoginTips,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyles.textGray400_w400_12)
+                          ),
+
+                        ],
+                      )),
+                ),
+              ],
             ),
             Gaps.vGap32,
+
             AccountTextField(
               focusNode: _phoneNode,
               controller: _phoneController,
@@ -168,7 +205,7 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
               controller: _pwdController,
               onTextChanged: _checkInput,
             ),
-            Gaps.vGap16,
+            Gaps.vGap46,
             GradientButton(
               width: double.infinity,
               height: 48,
@@ -179,13 +216,14 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
               ],
               onPressed: _loginEnabled ? _login : null,
             ),
+            Gaps.vGap16,
             Container(
               height: 40.0,
-              alignment: Alignment.centerRight,
+              alignment: Alignment.center,
               child: InkWell(
                 child: Text(
                   S.of(context).smsLogin,
-                  style: TextStyles.textGray400_w400_14,
+                  style: TextStyles.textGray500_w400_15,
                 ),
                 onTap: _smsLogin,
               ),
@@ -196,8 +234,11 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
               margin: EdgeInsets.only(bottom: 20.0),
               child: Text.rich(TextSpan(
                   children: [
-                    TextSpan(text: S.of(context).noAccount, style: TextStyles.textGray400_w400_14),
-                    TextSpan(text: S.of(context).clickRegister, style: TextStyles.textMain14,
+                    TextSpan(text: S.of(context).loginPolicy, style: TextStyles.textGray400_w400_14),
+                    TextSpan(text: S.of(context).registAgreement, style: TextStyles.textMain14,
+                        recognizer: new TapGestureRecognizer()..onTap = _jump2Register),
+                    TextSpan(text: '、', style: TextStyles.textGray400_w400_14),
+                    TextSpan(text: S.of(context).privatePolicy, style: TextStyles.textMain14,
                         recognizer: new TapGestureRecognizer()..onTap = _jump2Register),
                   ]
               ))

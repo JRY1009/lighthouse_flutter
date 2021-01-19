@@ -31,7 +31,7 @@ class LoadingEmptyTop extends StatelessWidget {
           text ?? S.of(context).noData,
           style: TextStyles.textGray400_w400_12,
         ),
-      )
+      ),
     ]);
   }
 }
