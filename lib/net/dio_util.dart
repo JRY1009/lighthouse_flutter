@@ -36,37 +36,37 @@ class DioUtil {
 
 //get请求
   Future get(String url, {Map<String, dynamic> params, Function successCallBack,
-      Function errorCallBack}) async {
-    return _requstHttp(url, successCallBack, 'get', params, errorCallBack);
+      Function errorCallBack, CancelToken cancelToken}) async {
+    return _requstHttp(url, successCallBack, 'get', params, errorCallBack, cancelToken);
   }
 
   //post请求
   Future post(String url, {Map<String, dynamic> params, Function successCallBack,
-      Function errorCallBack}) async {
-    return _requstHttp(url, successCallBack, "post", params, errorCallBack);
+      Function errorCallBack, CancelToken cancelToken}) async {
+    return _requstHttp(url, successCallBack, "post", params, errorCallBack, cancelToken);
   }
 
   //post请求
   Future postNoParams(
-      String url, {Function successCallBack, Function errorCallBack}) async {
-    return _requstHttp(url, successCallBack, "post", null, errorCallBack);
+      String url, {Function successCallBack, Function errorCallBack, CancelToken cancelToken}) async {
+    return _requstHttp(url, successCallBack, "post", null, errorCallBack, cancelToken);
   }
 
   Future _requstHttp(String url, Function successCallBack,
-      [String method, Map<String, dynamic> params, Function errorCallBack]) async {
+      [String method, Map<String, dynamic> params, Function errorCallBack, CancelToken cancelToken]) async {
     Response response;
     try {
       if (method == 'get') {
         if (params != null) {
-          response = await dio.get(url, queryParameters: params);
+          response = await dio.get(url, queryParameters: params, cancelToken: cancelToken);
         } else {
-          response = await dio.get(url);
+          response = await dio.get(url, cancelToken: cancelToken);
         }
       } else if (method == 'post') {
         if (params != null && params.isNotEmpty) {
-          response = await dio.post(url, queryParameters: params);
+          response = await dio.post(url, queryParameters: params, cancelToken: cancelToken);
         } else {
-          response = await dio.post(url);
+          response = await dio.post(url, cancelToken: cancelToken);
         }
       }
     } on DioError catch (error) {

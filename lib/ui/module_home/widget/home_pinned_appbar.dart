@@ -1,15 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:lighthouse/generated/l10n.dart';
-import 'package:lighthouse/net/model/account.dart';
 import 'package:lighthouse/net/model/quote_basic.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/ui/widget/appbar/home_flexible_tabview.dart';
-import 'package:lighthouse/ui/widget/tab/bubble_indicator.dart';
-import 'package:lighthouse/ui/widget/tab/quotation_tab.dart';
-import 'package:lighthouse/utils/image_util.dart';
 import 'package:lighthouse/utils/num_util.dart';
 import 'package:lighthouse/utils/screen_util.dart';
 

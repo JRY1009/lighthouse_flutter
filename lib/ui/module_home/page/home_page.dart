@@ -5,19 +5,18 @@ import 'dart:async';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:lighthouse/event/event.dart';
-import 'package:lighthouse/event/main_jump_event.dart';
 import 'package:lighthouse/event/ws_event.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
 import 'package:lighthouse/net/model/quote_basic.dart';
 import 'package:lighthouse/res/colors.dart';
+import 'package:lighthouse/ui/module_home/widget/home_flexible_appbar.dart';
+import 'package:lighthouse/ui/module_home/widget/home_milestone_bar.dart';
+import 'package:lighthouse/ui/module_home/widget/home_pinned_appbar.dart';
+import 'package:lighthouse/ui/module_home/widget/home_quote_treemap_bar.dart';
 import 'package:lighthouse/ui/page/base_page.dart';
 import 'package:lighthouse/ui/page2nd/article_list_page.dart';
-import 'package:lighthouse/ui/widget/appbar/home_flexible_appbar.dart';
-import 'package:lighthouse/ui/widget/appbar/home_milestone_bar.dart';
-import 'package:lighthouse/ui/widget/appbar/home_pinned_appbar.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
-import 'package:lighthouse/ui/widget/appbar/home_quote_treemap_bar.dart';
 
 
 class HomePage extends StatefulWidget {
