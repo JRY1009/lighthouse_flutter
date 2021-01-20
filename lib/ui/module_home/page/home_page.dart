@@ -10,13 +10,13 @@ import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
 import 'package:lighthouse/net/model/quote_basic.dart';
 import 'package:lighthouse/res/colors.dart';
+import 'package:lighthouse/ui/module_base/page/base_page.dart';
 import 'package:lighthouse/ui/module_home/widget/home_flexible_appbar.dart';
 import 'package:lighthouse/ui/module_home/widget/home_milestone_bar.dart';
 import 'package:lighthouse/ui/module_home/widget/home_pinned_appbar.dart';
 import 'package:lighthouse/ui/module_home/widget/home_quote_treemap_bar.dart';
-import 'package:lighthouse/ui/page/base_page.dart';
-import 'package:lighthouse/ui/page2nd/article_list_page.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
+import 'package:lighthouse/ui/module_info/page/article_list_page.dart';
 
 
 class HomePage extends StatefulWidget {

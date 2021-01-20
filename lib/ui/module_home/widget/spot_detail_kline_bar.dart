@@ -2,13 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
-import 'package:lighthouse/net/model/account.dart';
 import 'package:lighthouse/net/model/quote.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/ui/widget/chart/line_chart.dart';
-import 'package:lighthouse/ui/widget/tab/bubble_indicator.dart';
-import 'package:lighthouse/ui/widget/tab/kline_tab.dart';
+import 'package:lighthouse/ui/module_base/widget/chart/line_chart.dart';
+import 'package:lighthouse/ui/module_base/widget/tab/kline_tab.dart';
 
 class SpotDetailKLineBar extends StatefulWidget {
 

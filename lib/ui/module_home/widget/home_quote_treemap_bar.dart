@@ -5,9 +5,8 @@ import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/router/routers.dart';
-import 'package:lighthouse/ui/widget/image/local_image.dart';
+import 'package:lighthouse/ui/module_base/widget/image/local_image.dart';
 import 'package:lighthouse/utils/image_util.dart';
-import 'package:lighthouse/utils/toast_util.dart';
 
 class HomeQuoteTreemapBar extends StatefulWidget {
 

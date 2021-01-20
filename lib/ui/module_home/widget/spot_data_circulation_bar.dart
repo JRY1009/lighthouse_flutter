@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
+import 'package:lighthouse/ui/module_base/widget/percent/linear_percent_indicator.dart';
 import 'package:lighthouse/utils/num_util.dart';
 import 'package:lighthouse/net/model/spot_data_basic.dart';
-import 'package:lighthouse/ui/widget/percent/linear_percent_indicator.dart';
 
 class SpotDataCirculationBar extends StatefulWidget {
 

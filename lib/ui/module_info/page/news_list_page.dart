@@ -1,51 +1,51 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
-import 'package:lighthouse/net/model/milestone.dart';
+import 'package:lighthouse/net/model/news.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/ui/module_base/page/base_page.dart';
 import 'package:lighthouse/ui/module_base/provider/list_provider.dart';
 import 'package:lighthouse/ui/module_base/widget/easyrefresh/common_footer.dart';
 import 'package:lighthouse/ui/module_base/widget/easyrefresh/first_refresh.dart';
 import 'package:lighthouse/ui/module_base/widget/easyrefresh/loading_empty.dart';
-import 'package:lighthouse/ui/module_home/item/milestone_item.dart';
+import 'package:lighthouse/ui/module_info/item/news_item.dart';
 import 'package:lighthouse/utils/toast_util.dart';
 import 'package:provider/provider.dart';
 
 
-class MileStoneListPage extends StatefulWidget {
+class NewsListPage extends StatefulWidget {
   
   final bool isSupportPull;  //是否支持手动下拉刷新
 
-  MileStoneListPage({
+  NewsListPage({
     Key key,
     this.isSupportPull = true
   }) : super(key: key);
 
   @override
-  _MileStoneListPageState createState() {
-    return _MileStoneListPageState(isSupportPull: isSupportPull);
+  _NewsListPageState createState() {
+    return _NewsListPageState(isSupportPull: isSupportPull);
   }
 }
 
-class _MileStoneListPageState extends State<MileStoneListPage> with BasePageMixin<MileStoneListPage>, AutomaticKeepAliveClientMixin<MileStoneListPage>, SingleTickerProviderStateMixin {
+class _NewsListPageState extends State<NewsListPage> with BasePageMixin<NewsListPage>, AutomaticKeepAliveClientMixin<NewsListPage>, SingleTickerProviderStateMixin {
 
   @override
   bool get wantKeepAlive => true;
 
   bool isSupportPull;
 
+  ScrollController _nestedController = ScrollController();
   EasyRefreshController _easyController = EasyRefreshController();
-  ListProvider<MileStone> _listProvider = ListProvider<MileStone>();
+  ListProvider<News> _listProvider = ListProvider<News>();
   int _page = 0;
   int _pageSize = 20;
   bool _init = false;
 
-  _MileStoneListPageState({
+  _NewsListPageState({
     this.isSupportPull
   });
 
@@ -67,7 +67,7 @@ class _MileStoneListPageState extends State<MileStoneListPage> with BasePageMixi
     if (slient) {
       _page = 0;
       return _requestData();
-
+      
     } else {
       return Future<void>.delayed(const Duration(milliseconds: 100), () {
         _easyController.callRefresh();
@@ -87,19 +87,20 @@ class _MileStoneListPageState extends State<MileStoneListPage> with BasePageMixi
 
   Future<void> _requestData() {
     Map<String, dynamic> params = {
-      'tag': 'bitcoin',
-      'page_num': _page,
+      'auth': 1,
+      'sort': 1,
+      'page': _page,
       'page_size': _pageSize,
     };
 
-    return DioUtil.getInstance().get(Constant.URL_GET_MILESTONES, params: params,
+    return DioUtil.getInstance().post(Constant.URL_GET_NEWS, params: params,
         successCallBack: (data, headers) {
           if (data == null || data['data'] == null) {
             _finishRequest(success: false, noMore: false);
             return;
           }
 
-          List<MileStone> newsList = MileStone.fromJsonList(data['data']['records']) ?? [];
+          List<News> newsList = News.fromJsonList(data['data']['account_info']) ?? [];
           if (_page == 0) {
             _listProvider.clear();
             _listProvider.addAll(newsList);
@@ -136,10 +137,9 @@ class _MileStoneListPageState extends State<MileStoneListPage> with BasePageMixi
   @override
   Widget build(BuildContext context) {
     super.build(context);
-
-    return ChangeNotifierProvider<ListProvider<MileStone>>(
+    return ChangeNotifierProvider<ListProvider<News>>(
         create: (_) => _listProvider,
-        child: Consumer<ListProvider<MileStone>>(
+        child: Consumer<ListProvider<News>>(
             builder: (_, _provider, __) {
               return !_init ? FirstRefresh() : EasyRefresh(
                 header: isSupportPull ? MaterialHeader(valueColor: AlwaysStoppedAnimation<Color>(Colours.app_main)) : null,
@@ -153,10 +153,12 @@ class _MileStoneListPageState extends State<MileStoneListPage> with BasePageMixi
                 child: ListView.builder(
                   padding: EdgeInsets.all(0.0),
                   itemBuilder: (context, index) {
-                    return MileStoneItem(
+                    return NewsItem(
                       index: index,
-                      content: _provider.list[index].content,
-                      time: _provider.list[index].date,
+                      title: _provider.list[index].account_name,
+                      time: _provider.list[index].created_at,
+                      author: _provider.list[index].city,
+                      imageUrl: _provider.list[index].avatar_300,
                       isLast: index == (_provider.list.length - 1),
                     );
                   },

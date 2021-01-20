@@ -8,17 +8,17 @@ import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
 import 'package:lighthouse/net/model/tree_node.dart';
 import 'package:lighthouse/res/gaps.dart';
-import 'package:lighthouse/ui/provider/list_provider.dart';
-import 'package:lighthouse/ui/widget/chart/inapp_echart.dart';
-import 'package:lighthouse/ui/widget/dialog/dialog_util.dart';
-import 'package:lighthouse/ui/widget/dialog/share_widget.dart';
-import 'package:lighthouse/ui/widget/easyrefresh/first_refresh.dart';
-import 'package:lighthouse/ui/widget/shot_view.dart';
+import 'package:lighthouse/ui/module_base/provider/list_provider.dart';
+import 'package:lighthouse/ui/module_base/widget/button/back_button.dart';
+import 'package:lighthouse/ui/module_base/widget/chart/inapp_echart.dart';
+import 'package:lighthouse/ui/module_base/widget/dialog/dialog_util.dart';
+import 'package:lighthouse/ui/module_base/widget/dialog/share_widget.dart';
+import 'package:lighthouse/ui/module_base/widget/easyrefresh/first_refresh.dart';
+import 'package:lighthouse/ui/module_base/widget/shot_view.dart';
 import 'package:lighthouse/utils/toast_util.dart';
 import 'package:flutter/material.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/ui/widget/button/back_button.dart';
 
 class TreemapPage extends StatefulWidget {
 

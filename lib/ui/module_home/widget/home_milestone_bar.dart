@@ -11,8 +11,8 @@ import 'package:lighthouse/net/model/milestone.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/router/routers.dart';
-import 'package:lighthouse/ui/item/milestone_item.dart';
-import 'package:lighthouse/ui/page/base_page.dart';
+import 'package:lighthouse/ui/module_base/page/base_page.dart';
+import 'package:lighthouse/ui/module_home/item/milestone_item.dart';
 
 class HomeMileStoneBar extends StatefulWidget {
 

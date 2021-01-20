@@ -1,6 +1,8 @@
 
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:lighthouse/ui/module_base/page/main_page.dart';
+import 'package:lighthouse/ui/module_base/page/web_view_page.dart';
 import 'package:lighthouse/ui/module_home/page/global_quote_page.dart';
 import 'package:lighthouse/ui/module_home/page/milestone_page.dart';
 import 'package:lighthouse/ui/module_home/page/spot_detail_page.dart';
@@ -11,8 +13,6 @@ import 'package:lighthouse/ui/module_mine/page/login_sms_page.dart';
 import 'package:lighthouse/ui/module_mine/page/modify_nickname_page.dart';
 import 'package:lighthouse/ui/module_mine/page/modify_pwd_page.dart';
 import 'package:lighthouse/ui/module_mine/page/setting_page.dart';
-import 'package:lighthouse/ui/page/main_page.dart';
-import 'package:lighthouse/ui/page/web_view_page.dart';
 
 var webviewPageHandler = new Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {

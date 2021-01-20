@@ -5,34 +5,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
-import 'package:lighthouse/net/model/milestone.dart';
+import 'package:lighthouse/net/model/article.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/ui/module_base/page/base_page.dart';
 import 'package:lighthouse/ui/module_base/provider/list_provider.dart';
 import 'package:lighthouse/ui/module_base/widget/easyrefresh/common_footer.dart';
-import 'package:lighthouse/ui/module_base/widget/easyrefresh/first_refresh.dart';
-import 'package:lighthouse/ui/module_base/widget/easyrefresh/loading_empty.dart';
-import 'package:lighthouse/ui/module_home/item/milestone_item.dart';
+import 'package:lighthouse/ui/module_base/widget/easyrefresh/first_refresh_top.dart';
+import 'package:lighthouse/ui/module_base/widget/easyrefresh/loading_empty_top.dart';
+import 'package:lighthouse/ui/module_info/item/article_card_item.dart';
+import 'package:lighthouse/ui/module_info/item/article_item.dart';
 import 'package:lighthouse/utils/toast_util.dart';
 import 'package:provider/provider.dart';
 
 
-class MileStoneListPage extends StatefulWidget {
+class ArticleListPage extends StatefulWidget {
   
   final bool isSupportPull;  //是否支持手动下拉刷新
+  final bool isSingleCard;  //每个item是否有单独card
 
-  MileStoneListPage({
+  ArticleListPage({
     Key key,
-    this.isSupportPull = true
+    this.isSupportPull = true,
+    this.isSingleCard = false
   }) : super(key: key);
 
   @override
-  _MileStoneListPageState createState() {
-    return _MileStoneListPageState(isSupportPull: isSupportPull);
+  _ArticleListPageState createState() {
+    return _ArticleListPageState(isSupportPull: isSupportPull);
   }
 }
 
-class _MileStoneListPageState extends State<MileStoneListPage> with BasePageMixin<MileStoneListPage>, AutomaticKeepAliveClientMixin<MileStoneListPage>, SingleTickerProviderStateMixin {
+class _ArticleListPageState extends State<ArticleListPage> with BasePageMixin<ArticleListPage>, AutomaticKeepAliveClientMixin<ArticleListPage>, SingleTickerProviderStateMixin {
 
   @override
   bool get wantKeepAlive => true;
@@ -40,12 +43,12 @@ class _MileStoneListPageState extends State<MileStoneListPage> with BasePageMixi
   bool isSupportPull;
 
   EasyRefreshController _easyController = EasyRefreshController();
-  ListProvider<MileStone> _listProvider = ListProvider<MileStone>();
+  ListProvider<Article> _listProvider = ListProvider<Article>();
   int _page = 0;
   int _pageSize = 20;
   bool _init = false;
 
-  _MileStoneListPageState({
+  _ArticleListPageState({
     this.isSupportPull
   });
 
@@ -53,7 +56,11 @@ class _MileStoneListPageState extends State<MileStoneListPage> with BasePageMixi
   void initState() {
     super.initState();
 
-    _refresh();
+    Future.delayed(new Duration(milliseconds: 100), () {
+      if (mounted) {
+        _refresh();
+      }
+    });
   }
 
   @override
@@ -87,19 +94,20 @@ class _MileStoneListPageState extends State<MileStoneListPage> with BasePageMixi
 
   Future<void> _requestData() {
     Map<String, dynamic> params = {
-      'tag': 'bitcoin',
-      'page_num': _page,
+      'auth': 1,
+      'sort': 1,
+      'page': _page,
       'page_size': _pageSize,
     };
 
-    return DioUtil.getInstance().get(Constant.URL_GET_MILESTONES, params: params,
+    return DioUtil.getInstance().post(Constant.URL_GET_NEWS, params: params,
         successCallBack: (data, headers) {
           if (data == null || data['data'] == null) {
             _finishRequest(success: false, noMore: false);
             return;
           }
 
-          List<MileStone> newsList = MileStone.fromJsonList(data['data']['records']) ?? [];
+          List<Article> newsList = Article.fromJsonList(data['data']['account_info']) ?? [];
           if (_page == 0) {
             _listProvider.clear();
             _listProvider.addAll(newsList);
@@ -137,11 +145,11 @@ class _MileStoneListPageState extends State<MileStoneListPage> with BasePageMixi
   Widget build(BuildContext context) {
     super.build(context);
 
-    return ChangeNotifierProvider<ListProvider<MileStone>>(
+    return ChangeNotifierProvider<ListProvider<Article>>(
         create: (_) => _listProvider,
-        child: Consumer<ListProvider<MileStone>>(
+        child: Consumer<ListProvider<Article>>(
             builder: (_, _provider, __) {
-              return !_init ? FirstRefresh() : EasyRefresh(
+              return !_init ? FirstRefreshTop() : _listProvider.list.isEmpty ? LoadingEmptyTop() : EasyRefresh(
                 header: isSupportPull ? MaterialHeader(valueColor: AlwaysStoppedAnimation<Color>(Colours.app_main)) : null,
                 footer:  CommonFooter(enableInfiniteLoad: !_provider.noMore),
                 controller: _easyController,
@@ -149,15 +157,22 @@ class _MileStoneListPageState extends State<MileStoneListPage> with BasePageMixi
 //                firstRefresh: true,
 //                firstRefreshWidget: FirstRefresh(),
                 topBouncing: false,
-                emptyWidget: _listProvider.list.isEmpty ? LoadingEmpty() : null,
+                emptyWidget: _listProvider.list.isEmpty ? LoadingEmptyTop() : null,
                 child: ListView.builder(
                   padding: EdgeInsets.all(0.0),
                   itemBuilder: (context, index) {
-                    return MileStoneItem(
+                    return widget.isSingleCard ? ArticleCardItem(
                       index: index,
-                      content: _provider.list[index].content,
-                      time: _provider.list[index].date,
-                      isLast: index == (_provider.list.length - 1),
+                      title: _provider.list[index].account_name + '杜绝浪费矿机时空裂缝接SDK龙卷风克雷登斯荆防颗粒圣诞节快乐福建省断开连接付款了圣诞节疯狂了圣诞节',
+                      time: _provider.list[index].created_at,
+                      author: _provider.list[index].city,
+                      imageUrl: _provider.list[index].avatar_300,
+                    ) : ArticleItem(
+                      index: index,
+                      title: _provider.list[index].account_name + '杜绝浪费矿机时空裂缝接SDK龙卷风克雷登斯荆防颗粒圣诞节快乐福建省断开连接付款了圣诞节疯狂了圣诞节',
+                      time: _provider.list[index].created_at,
+                      author: _provider.list[index].city,
+                      imageUrl: _provider.list[index].avatar_300,
                     );
                   },
                   itemCount: _provider.list.length,

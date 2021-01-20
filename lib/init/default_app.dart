@@ -10,7 +10,7 @@ import 'package:lighthouse/provider/store.dart';
 import 'package:lighthouse/provider/theme_provider.dart';
 import 'package:lighthouse/router/app_analysis.dart';
 import 'package:lighthouse/router/routers.dart';
-import 'package:lighthouse/ui/page/splash_page.dart';
+import 'package:lighthouse/ui/module_base/page/splash_page.dart';
 import 'package:lighthouse/utils/device_util.dart';
 import 'package:lighthouse/utils/log_util.dart';
 import 'package:lighthouse/utils/sp_util.dart';
