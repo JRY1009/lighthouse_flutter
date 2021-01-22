@@ -1,30 +1,16 @@
-
-import 'dart:async';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_bugly/flutter_bugly.dart';
-import 'package:flutter_xupdate/flutter_xupdate.dart';
-import 'package:lighthouse/event/event.dart';
-import 'package:lighthouse/event/main_jump_event.dart';
-import 'package:lighthouse/event/user_event.dart';
-import 'package:lighthouse/event/ws_event.dart';
 import 'package:lighthouse/generated/l10n.dart';
-import 'package:lighthouse/net/model/quote_ws.dart';
+import 'package:lighthouse/mvvm/base_page.dart';
+import 'package:lighthouse/mvvm/provider_widget.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/dimens.dart';
-import 'package:lighthouse/router/routers.dart';
-import 'package:lighthouse/ui/module_base/page/base_page.dart';
-import 'package:lighthouse/ui/module_base/provider/main_provider.dart';
+import 'package:lighthouse/ui/module_base/viewmodel/main_model.dart';
 import 'package:lighthouse/ui/module_base/widget/image/frame_animation_image.dart';
 import 'package:lighthouse/ui/module_base/widget/image/local_image.dart';
 import 'package:lighthouse/ui/module_home/page/home_page.dart';
 import 'package:lighthouse/ui/module_info/page/info_page.dart';
 import 'package:lighthouse/ui/module_mine/page/mine_page.dart';
-import 'package:lighthouse/net/websocket_util.dart';
-import 'package:lighthouse/utils/device_util.dart';
 import 'package:lighthouse/utils/double_tap_back_exit_app.dart';
-import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -33,80 +19,32 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
 
-  StreamSubscription _userSubscription;
-  StreamSubscription _mainJumpSubscription;
-
   static const double _imageSize = 25.0;
 
   List<GlobalKey<BasePageMixin>> _keyList;
+  List<String> _appBarTitles;
   List<Widget> _pageList;
-  List<String> _appBarTitles ;
-  final PageController _pageController = PageController();
-
-  MainProvider provider = MainProvider();
-
   List<BottomNavigationBarItem> _bottomBarItemList;
+
+  MainModel _mainModel;
+
+  PageController _pageController = PageController();
 
   @override
   void initState() {
     super.initState();
-    initData();
-
-    _userSubscription = Event.eventBus.on<UserEvent>().listen((event) {
-
-      if (event.state == UserEventState.logout) {
-        Routers.navigateTo(context, Routers.loginPage);
-      }
-    });
-
-    _mainJumpSubscription = Event.eventBus.on<MainJumpEvent>().listen((event) {
-
-      if (event.page.value >= 0) {
-        _pageController.jumpToPage(event.page.value);
-      }
-    });
-
-    WebSocketUtil.instance().initWebSocket(onOpen: () {
-
-      Map<String, dynamic> params = {
-        'op': 'subscribe',
-        'message': 'quote.eth,quote.btc',
-      };
-
-      WebSocketUtil.instance().sendMessage(json.encode(params));
-
-    }, onMessage: (data) {
-
-      //print(data);
-      Map<String, dynamic> dataMap = json.decode(data);
-      if (dataMap != null) {
-        QuoteWs quoteWs = QuoteWs.fromJson(dataMap);
-        Event.eventBus.fire(WsEvent(quoteWs, WsEventState.quote));
-      }
-
-    }, onError: (e) {
-    });
+    initView();
+    initViewModel();
   }
 
   @override
   void dispose() {
-    if (_userSubscription != null) {
-      _userSubscription.cancel();
-    }
-    if (_mainJumpSubscription != null) {
-      _mainJumpSubscription.cancel();
-    }
-
     _pageController.dispose();
-
     imageCache.clear();
-
     super.dispose();
   }
 
-  void initData() {
-    FlutterBugly.init(androidAppId: '9e87287cfa', iOSAppId: 'ad8a0b5092');
-
+  void initView() {
     _appBarTitles = [S.current.home, S.current.info, S.current.mine];
     _keyList = [
       GlobalKey<BasePageMixin>(debugLabel: _appBarTitles[0]),
@@ -118,26 +56,13 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
       InfoPage(key: _keyList[1]),
       MinePage(key: _keyList[2]),
     ];
+  }
 
-    if (DeviceUtil.isAndroid) {
-      FlutterBugly.onCheckUpgrade.listen((_upgradeInfo) {
-
-        FlutterXUpdate.updateByInfo(
-            updateEntity: UpdateEntity(
-                hasUpdate: true,
-                isIgnorable: false,
-                isForce: _upgradeInfo.upgradeType == 2,
-                versionCode: _upgradeInfo.versionCode,
-                versionName: _upgradeInfo.versionName,
-                updateContent: _upgradeInfo.newFeature,
-                downloadUrl: _upgradeInfo.apkUrl,
-                apkSize: (_upgradeInfo.fileSize / 1024).toInt(),
-                apkMd5: _upgradeInfo.apkMd5
-            ),
-            themeColor: '#FF2872FC',
-        );
-      });
-    }
+  void initViewModel() {
+    _mainModel = MainModel();
+    _mainModel.listenEvent(context, _pageController);
+    _mainModel.initWs();
+    _mainModel.initBugly();
   }
 
   List<BottomNavigationBarItem> _buildBottomNavigationBarItem() {
@@ -176,49 +101,48 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
     precacheImage(AssetImage('assets/images/tab_info.png'), context);
     precacheImage(AssetImage('assets/images/tab_mine.png'), context);
 
-    return ChangeNotifierProvider<MainProvider>(
-      create: (_) => provider,
-      child: DoubleTapBackExitApp(
-        child: Scaffold(
-            bottomNavigationBar: Consumer<MainProvider>(
-              builder: (_, provider, __) {
-                return Theme(
-                    data: ThemeData(
+    return ProviderWidget<MainModel>(
+      model: _mainModel,
+      builder: (context, model, child) {
+        return DoubleTapBackExitApp(
+          child: Scaffold(
+              bottomNavigationBar: Theme(
+                  data: ThemeData(
                       brightness: Brightness.light,
                       splashColor: Colors.transparent,
                       highlightColor: Colors.transparent
-                    ),
-                    child: BottomNavigationBar(
-                      backgroundColor: Colours.white,
-                      items: _buildBottomNavigationBarItem(),
-                      type: BottomNavigationBarType.fixed,
-                      currentIndex: provider.value,
-                      elevation: 5.0,
-                      iconSize: 21.0,
-                      selectedFontSize: Dimens.font_sp10,
-                      unselectedFontSize: Dimens.font_sp10,
-                      selectedItemColor: Theme.of(context).primaryColor,
-                      unselectedItemColor: Colours.unselected_item_color,
-                      onTap: (index) {
-                        if (provider.value == index) {
-                          _keyList[index].currentState?.refresh();
-                        } else {
-                          _pageController.jumpToPage(index);
-                        }
-                      },
-                    )
-                );
-              },
-            ),
-            // 使用PageView的原因参看 https://zhuanlan.zhihu.com/p/58582876
-            body: PageView(
-              physics: const NeverScrollableScrollPhysics(), // 禁止滑动
-              controller: _pageController,
-              onPageChanged: (int index) => provider.value = index,
-              children: _pageList,
-            )
-        ),
-      ),
+                  ),
+                  child: BottomNavigationBar(
+                    backgroundColor: Colours.white,
+                    items: _buildBottomNavigationBarItem(),
+                    type: BottomNavigationBarType.fixed,
+                    currentIndex: model.value,
+                    elevation: 5.0,
+                    iconSize: 21.0,
+                    selectedFontSize: Dimens.font_sp10,
+                    unselectedFontSize: Dimens.font_sp10,
+                    selectedItemColor: Theme.of(context).primaryColor,
+                    unselectedItemColor: Colours.unselected_item_color,
+                    onTap: (index) {
+                      if (model.value == index) {
+                        _keyList[index].currentState?.refresh();
+                      } else {
+                        _pageController.jumpToPage(index);
+                      }
+                    },
+                  )
+              ),
+
+              // 使用PageView的原因参看 https://zhuanlan.zhihu.com/p/58582876
+              body: PageView(
+                physics: const NeverScrollableScrollPhysics(), // 禁止滑动
+                controller: _pageController,
+                onPageChanged: (int index) => _mainModel.value = index,
+                children: _pageList,
+              )
+          ),
+        );
+      },
     );
   }
 

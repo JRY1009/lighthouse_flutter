@@ -1,23 +1,22 @@
 
 import 'package:flutter/material.dart';
-import 'package:lighthouse/net/model/quote_basic.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
+import 'package:lighthouse/ui/module_home/viewmodel/home_model.dart';
 import 'package:lighthouse/utils/num_util.dart';
 import 'package:lighthouse/utils/screen_util.dart';
+import 'package:provider/provider.dart';
 
 class HomePinnedAppBar extends StatefulWidget {
 
   final double appBarOpacity;
   final double height;
-  final Map<String, QuoteBasic> quoteBasicMap;
 
   const HomePinnedAppBar({
     Key key,
     @required this.appBarOpacity,
     @required this.height,
-    this.quoteBasicMap
   }): super(key: key);
 
 
@@ -39,14 +38,15 @@ class _HomePinnedAppBarState extends State<HomePinnedAppBar> {
 
   @override
   Widget build(BuildContext context) {
+    HomeModel homeModel = Provider.of<HomeModel>(context);
 
-    double btcRate = widget.quoteBasicMap['bitcoin'] != null ? widget.quoteBasicMap['bitcoin'].change_percent : 0;
-    double btcPrice = widget.quoteBasicMap['bitcoin'] != null ? widget.quoteBasicMap['bitcoin'].quote : 0;
+    double btcRate = homeModel.btcQuoteBasic != null ? homeModel.btcQuoteBasic.change_percent : 0;
+    double btcPrice = homeModel.btcQuoteBasic != null ? homeModel.btcQuoteBasic.quote : 0;
     String btcRateStr = (btcRate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(btcRate, 2).toString() + '%';
     String btcPriceStr = NumUtil.getNumByValueDouble(btcPrice, 2).toString();
 
-    double ethRate = widget.quoteBasicMap['ethereum'] != null ? widget.quoteBasicMap['ethereum'].change_percent : 0;
-    double ethPrice = widget.quoteBasicMap['ethereum'] != null ? widget.quoteBasicMap['ethereum'].quote : 0;
+    double ethRate = homeModel.ethQuoteBasic != null ? homeModel.ethQuoteBasic.change_percent : 0;
+    double ethPrice = homeModel.ethQuoteBasic != null ? homeModel.ethQuoteBasic.quote : 0;
     String ethRateStr = (btcRate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(ethRate, 2).toString() + '%';
     String ethPriceStr = NumUtil.getNumByValueDouble(ethPrice, 2).toString();
 
@@ -70,7 +70,7 @@ class _HomePinnedAppBarState extends State<HomePinnedAppBar> {
                     Container(
                         margin: EdgeInsets.only(left: 24),
                         alignment: Alignment.centerLeft,
-                        child: Text(widget.quoteBasicMap['bitcoin'] != null ? widget.quoteBasicMap['bitcoin'].pair : '', style: TextStyles.textGray800_w400_15,
+                        child: Text(homeModel.btcQuoteBasic != null ? homeModel.btcQuoteBasic.pair : '', style: TextStyles.textGray800_w400_15,
                         )),
                     Gaps.vGap5,
                     Container(
@@ -90,7 +90,7 @@ class _HomePinnedAppBarState extends State<HomePinnedAppBar> {
                   children: [
                     Container(
                         alignment: Alignment.centerLeft,
-                        child: Text(widget.quoteBasicMap['ethereum'] != null ? widget.quoteBasicMap['ethereum'].pair : '', style: TextStyles.textGray800_w400_15,)
+                        child: Text(homeModel.ethQuoteBasic != null ? homeModel.ethQuoteBasic.pair : '', style: TextStyles.textGray800_w400_15,)
                     ),
                     Gaps.vGap5,
                     Container(

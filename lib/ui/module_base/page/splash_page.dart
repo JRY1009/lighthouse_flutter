@@ -20,7 +20,8 @@ class SplashPageState extends State<SplashPage> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Navigator.pop(context);
-      Routers.navigateTo(context, Routers.loginSmsPage, clearStack: true, transition: TransitionType.none);
+      Routers.navigateTo(context, Routers.mainPage, clearStack: true);
+      //Routers.navigateTo(context, Routers.loginSmsPage, clearStack: true, transition: TransitionType.none);
     });
 //    Future.delayed(new Duration(seconds: 1), () {
 //

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:lighthouse/generated/l10n.dart';
+import 'package:lighthouse/mvvm/base_page.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
 import 'package:lighthouse/net/model/spot_exchange_quote.dart';
@@ -10,7 +11,6 @@ import 'package:lighthouse/net/model/spot_exchange_quote_basic.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/ui/module_base/page/base_page.dart';
 import 'package:lighthouse/ui/module_base/widget/easyrefresh/first_refresh.dart';
 import 'package:lighthouse/ui/module_base/widget/easyrefresh/loading_empty.dart';
 import 'package:lighthouse/ui/module_home/item/spot_exchange_quote_item.dart';

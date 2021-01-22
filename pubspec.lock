@@ -334,7 +334,7 @@ packages:
       name: flutter_easyrefresh
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.6"
+    version: "2.1.8"
   flutter_echarts:
     dependency: "direct main"
     description:

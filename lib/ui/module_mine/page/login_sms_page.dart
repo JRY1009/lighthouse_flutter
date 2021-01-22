@@ -1,25 +1,22 @@
-import 'package:dio/dio.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:lighthouse/event/event.dart';
-import 'package:lighthouse/event/user_event.dart';
 import 'package:lighthouse/generated/l10n.dart';
-import 'package:lighthouse/net/constant.dart';
-import 'package:lighthouse/net/dio_util.dart';
+import 'package:lighthouse/mvvm/base_page.dart';
 import 'package:lighthouse/net/model/account.dart';
 import 'package:lighthouse/net/rt_account.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/router/routers.dart';
-import 'package:lighthouse/ui/module_base/page/base_page.dart';
 import 'package:lighthouse/ui/module_base/widget/button/gradient_button.dart';
 import 'package:lighthouse/ui/module_base/widget/common_scroll_view.dart';
 import 'package:lighthouse/ui/module_base/widget/image/local_image.dart';
 import 'package:lighthouse/ui/module_base/widget/textfield/account_text_field.dart';
 import 'package:lighthouse/ui/module_base/widget/textfield/verify_text_field.dart';
+import 'package:lighthouse/ui/module_mine/viewmodel/login_model.dart';
+import 'package:lighthouse/ui/module_mine/viewmodel/verify_model.dart';
 import 'package:lighthouse/utils/date_util.dart';
 import 'package:lighthouse/utils/object_util.dart';
 import 'package:lighthouse/utils/other_util.dart';
@@ -37,11 +34,23 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
   final FocusNode _phoneNode = FocusNode();
   final FocusNode _verifyNode = FocusNode();
 
+  LoginModel _loginModel;
+  VerifyModel _verifyModel;
+
   String _area_code;
   bool _loginEnabled = false;
 
   @override
   void initState() {
+    super.initState();
+
+    initView();
+    initViewModel();
+
+    _checkInput();
+  }
+
+  void initView() {
     Account account = RTAccount.instance().loadAccount();
     if (account != null) {
       // var t = account.phone?.split(' ');
@@ -52,7 +61,41 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
     } else {
       _area_code = '+86';
     }
-    super.initState();
+  }
+
+  void initViewModel() {
+    _loginModel = LoginModel();
+    _verifyModel = VerifyModel();
+
+    _loginModel.addListener(() {
+      if (_loginModel.isBusy) {
+        showProgress(content: S.current.logingin);
+
+      } else if (_loginModel.isError) {
+        closeProgress();
+        ToastUtil.error(_loginModel.viewStateError.message);
+
+      } else if (_loginModel.isSuccess) {
+        closeProgress();
+
+        Navigator.pop(context);
+        Routers.navigateTo(context, Routers.mainPage, clearStack: true);
+      }
+    });
+
+    _verifyModel.addListener(() {
+      if (_verifyModel.isBusy) {
+        showProgress(content: S.current.verifyin);
+
+      } else if (_verifyModel.isError) {
+        closeProgress();
+        ToastUtil.error(_verifyModel.viewStateError.message);
+
+      } else if (_verifyModel.isSuccess) {
+        closeProgress();
+        ToastUtil.normal(S.current.verifySended);
+      }
+    });
   }
 
   void _checkInput() {
@@ -71,37 +114,10 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
     String verify = _verifyController.text;
     int nonce = DateUtil.getNowDateMs() * 1000;
 
-    Map<String, dynamic> params = {
-      'phone': phone,
-      'verification_code': verify,
-      'nonce': nonce,
-    };
-
-    showProgress(content: S.current.logingin);
-    DioUtil.getInstance().post(Constant.URL_LOGIN, params: params,
-        successCallBack: (data, headers) {
-          closeProgress();
-          Account account = Account.fromJson(data['data']['account_info']);
-          account.token =data['data']['token'];
-          //account.token = headers.value(Constant.KEY_USER_TOKEN);
-          RTAccount.instance().setActiveAccount(account);
-          RTAccount.instance().saveAccount();
-          ToastUtil.success(S.current.loginSuccess);
-
-          Navigator.pop(context);
-          Routers.navigateTo(context, Routers.mainPage, clearStack: true);
-
-          Event.eventBus.fire(UserEvent(account, UserEventState.login));
-
-        },
-        errorCallBack: (error) {
-          closeProgress();
-          ToastUtil.error(error[Constant.MESSAGE]);
-        });
+    _loginModel.loginSms(phone, verify);
   }
 
   void _selectArea() {
-
     Map<String, dynamic> params = {
       'areaCode': _area_code,
     };
@@ -114,7 +130,6 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
   }
 
   void _pwdLogin() {
-
     Routers.navigateTo(context, Routers.loginPage, clearStack: true);
   }
 
@@ -134,20 +149,7 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
       return Future.value(false);
     }
 
-    Map<String, dynamic> params = {
-      'phone': phone,
-      'sms_type' : 1
-    };
-
-    Map<String, dynamic> dataMap = await DioUtil.getInstance().post(Constant.URL_VERIFY_CODE, params: params,
-        successCallBack: (data, headers) {
-          ToastUtil.normal(S.current.verifySended);
-        },
-        errorCallBack: (error) {
-          ToastUtil.error(error[Constant.MESSAGE]);
-        });
-
-    return Future.value(dataMap != null && dataMap[Constant.ERRNO] == Constant.ERRNO_OK);
+    return _verifyModel.getVCode(phone);
   }
 
   @override
@@ -170,7 +172,7 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
-                    child: LocalImage('logo', width: 60, height: 60),
+                  child: LocalImage('logo', width: 60, height: 60),
                 ),
                 Expanded(
                   flex: 1,

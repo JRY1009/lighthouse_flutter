@@ -5,7 +5,7 @@ import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/ui/module_base/widget/DashLine.dart';
+import 'package:lighthouse/ui/module_base/widget/dash_line.dart';
 import 'package:lighthouse/ui/module_base/widget/dialog/dialog_util.dart';
 import 'package:lighthouse/ui/module_base/widget/dialog/share_widget.dart';
 import 'package:lighthouse/ui/module_base/widget/image/local_image.dart';

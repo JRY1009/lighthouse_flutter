@@ -7,18 +7,18 @@ import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/module_base/widget/tab/bubble_indicator.dart';
 import 'package:lighthouse/ui/module_base/widget/tab/quotation_tab.dart';
+import 'package:lighthouse/ui/module_home/viewmodel/home_model.dart';
 import 'package:lighthouse/ui/module_home/widget/home_flexible_tabview.dart';
 import 'package:lighthouse/utils/image_util.dart';
 import 'package:lighthouse/utils/num_util.dart';
+import 'package:provider/provider.dart';
 
 class HomeFlexibleAppBar extends StatefulWidget {
 
-  final Map<String, QuoteBasic> quoteBasicMap;
   final VoidCallback onPressed;
 
   const HomeFlexibleAppBar({
     Key key,
-    this.quoteBasicMap,
     this.onPressed,
   }): super(key: key);
 
@@ -48,14 +48,15 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
 
   @override
   Widget build(BuildContext context) {
+    HomeModel homeModel = Provider.of<HomeModel>(context);
 
-    double btcRate = widget.quoteBasicMap['bitcoin'] != null ? widget.quoteBasicMap['bitcoin'].change_percent : 0;
-    double btcPrice = widget.quoteBasicMap['bitcoin'] != null ? widget.quoteBasicMap['bitcoin'].quote : 0;
+    double btcRate = homeModel.btcQuoteBasic != null ? homeModel.btcQuoteBasic.change_percent : 0;
+    double btcPrice = homeModel.btcQuoteBasic != null ? homeModel.btcQuoteBasic.quote : 0;
     String btcRateStr = (btcRate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(btcRate, 2).toString() + '%';
     String btcPriceStr = NumUtil.getNumByValueDouble(btcPrice, 2).toString();
 
-    double ethRate = widget.quoteBasicMap['ethereum'] != null ? widget.quoteBasicMap['ethereum'].change_percent : 0;
-    double ethPrice = widget.quoteBasicMap['ethereum'] != null ? widget.quoteBasicMap['ethereum'].quote : 0;
+    double ethRate = homeModel.ethQuoteBasic != null ? homeModel.ethQuoteBasic.change_percent : 0;
+    double ethPrice = homeModel.ethQuoteBasic != null ? homeModel.ethQuoteBasic.quote : 0;
     String ethRateStr = (ethRate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(ethRate, 2).toString() + '%';
     String ethPriceStr = NumUtil.getNumByValueDouble(ethPrice, 2).toString();
 
@@ -125,12 +126,12 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
                         isScrollable: false,
                         tabs: <QuotationTab>[
                           QuotationTab(
-                            title: widget.quoteBasicMap['bitcoin']?.pair,
+                            title: homeModel.btcQuoteBasic?.pair,
                             subTitle: btcPriceStr + '  ' + btcRateStr,
                             subStyle: btcRate >= 0 ? TextStyles.textGreen_w400_12 : TextStyles.textRed_w400_12,
                           ),
                           QuotationTab(
-                            title: widget.quoteBasicMap['ethereum']?.pair,
+                            title: homeModel.ethQuoteBasic?.pair,
                             subTitle: ethPriceStr + '  ' + ethRateStr,
                             subStyle: ethRate >= 0 ? TextStyles.textGreen_w400_12 : TextStyles.textRed_w400_12,
                           ),
@@ -142,8 +143,8 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
                       child: TabBarView(
                         controller: _tabController,
                         children: <Widget>[
-                          HomeFlexibleTabView(quoteBasic: widget.quoteBasicMap['bitcoin']),
-                          HomeFlexibleTabView(quoteBasic: widget.quoteBasicMap['ethereum'])
+                          HomeFlexibleTabView(quoteBasic: homeModel.btcQuoteBasic),
+                          HomeFlexibleTabView(quoteBasic: homeModel.ethQuoteBasic)
                         ],
                       ),
                     )

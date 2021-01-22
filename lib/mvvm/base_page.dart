@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:lighthouse/router/routers.dart';
 import 'package:lighthouse/ui/module_base/widget/dialog/loading_dialog.dart';
-
+import 'package:lighthouse/utils/log_util.dart';
 
 abstract class IBasePage {
 
@@ -86,4 +86,35 @@ mixin BasePageMixin<T extends StatefulWidget> on State<T> implements IBasePage {
         showContent: showContent);
   }
 
+
+  @override
+  void didChangeDependencies() {
+    LogUtil.v('$T ==> didChangeDependencies');
+    super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    LogUtil.v('$T ==> dispose');
+    super.dispose();
+  }
+
+  @override
+  void deactivate() {
+    LogUtil.v('$T ==> deactivate');
+    super.deactivate();
+  }
+
+  @override
+  void didUpdateWidget(T oldWidget) {
+    LogUtil.v('$T ==> didUpdateWidgets');
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void initState() {
+    LogUtil.v('$T ==> initState');
+    super.initState();
+  }
+  
 }

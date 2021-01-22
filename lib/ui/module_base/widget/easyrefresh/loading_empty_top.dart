@@ -19,19 +19,21 @@ class LoadingEmptyTop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CommonScrollView(children: [
-      Container(
-        alignment: Alignment.center,
-        margin: EdgeInsets.only(top: top),
-        child: LocalImage('img_nodata', width: 100, height: 100,),
-      ),
-      Container(
-        alignment: Alignment.center,
-        child: Text(
-          text ?? S.of(context).noData,
-          style: TextStyles.textGray400_w400_12,
-        ),
-      ),
-    ]);
+    return CommonScrollView(
+        physics: NeverScrollableScrollPhysics(),
+        children: [
+          Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.only(top: top),
+            child: LocalImage('img_nodata', width: 100, height: 100,),
+          ),
+          Container(
+            alignment: Alignment.center,
+            child: Text(
+              text ?? S.of(context).noData,
+              style: TextStyles.textGray400_w400_12,
+            ),
+          ),
+        ]);
   }
 }

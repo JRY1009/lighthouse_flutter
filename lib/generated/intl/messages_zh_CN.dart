@@ -127,8 +127,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "verifyCodeHint" : MessageLookupByLibrary.simpleMessage("请输入验证码"),
     "verifyRetry" : MessageLookupByLibrary.simpleMessage("秒后重发"),
     "verifySended" : MessageLookupByLibrary.simpleMessage("已发送验证码"),
+    "verifyin" : MessageLookupByLibrary.simpleMessage("正在获取验证码..."),
     "viewDetail" : MessageLookupByLibrary.simpleMessage("查看详细信息"),
     "viewFullSize" : MessageLookupByLibrary.simpleMessage("看大图"),
+    "vsMsgEmpty" : MessageLookupByLibrary.simpleMessage("空空如也"),
+    "vsMsgError" : MessageLookupByLibrary.simpleMessage("加载失败"),
+    "vsMsgNetworkError" : MessageLookupByLibrary.simpleMessage("网络连接异常,请检查网络或稍后重试"),
     "welcomeLogin" : MessageLookupByLibrary.simpleMessage("欢迎登录"),
     "welcomeRegist" : MessageLookupByLibrary.simpleMessage("欢迎注册"),
     "x724" : MessageLookupByLibrary.simpleMessage("7x24")

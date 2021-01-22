@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:lighthouse/mvvm/base_page.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
 import 'package:lighthouse/net/model/news.dart';
 import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/ui/module_base/page/base_page.dart';
 import 'package:lighthouse/ui/module_base/provider/list_provider.dart';
 import 'package:lighthouse/ui/module_base/widget/easyrefresh/common_footer.dart';
 import 'package:lighthouse/ui/module_base/widget/easyrefresh/first_refresh.dart';

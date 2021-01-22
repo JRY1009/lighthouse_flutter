@@ -555,6 +555,16 @@ class S {
     );
   }
 
+  /// `正在获取验证码...`
+  String get verifyin {
+    return Intl.message(
+      '正在获取验证码...',
+      name: 'verifyin',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `国家/地区`
   String get countryArea {
     return Intl.message(
@@ -1140,6 +1150,36 @@ class S {
     return Intl.message(
       '微信未安装',
       name: 'shareWxNotInstalled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `加载失败`
+  String get vsMsgError {
+    return Intl.message(
+      '加载失败',
+      name: 'vsMsgError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `网络连接异常,请检查网络或稍后重试`
+  String get vsMsgNetworkError {
+    return Intl.message(
+      '网络连接异常,请检查网络或稍后重试',
+      name: 'vsMsgNetworkError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `空空如也`
+  String get vsMsgEmpty {
+    return Intl.message(
+      '空空如也',
+      name: 'vsMsgEmpty',
       desc: '',
       args: [],
     );

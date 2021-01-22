@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lighthouse/generated/l10n.dart';
+import 'package:lighthouse/mvvm/base_page.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
 import 'package:lighthouse/net/model/account.dart';
@@ -8,7 +9,6 @@ import 'package:lighthouse/net/rt_account.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/ui/module_base/page/base_page.dart';
 import 'package:lighthouse/ui/module_base/widget/button/back_button.dart';
 import 'package:lighthouse/ui/module_base/widget/button/gradient_button.dart';
 import 'package:lighthouse/ui/module_base/widget/clickbar/setting_clickbar.dart';

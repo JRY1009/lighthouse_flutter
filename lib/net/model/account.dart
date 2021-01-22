@@ -1,6 +1,42 @@
 
 
 import 'package:lighthouse/net/model/media.dart';
+import 'package:lighthouse/utils/object_util.dart';
+
+class AccountEntity {
+
+  String token;
+  Account account_info;
+  String expire_time;
+
+  AccountEntity({
+    this.token,
+    this.account_info,
+    this.expire_time,
+  });
+
+  AccountEntity.fromJson(Map<String, dynamic> jsonMap) {
+    token = jsonMap['token'];
+    expire_time = jsonMap['expire_time'];
+
+    if (ObjectUtil.isNotEmpty(jsonMap['account_info'])) {
+      account_info = Account.fromJson(jsonMap['account_info']);
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> jsonMap = new Map<String, dynamic>();
+    jsonMap['token'] = this.token;
+    jsonMap['expire_time'] = this.expire_time;
+
+    if (this.account_info != null) {
+      jsonMap['account_info'] = this.account_info.toJson();
+    }
+
+    return jsonMap;
+  }
+}
+
 
 class Account {
 

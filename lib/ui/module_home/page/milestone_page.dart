@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:lighthouse/generated/l10n.dart';
+import 'package:lighthouse/mvvm/base_page.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/ui/module_base/page/base_page.dart';
 import 'package:lighthouse/ui/module_base/widget/button/back_button.dart';
 import 'package:lighthouse/ui/module_base/widget/tab/kline_tab.dart';
 import 'package:lighthouse/ui/module_home/page/milestone_list_page.dart';
@@ -113,11 +113,11 @@ class _MileStonePageState extends State<MileStonePage> with BasePageMixin<MileSt
                     controller: _pageController,
                     onPageChanged: (int index) => setState((){ _tabController.index = index; }),
                     children: <Widget>[
-                      extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[0]), MileStoneListPage(key: _keyList[0], isSupportPull: true)),
-                      extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[1]), MileStoneListPage(key: _keyList[1], isSupportPull: true)),
-                      extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[2]), MileStoneListPage(key: _keyList[2], isSupportPull: true)),
-                      extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[3]), MileStoneListPage(key: _keyList[3], isSupportPull: true)),
-                      extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[4]), MileStoneListPage(key: _keyList[4], isSupportPull: true)),
+                      extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[0]), MileStoneListPage(key: _keyList[0], tag: 'all', isSupportPull: true)),
+                      extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[1]), MileStoneListPage(key: _keyList[1], tag: 'bitcoin', isSupportPull: true)),
+                      extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[2]), MileStoneListPage(key: _keyList[2], tag: 'ethereum', isSupportPull: true)),
+                      extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[3]), MileStoneListPage(key: _keyList[3], tag: 'ustd', isSupportPull: true)),
+                      extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[4]), MileStoneListPage(key: _keyList[4], tag: 'decp', isSupportPull: true)),
                     ],
                   ),
                 )

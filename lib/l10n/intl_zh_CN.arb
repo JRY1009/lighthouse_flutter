@@ -51,6 +51,7 @@
   "article": "文章",
   "loading": "正在加载...",
   "logingin": "登录中...",
+  "verifyin": "正在获取验证码...",
   "countryArea": "国家/地区",
   "search": "搜索",
   "noData": "暂无数据",
@@ -109,5 +110,8 @@
   "shareSave": "保存",
   "shareMore": "更多",
   "shareQRDownload": "长按二维码识别下载",
-  "shareWxNotInstalled": "微信未安装"
+  "shareWxNotInstalled": "微信未安装",
+  "vsMsgError": "加载失败",
+  "vsMsgNetworkError": "网络连接异常,请检查网络或稍后重试",
+  "vsMsgEmpty": "空空如也"
 }

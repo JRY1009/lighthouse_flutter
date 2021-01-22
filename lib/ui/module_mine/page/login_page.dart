@@ -1,25 +1,21 @@
-import 'package:dio/dio.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:lighthouse/event/event.dart';
-import 'package:lighthouse/event/user_event.dart';
 import 'package:lighthouse/generated/l10n.dart';
-import 'package:lighthouse/net/constant.dart';
-import 'package:lighthouse/net/dio_util.dart';
+import 'package:lighthouse/mvvm/base_page.dart';
 import 'package:lighthouse/net/model/account.dart';
 import 'package:lighthouse/net/rt_account.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/router/routers.dart';
-import 'package:lighthouse/ui/module_base/page/base_page.dart';
 import 'package:lighthouse/ui/module_base/widget/button/gradient_button.dart';
 import 'package:lighthouse/ui/module_base/widget/common_scroll_view.dart';
 import 'package:lighthouse/ui/module_base/widget/image/local_image.dart';
 import 'package:lighthouse/ui/module_base/widget/textfield/account_text_field.dart';
 import 'package:lighthouse/ui/module_base/widget/textfield/pwd_text_field.dart';
+import 'package:lighthouse/ui/module_mine/viewmodel/login_model.dart';
 import 'package:lighthouse/utils/date_util.dart';
 import 'package:lighthouse/utils/encrypt_util.dart';
 import 'package:lighthouse/utils/object_util.dart';
@@ -38,6 +34,8 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
   final FocusNode _phoneNode = FocusNode();
   final FocusNode _pwdNode = FocusNode();
 
+  LoginModel _loginModel;
+
   String _area_code;
   bool _loginEnabled = false;
 
@@ -45,6 +43,13 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
   void initState() {
     super.initState();
 
+    initView();
+    initViewModel();
+
+    _checkInput();
+  }
+
+  void initView() {
     Account account = RTAccount.instance().loadAccount();
     if (account != null) {
       // var t = account.phone?.split(' ');
@@ -56,8 +61,24 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
     } else {
       _area_code = '+86';
     }
+  }
 
-    _checkInput();
+  void initViewModel() {
+    _loginModel = LoginModel();
+    _loginModel.addListener(() {
+      if (_loginModel.isBusy) {
+        showProgress(content: S.current.logingin);
+      } else if (_loginModel.isError) {
+        closeProgress();
+        ToastUtil.error(_loginModel.viewStateError.message);
+
+      } else if (_loginModel.isSuccess) {
+        closeProgress();
+
+        Navigator.pop(context);
+        Routers.navigateTo(context, Routers.mainPage, clearStack: true);
+      }
+    });
   }
 
   void _checkInput() {
@@ -76,37 +97,7 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
     int nonce = DateUtil.getNowDateMs() * 1000;
     String pwdMd5 = EncryptUtil.encodeMd5(EncryptUtil.encodeMd5(pwd) + nonce.toString());
 
-    // Map<String, dynamic> params = {
-    //   'phone': phone,
-    //   'password': pwdMd5,
-    //   'nonce': nonce,
-    // };
-
-    Map<String, dynamic> params = {
-      'phone': phone,
-      'password': '123456',
-    };
-
-    showProgress(content: S.current.logingin);
-    DioUtil.getInstance().post(Constant.URL_LOGIN, params: params,
-        successCallBack: (data, headers) {
-          closeProgress();
-          Account account = Account.fromJson(data['data']);
-          account.token =data['data']['token'];
-          //account.token = headers.value(Constant.KEY_USER_TOKEN);
-          RTAccount.instance().setActiveAccount(account);
-          RTAccount.instance().saveAccount();
-          ToastUtil.success(S.current.loginSuccess);
-
-          Navigator.pop(context);
-          Routers.navigateTo(context, Routers.mainPage, clearStack: true);
-
-          Event.eventBus.fire(UserEvent(account, UserEventState.login));
-        },
-        errorCallBack: (error) {
-          closeProgress();
-          ToastUtil.error(error[Constant.MESSAGE]);
-        });
+    _loginModel.login(phone, '123456');
   }
 
   void _selectArea() {
@@ -123,7 +114,6 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
   }
 
   void _smsLogin() {
-
     Routers.navigateTo(context, Routers.loginSmsPage, clearStack: true);
   }
 
