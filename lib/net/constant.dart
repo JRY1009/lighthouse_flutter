@@ -12,15 +12,15 @@ class Constant {
   static const String ERRNO_UNKNOWN_MESSAGE = "UNKNOWN MESSAGE";
   static const String ERRNO_FORBIDDEN = "FORBIDDEN";
 
-  static const String KEY_VER = "vf-Ver";
-  static const String KEY_DEV = "vf-Dev";
-  static const String KEY_DEVICE_ID = "vf-DeviceId";
-  static const String KEY_LANGUAGE = "vf-Language";
-  static const String KEY_CHANNEL = "vf-Channel";
-  static const String KEY_USER_TOKEN = "vf-Token";
-  static const String KEY_USER_TS = "vf-Ts";
-  static const String KEY_USER_U_ID = "vf-Uid";
-  static const String KEY_USER_SIGN = "vf-Sign";
+  static const String KEY_VER = "lh-Ver";
+  static const String KEY_DEV = "lh-Dev";
+  static const String KEY_DEVICE_ID = "lh-DeviceId";
+  static const String KEY_LANGUAGE = "lh-Language";
+  static const String KEY_CHANNEL = "lh-Channel";
+  static const String KEY_USER_TOKEN = "lh-Token";
+  static const String KEY_USER_TS = "lh-Ts";
+  static const String KEY_USER_U_ID = "lh-Uid";
+  static const String KEY_USER_SIGN = "lh-Sign";
 
   static const String PRIVATE_KEY = "5ffF03b858D5Fd16";       //测试环境
   static const String BASE_URL = 'http://testapi.paomian.co';  //测试环境
@@ -39,6 +39,7 @@ class Constant {
   static const String URL_GET_MILESTONES = '/milestone';
   static const String URL_GET_GLOBAL_QUOTE = '/global_quote';
   static const String URL_GET_TREEMAP = '/thermodynamic_diagram';
+  static const String URL_GET_COIN_QUOTE = '/coin_quote';
   static const String URL_GET_CHAIN_DETAIL = '/chain/detail';
   static const String URL_GET_CHAIN_QUOTE = '/chain/quote';
   static const String URL_GET_CHAIN_DATA = '/chain/data';

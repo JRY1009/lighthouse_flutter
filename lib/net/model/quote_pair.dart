@@ -1,6 +1,6 @@
 import 'package:lighthouse/net/model/quote.dart';
 
-class QuoteBasic {
+class QuotePair {
   String pair;
   String coin_code;
   double market_val;
@@ -12,7 +12,7 @@ class QuoteBasic {
   double hashrate;
   List<Quote> quote_24h;
 
-  QuoteBasic({
+  QuotePair({
     this.pair,
     this.market_val,
     this.change_percent,
@@ -22,7 +22,7 @@ class QuoteBasic {
     this.quote_24h,
   });
 
-  QuoteBasic.fromJson(Map<String, dynamic> jsonMap) {
+  QuotePair.fromJson(Map<String, dynamic> jsonMap) {
     pair = jsonMap['pair'];
     coin_code = jsonMap['coin_code'];
     market_val = jsonMap['market_val'] ?? 0;

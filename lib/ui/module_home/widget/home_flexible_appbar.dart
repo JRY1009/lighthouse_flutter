@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:lighthouse/generated/l10n.dart';
-import 'package:lighthouse/net/model/quote_basic.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
@@ -50,13 +49,13 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
   Widget build(BuildContext context) {
     HomeModel homeModel = Provider.of<HomeModel>(context);
 
-    double btcRate = homeModel.btcQuoteBasic != null ? homeModel.btcQuoteBasic.change_percent : 0;
-    double btcPrice = homeModel.btcQuoteBasic != null ? homeModel.btcQuoteBasic.quote : 0;
+    double btcRate = homeModel.btcUsdPair != null ? homeModel.btcUsdPair.change_percent : 0;
+    double btcPrice = homeModel.btcUsdPair != null ? homeModel.btcUsdPair.quote : 0;
     String btcRateStr = (btcRate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(btcRate, 2).toString() + '%';
     String btcPriceStr = NumUtil.getNumByValueDouble(btcPrice, 2).toString();
 
-    double ethRate = homeModel.ethQuoteBasic != null ? homeModel.ethQuoteBasic.change_percent : 0;
-    double ethPrice = homeModel.ethQuoteBasic != null ? homeModel.ethQuoteBasic.quote : 0;
+    double ethRate = homeModel.ethUsdPair != null ? homeModel.ethUsdPair.change_percent : 0;
+    double ethPrice = homeModel.ethUsdPair != null ? homeModel.ethUsdPair.quote : 0;
     String ethRateStr = (ethRate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(ethRate, 2).toString() + '%';
     String ethPriceStr = NumUtil.getNumByValueDouble(ethPrice, 2).toString();
 
@@ -126,12 +125,12 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
                         isScrollable: false,
                         tabs: <QuotationTab>[
                           QuotationTab(
-                            title: homeModel.btcQuoteBasic?.pair,
+                            title: homeModel.btcUsdPair?.pair,
                             subTitle: btcPriceStr + '  ' + btcRateStr,
                             subStyle: btcRate >= 0 ? TextStyles.textGreen_w400_12 : TextStyles.textRed_w400_12,
                           ),
                           QuotationTab(
-                            title: homeModel.ethQuoteBasic?.pair,
+                            title: homeModel.ethUsdPair?.pair,
                             subTitle: ethPriceStr + '  ' + ethRateStr,
                             subStyle: ethRate >= 0 ? TextStyles.textGreen_w400_12 : TextStyles.textRed_w400_12,
                           ),
@@ -143,8 +142,8 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
                       child: TabBarView(
                         controller: _tabController,
                         children: <Widget>[
-                          HomeFlexibleTabView(quoteBasic: homeModel.btcQuoteBasic),
-                          HomeFlexibleTabView(quoteBasic: homeModel.ethQuoteBasic)
+                          HomeFlexibleTabView(quotePair: homeModel.btcUsdPair),
+                          HomeFlexibleTabView(quotePair: homeModel.ethUsdPair)
                         ],
                       ),
                     )

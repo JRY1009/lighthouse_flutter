@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:lighthouse/generated/l10n.dart';
-import 'package:lighthouse/net/model/quote_basic.dart';
+import 'package:lighthouse/net/model/quote_pair.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
@@ -11,12 +11,12 @@ import 'package:lighthouse/utils/num_util.dart';
 
 class HomeFlexibleTabView extends StatefulWidget {
 
-  final QuoteBasic quoteBasic;
+  final QuotePair quotePair;
   final VoidCallback onPressed;
 
   const HomeFlexibleTabView({
     Key key,
-    this.quoteBasic,
+    this.quotePair,
     this.onPressed,
   }): super(key: key);
 
@@ -51,7 +51,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
         children: [
           Container(
             height: 170,
-            child: SimpleLineChart(quoteList: widget.quoteBasic?.quote_24h),
+            child: SimpleLineChart(quoteList: widget.quotePair?.quote_24h),
           ),
           Container(
             height: 75,
@@ -75,7 +75,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
                         Gaps.vGap5,
                         Container(
                             alignment: Alignment.centerLeft,
-                            child: Text(NumUtil.getBigVolumFormat(widget.quoteBasic?.market_val, fractionDigits: 2).toString(),
+                            child: Text(NumUtil.getBigVolumFormat(widget.quotePair?.market_val, fractionDigits: 2).toString(),
                               style: TextStyles.textBlack20,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -92,7 +92,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
                       children: [
                         Container(
                             alignment: Alignment.centerLeft,
-                            child: Text(S.of(context).pro24hVolume + '（${widget.quoteBasic != null ? widget.quoteBasic.pair.split('/').first : ''}）',
+                            child: Text(S.of(context).pro24hVolume + '（${widget.quotePair != null ? widget.quotePair.pair.split('/').first : ''}）',
                               style: TextStyles.textGray400_w400_12,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -101,7 +101,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
                         Gaps.vGap5,
                         Container(
                             alignment: Alignment.centerLeft,
-                            child: Text(NumUtil.getNumByValueDouble(widget.quoteBasic?.vol_24h, 2).toString(),
+                            child: Text(NumUtil.getNumByValueDouble(widget.quotePair?.vol_24h, 2).toString(),
                               style: TextStyles.textBlack20,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -127,7 +127,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
                         Gaps.vGap5,
                         Container(
                             alignment: Alignment.centerLeft,
-                            child: Text(NumUtil.getNumByValueDouble(widget.quoteBasic?.hashrate, 2).toString(),
+                            child: Text(NumUtil.getNumByValueDouble(widget.quotePair?.hashrate, 2).toString(),
                               style: TextStyles.textBlack20,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -140,7 +140,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
             ),
           ),
           InkWell(
-            onTap: () => Routers.navigateTo(context, Routers.spotDetailPage, params: {'coin_code': widget.quoteBasic != null ? widget.quoteBasic.pair.split('/').first : ''}),
+            onTap: () => Routers.navigateTo(context, Routers.spotDetailPage, params: {'coin_code': widget.quotePair != null ? widget.quotePair.coin_code : ''}),
             child: Container(
               height: 20,
               child: Row(

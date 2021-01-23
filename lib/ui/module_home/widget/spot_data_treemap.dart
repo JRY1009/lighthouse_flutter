@@ -2,14 +2,9 @@ import 'dart:convert';
 import 'dart:core';
 
 import 'package:lighthouse/mvvm/provider_widget.dart';
-import 'package:lighthouse/net/constant.dart';
-import 'package:lighthouse/net/dio_util.dart';
-import 'package:lighthouse/net/model/tree_node.dart';
-import 'package:lighthouse/ui/module_base/provider/list_provider.dart';
 import 'package:lighthouse/ui/module_base/widget/chart/inapp_echart.dart';
 import 'package:lighthouse/ui/module_base/widget/easyrefresh/first_refresh.dart';
 import 'package:lighthouse/ui/module_home/viewmodel/treemap_model.dart';
-import 'package:lighthouse/utils/toast_util.dart';
 import 'package:flutter/material.dart';
 
 class SpotTreemap extends StatefulWidget {

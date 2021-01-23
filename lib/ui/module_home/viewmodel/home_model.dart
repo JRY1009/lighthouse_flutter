@@ -10,7 +10,7 @@ import 'package:lighthouse/mvvm/view_state.dart';
 import 'package:lighthouse/mvvm/view_state_model.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
-import 'package:lighthouse/net/model/quote_basic.dart';
+import 'package:lighthouse/net/model/quote_pair.dart';
 import 'package:lighthouse/net/model/quote_ws.dart';
 
 class HomeModel extends ViewStateModel {
@@ -18,8 +18,8 @@ class HomeModel extends ViewStateModel {
   static const String COIN_BITCOIN = 'bitcoin';
   static const String COIN_ETHEREUM = 'ethereum';
 
-  QuoteBasic btcQuoteBasic;
-  QuoteBasic ethQuoteBasic;
+  QuotePair btcUsdPair;
+  QuotePair ethUsdPair;
 
   GlobalKey<BasePageMixin> milestonePageKey = GlobalKey<BasePageMixin>();
   GlobalKey<BasePageMixin> articlePageKey = GlobalKey<BasePageMixin>();
@@ -37,11 +37,11 @@ class HomeModel extends ViewStateModel {
         return;
       }
 
-      if (quoteWs.coin_code == 'btc' && btcQuoteBasic != null) {
-        btcQuoteBasic.quote = quoteWs.quote;
+      if (quoteWs.coin_code == 'btc' && btcUsdPair != null) {
+        btcUsdPair.quote = quoteWs.quote;
 
-      } else if (quoteWs.coin_code == 'eth' && ethQuoteBasic != null) {
-        ethQuoteBasic.quote = quoteWs.quote;
+      } else if (quoteWs.coin_code == 'eth' && ethUsdPair != null) {
+        ethUsdPair.quote = quoteWs.quote;
       }
 
       notifyListeners();
@@ -80,10 +80,12 @@ class HomeModel extends ViewStateModel {
         cancelToken: cancelToken,
         onSuccess: (data) {
           if (chain == HomeModel.COIN_BITCOIN) {
-            btcQuoteBasic = QuoteBasic.fromJson(data);
+            btcUsdPair = QuotePair.fromJson(data);
+            btcUsdPair.coin_code = HomeModel.COIN_BITCOIN;
 
           } else if (chain == HomeModel.COIN_ETHEREUM) {
-            ethQuoteBasic = QuoteBasic.fromJson(data);
+            ethUsdPair = QuotePair.fromJson(data);
+            ethUsdPair.coin_code = HomeModel.COIN_ETHEREUM;
           }
         },
         onError: (errno, msg) {

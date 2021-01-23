@@ -40,13 +40,13 @@ class _HomePinnedAppBarState extends State<HomePinnedAppBar> {
   Widget build(BuildContext context) {
     HomeModel homeModel = Provider.of<HomeModel>(context);
 
-    double btcRate = homeModel.btcQuoteBasic != null ? homeModel.btcQuoteBasic.change_percent : 0;
-    double btcPrice = homeModel.btcQuoteBasic != null ? homeModel.btcQuoteBasic.quote : 0;
+    double btcRate = homeModel.btcUsdPair != null ? homeModel.btcUsdPair.change_percent : 0;
+    double btcPrice = homeModel.btcUsdPair != null ? homeModel.btcUsdPair.quote : 0;
     String btcRateStr = (btcRate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(btcRate, 2).toString() + '%';
     String btcPriceStr = NumUtil.getNumByValueDouble(btcPrice, 2).toString();
 
-    double ethRate = homeModel.ethQuoteBasic != null ? homeModel.ethQuoteBasic.change_percent : 0;
-    double ethPrice = homeModel.ethQuoteBasic != null ? homeModel.ethQuoteBasic.quote : 0;
+    double ethRate = homeModel.ethUsdPair != null ? homeModel.ethUsdPair.change_percent : 0;
+    double ethPrice = homeModel.ethUsdPair != null ? homeModel.ethUsdPair.quote : 0;
     String ethRateStr = (btcRate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(ethRate, 2).toString() + '%';
     String ethPriceStr = NumUtil.getNumByValueDouble(ethPrice, 2).toString();
 
@@ -70,7 +70,7 @@ class _HomePinnedAppBarState extends State<HomePinnedAppBar> {
                     Container(
                         margin: EdgeInsets.only(left: 24),
                         alignment: Alignment.centerLeft,
-                        child: Text(homeModel.btcQuoteBasic != null ? homeModel.btcQuoteBasic.pair : '', style: TextStyles.textGray800_w400_15,
+                        child: Text(homeModel.btcUsdPair != null ? homeModel.btcUsdPair.pair : '', style: TextStyles.textGray800_w400_15,
                         )),
                     Gaps.vGap5,
                     Container(
@@ -90,7 +90,7 @@ class _HomePinnedAppBarState extends State<HomePinnedAppBar> {
                   children: [
                     Container(
                         alignment: Alignment.centerLeft,
-                        child: Text(homeModel.ethQuoteBasic != null ? homeModel.ethQuoteBasic.pair : '', style: TextStyles.textGray800_w400_15,)
+                        child: Text(homeModel.ethUsdPair != null ? homeModel.ethUsdPair.pair : '', style: TextStyles.textGray800_w400_15,)
                     ),
                     Gaps.vGap5,
                     Container(

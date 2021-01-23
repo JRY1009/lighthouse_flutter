@@ -1,20 +1,20 @@
 
 import 'package:flutter/material.dart';
 import 'package:lighthouse/generated/l10n.dart';
-import 'package:lighthouse/net/model/quote_basic.dart';
+import 'package:lighthouse/net/model/quote_coin.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/utils/num_util.dart';
 
 class SpotDetailAppbar extends StatefulWidget {
 
-  final QuoteBasic quoteBasic;
+  final QuoteCoin quoteCoin;
   final bool showShadow;
   final VoidCallback onPressed;
 
   const SpotDetailAppbar({
     Key key,
-    this.quoteBasic,
+    this.quoteCoin,
     this.showShadow = true,
     this.onPressed,
   }): super(key: key);
@@ -42,14 +42,14 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
   @override
   Widget build(BuildContext context) {
 
-    double rate = widget.quoteBasic != null ? widget.quoteBasic.change_percent : 0;
-    double price = widget.quoteBasic != null ? widget.quoteBasic.quote : 0;
+    double rate = widget.quoteCoin != null ? widget.quoteCoin.change_percent : 0;
+    double price = widget.quoteCoin != null ? widget.quoteCoin.quote : 0;
     double priceCny = NumUtil.multiply(price, 6.5);
-    double change_amount = widget.quoteBasic != null ? widget.quoteBasic.change_amount : 0;
-    double amount_24h = widget.quoteBasic != null ? widget.quoteBasic.amount_24h : 0;
-    double vol_24h = widget.quoteBasic != null ? widget.quoteBasic.vol_24h : 0;
+    double change_amount = widget.quoteCoin != null ? widget.quoteCoin.change_amount : 0;
+    double amount_24h = widget.quoteCoin != null ? widget.quoteCoin.amount_24h : 0;
+    double vol_24h = widget.quoteCoin != null ? widget.quoteCoin.vol_24h : 0;
 
-    String coin_code = widget.quoteBasic != null ? widget.quoteBasic.coin_code : '';
+    String coin_code = widget.quoteCoin != null ? widget.quoteCoin.coin_code : '';
     String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate, 2).toString() + '%';
     String priceStr = NumUtil.getNumByValueDouble(price, 2).toString();
     String priceCnyStr = NumUtil.getNumByValueDouble(priceCny, 2).toString();
