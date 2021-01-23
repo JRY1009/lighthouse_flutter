@@ -66,20 +66,20 @@ class _ModifyPwdPageState extends State<ModifyPwdPage> with BasePageMixin<Modify
       'xxx': verifyCode,
     };
 
-    showProgress(showContent: false);
-    DioUtil.getInstance().post(Constant.URL_SUB_PERSON_DATA, params: params,
-        successCallBack: (data, headers) {
-          closeProgress();
-
-          ToastUtil.success(S.current.modifySuccess);
-
-          Navigator.pop(context);
-
-        },
-        errorCallBack: (error) {
-          closeProgress();
-          ToastUtil.error(error[Constant.MESSAGE]);
-        });
+//    showProgress(showContent: false);
+//    DioUtil.getInstance().post(Constant.URL_SUB_PERSON_DATA, params: params,
+//        successCallBack: (data, headers) {
+//          closeProgress();
+//
+//          ToastUtil.success(S.current.modifySuccess);
+//
+//          Navigator.pop(context);
+//
+//        },
+//        errorCallBack: (error) {
+//          closeProgress();
+//          ToastUtil.error(error[Constant.MESSAGE]);
+//        });
   }
 
   Future<bool> _getVCode() {

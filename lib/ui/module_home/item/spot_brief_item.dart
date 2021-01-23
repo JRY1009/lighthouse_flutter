@@ -14,23 +14,23 @@ class SpotBriefItem extends StatelessWidget {
 
   final String subTitle;
 
-  final bool showDetail;
-
   final String detailInfo;
+
+  final int type;
 
   const SpotBriefItem(
       {Key key,
         this.index,
         this.title,
         this.subTitle,
-        this.showDetail = false,
-        this.detailInfo
+        this.detailInfo,
+        this.type,
       })
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return index == 0 ? Container(
+    return type == 2 ? Container(
         width: double.infinity,
         padding: EdgeInsets.only(left: 15, right: 16),
         child: Column(
@@ -47,7 +47,7 @@ class SpotBriefItem extends StatelessWidget {
             Container(
               alignment: Alignment.topLeft,
               margin: EdgeInsets.symmetric(vertical: 15),
-              child: Text('比特币（Bitcoin）的概念最初由中本聪在2008年11月1日提出，并于2009年1月3日正式诞生。根据中本聪的思路设计发布的开源软件以及建构其上的P2P网络。',
+              child: Text(subTitle ?? '',
                 style: TextStyles.textGray400_w400_14,
                 strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
               ),
@@ -68,7 +68,7 @@ class SpotBriefItem extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            showDetail ? InkWell(
+            type == 3 ? InkWell(
               onTap: () => DialogUtil.showCupertinoAlertDialog(context,
                   title: title,
                   content: subTitle,

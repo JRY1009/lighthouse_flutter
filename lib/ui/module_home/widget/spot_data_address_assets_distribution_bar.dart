@@ -49,6 +49,8 @@ class _SpotDataAddressAssetsDistributionBarState extends State<SpotDataAddressAs
       total_count += widget.dataList[i].address_count;
     }
 
+    int turnover = widget.spotDataBasic != null ? widget.spotDataBasic.turnover : 0;
+
     return Container(
         margin: EdgeInsets.symmetric(horizontal: 12 , vertical: 9),
         decoration: BoxDecoration(
@@ -99,10 +101,10 @@ class _SpotDataAddressAssetsDistributionBarState extends State<SpotDataAddressAs
               child: Row (
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(widget.spotDataBasic.address_count.toString(),
+                  Text(total_count.toString(),
                     style: TextStyles.textGray800_w400_12,
                   ),
-                  Text(widget.spotDataBasic.total_supply.toString(),
+                  Text(turnover.toString(),
                     style: TextStyles.textGray800_w400_12,
                   ),
                 ],

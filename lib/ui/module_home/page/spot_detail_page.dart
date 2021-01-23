@@ -29,11 +29,11 @@ import 'package:lighthouse/utils/num_util.dart';
 
 class SpotDetailPage extends StatefulWidget {
 
-  final String coin_code;
+  final String coinCode;
 
   SpotDetailPage({
     Key key,
-    this.coin_code = 'bitcoin'
+    this.coinCode = 'bitcoin'
   }) : super(key: key);
 
   @override
@@ -75,7 +75,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
     _tabTitles = [S.current.briefInfo, S.current.quote, S.current.data, S.current.info];
     _spotDetailModel = SpotDetailModel(_tabTitles);
     _spotDetailModel.listenEvent();
-    _spotDetailModel.getSpotDetail(widget.coin_code);
+    _spotDetailModel.getSpotDetail(widget.coinCode);
   }
 
   @override
@@ -100,7 +100,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
   }
 
   Future<void> _refresh()  {
-    return _spotDetailModel.getSpotDetailWithChild(widget.coin_code, _tabController.index);
+    return _spotDetailModel.getSpotDetailWithChild(widget.coinCode, _tabController.index);
   }
 
   void _scrollNotify(double scrollY) {
@@ -126,14 +126,14 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
                 width: double.infinity,
                 alignment: Alignment.center,
                 color: Colours.white,
-                child: Text(widget.coin_code, style: TextStyles.textBlack16)
+                child: Text(widget.coinCode, style: TextStyles.textBlack16)
             ),
             Container(
               color: Colours.gray_100,
               child: Column(
                 children: [
                   SpotDetailAppbar(showShadow: false, quoteCoin: _spotDetailModel.quoteCoin),
-                  SpotDetailKLineBar(coin_code: widget.coin_code),
+                  SpotDetailKLineBar(coinCode: widget.coinCode),
                   Image.memory(pngBytes),
                 ],
               ),
@@ -222,14 +222,22 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
                           child: TabBarView(
                             controller: _tabController,
                             children: <Widget>[
-                              extended.NestedScrollViewInnerScrollPositionKeyWidget(
-                                  Key(_tabTitles[0]), SpotBriefPage(key: _spotDetailModel.keyList[0])),
-                              extended.NestedScrollViewInnerScrollPositionKeyWidget(
-                                  Key(_tabTitles[1]), SpotQuotePage(key: _spotDetailModel.keyList[1])),
-                              extended.NestedScrollViewInnerScrollPositionKeyWidget(
-                                  Key(_tabTitles[2]), SpotDataPage(key: _spotDetailModel.keyList[2])),
-                              extended.NestedScrollViewInnerScrollPositionKeyWidget(
-                                  Key(_tabTitles[3]), ArticleListPage(key: _spotDetailModel.keyList[3], isSupportPull: false, isSingleCard: true,))
+                              extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[0]),
+                                  SpotBriefPage(key: _spotDetailModel.keyList[0], coinCode: widget.coinCode)
+                              ),
+                              extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[1]),
+                                  SpotQuotePage(key: _spotDetailModel.keyList[1], coinCode: widget.coinCode)
+                              ),
+                              extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[2]),
+                                  SpotDataPage(key: _spotDetailModel.keyList[2], coinCode: widget.coinCode)
+                              ),
+                              extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[3]),
+                                  ArticleListPage(key: _spotDetailModel.keyList[3],
+                                    isSupportPull: false,
+                                    isSingleCard: true,
+                                    tag: widget.coinCode
+                                  )
+                              )
                             ],
                           ),
                         )
@@ -251,7 +259,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
         child: SpotDetailAppbar(quoteCoin: _spotDetailModel.quoteCoin),
       ),
       SliverToBoxAdapter(
-        child: SpotDetailKLineBar(coin_code: widget.coin_code),
+        child: SpotDetailKLineBar(coinCode: widget.coinCode),
       ),
     ];
   }
@@ -272,7 +280,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                  child: Text(widget.coin_code, style: TextStyles.textBlack16,
+                  child: Text(widget.coinCode, style: TextStyles.textBlack16,
                   )),
               _opacityNofifier.value > 0.5 ? Container(
                   child: Text(priceStr + '  ' + rateStr,

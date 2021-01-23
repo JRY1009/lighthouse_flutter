@@ -4,25 +4,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/mvvm/base_page.dart';
-import 'package:lighthouse/net/constant.dart';
-import 'package:lighthouse/net/dio_util.dart';
-import 'package:lighthouse/net/model/spot_exchange_quote.dart';
-import 'package:lighthouse/net/model/spot_exchange_quote_basic.dart';
+import 'package:lighthouse/mvvm/provider_widget.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/module_base/widget/easyrefresh/first_refresh.dart';
 import 'package:lighthouse/ui/module_base/widget/easyrefresh/loading_empty.dart';
 import 'package:lighthouse/ui/module_home/item/spot_exchange_quote_item.dart';
+import 'package:lighthouse/ui/module_home/viewmodel/spot_quote_model.dart';
 import 'package:lighthouse/utils/num_util.dart';
-import 'package:lighthouse/utils/object_util.dart';
-import 'package:lighthouse/utils/toast_util.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 class SpotQuotePage extends StatefulWidget {
 
+  final String coinCode;
+
   const SpotQuotePage({
     Key key,
+    this.coinCode,
   }): super(key: key);
 
 
@@ -35,113 +34,75 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
   @override
   bool get wantKeepAlive => true;
 
-  SpotExchangeQuoteBasic _exchangeQuoteBasic;
-  List<SpotExchangeQuote> _quoteList = [];
-
-  bool _init = false;
+  SpotQuoteModel _quoteModel;
 
   @override
   void initState() {
     super.initState();
 
-    Future.delayed(new Duration(milliseconds: 100), () {
+    _quoteModel = SpotQuoteModel();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
-        _requestData();
+        initViewModel();
       }
     });
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
-  @override
-  void didUpdateWidget(SpotQuotePage oldWidget) {
-    super.didUpdateWidget(oldWidget);
+  void initViewModel() {
+    _quoteModel.getQuote(widget.coinCode);
   }
 
   @override
   Future<void> refresh({slient = false}) {
-    return _requestData();
-  }
-
-  Future<void> _requestData() {
-    Map<String, dynamic> params = {
-      'chain': 'bitcoin',
-    };
-
-    return DioUtil.getInstance().get(Constant.URL_GET_CHAIN_QUOTE, params: params,
-        successCallBack: (data, headers) {
-          if (data == null || data['data'] == null) {
-            _finishRequest(success: false);
-            return;
-          }
-
-          _exchangeQuoteBasic = SpotExchangeQuoteBasic.fromJson(data['data']);
-          _quoteList = _exchangeQuoteBasic?.exchange_quote_list;
-
-          _finishRequest(success: true);
-        },
-        errorCallBack: (error) {
-          _finishRequest(success: false);
-          ToastUtil.error(error[Constant.MESSAGE]);
-        });
-  }
-
-  void _finishRequest({bool success}) {
-    if (!_init) {
-      _init = true;
-    }
-
-    if (mounted) {
-      setState((){});
-    }
+    return _quoteModel.getQuote(widget.coinCode);
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return !_init ? FirstRefresh() :
-    EasyRefresh(
-      topBouncing: false,
-      bottomBouncing: false,
-      emptyWidget: ObjectUtil.isEmpty(_quoteList) ? LoadingEmpty() : null,
-      child: ListView.builder(
-        padding: EdgeInsets.all(0.0),
-        itemBuilder: (context, index) {
-          return StickyHeader(
-            header: Container(
-              alignment: Alignment.centerLeft,
-              width: double.infinity,
-              color: Colours.normal_bg,
-              height: 188.0,
-              child: _buildHeader(),
-            ),
-            content: _buildItem(),
-          );
-        },
-        itemCount: 1,
-      ),
 
-      onRefresh: null,
-      onLoad: null,
+    return ProviderWidget<SpotQuoteModel>(
+        model: _quoteModel,
+        builder: (context, model, child) {
+          return model.isFirst ? FirstRefresh() :
+          EasyRefresh(
+            topBouncing: false,
+            bottomBouncing: false,
+            emptyWidget: (model.isEmpty || model.isError) ? LoadingEmpty() : null,
+            child: ListView.builder(
+              padding: EdgeInsets.all(0.0),
+              itemBuilder: (context, index) {
+                return StickyHeader(
+                  header: Container(
+                    alignment: Alignment.centerLeft,
+                    width: double.infinity,
+                    color: Colours.normal_bg,
+                    height: 188.0,
+                    child: _buildHeader(),
+                  ),
+                  content: _buildItem(),
+                );
+              },
+              itemCount: 1,
+            ),
+
+            onRefresh: null,
+            onLoad: null,
+          );
+        }
     );
+    
+    
   }
 
   Widget _buildHeader() {
 
-    double rate = _exchangeQuoteBasic != null ? _exchangeQuoteBasic.change_percent : 0;
-    double price = _exchangeQuoteBasic != null ? _exchangeQuoteBasic.quote : 0;
-    double cny = _exchangeQuoteBasic != null ? _exchangeQuoteBasic.cny : 0;
-    double change_amount = _exchangeQuoteBasic != null ? _exchangeQuoteBasic.change_amount : 0;
+    double rate = _quoteModel.quoteBasic != null ? _quoteModel.quoteBasic.change_percent : 0;
+    double price = _quoteModel.quoteBasic != null ? _quoteModel.quoteBasic.quote : 0;
+    double cny = _quoteModel.quoteBasic != null ? _quoteModel.quoteBasic.cny : 0;
+    double change_amount = _quoteModel.quoteBasic != null ? _quoteModel.quoteBasic.change_amount : 0;
 
-    String groupStr = _exchangeQuoteBasic != null ? _exchangeQuoteBasic.data_src : '';
+    String groupStr = _quoteModel.quoteBasic != null ? _quoteModel.quoteBasic.data_src : '';
     String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate, 2).toString() + '%';
     String priceStr = NumUtil.getNumByValueDouble(price, 2).toString();
     String cnyStr = NumUtil.getNumByValueDouble(cny, 2).toString();
@@ -257,7 +218,7 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
                 child: Text.rich(TextSpan(
                     children: [
                       TextSpan(text: S.of(context).proLatestPrice, style: TextStyles.textGray500_w400_12),
-                      WidgetSpan(child: Icon(Icons.compare_arrows, color: Colours.text_red, size: 14),)
+                      WidgetSpan(child: Icon(Icons.arrow_drop_down_sharp, color: Colours.text_red, size: 14),)
                     ]
                 )),
               ),
@@ -267,7 +228,7 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
                 child: Text.rich(TextSpan(
                     children: [
                       TextSpan(text: S.of(context).proRate, style: TextStyles.textGray500_w400_12),
-                      WidgetSpan(child: Icon(Icons.compare_arrows, color: Colours.text_red, size: 14),)
+                      WidgetSpan(child: Icon(Icons.arrow_drop_down_sharp, color: Colours.text_red, size: 14),)
                     ]
                 )),
               )
@@ -280,13 +241,13 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
   }
 
   Widget _buildItem() {
-    final list = List.generate(_quoteList.length, (i) {
+    final list = List.generate(_quoteModel.quoteList.length, (i) {
       return SpotExchangeQuoteItem(
         index: i,
-        tradePlatform: _quoteList[i].name,
-        price: _quoteList[i].quote,
-        rate: _quoteList[i].change_percent,
-        cny: _quoteList[i].cny,
+        tradePlatform: _quoteModel.quoteList[i].name,
+        price: _quoteModel.quoteList[i].quote,
+        rate: _quoteModel.quoteList[i].change_percent,
+        cny: _quoteModel.quoteList[i].cny,
       );
     });
     return Container(

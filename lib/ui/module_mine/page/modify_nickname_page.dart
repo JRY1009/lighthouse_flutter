@@ -57,24 +57,24 @@ class _ModifyNicknamePageState extends State<ModifyNicknamePage> with BasePageMi
       'nickname': nickname,
     };
 
-    showProgress(showContent: false);
-    DioUtil.getInstance().post(Constant.URL_SUB_PERSON_DATA, params: params,
-        successCallBack: (data, headers) {
-          closeProgress();
-          Account account = RTAccount.instance().getActiveAccount();
-          account?.nick_name = nickname;
-          RTAccount.instance().setActiveAccount(account);
-
-          ToastUtil.success(S.current.saveSuccess);
-
-          Navigator.pop(context);
-          Event.eventBus.fire(UserEvent(account, UserEventState.userme));
-
-        },
-        errorCallBack: (error) {
-          closeProgress();
-          ToastUtil.error(error[Constant.MESSAGE]);
-        });
+//    showProgress(showContent: false);
+//    DioUtil.getInstance().post(Constant.URL_SUB_PERSON_DATA, params: params,
+//        successCallBack: (data, headers) {
+//          closeProgress();
+//          Account account = RTAccount.instance().getActiveAccount();
+//          account?.nick_name = nickname;
+//          RTAccount.instance().setActiveAccount(account);
+//
+//          ToastUtil.success(S.current.saveSuccess);
+//
+//          Navigator.pop(context);
+//          Event.eventBus.fire(UserEvent(account, UserEventState.userme));
+//
+//        },
+//        errorCallBack: (error) {
+//          closeProgress();
+//          ToastUtil.error(error[Constant.MESSAGE]);
+//        });
   }
 
   @override

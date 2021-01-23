@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:lighthouse/generated/l10n.dart';
+import 'package:lighthouse/mvvm/base_page.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/gaps.dart';
 import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/ui/module_base/page/base_page.dart';
 import 'package:lighthouse/ui/module_base/widget/tab/bubble_indicator.dart';
 import 'package:lighthouse/ui/module_info/page/article_list_page.dart';
 import 'package:lighthouse/utils/image_util.dart';

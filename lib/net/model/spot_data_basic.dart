@@ -21,12 +21,12 @@ class SpotDataBasic {
   });
 
   SpotDataBasic.fromJson(Map<String, dynamic> jsonMap) {
-    turnover = jsonMap['turnover'];
-    turnover_market_vol = jsonMap['turnover_market_vol'];
-    total_supply = jsonMap['total_supply'];
-    total_supply_market_vol = jsonMap['total_supply_market_vol'];
-    address_count = jsonMap['address_count'];
-    address_balance_list = SpotAddressAssetsDistribution.fromJsonList(jsonMap['address_balance_list']);
+    turnover = jsonMap['turnover'] ?? 0;
+    turnover_market_vol = jsonMap['turnover_market_vol'] ?? 0;
+    total_supply = jsonMap['total_supply'] ?? 0;
+    total_supply_market_vol = jsonMap['total_supply_market_vol'] ?? 0;
+    address_count = jsonMap['address_count'] ?? 0;
+    address_balance_list = SpotAddressAssetsDistribution.fromJsonList(jsonMap['address_balance_list']) ?? [];
   }
 
   Map<String, dynamic> toJson() {

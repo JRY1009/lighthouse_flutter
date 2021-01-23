@@ -6,17 +6,20 @@ class SpotBrief {
   String key;
   String title;
   String value ;
+  int type;
 
   SpotBrief({
     this.key,
     this.title,
     this.value,
+    this.type,
   });
 
   SpotBrief.fromJson(Map<String, dynamic> jsonMap) {
     key = jsonMap['key'];
     title = jsonMap['title'];
     value = jsonMap['value'];
+    type = jsonMap['type'];
   }
 
   Map<String, dynamic> toJson() {
@@ -24,6 +27,7 @@ class SpotBrief {
     jsonMap['key'] = this.key;
     jsonMap['title'] = this.title;
     jsonMap['value'] = this.value;
+    jsonMap['type'] = this.type;
 
     return jsonMap;
   }

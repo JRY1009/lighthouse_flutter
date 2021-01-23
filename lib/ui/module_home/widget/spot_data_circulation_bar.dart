@@ -39,9 +39,11 @@ class _SpotDataCirculationBarState extends State<SpotDataCirculationBar> {
   Widget build(BuildContext context) {
     int turnover = widget.spotDataBasic != null ? widget.spotDataBasic.turnover : 0;
     int turnover_market_vol = widget.spotDataBasic != null ? widget.spotDataBasic.turnover_market_vol : 0;
+    int total_supply = widget.spotDataBasic != null ? widget.spotDataBasic.total_supply : 0;
+    int total_supply_market_vol = widget.spotDataBasic != null ? widget.spotDataBasic.total_supply_market_vol : 0;
 
-    double lp = turnover_market_vol == 0 ? 0 : NumUtil.divideDec(widget.spotDataBasic.turnover, widget.spotDataBasic.turnover_market_vol).toDouble() * 100;
-    double rp = turnover_market_vol == 0 ? 0 : NumUtil.divideDec(widget.spotDataBasic.turnover_market_vol - widget.spotDataBasic.turnover, widget.spotDataBasic.turnover_market_vol).toDouble() * 100;
+    double lp = turnover_market_vol == 0 ? 0 : NumUtil.divideDec(turnover, turnover_market_vol).toDouble() * 100;
+    double rp = turnover_market_vol == 0 ? 0 : NumUtil.divideDec(turnover_market_vol - turnover, turnover_market_vol).toDouble() * 100;
     String lpStr = NumUtil.getNumByValueDouble(lp, 2).toString() + "%";
     String rpStr = NumUtil.getNumByValueDouble(rp, 2).toString() + "%";
 
@@ -119,7 +121,7 @@ class _SpotDataCirculationBarState extends State<SpotDataCirculationBar> {
                     ),
                   ),
                   Container(
-                    child: Text(widget.spotDataBasic.turnover.toString() + '/\$' + widget.spotDataBasic.turnover_market_vol.toString(),
+                    child: Text(turnover.toString() + '/\$' + turnover_market_vol.toString(),
                       style: TextStyles.textGray800_w400_12,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -151,7 +153,7 @@ class _SpotDataCirculationBarState extends State<SpotDataCirculationBar> {
                     ),
                   ),
                   Container(
-                    child: Text(widget.spotDataBasic.total_supply.toString() + '/\$' + widget.spotDataBasic.total_supply_market_vol.toString(),
+                    child: Text(total_supply.toString() + '/\$' + total_supply_market_vol.toString(),
                       style: TextStyles.textGray800_w400_12,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
