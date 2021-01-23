@@ -14,7 +14,7 @@ import 'package:lighthouse/ui/module_base/widget/button/back_button.dart';
 import 'package:lighthouse/ui/module_base/widget/dialog/dialog_util.dart';
 import 'package:lighthouse/ui/module_base/widget/easyrefresh/first_refresh.dart';
 import 'package:lighthouse/ui/module_base/widget/tab/bubble_indicator.dart';
-import 'package:lighthouse/ui/module_home/page/spot_brief_info_page.dart';
+import 'package:lighthouse/ui/module_home/page/spot_brief_page.dart';
 import 'package:lighthouse/ui/module_home/page/spot_data_page.dart';
 import 'package:lighthouse/ui/module_home/page/spot_quote_page.dart';
 import 'package:lighthouse/ui/module_home/viewmodel/spot_detail_model.dart';
@@ -223,7 +223,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
                             controller: _tabController,
                             children: <Widget>[
                               extended.NestedScrollViewInnerScrollPositionKeyWidget(
-                                  Key(_tabTitles[0]), SpotBriefInfoPage(key: _spotDetailModel.keyList[0])),
+                                  Key(_tabTitles[0]), SpotBriefPage(key: _spotDetailModel.keyList[0])),
                               extended.NestedScrollViewInnerScrollPositionKeyWidget(
                                   Key(_tabTitles[1]), SpotQuotePage(key: _spotDetailModel.keyList[1])),
                               extended.NestedScrollViewInnerScrollPositionKeyWidget(

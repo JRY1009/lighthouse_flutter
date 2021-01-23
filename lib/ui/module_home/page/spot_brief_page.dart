@@ -10,7 +10,7 @@ import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
 import 'package:lighthouse/net/model/friend_link.dart';
 import 'package:lighthouse/net/model/milestone.dart';
-import 'package:lighthouse/net/model/spot_brief_info.dart';
+import 'package:lighthouse/net/model/spot_brief.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/router/routers.dart';
@@ -18,32 +18,32 @@ import 'package:lighthouse/ui/module_base/widget/common_scroll_view.dart';
 import 'package:lighthouse/ui/module_base/widget/easyrefresh/first_refresh.dart';
 import 'package:lighthouse/ui/module_base/widget/shot_view.dart';
 import 'package:lighthouse/ui/module_home/item/milestone_item.dart';
-import 'package:lighthouse/ui/module_home/item/spot_brief_info_item.dart';
+import 'package:lighthouse/ui/module_home/item/spot_brief_item.dart';
 import 'package:lighthouse/utils/other_util.dart';
 import 'package:lighthouse/utils/toast_util.dart';
 
-class SpotBriefInfoPage extends StatefulWidget {
+class SpotBriefPage extends StatefulWidget {
 
   final String coin_code;
 
-  const SpotBriefInfoPage({
+  const SpotBriefPage({
     Key key,
     this.coin_code
   }): super(key: key);
 
 
   @override
-  _SpotBriefInfoPageState createState() => _SpotBriefInfoPageState();
+  _SpotBriefPageState createState() => _SpotBriefPageState();
 }
 
-class _SpotBriefInfoPageState extends State<SpotBriefInfoPage> with BasePageMixin<SpotBriefInfoPage>, AutomaticKeepAliveClientMixin<SpotBriefInfoPage>, SingleTickerProviderStateMixin{
+class _SpotBriefPageState extends State<SpotBriefPage> with BasePageMixin<SpotBriefPage>, AutomaticKeepAliveClientMixin<SpotBriefPage>, SingleTickerProviderStateMixin{
 
   @override
   bool get wantKeepAlive => true;
 
   ShotController _shotController = new ShotController();
 
-  List<SpotBriefInfo> _briefList = [];
+  List<SpotBrief> _briefList = [];
   List<FriendLink> _friendLinkList = [];
   List<MileStone> _milestoneList = [];
 
@@ -87,7 +87,7 @@ class _SpotBriefInfoPageState extends State<SpotBriefInfoPage> with BasePageMixi
             return;
           }
 
-          List<SpotBriefInfo> briefList = SpotBriefInfo.fromJsonList(data['data']['chain_detail']) ?? [];
+          List<SpotBrief> briefList = SpotBrief.fromJsonList(data['data']['chain_detail']) ?? [];
           List<FriendLink> linkList = FriendLink.fromJsonList(data['data']['friend_link']) ?? [];
           List<MileStone> milestoneList = FriendLink.fromJsonList(data['data']['milestone']) ?? [];
 
@@ -139,7 +139,7 @@ class _SpotBriefInfoPageState extends State<SpotBriefInfoPage> with BasePageMixi
                   primary: false,
                   padding: EdgeInsets.all(0.0),
                   itemBuilder: (context, index) {
-                    return SpotBriefInfoItem(
+                    return SpotBriefItem(
                       index: index,
                       title: _briefList[index].title,
                       subTitle: _briefList[index].value,

@@ -6,7 +6,7 @@ import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/module_base/widget/dialog/dialog_util.dart';
 
 
-class SpotBriefInfoItem extends StatelessWidget {
+class SpotBriefItem extends StatelessWidget {
 
   final int index;
 
@@ -18,7 +18,7 @@ class SpotBriefInfoItem extends StatelessWidget {
 
   final String detailInfo;
 
-  const SpotBriefInfoItem(
+  const SpotBriefItem(
       {Key key,
         this.index,
         this.title,

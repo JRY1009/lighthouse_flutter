@@ -1,19 +1,19 @@
 
 import 'package:lighthouse/utils/object_util.dart';
 
-class SpotBriefInfo {
+class SpotBrief {
 
   String key;
   String title;
   String value ;
 
-  SpotBriefInfo({
+  SpotBrief({
     this.key,
     this.title,
     this.value,
   });
 
-  SpotBriefInfo.fromJson(Map<String, dynamic> jsonMap) {
+  SpotBrief.fromJson(Map<String, dynamic> jsonMap) {
     key = jsonMap['key'];
     title = jsonMap['title'];
     value = jsonMap['value'];
@@ -28,14 +28,14 @@ class SpotBriefInfo {
     return jsonMap;
   }
 
-  static List<SpotBriefInfo> fromJsonList(List<dynamic> mapList) {
+  static List<SpotBrief> fromJsonList(List<dynamic> mapList) {
     if (ObjectUtil.isEmptyList(mapList)) {
       return null;
     }
 
-    List<SpotBriefInfo> items = new List<SpotBriefInfo>();
+    List<SpotBrief> items = new List<SpotBrief>();
     for(Map<String, dynamic> map in mapList) {
-      items.add(SpotBriefInfo.fromJson(map));
+      items.add(SpotBrief.fromJson(map));
     }
     return items;
   }
