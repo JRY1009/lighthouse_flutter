@@ -21,6 +21,7 @@ class LoadingEmptyTop extends StatelessWidget {
   Widget build(BuildContext context) {
     return CommonScrollView(
         physics: NeverScrollableScrollPhysics(),
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
             alignment: Alignment.center,

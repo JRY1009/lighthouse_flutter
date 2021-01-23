@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'dart:core';
 
+import 'package:lighthouse/mvvm/provider_widget.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
 import 'package:lighthouse/net/model/tree_node.dart';
 import 'package:lighthouse/ui/module_base/provider/list_provider.dart';
 import 'package:lighthouse/ui/module_base/widget/chart/inapp_echart.dart';
 import 'package:lighthouse/ui/module_base/widget/easyrefresh/first_refresh.dart';
+import 'package:lighthouse/ui/module_home/viewmodel/treemap_model.dart';
 import 'package:lighthouse/utils/toast_util.dart';
 import 'package:flutter/material.dart';
 
@@ -21,71 +23,32 @@ class SpotTreemap extends StatefulWidget {
 
 class _SpotTreemapState extends State<SpotTreemap> {
 
-  ListProvider<TreeNode> _listProvider = ListProvider<TreeNode>();
-  List<Map<String, Object>> _data = [];
-
-  bool _init = false;
-
-  final _echartKey = GlobalKey<InappEchartsState>();
+  TreemapModel _treemapModel;
 
   @override
   void initState() {
     super.initState();
 
-    _requestData();
+    initViewModel();
   }
 
-
-  Future<void> _requestData() {
-    Map<String, dynamic> params = {
-    };
-
-    return DioUtil.getInstance().get(Constant.URL_GET_TREEMAP, params: params,
-        successCallBack: (data, headers) {
-          if (data == null || data['data'] == null) {
-            _finishRequest(success: false, noMore: false);
-            return;
-          }
-
-          List<TreeNode> newsList = TreeNode.fromJsonList(data['data']) ?? [];
-          _listProvider.clear();
-          _listProvider.addAll(newsList);
-
-          _data.clear();
-          for (TreeNode treeNode in _listProvider.list) {
-            Map<String, Object> nodeMap = {
-              'name': treeNode.zh_name,
-              'value': [treeNode.market_val, treeNode.change_percent, treeNode.color_index]
-            };
-            _data.add(nodeMap);
-          }
-
-          _finishRequest(success: true, noMore: true);
-        },
-        errorCallBack: (error) {
-          _finishRequest(success: false, noMore: false);
-          ToastUtil.error(error[Constant.MESSAGE]);
-        });
-  }
-
-  void _finishRequest({bool success, bool noMore}) {
-    setState(() {
-      if (!_init) {
-        _init = true;
-      }
-    });
+  void initViewModel() {
+    _treemapModel = TreemapModel();
+    _treemapModel.getTreemap();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Column(
-              children: [
-                Expanded (
-                  child: Container(
-                    child: !_init ? FirstRefresh() : InappEcharts(
-                      key: _echartKey,
-                      option: '''
+    return ProviderWidget<TreemapModel>(
+        model: _treemapModel,
+        builder: (context, model, child) {
+          return Scaffold(
+              body: Column(
+                children: [
+                  Expanded (
+                    child: Container(
+                      child: _treemapModel.isFirst ? FirstRefresh() : InappEcharts(
+                        option: '''
             {
             series: [{
                 type: 'treemap',
@@ -159,16 +122,19 @@ class _SpotTreemapState extends State<SpotTreemap> {
                                 },
                             }
                 },
-                data: ${jsonEncode(_data)}
+                data: ${jsonEncode(_treemapModel.treeData)}
             }]
             }
             ''',
+                      ),
                     ),
                   ),
-                ),
-              ],
-            )
+                ],
+              )
+          );
+        }
     );
+
   }
 
 }

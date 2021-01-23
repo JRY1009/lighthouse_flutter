@@ -17,6 +17,7 @@ class FirstRefreshTop extends StatelessWidget {
     return CommonScrollView(
 
         physics: NeverScrollableScrollPhysics(),
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
             alignment: Alignment.center,

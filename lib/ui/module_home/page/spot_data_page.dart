@@ -42,7 +42,7 @@ class _SpotDataPageState extends State<SpotDataPage> with WidgetsBindingObserver
     super.initState();
 
     WidgetsBinding.instance.addObserver(this);
-    Future.delayed(new Duration(milliseconds: 100), () {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
         _requestData();
       }
@@ -53,26 +53,6 @@ class _SpotDataPageState extends State<SpotDataPage> with WidgetsBindingObserver
   void dispose() {
     super.dispose();
     WidgetsBinding.instance.removeObserver(this);
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    LogUtil.v('SpotDataPage: didChangeDependencies', tag: 'SpotDataPage');
-  }
-
-
-  @override
-  void didUpdateWidget(SpotDataPage oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    LogUtil.v('SpotDataPage: didUpdateWidget', tag: 'SpotDataPage');
-  }
-
-
-  @override
-  void deactivate() {
-    super.deactivate();
-    LogUtil.v('SpotDataPage: deactivate', tag: 'SpotDataPage');
   }
 
   @override

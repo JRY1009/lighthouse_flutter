@@ -40,7 +40,7 @@ class _SimpleLineChartState extends State<SimpleLineChart> {
     return Container(
       padding: EdgeInsets.only(top: 10),
       width: double.infinity,
-      child: !_inited ? FirstRefreshTop() : length == 0 ? LoadingEmptyTop(top: 20,) : LineChart(
+      child: !_inited ? FirstRefreshTop() : length == 0 ? LoadingEmptyTop(top: 20) : LineChart(
         mainData(),
         swapAnimationDuration:const Duration(milliseconds: 0),
       ),

@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 import 'package:lighthouse/generated/l10n.dart';
+import 'package:lighthouse/mvvm/provider_widget.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
 import 'package:lighthouse/net/model/tree_node.dart';
@@ -15,6 +16,7 @@ import 'package:lighthouse/ui/module_base/widget/dialog/dialog_util.dart';
 import 'package:lighthouse/ui/module_base/widget/dialog/share_widget.dart';
 import 'package:lighthouse/ui/module_base/widget/easyrefresh/first_refresh.dart';
 import 'package:lighthouse/ui/module_base/widget/shot_view.dart';
+import 'package:lighthouse/ui/module_home/viewmodel/treemap_model.dart';
 import 'package:lighthouse/utils/toast_util.dart';
 import 'package:flutter/material.dart';
 import 'package:lighthouse/res/colors.dart';
@@ -31,10 +33,7 @@ class TreemapPage extends StatefulWidget {
 
 class _TreemapPageState extends State<TreemapPage> {
 
-  ListProvider<TreeNode> _listProvider = ListProvider<TreeNode>();
-  List<Map<String, Object>> _data = [];
-
-  bool _init = false;
+  TreemapModel _treemapModel;
 
   final _echartKey = GlobalKey<InappEchartsState>();
   ShotController _shotController = new ShotController();
@@ -43,49 +42,14 @@ class _TreemapPageState extends State<TreemapPage> {
   void initState() {
     super.initState();
 
-    _requestData();
+    initViewModel();
   }
 
-
-  Future<void> _requestData() {
-    Map<String, dynamic> params = {
-    };
-
-    return DioUtil.getInstance().get(Constant.URL_GET_TREEMAP, params: params,
-        successCallBack: (data, headers) {
-          if (data == null || data['data'] == null) {
-            _finishRequest(success: false, noMore: false);
-            return;
-          }
-
-          List<TreeNode> newsList = TreeNode.fromJsonList(data['data']) ?? [];
-          _listProvider.clear();
-          _listProvider.addAll(newsList);
-
-          _data.clear();
-          for (TreeNode treeNode in _listProvider.list) {
-            Map<String, Object> nodeMap = {
-              'name': treeNode.zh_name,
-              'value': [treeNode.market_val, treeNode.change_percent, treeNode.color_index]
-            };
-            _data.add(nodeMap);
-          }
-
-          _finishRequest(success: true, noMore: true);
-        },
-        errorCallBack: (error) {
-          _finishRequest(success: false, noMore: false);
-          ToastUtil.error(error[Constant.MESSAGE]);
-        });
+  void initViewModel() {
+    _treemapModel = TreemapModel();
+    _treemapModel.getTreemap();
   }
 
-  void _finishRequest({bool success, bool noMore}) {
-    setState(() {
-      if (!_init) {
-        _init = true;
-      }
-    });
-  }
 
   Future<void> _share() async {
     Uint8List pngBytes = await _shotController.makeImageUint8List();
@@ -111,30 +75,33 @@ class _TreemapPageState extends State<TreemapPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          leading: BackButtonEx(),
-          elevation: 1,
-          brightness: Brightness.light,
-          backgroundColor: Colours.white,
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.share, color: Colours.black),
-              onPressed: _share,
-            )
-          ],
-          centerTitle: true,
-          title: Text(S.of(context).treemap, style: TextStyles.textBlack16),
-        ),
-        body: ShotView(
-          controller: _shotController,
-          child: Column(
-            children: [
-              Expanded (
-                child: Container(
-                  child: !_init ? FirstRefresh() : InappEcharts(
-                    key: _echartKey,
-                    option: '''
+    return ProviderWidget<TreemapModel>(
+        model: _treemapModel,
+        builder: (context, model, child) {
+          return Scaffold(
+              appBar: AppBar(
+                leading: BackButtonEx(),
+                elevation: 1,
+                brightness: Brightness.light,
+                backgroundColor: Colours.white,
+                actions: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.share, color: Colours.black),
+                    onPressed: _share,
+                  )
+                ],
+                centerTitle: true,
+                title: Text(S.of(context).treemap, style: TextStyles.textBlack16),
+              ),
+              body: ShotView(
+                  controller: _shotController,
+                  child: Column(
+                    children: [
+                      Expanded (
+                        child: Container(
+                          child: _treemapModel.isFirst ? FirstRefresh() : InappEcharts(
+                            key: _echartKey,
+                            option: '''
             {
             series: [{
                 type: 'treemap',
@@ -208,53 +175,55 @@ class _TreemapPageState extends State<TreemapPage> {
                                 },
                             }
                 },
-                data: ${jsonEncode(_data)}
+                data: ${jsonEncode(_treemapModel.treeData)}
             }]
             }
             ''',
-                  ),
-                ),
-              ),
-              Gaps.vGap10,
-              Container(
-                height: 20,
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-                child: Row(
-                  children: [
-                    Expanded(child: Container(alignment: Alignment.center, child: Text('<-3%', style: TextStyles.textGray500_w400_10)), flex: 1),
-                    Expanded(child: Container(alignment: Alignment.center, child: Text('<-1%', style: TextStyles.textGray500_w400_10)), flex: 1),
-                    Expanded(child: Container(alignment: Alignment.center, child: Text('<0%', style: TextStyles.textGray500_w400_10)), flex: 1),
-                    Expanded(child: Container(alignment: Alignment.center, child: Text('>0%', style: TextStyles.textGray500_w400_10)), flex: 1),
-                    Expanded(child: Container(alignment: Alignment.center, child: Text('>+1%', style: TextStyles.textGray500_w400_10)), flex: 1),
-                    Expanded(child: Container(alignment: Alignment.center, child: Text('>+3%', style: TextStyles.textGray500_w400_10)), flex: 1),
-                  ],
-                ),
-              ),
-              Container(
-                height: 20,
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-                child: Row(
-                  children: [
-                    Expanded(child: Container(color: Color(0xFFFCC09C)), flex: 1),
-                    Expanded(child: Container(color: Color(0xFFFFDECB)), flex: 1),
-                    Expanded(child: Container(color: Color(0xFFFFF8F4)), flex: 1),
-                    Expanded(child: Container(color: Color(0xFFDAF6F3)), flex: 1),
-                    Expanded(child: Container(color: Color(0xFFACEFE8)), flex: 1),
-                    Expanded(child: Container(color: Color(0xFF97EEE5)), flex: 1),
-                  ],
-                ),
-              ),
+                          ),
+                        ),
+                      ),
+                      Gaps.vGap10,
+                      Container(
+                        height: 20,
+                        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                        child: Row(
+                          children: [
+                            Expanded(child: Container(alignment: Alignment.center, child: Text('<-3%', style: TextStyles.textGray500_w400_10)), flex: 1),
+                            Expanded(child: Container(alignment: Alignment.center, child: Text('<-1%', style: TextStyles.textGray500_w400_10)), flex: 1),
+                            Expanded(child: Container(alignment: Alignment.center, child: Text('<0%', style: TextStyles.textGray500_w400_10)), flex: 1),
+                            Expanded(child: Container(alignment: Alignment.center, child: Text('>0%', style: TextStyles.textGray500_w400_10)), flex: 1),
+                            Expanded(child: Container(alignment: Alignment.center, child: Text('>+1%', style: TextStyles.textGray500_w400_10)), flex: 1),
+                            Expanded(child: Container(alignment: Alignment.center, child: Text('>+3%', style: TextStyles.textGray500_w400_10)), flex: 1),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        height: 20,
+                        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                        child: Row(
+                          children: [
+                            Expanded(child: Container(color: Color(0xFFFCC09C)), flex: 1),
+                            Expanded(child: Container(color: Color(0xFFFFDECB)), flex: 1),
+                            Expanded(child: Container(color: Color(0xFFFFF8F4)), flex: 1),
+                            Expanded(child: Container(color: Color(0xFFDAF6F3)), flex: 1),
+                            Expanded(child: Container(color: Color(0xFFACEFE8)), flex: 1),
+                            Expanded(child: Container(color: Color(0xFF97EEE5)), flex: 1),
+                          ],
+                        ),
+                      ),
 
-              Gaps.vGap5,
-              Container(
-                  alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.symmetric(horizontal: 12),
-                  child: Text(S.of(context).quoteDefinition, style: TextStyles.textGray500_w400_12)
-              ),
-              Gaps.vGap32
-            ],
-          )
-        )
+                      Gaps.vGap5,
+                      Container(
+                          alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.symmetric(horizontal: 12),
+                          child: Text(S.of(context).quoteDefinition, style: TextStyles.textGray500_w400_12)
+                      ),
+                      Gaps.vGap32
+                    ],
+                  )
+              )
+          );
+        }
     );
   }
 

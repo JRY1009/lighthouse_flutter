@@ -101,7 +101,7 @@ class _MileStoneListPageState extends State<MileStoneListPage> with BasePageMixi
             footer:  CommonFooter(enableInfiniteLoad: !model.noMore),
             controller: _easyController,
             topBouncing: false,
-            emptyWidget: model.isEmpty ? LoadingEmpty() : null,
+            emptyWidget: (model.isEmpty || model.isError) ? LoadingEmpty() : null,
             child: ListView.builder(
               padding: EdgeInsets.all(0.0),
               itemBuilder: (context, index) {

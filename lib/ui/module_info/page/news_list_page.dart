@@ -3,31 +3,31 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:lighthouse/mvvm/base_page.dart';
-import 'package:lighthouse/net/constant.dart';
-import 'package:lighthouse/net/dio_util.dart';
+import 'package:lighthouse/mvvm/provider_widget.dart';
 import 'package:lighthouse/net/model/news.dart';
 import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/ui/module_base/provider/list_provider.dart';
 import 'package:lighthouse/ui/module_base/widget/easyrefresh/common_footer.dart';
 import 'package:lighthouse/ui/module_base/widget/easyrefresh/first_refresh.dart';
 import 'package:lighthouse/ui/module_base/widget/easyrefresh/loading_empty.dart';
 import 'package:lighthouse/ui/module_info/item/news_item.dart';
+import 'package:lighthouse/ui/module_info/model/news_model.dart';
 import 'package:lighthouse/utils/toast_util.dart';
-import 'package:provider/provider.dart';
 
 
 class NewsListPage extends StatefulWidget {
   
   final bool isSupportPull;  //是否支持手动下拉刷新
+  final String tag;
 
   NewsListPage({
     Key key,
+    this.tag = '',
     this.isSupportPull = true
   }) : super(key: key);
 
   @override
   _NewsListPageState createState() {
-    return _NewsListPageState(isSupportPull: isSupportPull);
+    return _NewsListPageState();
   }
 }
 
@@ -36,24 +36,21 @@ class _NewsListPageState extends State<NewsListPage> with BasePageMixin<NewsList
   @override
   bool get wantKeepAlive => true;
 
-  bool isSupportPull;
-
-  ScrollController _nestedController = ScrollController();
   EasyRefreshController _easyController = EasyRefreshController();
-  ListProvider<News> _listProvider = ListProvider<News>();
-  int _page = 0;
-  int _pageSize = 20;
-  bool _init = false;
-
-  _NewsListPageState({
-    this.isSupportPull
-  });
+  
+  NewsModel _newsModel;
 
   @override
   void initState() {
     super.initState();
 
-    _refresh();
+    _newsModel = NewsModel(widget.tag);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        initViewModel();
+      }
+    });
   }
 
   @override
@@ -62,11 +59,32 @@ class _NewsListPageState extends State<NewsListPage> with BasePageMixin<NewsList
     super.dispose();
   }
 
+  void initViewModel() {
+    _newsModel.refresh();
+
+    _newsModel.addListener(() {
+      if (_newsModel.isError) {
+        if (_newsModel.page == 0) {
+          _easyController.finishRefresh(success: false);
+        } else {
+          _easyController.finishLoad(success: false, noMore: _newsModel.noMore);
+        }
+        ToastUtil.error(_newsModel.viewStateError.message);
+
+      } else if (_newsModel.isSuccess || _newsModel.isEmpty) {
+        if (_newsModel.page == 0) {
+          _easyController.finishRefresh(success: true);
+        } else {
+          _easyController.finishLoad(success: true, noMore: _newsModel.noMore);
+        }
+      }
+    });
+  }
+  
   @override
   Future<void> refresh({slient = false}) {
     if (slient) {
-      _page = 0;
-      return _requestData();
+      return _newsModel.refresh();
       
     } else {
       return Future<void>.delayed(const Duration(milliseconds: 100), () {
@@ -75,101 +93,41 @@ class _NewsListPageState extends State<NewsListPage> with BasePageMixin<NewsList
     }
   }
 
-  Future<void> _refresh() {
-    _page = 0;
-    _requestData();
-  }
-
-  Future<void> _loadMore() {
-    _page ++;
-    _requestData();
-  }
-
-  Future<void> _requestData() {
-    Map<String, dynamic> params = {
-      'auth': 1,
-      'sort': 1,
-      'page': _page,
-      'page_size': _pageSize,
-    };
-
-    return DioUtil.getInstance().post(Constant.URL_GET_NEWS, params: params,
-        successCallBack: (data, headers) {
-          if (data == null || data['data'] == null) {
-            _finishRequest(success: false, noMore: false);
-            return;
-          }
-
-          List<News> newsList = News.fromJsonList(data['data']['account_info']) ?? [];
-          if (_page == 0) {
-            _listProvider.clear();
-            _listProvider.addAll(newsList);
-
-          } else {
-            _listProvider.addAll(newsList);
-          }
-
-          _finishRequest(success: true, noMore: newsList?.length < _pageSize);
-        },
-        errorCallBack: (error) {
-          _finishRequest(success: false, noMore: false);
-          ToastUtil.error(error[Constant.MESSAGE]);
-        });
-  }
-
-  void _finishRequest({bool success, bool noMore}) {
-    if (_page == 0) {
-      if (success) {
-        _easyController.resetLoadState();
-      }
-      _easyController.finishRefresh(success: success, noMore: noMore);
-    } else {
-      _easyController.finishLoad(success: success, noMore: noMore);
-    }
-
-    if (!_init) {
-      _init = true;
-    }
-
-    _listProvider.notify(noMore: noMore);
-  }
-
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return ChangeNotifierProvider<ListProvider<News>>(
-        create: (_) => _listProvider,
-        child: Consumer<ListProvider<News>>(
-            builder: (_, _provider, __) {
-              return !_init ? FirstRefresh() : EasyRefresh(
-                header: isSupportPull ? MaterialHeader(valueColor: AlwaysStoppedAnimation<Color>(Colours.app_main)) : null,
-                footer:  CommonFooter(enableInfiniteLoad: !_provider.noMore),
-                controller: _easyController,
+    return ProviderWidget<NewsModel>(
+        model: _newsModel,
+        builder: (context, model, child) {
+          return model.isFirst ? FirstRefresh() : EasyRefresh(
+            header: widget.isSupportPull ? MaterialHeader(valueColor: AlwaysStoppedAnimation<Color>(Colours.app_main)) : null,
+            footer:  CommonFooter(enableInfiniteLoad: !model.noMore),
+            controller: _easyController,
 //                firstRefresh配合NestedScrollView使用会造成刷新跳动问题
 //                firstRefresh: true,
 //                firstRefreshWidget: FirstRefresh(),
-                topBouncing: false,
-                emptyWidget: _listProvider.list.isEmpty ? LoadingEmpty() : null,
-                child: ListView.builder(
-                  padding: EdgeInsets.all(0.0),
-                  itemBuilder: (context, index) {
-                    return NewsItem(
-                      index: index,
-                      title: _provider.list[index].account_name,
-                      time: _provider.list[index].created_at,
-                      author: _provider.list[index].city,
-                      imageUrl: _provider.list[index].avatar_300,
-                      isLast: index == (_provider.list.length - 1),
-                    );
-                  },
-                  itemCount: _provider.list.length,
-                ),
+            topBouncing: false,
+            emptyWidget: (model.isEmpty || model.isError) ? LoadingEmpty() : null,
+            child: ListView.builder(
+              padding: EdgeInsets.all(0.0),
+              itemBuilder: (context, index) {
+                News news = model.newsList[index];
+                return NewsItem(
+                  index: index,
+                  title: '杜绝浪费矿机时空裂缝接SDK龙卷风克雷登斯荆防颗粒圣诞节快乐福建省断开连接付款了圣诞节疯狂了圣诞节',
+                  time: 'article.created_at',
+                  author: 'article.city',
+                  imageUrl: 'article.avatar_300',
+                  isLast: index == (model.newsList.length - 1),
+                );
+              },
+              itemCount: model.newsList.length,
+            ),
 
-                onRefresh: isSupportPull ? _refresh : null,
-                onLoad: _loadMore,
-              );
-            }
-        )
+            onRefresh: widget.isSupportPull ? model.refresh : null,
+            onLoad: model.noMore ? null : model.loadMore,
+          );
+        }
     );
   }
 }

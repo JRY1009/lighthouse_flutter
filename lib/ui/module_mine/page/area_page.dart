@@ -8,13 +8,11 @@ import 'package:lighthouse/net/model/area.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/router/routers.dart';
-import 'package:lighthouse/ui/module_base/provider/list_provider.dart';
 import 'package:lighthouse/ui/module_base/widget/button/back_button.dart';
 import 'package:lighthouse/ui/module_base/widget/easyrefresh/first_refresh.dart';
 import 'package:lighthouse/ui/module_base/widget/easyrefresh/loading_empty.dart';
 import 'package:lighthouse/ui/module_base/widget/textfield/search_text_field.dart';
 import 'package:lighthouse/ui/module_mine/item/area_item.dart';
-import 'package:provider/provider.dart';
 
 
 class AreaPage extends StatefulWidget {
@@ -35,7 +33,7 @@ class _AreaPageState extends State<AreaPage> with BasePageMixin<AreaPage> {
   final FocusNode _searchNode = FocusNode();
 
   String areaCode;
-  ListProvider<Area> _listProvider = ListProvider<Area>();
+  List<Area> _currentList = [];
   List<Area> _allList = [];
   List<Area> _searchList = [];
 
@@ -56,8 +54,8 @@ class _AreaPageState extends State<AreaPage> with BasePageMixin<AreaPage> {
       });
 
       _allList.addAll(value);
-      _listProvider.addAll(value);
-      _listProvider.notify();
+      _currentList.addAll(value);
+      setState(() {});
     });
   }
 
@@ -74,7 +72,7 @@ class _AreaPageState extends State<AreaPage> with BasePageMixin<AreaPage> {
   void _search() {
     String key = _searchController.text.toLowerCase();
     _searchList.clear();
-    _listProvider.clear();
+    _currentList.clear();
 
     if (WidgetsBinding.instance.window.locale.toString() == 'zh_CN') {
       _allList.forEach((element) {
@@ -97,69 +95,60 @@ class _AreaPageState extends State<AreaPage> with BasePageMixin<AreaPage> {
     }
 
     if (_searchList.isEmpty) {
-      _listProvider.addAll(_allList);
-      _listProvider.notify();
+      _currentList.addAll(_allList);
     } else {
-      _listProvider.addAll(_searchList);
-      _listProvider.notify();
+      _currentList.addAll(_searchList);
     }
+
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ListProvider<Area>>(
-      create: (_) => _listProvider,
-      child: Scaffold(
-          appBar: AppBar(
-              leading: BackButtonEx(),
-              elevation: 0.5,
-              brightness: Brightness.light,
-              backgroundColor: Colours.white,
-              centerTitle: true,
-              title: Text(S.of(context).countryArea, style: TextStyles.textBlack18)
-          ),
-          body: Consumer<ListProvider<Area>>(
-              builder: (_, _provider, __) {
-                return Column(
-                  children: <Widget>[
-                    Padding(padding: EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
-                      child: SearchTextField(
-                        focusNode: _searchNode,
-                        controller: _searchController,
-                        onTextChanged: _search,
+    return Scaffold(
+        appBar: AppBar(
+            leading: BackButtonEx(),
+            elevation: 0.5,
+            brightness: Brightness.light,
+            backgroundColor: Colours.white,
+            centerTitle: true,
+            title: Text(S.of(context).countryArea, style: TextStyles.textBlack18)
+        ),
+        body: Column(
+          children: <Widget>[
+            Padding(padding: EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
+              child: SearchTextField(
+                focusNode: _searchNode,
+                controller: _searchController,
+                onTextChanged: _search,
+              ),
+            ),
+            Expanded(
+                child: EasyRefresh.custom(
+                  header: MaterialHeader(valueColor: AlwaysStoppedAnimation<Color>(Colours.app_main)),
+                  firstRefresh: true,
+                  firstRefreshWidget: FirstRefresh(),
+                  emptyWidget: _currentList.isEmpty ? LoadingEmpty() : null,
+                  slivers: <Widget>[
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                          return AreaItem(
+                            title: '+' + _currentList[index].code + '  ' + _currentList[index].name,
+                            check: areaCode == ('+' + _currentList[index].code),
+                            onPressed: () { _selectArea(_currentList[index]); },
+                          );
+                        },
+                        childCount: _currentList.length,
                       ),
                     ),
-                    Expanded(
-                        child: EasyRefresh.custom(
-                          header: MaterialHeader(valueColor: AlwaysStoppedAnimation<Color>(Colours.app_main)),
-                          firstRefresh: true,
-                          firstRefreshWidget: FirstRefresh(),
-                          emptyWidget: _listProvider.list.isEmpty ? LoadingEmpty() : null,
-                          slivers: <Widget>[
-                            SliverList(
-                              delegate: SliverChildBuilderDelegate(
-                                    (context, index) {
-                                  return AreaItem(
-                                    title: '+' + _provider.list[index].code + '  ' + _provider.list[index].name,
-                                    check: areaCode == ('+' + _provider.list[index].code),
-                                    onPressed: () { _selectArea(_provider.list[index]); },
-                                  );
-                                },
-                                childCount: _provider.list.length,
-                              ),
-                            ),
-                          ],
-                          onRefresh: _refresh,
-                          onLoad: null,
-                        )
-                    )
-
                   ],
-                );
-              }
-          )
-
-      ),
+                  onRefresh: _refresh,
+                  onLoad: null,
+                )
+            )
+          ],
+        )
     );
   }
 }
