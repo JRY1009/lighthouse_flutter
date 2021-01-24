@@ -149,7 +149,7 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
       return Future.value(false);
     }
 
-    return _verifyModel.getVCode(phone);
+    return _verifyModel.getVCode(phone, VerifyModel.SMS_LOGIN);
   }
 
   @override

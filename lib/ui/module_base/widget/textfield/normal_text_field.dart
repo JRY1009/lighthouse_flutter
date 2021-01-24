@@ -46,7 +46,7 @@ class _NormalTextFieldState extends State<NormalTextField> {
           decoration: InputDecoration(
             counterText: "",
             hintText: widget.hint,
-            contentPadding: EdgeInsets.only(left: 16, right: 10),
+            contentPadding: EdgeInsets.only(left: 16, right: 10, top: 18, bottom: 18),
             hintStyle: TextStyles.textGray400_w400_14,
             focusedBorder: BorderStyles.outlineInputR0White,
             enabledBorder: BorderStyles.outlineInputR0White,

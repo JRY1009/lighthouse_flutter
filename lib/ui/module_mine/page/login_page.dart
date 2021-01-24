@@ -95,9 +95,9 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
     String phone = _phoneController.text;
     String pwd = _pwdController.text;
     int nonce = DateUtil.getNowDateMs() * 1000;
-    String pwdMd5 = EncryptUtil.encodeMd5(EncryptUtil.encodeMd5(pwd) + nonce.toString());
+    String pwdMd5 = EncryptUtil.encodeMd5(EncryptUtil.encodeMd5(pwd) + nonce.toString()).toLowerCase();
 
-    _loginModel.login(phone, '123456');
+    _loginModel.login(phone, pwdMd5, nonce);
   }
 
   void _selectArea() {

@@ -3,6 +3,7 @@ import 'package:lighthouse/net/model/account.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/module_base/widget/image/circle_image.dart';
+import 'package:lighthouse/utils/image_util.dart';
 
 /// 列表项
 class SettingAvatarClickBar extends StatefulWidget {
@@ -63,6 +64,10 @@ class _SettingAvatarClickBarState extends State<SettingAvatarClickBar> {
                   radius: 23,
                   borderWidth: 0,
                   borderColor: Colours.white,
+                  placeholderImage: DecorationImage(
+                    image: AssetImage(ImageUtil.getImgPath('icon_default_head')),
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
 

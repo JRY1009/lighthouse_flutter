@@ -5,6 +5,7 @@ import 'package:lighthouse/net/model/account.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/module_base/widget/image/circle_image.dart';
+import 'package:lighthouse/utils/image_util.dart';
 
 class MineAppBar extends StatefulWidget {
 
@@ -69,6 +70,10 @@ class _MineAppBarState extends State<MineAppBar> {
                                 borderWidth: 3,
                                 borderColor: Colours.white,
                                 boxShadow: BoxShadows.normalBoxShadow,
+                                placeholderImage: DecorationImage(
+                                  image: AssetImage(ImageUtil.getImgPath('icon_default_head')),
+                                  fit: BoxFit.fill,
+                                ),
                             ),
                           )
                       ),

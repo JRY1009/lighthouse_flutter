@@ -14,14 +14,12 @@ class LoginModel extends ViewStateModel {
 
   LoginModel();
 
-  String getLoginName() {
-  }
-
-  Future login(phone, password) {
+  Future login(phone, password, nonce) {
 
     Map<String, dynamic> params = {
       'phone': phone,
       'password': password,
+      'nonce': nonce
     };
 
     setBusy();

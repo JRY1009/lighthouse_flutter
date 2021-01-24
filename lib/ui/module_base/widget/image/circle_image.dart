@@ -12,6 +12,7 @@ class CircleImage extends StatelessWidget {
     this.fit = BoxFit.cover,
     this.borderColor = Colours.white,
     this.borderWidth = 1,
+    this.placeholderImage,
     this.boxShadow
   }) : super(key: key);
   
@@ -20,6 +21,7 @@ class CircleImage extends StatelessWidget {
   final BoxFit fit;
   final Color borderColor;
   final double borderWidth;
+  final DecorationImage placeholderImage;
   final List<BoxShadow> boxShadow;
 
   @override
@@ -48,6 +50,7 @@ class CircleImage extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(radius)),
           border: Border.all(color: borderColor, width: borderWidth, style: BorderStyle.solid),
           color: Colours.gray_200,
+          image: placeholderImage,
         ),
       ),
       errorWidget: (_, __, dynamic error) => Container(
@@ -55,6 +58,7 @@ class CircleImage extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(radius)),
           border: Border.all(color: borderColor, width: borderWidth, style: BorderStyle.solid),
           color: Colours.gray_200,
+          image: placeholderImage,
         ),
       ),
 

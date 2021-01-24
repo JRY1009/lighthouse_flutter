@@ -124,6 +124,7 @@ class Account {
     area_code = jsonMap['area_code'];
     nick_name = jsonMap['nick_name'];
     head_ico = jsonMap['head_ico'];
+    token = jsonMap['token'];
   }
 
   Map<String, dynamic> toLocalJson() {
@@ -133,6 +134,7 @@ class Account {
     jsonMap['area_code'] = this.area_code;
     jsonMap['nick_name'] = this.nick_name;
     jsonMap['head_ico'] = this.head_ico;
+    jsonMap['token'] = this.token;
 
     return jsonMap;
   }

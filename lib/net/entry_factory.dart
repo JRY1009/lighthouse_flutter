@@ -6,6 +6,8 @@ class EntityFactory {
     if (json == null) {
       return null;
 
+    } else if (T.toString() == 'String') {
+      return json.toString() as T;
     } else {
       return json as T;
     }

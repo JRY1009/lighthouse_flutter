@@ -1,11 +1,9 @@
 
-import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:lighthouse/event/event.dart';
-import 'package:lighthouse/event/user_event.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/mvvm/base_page.dart';
+import 'package:lighthouse/mvvm/provider_widget.dart';
 import 'package:lighthouse/net/model/account.dart';
 import 'package:lighthouse/net/rt_account.dart';
 import 'package:lighthouse/res/colors.dart';
@@ -19,6 +17,7 @@ import 'package:lighthouse/ui/module_base/widget/clickbar/setting_clickbar.dart'
 import 'package:lighthouse/ui/module_base/widget/common_scroll_view.dart';
 import 'package:lighthouse/ui/module_base/widget/dialog/dialog_util.dart';
 import 'package:lighthouse/ui/module_base/widget/image/gallery_photo.dart';
+import 'package:lighthouse/ui/module_mine/viewmodel/setting_model.dart';
 import 'package:lighthouse/utils/toast_util.dart';
 
 class SettingPage extends StatefulWidget {
@@ -33,35 +32,41 @@ class SettingPage extends StatefulWidget {
 
 class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPage>{
 
-
-  StreamSubscription _userSubscription;
+  SettingModel _settingModel;
 
   @override
   void initState() {
     super.initState();
-
-    _userSubscription = Event.eventBus.on<UserEvent>().listen((event) {
-      setState(() {
-      });
-    });
+    initViewModel();
   }
 
-  @override
-  void dispose() {
-    if (_userSubscription != null) {
-      _userSubscription.cancel();
-    }
+  void initViewModel() {
+    _settingModel = SettingModel();
+    _settingModel.listenEvent();
+    _settingModel.addListener(() {
+      if (_settingModel.isBusy) {
+        showProgress(content: S.of(context).uploading);
 
-    super.dispose();
+      } else if (_settingModel.isError) {
+        closeProgress();
+        ToastUtil.error(_settingModel.viewStateError.message);
+
+      } else if (_settingModel.isSuccess) {
+        closeProgress();
+
+        ToastUtil.success(S.of(context).modifySuccess);
+        Navigator.pop(context);
+      }
+    });
   }
 
   void _avatarSelect() {
     DialogUtil.showAvatarSelectDialog(context,
-      crop: true,
-      selectCallback: (path) {
-        ToastUtil.normal(path);
-      },
-      viewCallback: _viewAvatar
+        crop: true,
+        selectCallback: (path) {
+          _settingModel.uploadHeadIcon(path);
+        },
+        viewCallback: _viewAvatar
     );
   }
 
@@ -103,7 +108,6 @@ class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPag
   @override
   Widget build(BuildContext context) {
 
-    Account account = RTAccount.instance().getActiveAccount();
     return Scaffold(
         backgroundColor: Colours.normal_bg,
         appBar: AppBar(
@@ -114,50 +118,57 @@ class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPag
             centerTitle: true,
             title: Text(S.of(context).accountSecurity, style: TextStyles.textBlack18)
         ),
-        body: CommonScrollView(
-            children: <Widget>[
-              Gaps.vGap10,
+        body: ProviderWidget<SettingModel>(
+            model: _settingModel,
+            builder: (context, model, child) {
+              Account account = RTAccount.instance().getActiveAccount();
 
-              SettingAvatarClickBar(
-                  title: S.of(context).myAvatar,
-                  account: account,
-                  onPressed: _avatarSelect
-              ),
-              SettingClickBar(
-                  title: S.of(context).modifyNickname,
-                  subTitle: account?.nick_name,
-                  onPressed: () => Routers.loginGuardNavigateTo(context, Routers.modifyNicknamePage),
-              ),
-              SettingClickBar(
-                  title: S.of(context).loginPhone,
-                  subTitle: account?.phoneSecret,
-              ),
-              SettingClickBar(
-                  title: S.of(context).modifyPassword,
-                onPressed: () => Routers.loginGuardNavigateTo(context, Routers.modifyPwdPage),
-              ),
+              return CommonScrollView(
+                  children: <Widget>[
+                    Gaps.vGap10,
+                    SettingAvatarClickBar(
+                        title: S.of(context).myAvatar,
+                        account: account,
+                        onPressed: _avatarSelect
+                    ),
+                    SettingClickBar(
+                      title: S.of(context).modifyNickname,
+                      subTitle: account?.nick_name,
+                      onPressed: () => Routers.loginGuardNavigateTo(context, Routers.modifyNicknamePage),
+                    ),
+                    SettingClickBar(
+                      title: S.of(context).loginPhone,
+                      subTitle: account?.phoneSecret,
+                    ),
+                    SettingClickBar(
+                      title: S.of(context).modifyPassword,
+                      onPressed: () => Routers.loginGuardNavigateTo(context, Routers.modifyPwdPage),
+                    ),
 
-              Gaps.vGap18,
+                    Gaps.vGap18,
 
-              FlatButton(
-                  color: Colours.white,
-                  onPressed: () => _logout(),
-                  padding: EdgeInsets.all(0.0),
-                  child: Container(
-                      alignment: Alignment.center,
-                      height: 50.0,
-                      width: double.infinity,
-                      child: Text(S.of(context).logout,
-                        style: TextStyles.textRed_w400_15,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      )
-                  )
-              ),
+                    FlatButton(
+                        color: Colours.white,
+                        onPressed: () => _logout(),
+                        padding: EdgeInsets.all(0.0),
+                        child: Container(
+                            alignment: Alignment.center,
+                            height: 50.0,
+                            width: double.infinity,
+                            child: Text(S.of(context).logout,
+                              style: TextStyles.textRed_w400_15,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            )
+                        )
+                    ),
 
 
-            ]
+                  ]
+              );
+            }
         )
+
     );
   }
 

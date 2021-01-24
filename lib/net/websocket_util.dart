@@ -1,5 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:lighthouse/event/event.dart';
+import 'package:lighthouse/event/ws_event.dart';
+import 'package:lighthouse/net/model/quote_ws.dart';
 import 'package:lighthouse/utils/log_util.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -29,7 +33,32 @@ class WebSocketUtil {
     }
     return _socket;
   }
-  
+
+  static void initWS() {
+
+    WebSocketUtil.instance().initWebSocket(onOpen: () {
+
+      Map<String, dynamic> params = {
+        'op': 'subscribe',
+        'message': 'quote.eth,quote.btc',
+      };
+
+      WebSocketUtil.instance().sendMessage(json.encode(params));
+
+    }, onMessage: (data) {
+
+      print(data);
+      Map<String, dynamic> dataMap = json.decode(data);
+      if (dataMap != null) {
+        QuoteWs quoteWs = QuoteWs.fromJson(dataMap);
+        Event.eventBus.fire(WsEvent(quoteWs, WsEventState.quote));
+      }
+
+    }, onError: (e) {
+
+    });
+  }
+
   IOWebSocketChannel _webSocket; // WebSocket
   SocketStatus _socketStatus; // socket状态
   num _heartTimes = 3000; // 心跳间隔(毫秒)
@@ -50,6 +79,11 @@ class WebSocketUtil {
 
   /// 开启WebSocket连接
   void openSocket() {
+
+    if (_socketStatus == SocketStatus.SocketStatusConnected) {
+      return;
+    }
+
     closeSocket();
     _webSocket = IOWebSocketChannel.connect(_SOCKET_URL);
 

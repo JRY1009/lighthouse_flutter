@@ -42,7 +42,10 @@ class DioUtil {
     return json.decode(data) as Map<String, dynamic>;
   }
 
-  Future<BaseEntity<T>> _request<T>(String url, String method, {Map<String, dynamic> params, CancelToken cancelToken, Function successCallBack, Function errorCallBack}) async {
+  Future<BaseEntity<T>> _request<T>(String url, String method, {
+    Map<String, dynamic> params,
+    dynamic data,
+    CancelToken cancelToken}) async {
     Response response;
     try {
       if (method == 'get') {
@@ -53,9 +56,9 @@ class DioUtil {
         }
       } else if (method == 'post') {
         if (params != null && params.isNotEmpty) {
-          response = await dio.post(url, queryParameters: params, cancelToken: cancelToken);
+          response = await dio.post(url, queryParameters: params, data: data, cancelToken: cancelToken);
         } else {
-          response = await dio.post(url, cancelToken: cancelToken);
+          response = await dio.post(url, data: data, cancelToken: cancelToken);
         }
       }
 
@@ -100,12 +103,14 @@ class DioUtil {
 
   Future requestNetwork<T>(String url, String method, {
     Map<String, dynamic> params,
+    dynamic data,
     Function(T data) onSuccess,
     Function(String errno, String msg) onError,
     CancelToken cancelToken
   }) {
     return _request<T>(url, method,
       params: params,
+      data: data,
       cancelToken: cancelToken,
 
     ).then<void>((BaseEntity<T> result) {
@@ -127,7 +132,10 @@ class DioUtil {
     });
   }
 
-  Future<BaseListEntity<T>> _requestList<T>(String url, String method, {Map<String, dynamic> params, CancelToken cancelToken}) async {
+  Future<BaseListEntity<T>> _requestList<T>(String url, String method, {
+    Map<String, dynamic> params,
+    dynamic data,
+    CancelToken cancelToken}) async {
     Response response;
     try {
       if (method == 'get') {
@@ -138,9 +146,9 @@ class DioUtil {
         }
       } else if (method == 'post') {
         if (params != null && params.isNotEmpty) {
-          response = await dio.post(url, queryParameters: params, cancelToken: cancelToken);
+          response = await dio.post(url, queryParameters: params, data: data, cancelToken: cancelToken);
         } else {
-          response = await dio.post(url, cancelToken: cancelToken);
+          response = await dio.post(url, data: data, cancelToken: cancelToken);
         }
       }
 
@@ -180,12 +188,14 @@ class DioUtil {
 
   Future requestListNetwork<T>(String url, String method, {
     Map<String, dynamic> params,
+    dynamic data,
     Function(List<T> data) onSuccess,
     Function(String errno, String msg) onError,
     CancelToken cancelToken
   }) {
     return _requestList<T>(url, method,
       params: params,
+      data: data,
       cancelToken: cancelToken,
 
     ).then<void>((BaseListEntity<T> result) {

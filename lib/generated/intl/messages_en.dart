@@ -123,6 +123,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "smsLoginTips" : MessageLookupByLibrary.simpleMessage("验证即登录，新手机号自动注册"),
     "treemap" : MessageLookupByLibrary.simpleMessage("热力图"),
     "updateTime" : MessageLookupByLibrary.simpleMessage("更新时间"),
+    "uploading" : MessageLookupByLibrary.simpleMessage("上传中..."),
     "verifyCode" : MessageLookupByLibrary.simpleMessage("验证码"),
     "verifyCodeHint" : MessageLookupByLibrary.simpleMessage("请输入验证码"),
     "verifyRetry" : MessageLookupByLibrary.simpleMessage("秒后重发"),

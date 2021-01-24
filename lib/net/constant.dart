@@ -31,9 +31,10 @@ class Constant {
   static const String URL_LOGIN = '/login';
   static const String URL_REGISTER = '/reg';
   static const String URL_VERIFY_CODE = '/sms/send';
-  static const String URL_RESET_PASSWORD = '/user/resetPassword';
-  static const String URL_GET_ACCOUNT_INFO = '/user/getAccountInfo';
-  static const String URL_SUB_PERSON_DATA = '/user/subPersonData';
+  static const String URL_RESET_PASSWORD = '/account/forget_password';
+  static const String URL_GET_ACCOUNT_INFO = '/account/account_info';
+  static const String URL_UPDATE_NICK_NAME = '/account/update_nick_name';
+  static const String URL_UPLOAD_HEAD_ICON = '/account/upload_head_ico';
 
   static const String URL_GET_HOME = '/home';
   static const String URL_GET_MILESTONES = '/milestone';

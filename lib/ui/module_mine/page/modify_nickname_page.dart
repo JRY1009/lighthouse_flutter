@@ -1,11 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lighthouse/event/event.dart';
-import 'package:lighthouse/event/user_event.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/mvvm/base_page.dart';
-import 'package:lighthouse/net/constant.dart';
-import 'package:lighthouse/net/dio_util.dart';
 import 'package:lighthouse/net/model/account.dart';
 import 'package:lighthouse/net/rt_account.dart';
 import 'package:lighthouse/res/colors.dart';
@@ -14,6 +10,7 @@ import 'package:lighthouse/res/styles.dart';
 import 'package:lighthouse/ui/module_base/widget/button/back_button.dart';
 import 'package:lighthouse/ui/module_base/widget/common_scroll_view.dart';
 import 'package:lighthouse/ui/module_base/widget/textfield/normal_text_field.dart';
+import 'package:lighthouse/ui/module_mine/viewmodel/modify_nickname_model.dart';
 import 'package:lighthouse/utils/object_util.dart';
 import 'package:lighthouse/utils/other_util.dart';
 import 'package:lighthouse/utils/toast_util.dart';
@@ -30,14 +27,40 @@ class _ModifyNicknamePageState extends State<ModifyNicknamePage> with BasePageMi
 
   bool _saveEnabled = false;
 
+  ModifyNicknameModel _nicknameModel;
+
   @override
   void initState() {
+    super.initState();
+    initView();
+    initViewModel();
+  }
+
+  void initView() {
+
     Account account = RTAccount.instance().getActiveAccount();
     _textController.text = account?.nick_name;
 
     _checkInput();
+  }
 
-    super.initState();
+  void initViewModel() {
+    _nicknameModel = ModifyNicknameModel();
+    _nicknameModel.addListener(() {
+      if (_nicknameModel.isBusy) {
+        showProgress(content: '');
+
+      } else if (_nicknameModel.isError) {
+        closeProgress();
+        ToastUtil.error(_nicknameModel.viewStateError.message);
+
+      } else if (_nicknameModel.isSuccess) {
+        closeProgress();
+
+        ToastUtil.success(S.of(context).modifySuccess);
+        Navigator.pop(context);
+      }
+    });
   }
 
   void _checkInput() {
@@ -52,29 +75,7 @@ class _ModifyNicknamePageState extends State<ModifyNicknamePage> with BasePageMi
 
   void _submit() {
     String nickname = _textController.text.trim();
-
-    Map<String, dynamic> params = {
-      'nickname': nickname,
-    };
-
-//    showProgress(showContent: false);
-//    DioUtil.getInstance().post(Constant.URL_SUB_PERSON_DATA, params: params,
-//        successCallBack: (data, headers) {
-//          closeProgress();
-//          Account account = RTAccount.instance().getActiveAccount();
-//          account?.nick_name = nickname;
-//          RTAccount.instance().setActiveAccount(account);
-//
-//          ToastUtil.success(S.current.saveSuccess);
-//
-//          Navigator.pop(context);
-//          Event.eventBus.fire(UserEvent(account, UserEventState.userme));
-//
-//        },
-//        errorCallBack: (error) {
-//          closeProgress();
-//          ToastUtil.error(error[Constant.MESSAGE]);
-//        });
+    _nicknameModel.modifyNickname(nickname);
   }
 
   @override

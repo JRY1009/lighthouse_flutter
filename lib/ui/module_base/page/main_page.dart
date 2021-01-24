@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/mvvm/base_page.dart';
 import 'package:lighthouse/mvvm/provider_widget.dart';
+import 'package:lighthouse/net/websocket_util.dart';
 import 'package:lighthouse/res/colors.dart';
 import 'package:lighthouse/res/dimens.dart';
 import 'package:lighthouse/ui/module_base/viewmodel/main_model.dart';
@@ -59,9 +60,10 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
   }
 
   void initViewModel() {
+    WebSocketUtil.initWS();
+
     _mainModel = MainModel();
     _mainModel.listenEvent(context, _pageController);
-    _mainModel.initWs();
     _mainModel.initBugly();
   }
 

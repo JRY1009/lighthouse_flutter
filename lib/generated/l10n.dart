@@ -565,6 +565,16 @@ class S {
     );
   }
 
+  /// `上传中...`
+  String get uploading {
+    return Intl.message(
+      '上传中...',
+      name: 'uploading',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `国家/地区`
   String get countryArea {
     return Intl.message(

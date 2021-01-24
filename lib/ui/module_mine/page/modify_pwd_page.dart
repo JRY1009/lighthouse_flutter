@@ -15,6 +15,9 @@ import 'package:lighthouse/ui/module_base/widget/clickbar/setting_clickbar.dart'
 import 'package:lighthouse/ui/module_base/widget/common_scroll_view.dart';
 import 'package:lighthouse/ui/module_base/widget/textfield/pwd_text_field.dart';
 import 'package:lighthouse/ui/module_base/widget/textfield/verify_text_field.dart';
+import 'package:lighthouse/ui/module_mine/viewmodel/modify_pwd_model.dart';
+import 'package:lighthouse/ui/module_mine/viewmodel/verify_model.dart';
+import 'package:lighthouse/utils/encrypt_util.dart';
 import 'package:lighthouse/utils/object_util.dart';
 import 'package:lighthouse/utils/other_util.dart';
 import 'package:lighthouse/utils/toast_util.dart';
@@ -35,11 +38,50 @@ class _ModifyPwdPageState extends State<ModifyPwdPage> with BasePageMixin<Modify
   final TextEditingController _pwdRepeatController = TextEditingController();
   final FocusNode _pwdRepeatNode = FocusNode();
 
+  ModifyPwdModel _modifyPwdModel;
+  VerifyModel _verifyModel;
+
   bool _saveEnabled = false;
 
   @override
   void initState() {
     super.initState();
+    initViewModel();
+  }
+
+  void initViewModel() {
+    _modifyPwdModel = ModifyPwdModel();
+    _verifyModel = VerifyModel();
+
+    _modifyPwdModel.addListener(() {
+      if (_modifyPwdModel.isBusy) {
+        showProgress(content: '');
+
+      } else if (_modifyPwdModel.isError) {
+        closeProgress();
+        ToastUtil.error(_modifyPwdModel.viewStateError.message);
+
+      } else if (_modifyPwdModel.isSuccess) {
+        closeProgress();
+        ToastUtil.success(S.of(context).modifySuccess);
+
+        Navigator.pop(context);
+      }
+    });
+
+    _verifyModel.addListener(() {
+      if (_verifyModel.isBusy) {
+        showProgress(content: S.current.verifyin);
+
+      } else if (_verifyModel.isError) {
+        closeProgress();
+        ToastUtil.error(_verifyModel.viewStateError.message);
+
+      } else if (_verifyModel.isSuccess) {
+        closeProgress();
+        ToastUtil.normal(S.current.verifySended);
+      }
+    });
   }
 
   void _checkInput() {
@@ -56,35 +98,30 @@ class _ModifyPwdPageState extends State<ModifyPwdPage> with BasePageMixin<Modify
     String verifyCode = _verifyController.text;
     String pwd = _pwdController.text;
     String pwdRepeat = _pwdRepeatController.text;
+    String pwdMd5 = EncryptUtil.encodeMd5(pwd);
 
     if (pwd != pwdRepeat) {
       ToastUtil.error(S.of(context).passwordNotSame);
       return;
     }
 
-    Map<String, dynamic> params = {
-      'xxx': verifyCode,
-    };
-
-//    showProgress(showContent: false);
-//    DioUtil.getInstance().post(Constant.URL_SUB_PERSON_DATA, params: params,
-//        successCallBack: (data, headers) {
-//          closeProgress();
-//
-//          ToastUtil.success(S.current.modifySuccess);
-//
-//          Navigator.pop(context);
-//
-//        },
-//        errorCallBack: (error) {
-//          closeProgress();
-//          ToastUtil.error(error[Constant.MESSAGE]);
-//        });
+    _modifyPwdModel.resetPwd(pwd, pwdRepeat, verifyCode);
   }
 
   Future<bool> _getVCode() {
-    ToastUtil.normal('获取验证码 click');
-    return Future.value(true);
+    Account account = RTAccount.instance().getActiveAccount();
+    if (account == null) {
+      ToastUtil.normal(S.current.loginGuide);
+      return Future.value(false);
+    }
+
+    String phone = account.phone;
+    if (ObjectUtil.isEmptyString(phone)) {
+      ToastUtil.normal(S.current.loginPhoneError);
+      return Future.value(false);
+    }
+
+    return _verifyModel.getVCode(phone, VerifyModel.SMS_FORGET_PWD);
   }
 
   @override

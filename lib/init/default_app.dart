@@ -5,6 +5,7 @@ import 'package:flutter_xupdate/flutter_xupdate.dart';
 import 'package:fluwx/fluwx.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/net/constant.dart';
+import 'package:lighthouse/net/websocket_util.dart';
 import 'package:lighthouse/provider/locale_provider.dart';
 import 'package:lighthouse/provider/store.dart';
 import 'package:lighthouse/provider/theme_provider.dart';

@@ -8,9 +8,6 @@ import 'package:flutter_xupdate/flutter_xupdate.dart';
 import 'package:lighthouse/event/event.dart';
 import 'package:lighthouse/event/main_jump_event.dart';
 import 'package:lighthouse/event/user_event.dart';
-import 'package:lighthouse/event/ws_event.dart';
-import 'package:lighthouse/net/model/quote_ws.dart';
-import 'package:lighthouse/net/websocket_util.dart';
 import 'package:lighthouse/router/routers.dart';
 import 'package:lighthouse/utils/device_util.dart';
 
@@ -43,29 +40,6 @@ class MainModel extends ValueNotifier<int> {
       if (event.page.value >= 0) {
         pageController.jumpToPage(event.page.value);
       }
-    });
-  }
-
-  void initWs() {
-    WebSocketUtil.instance().initWebSocket(onOpen: () {
-
-      Map<String, dynamic> params = {
-        'op': 'subscribe',
-        'message': 'quote.eth,quote.btc',
-      };
-
-      WebSocketUtil.instance().sendMessage(json.encode(params));
-
-    }, onMessage: (data) {
-
-      print(data);
-      Map<String, dynamic> dataMap = json.decode(data);
-      if (dataMap != null) {
-        QuoteWs quoteWs = QuoteWs.fromJson(dataMap);
-        Event.eventBus.fire(WsEvent(quoteWs, WsEventState.quote));
-      }
-
-    }, onError: (e) {
     });
   }
 
