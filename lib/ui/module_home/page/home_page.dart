@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lighthouse/mvvm/base_page.dart';
 import 'package:lighthouse/mvvm/provider_widget.dart';
 import 'package:lighthouse/res/colors.dart';
@@ -112,7 +113,8 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
                 ),
               );
             }
-        ));
+        )
+    );
   }
 
   List<Widget> _headerSliverBuilder(BuildContext context) {
@@ -120,6 +122,7 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
       ProviderWidget<ValueNotifier<double>>(
           model: _opacityNofifier,
           builder: (context, model, child) {
+
             return SliverAppBar(
                 toolbarHeight: _toolbarHeight,
                 titleSpacing: 0,
@@ -134,13 +137,21 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
                 expandedHeight: 490.0,
                 floating: false, // 不随着滑动隐藏标题
                 pinned: true, // 固定在顶部
-                flexibleSpace: FlexibleSpaceBar(
-                  collapseMode: CollapseMode.pin,
-                  background: HomeFlexibleAppBar(),
+                flexibleSpace: AnnotatedRegion<SystemUiOverlayStyle>(
+                  value: SystemUiOverlayStyle(
+                    statusBarColor: Colors.transparent,
+                    systemNavigationBarColor: Colors.white,
+                  ),
+                  child: FlexibleSpaceBar(
+                    collapseMode: CollapseMode.pin,
+                    background: HomeFlexibleAppBar(),
+                  ),
                 )
+
             );
           }
       ),
+
       SliverToBoxAdapter(
         child: HomeQuoteTreemapBar(),
       ),

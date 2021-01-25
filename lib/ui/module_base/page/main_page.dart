@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lighthouse/generated/l10n.dart';
 import 'package:lighthouse/mvvm/base_page.dart';
 import 'package:lighthouse/mvvm/provider_widget.dart';
@@ -87,7 +88,6 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
 
       _bottomBarItemList = List.generate(_tabImages.length, (i) {
         return BottomNavigationBarItem(
-          backgroundColor: Colours.red,
           icon: Container(margin: EdgeInsets.only(bottom: 3), child: _tabImages[i][0]),
           activeIcon: Container(margin: EdgeInsets.only(bottom: 3), child: _tabImages[i][1]),
           label: _appBarTitles[i],

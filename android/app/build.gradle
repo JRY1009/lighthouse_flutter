@@ -21,6 +21,8 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+project.setProperty('target-platform', 'android-arm')
+
 apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
@@ -53,6 +55,16 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         flavorDimensions "default"
+
+        ndk {
+            abiFilters "armeabi-v7a", 'x86'
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : applicationId,
+                JPUSH_APPKEY : "045af7241e8847d98c3112e1", // NOTE: JPush 上注册的包名对应的 Appkey.
+                JPUSH_CHANNEL : "official", //暂时填写默认值即可.
+        ]
     }
 
     buildTypes {

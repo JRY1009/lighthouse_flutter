@@ -16,6 +16,7 @@ import 'package:lighthouse/utils/device_util.dart';
 import 'package:lighthouse/utils/log_util.dart';
 import 'package:lighthouse/utils/sp_util.dart';
 import 'package:lighthouse/utils/toast_util.dart';
+import 'package:lighthouse/utils/jpush_util.dart';
 import 'package:provider/provider.dart';
 import 'package:umeng_analytics_plugin/umeng_analytics_plugin.dart';
 
@@ -47,11 +48,14 @@ class DefaultApp {
   static void initApp() {
 
     LogUtil.init(isDebug: Constant.isTestEnvironment);
-
+    JPushUtil.initPlatformState();
 
     if (DeviceUtil.isAndroid) {
       // 透明状态栏
-      const SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+      const SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          systemNavigationBarColor: Colors.white,
+      );
       SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
 
       FlutterXUpdate.init(
