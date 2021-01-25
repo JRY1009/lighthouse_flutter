@@ -60,6 +60,7 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
   }
 
   void initViewModel() {
+
     WebSocketUtil.initWS();
 
     _mainModel = MainModel();

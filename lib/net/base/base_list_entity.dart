@@ -1,6 +1,6 @@
 
+import 'package:lighthouse/net/base/entry_factory.dart';
 import 'package:lighthouse/net/constant.dart';
-import 'package:lighthouse/net/entry_factory.dart';
 
 class BaseListEntity<T> {
   String errno;

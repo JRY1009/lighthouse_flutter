@@ -1,5 +1,5 @@
+import 'package:lighthouse/net/base/entry_factory.dart';
 import 'package:lighthouse/net/constant.dart';
-import 'package:lighthouse/net/entry_factory.dart';
 import 'package:lighthouse/utils/object_util.dart';
 
 class BaseEntity<T> {

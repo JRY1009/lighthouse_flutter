@@ -4,8 +4,8 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:lighthouse/net/base_entity.dart';
-import 'package:lighthouse/net/base_list_entity.dart';
+import 'package:lighthouse/net/base/base_entity.dart';
+import 'package:lighthouse/net/base/base_list_entity.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/http_error.dart';
 import 'package:lighthouse/net/intercept.dart';
