@@ -10,6 +10,7 @@ import 'package:lighthouse/ui/module_home/viewmodel/home_model.dart';
 import 'package:lighthouse/ui/module_home/widget/home_flexible_tabview.dart';
 import 'package:lighthouse/utils/image_util.dart';
 import 'package:lighthouse/utils/num_util.dart';
+import 'package:lighthouse/utils/screen_util.dart';
 import 'package:provider/provider.dart';
 
 class HomeFlexibleAppBar extends StatefulWidget {
@@ -59,6 +60,8 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
     String ethRateStr = (ethRate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(ethRate, 2).toString() + '%';
     String ethPriceStr = NumUtil.getNumByValueDouble(ethPrice, 2).toString();
 
+    bool isVertical = ScreenUtil.getScreenW(context) < ScreenUtil.getScreenH(context);
+
     return Stack(
       children: <Widget>[
         Container(
@@ -69,9 +72,9 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
               fit: BoxFit.fill,
             ),
           ),
-          child: AspectRatio (
+          child: isVertical ? AspectRatio (
             aspectRatio: 1.45,
-          ),
+          ) : null,
         ),
         Container(  //占满
           padding: EdgeInsets.symmetric(horizontal: 12),
