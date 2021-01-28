@@ -4,11 +4,11 @@ import 'dart:async';
 
 import 'package:library_base/mvvm/view_state.dart';
 import 'package:library_base/mvvm/view_state_model.dart';
-import 'package:lighthouse/net/constant.dart';
-import 'package:lighthouse/net/dio_util.dart';
-import 'package:lighthouse/net/model/friend_link.dart';
-import 'package:lighthouse/net/model/milestone.dart';
-import 'package:lighthouse/net/model/spot_brief.dart';
+import 'package:library_base/net/apis.dart';
+import 'package:library_base/net/dio_util.dart';
+import 'package:library_base/net/model/friend_link.dart';
+import 'package:library_base/net/model/milestone.dart';
+import 'package:library_base/net/model/spot_brief.dart';
 
 class SpotBriefModel extends ViewStateModel {
 
@@ -23,13 +23,13 @@ class SpotBriefModel extends ViewStateModel {
       'chain': chain,
     };
 
-    return DioUtil.getInstance().requestNetwork(Constant.URL_GET_CHAIN_DETAIL, 'get', params: params,
+    return DioUtil.getInstance().requestNetwork(Apis.URL_GET_CHAIN_DETAIL, 'get', params: params,
         cancelToken: cancelToken,
         onSuccess: (data) {
 
           briefList = SpotBrief.fromJsonList(data['chain_detail']) ?? [];
           friendLinkList = FriendLink.fromJsonList(data['friend_link']) ?? [];
-          milestoneList = FriendLink.fromJsonList(data['milestone']) ?? [];
+          milestoneList = MileStone.fromJsonList(data['milestone']) ?? [];
 
           setSuccess();
         },

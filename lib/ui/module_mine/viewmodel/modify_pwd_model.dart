@@ -1,8 +1,8 @@
 
 
 import 'package:library_base/mvvm/view_state_model.dart';
-import 'package:lighthouse/net/constant.dart';
-import 'package:lighthouse/net/dio_util.dart';
+import 'package:library_base/net/apis.dart';
+import 'package:library_base/net/dio_util.dart';
 import 'package:library_base/model/account.dart';
 
 class ModifyPwdModel extends ViewStateModel {
@@ -21,7 +21,7 @@ class ModifyPwdModel extends ViewStateModel {
 
     setBusy();
 
-    return DioUtil.getInstance().requestNetwork(Constant.URL_RESET_PASSWORD, "post", params: params,
+    return DioUtil.getInstance().requestNetwork(Apis.URL_RESET_PASSWORD, "post", params: params,
         cancelToken: cancelToken,
         onSuccess: (data) {
           setSuccess();

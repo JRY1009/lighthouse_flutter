@@ -5,7 +5,7 @@ import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/widget/percent/linear_percent_indicator.dart';
 import 'package:library_base/utils/num_util.dart';
-import 'package:lighthouse/net/model/spot_data_basic.dart';
+import 'package:library_base/net/model/spot_data_basic.dart';
 
 class SpotDataCirculationBar extends StatefulWidget {
 

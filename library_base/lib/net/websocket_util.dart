@@ -6,7 +6,7 @@ import 'package:library_base/event/ws_event.dart';
 import 'package:library_base/model/quote_ws.dart';
 import 'package:library_base/utils/log_util.dart';
 import 'package:web_socket_channel/io.dart';
-import 'package:lighthouse/net/constant.dart';
+import 'package:library_base/net/apis.dart';
 
 
 class WebSocketUtil {
@@ -74,9 +74,9 @@ class WebSocketUtil {
   void openSocket() {
 
     closed();
-    _channel = IOWebSocketChannel.connect(Constant.WEB_SOCKET_URL, pingInterval: Duration(milliseconds: _heartTimes));
+    _channel = IOWebSocketChannel.connect(Apis.WEB_SOCKET_URL, pingInterval: Duration(milliseconds: _heartTimes));
 
-    LogUtil.v('websocket connect:  ${Constant.WEB_SOCKET_URL}', tag: _TAG);
+    LogUtil.v('websocket connect:  ${Apis.WEB_SOCKET_URL}', tag: _TAG);
 
     _channel.stream.listen((data) => _onMessage(data),
         onError: _onError,
@@ -149,8 +149,8 @@ class WebSocketUtil {
       if (_rcTimer == null) {
         _rcTimer = new Timer.periodic(Duration(milliseconds: _heartTimes), (timer) {
 
-          LogUtil.v('websocket reconnect:  ${Constant.WEB_SOCKET_URL}', tag: _TAG);
-          _channel = IOWebSocketChannel.connect(Constant.WEB_SOCKET_URL, pingInterval: Duration(milliseconds: _heartTimes));
+          LogUtil.v('websocket reconnect:  ${Apis.WEB_SOCKET_URL}', tag: _TAG);
+          _channel = IOWebSocketChannel.connect(Apis.WEB_SOCKET_URL, pingInterval: Duration(milliseconds: _heartTimes));
           _channel.stream.listen((data) => _onMessage(data),
               onError: _onError,
               onDone: _onDone

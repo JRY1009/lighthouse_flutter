@@ -4,7 +4,7 @@ import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:library_base/widget/double_tap_back_exit_app.dart';
-import 'package:lighthouse/net/websocket_util.dart';
+import 'package:library_base/net/websocket_util.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/dimens.dart';
 import 'package:lighthouse/ui/module_base/viewmodel/main_model.dart';

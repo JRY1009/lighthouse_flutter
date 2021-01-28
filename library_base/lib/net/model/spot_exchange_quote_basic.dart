@@ -1,5 +1,5 @@
 
-import 'package:lighthouse/net/model/spot_exchange_quote.dart';
+import 'package:library_base/net/model/spot_exchange_quote.dart';
 
 class SpotExchangeQuoteBasic {
   String coin_code;

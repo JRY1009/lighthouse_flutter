@@ -3,8 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_xupdate/flutter_xupdate.dart';
 import 'package:fluwx/fluwx.dart';
+import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
-import 'package:lighthouse/net/constant.dart';
+import 'package:library_base/net/apis.dart';
 import 'package:lighthouse/provider/locale_provider.dart';
 import 'package:lighthouse/provider/store.dart';
 import 'package:lighthouse/provider/theme_provider.dart';
@@ -46,7 +47,7 @@ class DefaultApp {
   //程序初始化操作
   static void initApp() {
 
-    LogUtil.init(isDebug: Constant.isTestEnvironment);
+    LogUtil.init(isDebug: Apis.isTestEnvironment);
     JPushUtil.initPlatformState();
 
     if (DeviceUtil.isAndroid) {

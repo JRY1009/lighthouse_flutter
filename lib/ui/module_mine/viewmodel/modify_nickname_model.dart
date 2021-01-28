@@ -3,10 +3,10 @@
 import 'package:library_base/event/event.dart';
 import 'package:library_base/event/user_event.dart';
 import 'package:library_base/mvvm/view_state_model.dart';
-import 'package:lighthouse/net/constant.dart';
-import 'package:lighthouse/net/dio_util.dart';
+import 'package:library_base/net/apis.dart';
+import 'package:library_base/net/dio_util.dart';
 import 'package:library_base/model/account.dart';
-import 'package:lighthouse/net/rt_account.dart';
+import 'package:library_base/global/rt_account.dart';
 
 class ModifyNicknameModel extends ViewStateModel {
 
@@ -19,7 +19,7 @@ class ModifyNicknameModel extends ViewStateModel {
     };
 
     setBusy();
-    return DioUtil.getInstance().requestNetwork(Constant.URL_UPDATE_NICK_NAME, "post", params: params,
+    return DioUtil.getInstance().requestNetwork(Apis.URL_UPDATE_NICK_NAME, "post", params: params,
         cancelToken: cancelToken,
         onSuccess: (data) {
 

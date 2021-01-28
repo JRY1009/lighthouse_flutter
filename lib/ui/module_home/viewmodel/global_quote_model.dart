@@ -4,9 +4,9 @@ import 'dart:async';
 
 import 'package:library_base/mvvm/view_state.dart';
 import 'package:library_base/mvvm/view_state_model.dart';
-import 'package:lighthouse/net/constant.dart';
-import 'package:lighthouse/net/dio_util.dart';
-import 'package:lighthouse/net/model/global_quote.dart';
+import 'package:library_base/net/apis.dart';
+import 'package:library_base/net/dio_util.dart';
+import 'package:library_base/net/model/global_quote.dart';
 import 'package:library_base/utils/object_util.dart';
 
 class GlobalQuoteModel extends ViewStateModel {
@@ -19,7 +19,7 @@ class GlobalQuoteModel extends ViewStateModel {
     Map<String, dynamic> params = {
     };
 
-    return DioUtil.getInstance().requestNetwork(Constant.URL_GET_GLOBAL_QUOTE, 'get', params: params,
+    return DioUtil.getInstance().requestNetwork(Apis.URL_GET_GLOBAL_QUOTE, 'get', params: params,
         cancelToken: cancelToken,
         onSuccess: (data) {
 

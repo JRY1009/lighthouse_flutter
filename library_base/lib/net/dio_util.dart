@@ -4,12 +4,13 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:lighthouse/net/base/base_entity.dart';
-import 'package:lighthouse/net/base/base_list_entity.dart';
-import 'package:lighthouse/net/constant.dart';
-import 'package:lighthouse/net/http_error.dart';
-import 'package:lighthouse/net/intercept.dart';
-import 'package:lighthouse/net/rt_account.dart';
+import 'package:library_base/constant/constant.dart';
+import 'package:library_base/global/rt_account.dart';
+import 'package:library_base/net/base/base_entity.dart';
+import 'package:library_base/net/base/base_list_entity.dart';
+import 'package:library_base/net/apis.dart';
+import 'package:library_base/net/http_error.dart';
+import 'package:library_base/net/intercept.dart';
 import 'package:library_base/utils/log_util.dart';
 import 'package:library_base/utils/toast_util.dart';
 
@@ -30,7 +31,7 @@ class DioUtil {
   Dio dio = new Dio();
 
   DioUtil() {
-    dio.options.baseUrl = Constant.BASE_URL_YAPI;
+    dio.options.baseUrl = Apis.BASE_URL_YAPI;
     dio.options.contentType = ContentType.parse("application/json;charset=UTF-8").toString();
     dio.options.connectTimeout = 10000;
     dio.options.receiveTimeout = 5000;
@@ -71,15 +72,15 @@ class DioUtil {
       LogUtil.e('请求异常: $e\n$s', tag: _TAG);
       HttpError httpError = HttpError.dioError(e);
       return BaseEntity<T>.fromJson({
-        Constant.ERRNO: httpError.code,
-        Constant.MESSAGE: httpError.message,
+        Apis.ERRNO: httpError.code,
+        Apis.MESSAGE: httpError.message,
       });
 
     } catch (e, s) {
       LogUtil.e("未知异常：$e\n$s", tag: _TAG);
       return BaseEntity<T>.fromJson({
-        Constant.ERRNO: Constant.ERRNO_UNKNOWN,
-        Constant.MESSAGE: Constant.ERRNO_UNKNOWN_MESSAGE,
+        Apis.ERRNO: Apis.ERRNO_UNKNOWN,
+        Apis.MESSAGE: Apis.ERRNO_UNKNOWN_MESSAGE,
       });
     }
 
@@ -95,8 +96,8 @@ class DioUtil {
     } catch(e) {
       LogUtil.e("数据解析错误：$e\n", tag: _TAG);
       return BaseEntity<T>.fromJson({
-        Constant.ERRNO: Constant.ERRNO_UNKNOWN,
-        Constant.MESSAGE: Constant.ERRNO_UNKNOWN_MESSAGE,
+        Apis.ERRNO: Apis.ERRNO_UNKNOWN,
+        Apis.MESSAGE: Apis.ERRNO_UNKNOWN_MESSAGE,
       });
     }
   }
@@ -115,12 +116,12 @@ class DioUtil {
 
     ).then<void>((BaseEntity<T> result) {
 
-      if (result.errno == Constant.ERRNO_OK) {
+      if (result.errno == Apis.ERRNO_OK) {
         if (onSuccess != null) {
           onSuccess(result.data);
         }
       } else {
-        if (result.errno == Constant.ERRNO_FORBIDDEN) {
+        if (result.errno == Apis.ERRNO_FORBIDDEN) {
           ToastUtil.error(result.msg);
           RTAccount.instance().logout();
         }
@@ -156,15 +157,15 @@ class DioUtil {
       LogUtil.e('请求异常: $e\n$s', tag: _TAG);
       HttpError httpError = HttpError.dioError(e);
       return BaseListEntity<T>.fromJson({
-        Constant.ERRNO: httpError.code,
-        Constant.MESSAGE: httpError.message,
+        Apis.ERRNO: httpError.code,
+        Apis.MESSAGE: httpError.message,
       });
 
     } catch (e, s) {
       LogUtil.e("未知异常：$e\n$s", tag: _TAG);
       return BaseListEntity<T>.fromJson({
-        Constant.ERRNO: Constant.ERRNO_UNKNOWN,
-        Constant.MESSAGE: Constant.ERRNO_UNKNOWN_MESSAGE,
+        Apis.ERRNO: Apis.ERRNO_UNKNOWN,
+        Apis.MESSAGE: Apis.ERRNO_UNKNOWN_MESSAGE,
       });
     }
 
@@ -180,8 +181,8 @@ class DioUtil {
     } catch(e) {
       LogUtil.e("数据解析错误：$e\n", tag: _TAG);
       return BaseListEntity<T>.fromJson({
-        Constant.ERRNO: Constant.ERRNO_UNKNOWN,
-        Constant.MESSAGE: Constant.ERRNO_UNKNOWN_MESSAGE,
+        Apis.ERRNO: Apis.ERRNO_UNKNOWN,
+        Apis.MESSAGE: Apis.ERRNO_UNKNOWN_MESSAGE,
       });
     }
   }
@@ -200,12 +201,12 @@ class DioUtil {
 
     ).then<void>((BaseListEntity<T> result) {
 
-      if (result.errno == Constant.ERRNO_OK) {
+      if (result.errno == Apis.ERRNO_OK) {
         if (onSuccess != null) {
           onSuccess(result.data);
         }
       } else {
-        if (result.errno == Constant.ERRNO_FORBIDDEN) {
+        if (result.errno == Apis.ERRNO_FORBIDDEN) {
           ToastUtil.error(result.msg);
           RTAccount.instance().logout();
         }

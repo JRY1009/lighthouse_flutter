@@ -5,8 +5,8 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:fluwx/fluwx.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
+import 'package:library_base/net/apis.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
@@ -50,7 +50,7 @@ class ShareDialog extends StatelessWidget {
 
   Future<void> _more(BuildContext context) async {
     if (children == null) {
-      Share.share(Constant.URL_OFFICIAL_WEBSITE);
+      Share.share(Apis.URL_OFFICIAL_WEBSITE);
 
       Navigator.pop(context);
 
@@ -85,7 +85,7 @@ class ShareDialog extends StatelessWidget {
     }
 
     if (children == null) {
-      shareToWeChat(WeChatShareWebPageModel(Constant.URL_OFFICIAL_WEBSITE, scene: scene));
+      shareToWeChat(WeChatShareWebPageModel(Apis.URL_OFFICIAL_WEBSITE, scene: scene));
 
       Navigator.pop(context);
 

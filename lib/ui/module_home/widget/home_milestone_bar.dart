@@ -6,7 +6,7 @@ import 'package:library_base/event/main_jump_event.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
-import 'package:lighthouse/net/model/milestone.dart';
+import 'package:library_base/net/model/milestone.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:lighthouse/router/routers.dart';

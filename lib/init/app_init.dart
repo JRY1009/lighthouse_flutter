@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bugly/flutter_bugly.dart';
-import 'package:lighthouse/net/constant.dart';
+import 'package:library_base/constant/constant.dart';
 import 'package:library_base/utils/date_util.dart';
 import 'package:library_base/utils/object_util.dart';
 import 'package:library_base/utils/path_util.dart';

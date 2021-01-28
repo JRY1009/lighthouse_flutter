@@ -3,10 +3,10 @@
 import 'package:library_base/event/event.dart';
 import 'package:library_base/event/user_event.dart';
 import 'package:library_base/mvvm/view_state_model.dart';
-import 'package:lighthouse/net/constant.dart';
-import 'package:lighthouse/net/dio_util.dart';
+import 'package:library_base/net/apis.dart';
+import 'package:library_base/net/dio_util.dart';
 import 'package:library_base/model/account.dart';
-import 'package:lighthouse/net/rt_account.dart';
+import 'package:library_base/global/rt_account.dart';
 import 'package:library_base/utils/object_util.dart';
 
 class SplashModel extends ViewStateModel {
@@ -19,25 +19,25 @@ class SplashModel extends ViewStateModel {
 
     Account account = RTAccount.instance().loadAccount();
     if (account == null) {
-      setError(Constant.ERRNO_UNKNOWN, message: Constant.ERRNO_UNKNOWN_MESSAGE);
+      setError(Apis.ERRNO_UNKNOWN, message: Apis.ERRNO_UNKNOWN_MESSAGE);
       return Future.value();
     }
 
     if (ObjectUtil.isEmpty(account.token)) {
-      setError(Constant.ERRNO_UNKNOWN, message: Constant.ERRNO_UNKNOWN_MESSAGE);
+      setError(Apis.ERRNO_UNKNOWN, message: Apis.ERRNO_UNKNOWN_MESSAGE);
       return Future.value();
     }
 
     RTAccount.instance().setActiveAccount(account);
 
-    return DioUtil.getInstance().requestNetwork(Constant.URL_GET_ACCOUNT_INFO, "get", params: {},
+    return DioUtil.getInstance().requestNetwork(Apis.URL_GET_ACCOUNT_INFO, "get", params: {},
         cancelToken: cancelToken,
         onSuccess: (data) {
 
           loginResult = Account.fromJson(data);
           loginResult.token = account.token;
 
-          //account.token = headers.value(Constant.KEY_USER_TOKEN);
+          //account.token = headers.value(Apis.KEY_USER_TOKEN);
           RTAccount.instance().setActiveAccount(loginResult);
           RTAccount.instance().saveAccount();
 

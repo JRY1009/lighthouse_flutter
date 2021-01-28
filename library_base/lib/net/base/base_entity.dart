@@ -1,5 +1,5 @@
-import 'package:lighthouse/net/base/entry_factory.dart';
-import 'package:lighthouse/net/constant.dart';
+import 'package:library_base/net/base/entry_factory.dart';
+import 'package:library_base/net/apis.dart';
 import 'package:library_base/utils/object_util.dart';
 
 class BaseEntity<T> {
@@ -11,8 +11,8 @@ class BaseEntity<T> {
   BaseEntity({this.errno, this.msg, this.data});
 
   BaseEntity.fromJson(Map<String, dynamic> jsonMap) {
-    errno = jsonMap[Constant.ERRNO] as String;
-    msg = jsonMap[Constant.MESSAGE] as String;
+    errno = jsonMap[Apis.ERRNO] as String;
+    msg = jsonMap[Apis.MESSAGE] as String;
 
     if (jsonMap.containsKey('data') && !ObjectUtil.isEmpty(jsonMap['data'])) {
       data = EntityFactory.generateOBJ<T>(jsonMap['data']);

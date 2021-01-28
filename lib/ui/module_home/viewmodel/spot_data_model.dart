@@ -4,10 +4,10 @@ import 'dart:async';
 
 import 'package:library_base/mvvm/view_state.dart';
 import 'package:library_base/mvvm/view_state_model.dart';
-import 'package:lighthouse/net/constant.dart';
-import 'package:lighthouse/net/dio_util.dart';
-import 'package:lighthouse/net/model/spot_address_assets_distribution.dart';
-import 'package:lighthouse/net/model/spot_data_basic.dart';
+import 'package:library_base/net/apis.dart';
+import 'package:library_base/net/dio_util.dart';
+import 'package:library_base/net/model/spot_address_assets_distribution.dart';
+import 'package:library_base/net/model/spot_data_basic.dart';
 import 'package:library_base/utils/object_util.dart';
 
 class SpotDataModel extends ViewStateModel {
@@ -22,7 +22,7 @@ class SpotDataModel extends ViewStateModel {
       'chain': chain,
     };
 
-    return DioUtil.getInstance().requestNetwork(Constant.URL_GET_CHAIN_DATA, 'get', params: params,
+    return DioUtil.getInstance().requestNetwork(Apis.URL_GET_CHAIN_DATA, 'get', params: params,
         cancelToken: cancelToken,
         onSuccess: (data) {
 

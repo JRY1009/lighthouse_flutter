@@ -1,8 +1,4 @@
-import 'package:flutter/foundation.dart';
-
-class Constant {
-  static const bool isReleaseMode = kReleaseMode;
-  static const bool isDriverTest  = false;
+class Apis {
 
   static const String ERRNO = 'errno';
   static const String MESSAGE = 'msg';

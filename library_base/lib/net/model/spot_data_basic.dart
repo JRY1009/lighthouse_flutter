@@ -1,5 +1,5 @@
 
-import 'package:lighthouse/net/model/spot_address_assets_distribution.dart';
+import 'package:library_base/net/model/spot_address_assets_distribution.dart';
 
 class SpotDataBasic {
 

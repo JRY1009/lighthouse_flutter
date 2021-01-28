@@ -1,9 +1,9 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:lighthouse/net/constant.dart';
+import 'package:library_base/net/apis.dart';
 import 'package:library_base/model/account.dart';
-import 'package:lighthouse/net/rt_account.dart';
+import 'package:library_base/global/rt_account.dart';
 import 'package:library_base/utils/date_util.dart';
 import 'package:library_base/utils/device_util.dart';
 import 'package:library_base/utils/encrypt_util.dart';
@@ -21,23 +21,23 @@ class AuthInterceptor extends Interceptor {
     String channel = 'official';
     String timestamp = (DateUtil.getNowDateMs() * 1000).toString();
 
-    options.headers[Constant.KEY_VER] = version;
-    options.headers[Constant.KEY_DEV] = dev;
-    options.headers[Constant.KEY_LANGUAGE] = language;
-    options.headers[Constant.KEY_CHANNEL] = channel;
-    options.headers[Constant.KEY_USER_TS] = timestamp;
+    options.headers[Apis.KEY_VER] = version;
+    options.headers[Apis.KEY_DEV] = dev;
+    options.headers[Apis.KEY_LANGUAGE] = language;
+    options.headers[Apis.KEY_CHANNEL] = channel;
+    options.headers[Apis.KEY_USER_TS] = timestamp;
 
     if (RTAccount.instance().isLogin()) {
       Account account = RTAccount.instance().getActiveAccount();
-      String sign = EncryptUtil.encodeAes(account?.token, Constant.PRIVATE_KEY, timestamp).substring(0, 64);
-      options.headers[Constant.KEY_USER_TOKEN] = account?.token;
-      options.headers[Constant.KEY_USER_U_ID] = account?.account_id.toString();
-      options.headers[Constant.KEY_USER_SIGN] = sign;
+      String sign = EncryptUtil.encodeAes(account?.token, Apis.PRIVATE_KEY, timestamp).substring(0, 64);
+      options.headers[Apis.KEY_USER_TOKEN] = account?.token;
+      options.headers[Apis.KEY_USER_U_ID] = account?.account_id.toString();
+      options.headers[Apis.KEY_USER_SIGN] = sign;
 
     } else {
-      options.headers[Constant.KEY_USER_TOKEN] = '';
-      options.headers[Constant.KEY_USER_U_ID] = '';
-      options.headers[Constant.KEY_USER_SIGN] = '';
+      options.headers[Apis.KEY_USER_TOKEN] = '';
+      options.headers[Apis.KEY_USER_U_ID] = '';
+      options.headers[Apis.KEY_USER_SIGN] = '';
     }
 
     return super.onRequest(options);

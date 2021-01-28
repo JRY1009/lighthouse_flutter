@@ -4,9 +4,9 @@ import 'dart:async';
 
 import 'package:library_base/mvvm/view_state.dart';
 import 'package:library_base/mvvm/view_state_model.dart';
-import 'package:lighthouse/net/constant.dart';
-import 'package:lighthouse/net/dio_util.dart';
-import 'package:lighthouse/net/model/quote.dart';
+import 'package:library_base/net/apis.dart';
+import 'package:library_base/net/dio_util.dart';
+import 'package:library_base/net/model/quote.dart';
 
 class SpotKLineModel extends ViewStateModel {
 
@@ -30,7 +30,7 @@ class SpotKLineModel extends ViewStateModel {
     };
 
     setBusy();
-    return DioUtil.getInstance().requestNetwork(Constant.URL_GET_QUOTE, 'get', params: params,
+    return DioUtil.getInstance().requestNetwork(Apis.URL_GET_QUOTE, 'get', params: params,
         cancelToken: cancelToken,
         onSuccess: (data) {
 

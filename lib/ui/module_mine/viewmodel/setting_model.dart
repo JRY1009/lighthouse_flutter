@@ -5,10 +5,10 @@ import 'package:dio/dio.dart';
 import 'package:library_base/event/event.dart';
 import 'package:library_base/event/user_event.dart';
 import 'package:library_base/mvvm/view_state_model.dart';
-import 'package:lighthouse/net/constant.dart';
-import 'package:lighthouse/net/dio_util.dart';
+import 'package:library_base/net/apis.dart';
+import 'package:library_base/net/dio_util.dart';
 import 'package:library_base/model/account.dart';
-import 'package:lighthouse/net/rt_account.dart';
+import 'package:library_base/global/rt_account.dart';
 
 class SettingModel extends ViewStateModel {
 
@@ -33,7 +33,7 @@ class SettingModel extends ViewStateModel {
 
     setBusy();
 
-    return DioUtil.getInstance().requestNetwork(Constant.URL_UPLOAD_HEAD_ICON, "post", data: formData,
+    return DioUtil.getInstance().requestNetwork(Apis.URL_UPLOAD_HEAD_ICON, "post", data: formData,
         cancelToken: cancelToken,
         onSuccess: (data) {
 

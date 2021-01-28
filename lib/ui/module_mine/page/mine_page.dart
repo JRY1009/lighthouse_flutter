@@ -9,7 +9,7 @@ import 'package:library_base/event/user_event.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/model/account.dart';
-import 'package:lighthouse/net/rt_account.dart';
+import 'package:library_base/global/rt_account.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';

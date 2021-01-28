@@ -1,8 +1,8 @@
 
 
 import 'package:library_base/mvvm/view_state_model.dart';
-import 'package:lighthouse/net/constant.dart';
-import 'package:lighthouse/net/dio_util.dart';
+import 'package:library_base/net/apis.dart';
+import 'package:library_base/net/dio_util.dart';
 
 class VerifyModel extends ViewStateModel {
 
@@ -21,7 +21,7 @@ class VerifyModel extends ViewStateModel {
     };
 
     setBusy();
-    await DioUtil.getInstance().requestNetwork(Constant.URL_VERIFY_CODE, "post", params: params,
+    await DioUtil.getInstance().requestNetwork(Apis.URL_VERIFY_CODE, "post", params: params,
         cancelToken: cancelToken,
         onSuccess: (data) {
           setSuccess();

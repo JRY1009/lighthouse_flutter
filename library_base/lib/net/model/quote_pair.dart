@@ -1,4 +1,4 @@
-import 'package:lighthouse/net/model/quote.dart';
+import 'package:library_base/net/model/quote.dart';
 
 class QuotePair {
   String pair;

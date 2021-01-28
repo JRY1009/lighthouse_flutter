@@ -9,9 +9,9 @@ import 'package:library_base/model/quote_ws.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/mvvm/view_state.dart';
 import 'package:library_base/mvvm/view_state_model.dart';
-import 'package:lighthouse/net/constant.dart';
-import 'package:lighthouse/net/dio_util.dart';
-import 'package:lighthouse/net/model/quote_coin.dart';
+import 'package:library_base/net/apis.dart';
+import 'package:library_base/net/dio_util.dart';
+import 'package:library_base/net/model/quote_coin.dart';
 import 'package:library_base/utils/object_util.dart';
 
 class SpotDetailModel extends ViewStateModel {
@@ -77,7 +77,7 @@ class SpotDetailModel extends ViewStateModel {
       'chain': chain,
     };
 
-    return DioUtil.getInstance().requestNetwork(Constant.URL_GET_COIN_QUOTE, "get", params: params,
+    return DioUtil.getInstance().requestNetwork(Apis.URL_GET_COIN_QUOTE, "get", params: params,
         cancelToken: cancelToken,
         onSuccess: (data) {
           quoteCoin = QuoteCoin.fromJson(data);

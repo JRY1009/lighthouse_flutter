@@ -1,6 +1,6 @@
 
-import 'package:lighthouse/net/base/entry_factory.dart';
-import 'package:lighthouse/net/constant.dart';
+import 'package:library_base/net/base/entry_factory.dart';
+import 'package:library_base/net/apis.dart';
 
 class BaseListEntity<T> {
   String errno;
@@ -11,8 +11,8 @@ class BaseListEntity<T> {
 
   BaseListEntity.fromJson(Map<String, dynamic> jsonMap) {
 
-    errno = jsonMap[Constant.ERRNO] as String;
-    msg = jsonMap[Constant.MESSAGE] as String;
+    errno = jsonMap[Apis.ERRNO] as String;
+    msg = jsonMap[Apis.MESSAGE] as String;
 
     List<T> datalist = new List<T>();
     if (jsonMap['data'] != null) {

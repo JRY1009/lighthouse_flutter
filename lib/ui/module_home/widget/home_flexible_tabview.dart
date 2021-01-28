@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:library_base/generated/l10n.dart';
-import 'package:lighthouse/net/model/quote_pair.dart';
+import 'package:library_base/net/model/quote_pair.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
