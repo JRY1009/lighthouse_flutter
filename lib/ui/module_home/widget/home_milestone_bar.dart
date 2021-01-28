@@ -1,14 +1,14 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:lighthouse/event/event.dart';
-import 'package:lighthouse/event/main_jump_event.dart';
-import 'package:lighthouse/generated/l10n.dart';
-import 'package:lighthouse/mvvm/base_page.dart';
-import 'package:lighthouse/mvvm/provider_widget.dart';
+import 'package:library_base/event/event.dart';
+import 'package:library_base/event/main_jump_event.dart';
+import 'package:library_base/generated/l10n.dart';
+import 'package:library_base/mvvm/base_page.dart';
+import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:lighthouse/net/model/milestone.dart';
-import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/res/styles.dart';
+import 'package:library_base/res/colors.dart';
+import 'package:library_base/res/styles.dart';
 import 'package:lighthouse/router/routers.dart';
 import 'package:lighthouse/ui/module_home/item/milestone_item.dart';
 import 'package:lighthouse/ui/module_home/viewmodel/milestone_model.dart';

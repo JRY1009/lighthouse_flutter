@@ -1,5 +1,5 @@
 
-import 'package:lighthouse/utils/object_util.dart';
+import 'package:library_base/utils/object_util.dart';
 
 import 'media.dart';
 

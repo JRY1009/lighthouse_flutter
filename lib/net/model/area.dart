@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lighthouse/utils/object_util.dart';
+import 'package:library_base/utils/object_util.dart';
 import 'package:lpinyin/lpinyin.dart';
 
 class Area {

@@ -2,11 +2,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:lighthouse/net/constant.dart';
-import 'package:lighthouse/net/model/account.dart';
+import 'package:library_base/model/account.dart';
 import 'package:lighthouse/net/rt_account.dart';
-import 'package:lighthouse/utils/date_util.dart';
-import 'package:lighthouse/utils/device_util.dart';
-import 'package:lighthouse/utils/encrypt_util.dart';
+import 'package:library_base/utils/date_util.dart';
+import 'package:library_base/utils/device_util.dart';
+import 'package:library_base/utils/encrypt_util.dart';
 import 'package:package_info/package_info.dart';
 
 class AuthInterceptor extends Interceptor {

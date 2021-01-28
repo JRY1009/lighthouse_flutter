@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:core';
 
-import 'package:lighthouse/ui/module_base/widget/button/back_button.dart';
-import 'package:lighthouse/utils/toast_util.dart';
+import 'package:library_base/widget/button/back_button.dart';
+import 'package:library_base/utils/toast_util.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/res/styles.dart';
+import 'package:library_base/res/colors.dart';
+import 'package:library_base/res/styles.dart';
 
 class WebViewPage extends StatefulWidget {
   final String url;

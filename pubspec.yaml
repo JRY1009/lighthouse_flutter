@@ -47,6 +47,3 @@ flutter:
     - assets/images/aninews/
     - assets/images/animine/
     - assets/files/
-
-flutter_intl:
-  enabled: true

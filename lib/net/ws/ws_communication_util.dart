@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/ws/websocket_util.dart';
-import 'package:lighthouse/utils/timer_util.dart';
+import 'package:library_base/utils/timer_util.dart';
 
 class WsCommunicationUtil {
   static const String _TAG = "WsCommunicationUtil";

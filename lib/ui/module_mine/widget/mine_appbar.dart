@@ -1,11 +1,11 @@
 
 import 'package:flutter/material.dart';
-import 'package:lighthouse/generated/l10n.dart';
-import 'package:lighthouse/net/model/account.dart';
-import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/ui/module_base/widget/image/circle_image.dart';
-import 'package:lighthouse/utils/image_util.dart';
+import 'package:library_base/generated/l10n.dart';
+import 'package:library_base/model/account.dart';
+import 'package:library_base/res/colors.dart';
+import 'package:library_base/res/styles.dart';
+import 'package:library_base/widget/image/circle_image.dart';
+import 'package:library_base/utils/image_util.dart';
 
 class MineAppBar extends StatefulWidget {
 

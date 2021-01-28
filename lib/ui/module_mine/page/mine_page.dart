@@ -4,22 +4,22 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bugly/flutter_bugly.dart';
-import 'package:lighthouse/event/event.dart';
-import 'package:lighthouse/event/user_event.dart';
-import 'package:lighthouse/generated/l10n.dart';
-import 'package:lighthouse/mvvm/base_page.dart';
-import 'package:lighthouse/net/model/account.dart';
+import 'package:library_base/event/event.dart';
+import 'package:library_base/event/user_event.dart';
+import 'package:library_base/generated/l10n.dart';
+import 'package:library_base/mvvm/base_page.dart';
+import 'package:library_base/model/account.dart';
 import 'package:lighthouse/net/rt_account.dart';
-import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/res/gaps.dart';
-import 'package:lighthouse/res/styles.dart';
+import 'package:library_base/res/colors.dart';
+import 'package:library_base/res/gaps.dart';
+import 'package:library_base/res/styles.dart';
 import 'package:lighthouse/router/routers.dart';
-import 'package:lighthouse/ui/module_base/widget/clickbar/mine_clickbar.dart';
-import 'package:lighthouse/ui/module_base/widget/common_scroll_view.dart';
-import 'package:lighthouse/ui/module_base/widget/dialog/dialog_util.dart';
+import 'package:library_base/widget/clickbar/mine_clickbar.dart';
+import 'package:library_base/widget/common_scroll_view.dart';
+import 'package:library_base/widget/dialog/dialog_util.dart';
 import 'package:lighthouse/ui/module_mine/widget/mine_appbar.dart';
-import 'package:lighthouse/utils/path_util.dart';
-import 'package:lighthouse/utils/toast_util.dart';
+import 'package:library_base/utils/path_util.dart';
+import 'package:library_base/utils/toast_util.dart';
 import 'package:path_provider/path_provider.dart';
 
 class MinePage extends StatefulWidget {

@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:lighthouse/generated/l10n.dart';
-import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/ui/module_base/widget/dialog/dialog_util.dart';
+import 'package:library_base/generated/l10n.dart';
+import 'package:library_base/res/colors.dart';
+import 'package:library_base/res/styles.dart';
+import 'package:library_base/widget/dialog/dialog_util.dart';
 
 
 class SpotBriefItem extends StatelessWidget {

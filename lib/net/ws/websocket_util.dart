@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:lighthouse/utils/log_util.dart';
+import 'package:library_base/utils/log_util.dart';
 import 'package:web_socket_channel/io.dart';
 
 var sockets = new WebSocketUtil();

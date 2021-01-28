@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/res/gaps.dart';
-import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/utils/num_util.dart';
+import 'package:library_base/res/colors.dart';
+import 'package:library_base/res/gaps.dart';
+import 'package:library_base/res/styles.dart';
+import 'package:library_base/utils/num_util.dart';
 
 
 class SpotExchangeQuoteItem extends StatelessWidget {

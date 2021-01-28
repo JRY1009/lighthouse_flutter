@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/res/styles.dart';
+import 'package:library_base/res/colors.dart';
+import 'package:library_base/res/styles.dart';
 
 
 class SpotAddressAssetsDistributionItem extends StatelessWidget {

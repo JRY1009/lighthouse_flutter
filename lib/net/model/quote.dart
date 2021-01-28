@@ -1,6 +1,6 @@
 
-import 'package:lighthouse/utils/object_util.dart';
-import 'package:lighthouse/utils/date_util.dart';
+import 'package:library_base/utils/object_util.dart';
+import 'package:library_base/utils/date_util.dart';
 
 class Quote {
 

@@ -10,8 +10,8 @@ import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/http_error.dart';
 import 'package:lighthouse/net/intercept.dart';
 import 'package:lighthouse/net/rt_account.dart';
-import 'package:lighthouse/utils/log_util.dart';
-import 'package:lighthouse/utils/toast_util.dart';
+import 'package:library_base/utils/log_util.dart';
+import 'package:library_base/utils/toast_util.dart';
 
 class DioUtil {
 

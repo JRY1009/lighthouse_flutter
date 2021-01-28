@@ -1,15 +1,12 @@
 
 import 'package:flutter/material.dart';
-import 'package:lighthouse/mvvm/provider_widget.dart';
-import 'package:lighthouse/net/constant.dart';
-import 'package:lighthouse/net/dio_util.dart';
-import 'package:lighthouse/net/model/quote.dart';
-import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/ui/module_base/widget/chart/line_chart.dart';
-import 'package:lighthouse/ui/module_base/widget/easyrefresh/first_refresh_top.dart';
-import 'package:lighthouse/ui/module_base/widget/tab/kline_tab.dart';
+import 'package:library_base/mvvm/provider_widget.dart';
+import 'package:library_base/res/colors.dart';
+import 'package:library_base/res/styles.dart';
+import 'package:library_base/widget/easyrefresh/first_refresh_top.dart';
+import 'package:library_base/widget/tab/kline_tab.dart';
 import 'package:lighthouse/ui/module_home/viewmodel/spot_kline_model.dart';
+import 'package:lighthouse/ui/module_home/widget/line_chart.dart';
 
 class SpotDetailKLineBar extends StatefulWidget {
 

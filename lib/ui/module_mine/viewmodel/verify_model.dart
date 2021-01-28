@@ -1,6 +1,6 @@
 
 
-import 'package:lighthouse/mvvm/view_state_model.dart';
+import 'package:library_base/mvvm/view_state_model.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
 

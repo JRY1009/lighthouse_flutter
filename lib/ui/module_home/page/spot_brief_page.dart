@@ -4,22 +4,22 @@ import 'dart:typed_data';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:lighthouse/generated/l10n.dart';
-import 'package:lighthouse/mvvm/base_page.dart';
-import 'package:lighthouse/mvvm/provider_widget.dart';
+import 'package:library_base/generated/l10n.dart';
+import 'package:library_base/mvvm/base_page.dart';
+import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:lighthouse/net/model/friend_link.dart';
 import 'package:lighthouse/net/model/milestone.dart';
 import 'package:lighthouse/net/model/spot_brief.dart';
-import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/res/styles.dart';
+import 'package:library_base/res/colors.dart';
+import 'package:library_base/res/styles.dart';
 import 'package:lighthouse/router/routers.dart';
-import 'package:lighthouse/ui/module_base/widget/common_scroll_view.dart';
-import 'package:lighthouse/ui/module_base/widget/easyrefresh/first_refresh.dart';
-import 'package:lighthouse/ui/module_base/widget/shot_view.dart';
+import 'package:library_base/widget/common_scroll_view.dart';
+import 'package:library_base/widget/easyrefresh/first_refresh.dart';
+import 'package:library_base/widget/shot_view.dart';
 import 'package:lighthouse/ui/module_home/item/milestone_item.dart';
 import 'package:lighthouse/ui/module_home/item/spot_brief_item.dart';
 import 'package:lighthouse/ui/module_home/viewmodel/spot_brief_model.dart';
-import 'package:lighthouse/utils/other_util.dart';
+import 'package:library_base/utils/other_util.dart';
 
 class SpotBriefPage extends StatefulWidget {
 

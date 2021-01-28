@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/ui/module_base/widget/image/round_image.dart';
+import 'package:library_base/res/colors.dart';
+import 'package:library_base/res/styles.dart';
+import 'package:library_base/widget/image/round_image.dart';
 
 /// 资讯列表详情
 class ArticleItem extends StatelessWidget {

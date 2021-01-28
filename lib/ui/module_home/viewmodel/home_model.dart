@@ -3,15 +3,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:lighthouse/event/event.dart';
-import 'package:lighthouse/event/ws_event.dart';
-import 'package:lighthouse/mvvm/base_page.dart';
-import 'package:lighthouse/mvvm/view_state.dart';
-import 'package:lighthouse/mvvm/view_state_model.dart';
+import 'package:library_base/event/event.dart';
+import 'package:library_base/event/ws_event.dart';
+import 'package:library_base/model/quote_ws.dart';
+import 'package:library_base/mvvm/base_page.dart';
+import 'package:library_base/mvvm/view_state.dart';
+import 'package:library_base/mvvm/view_state_model.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
 import 'package:lighthouse/net/model/quote_pair.dart';
-import 'package:lighthouse/net/model/quote_ws.dart';
 
 class HomeModel extends ViewStateModel {
 

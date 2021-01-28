@@ -2,7 +2,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:lighthouse/net/rt_account.dart';
 import 'package:lighthouse/router/router_handler.dart';
-import 'package:lighthouse/utils/log_util.dart';
+import 'package:library_base/utils/log_util.dart';
 
 ///使用fluro进行路由管理
 class Routers {

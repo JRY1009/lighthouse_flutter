@@ -4,16 +4,16 @@ import 'dart:typed_data';
 
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
-import 'package:lighthouse/generated/l10n.dart';
-import 'package:lighthouse/mvvm/base_page.dart';
-import 'package:lighthouse/mvvm/provider_widget.dart';
-import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/res/gaps.dart';
-import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/ui/module_base/widget/button/back_button.dart';
-import 'package:lighthouse/ui/module_base/widget/dialog/dialog_util.dart';
-import 'package:lighthouse/ui/module_base/widget/easyrefresh/first_refresh.dart';
-import 'package:lighthouse/ui/module_base/widget/tab/bubble_indicator.dart';
+import 'package:library_base/generated/l10n.dart';
+import 'package:library_base/mvvm/base_page.dart';
+import 'package:library_base/mvvm/provider_widget.dart';
+import 'package:library_base/res/colors.dart';
+import 'package:library_base/res/gaps.dart';
+import 'package:library_base/res/styles.dart';
+import 'package:library_base/widget/button/back_button.dart';
+import 'package:library_base/widget/dialog/dialog_util.dart';
+import 'package:library_base/widget/easyrefresh/first_refresh.dart';
+import 'package:library_base/widget/tab/bubble_indicator.dart';
 import 'package:lighthouse/ui/module_home/page/spot_brief_page.dart';
 import 'package:lighthouse/ui/module_home/page/spot_data_page.dart';
 import 'package:lighthouse/ui/module_home/page/spot_quote_page.dart';
@@ -22,8 +22,8 @@ import 'package:lighthouse/ui/module_home/widget/spot_detail_appbar.dart';
 import 'package:lighthouse/ui/module_home/widget/spot_detail_kline_bar.dart';
 import 'package:lighthouse/ui/module_info/page/article_list_page.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
-import 'package:lighthouse/utils/log_util.dart';
-import 'package:lighthouse/utils/num_util.dart';
+import 'package:library_base/utils/log_util.dart';
+import 'package:library_base/utils/num_util.dart';
 
 
 

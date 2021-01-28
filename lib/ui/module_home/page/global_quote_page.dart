@@ -3,20 +3,20 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:lighthouse/generated/l10n.dart';
-import 'package:lighthouse/mvvm/base_page.dart';
-import 'package:lighthouse/mvvm/provider_widget.dart';
-import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/ui/module_base/widget/button/back_button.dart';
-import 'package:lighthouse/ui/module_base/widget/common_scroll_view.dart';
-import 'package:lighthouse/ui/module_base/widget/dialog/dialog_util.dart';
-import 'package:lighthouse/ui/module_base/widget/dialog/share_widget.dart';
-import 'package:lighthouse/ui/module_base/widget/easyrefresh/first_refresh.dart';
-import 'package:lighthouse/ui/module_base/widget/shot_view.dart';
+import 'package:library_base/generated/l10n.dart';
+import 'package:library_base/mvvm/base_page.dart';
+import 'package:library_base/mvvm/provider_widget.dart';
+import 'package:library_base/res/colors.dart';
+import 'package:library_base/res/styles.dart';
+import 'package:library_base/widget/button/back_button.dart';
+import 'package:library_base/widget/common_scroll_view.dart';
+import 'package:library_base/widget/dialog/dialog_util.dart';
+import 'package:library_base/widget/dialog/share_widget.dart';
+import 'package:library_base/widget/easyrefresh/first_refresh.dart';
+import 'package:library_base/widget/shot_view.dart';
 import 'package:lighthouse/ui/module_home/item/global_quote_item.dart';
 import 'package:lighthouse/ui/module_home/viewmodel/global_quote_model.dart';
-import 'package:lighthouse/utils/image_util.dart';
+import 'package:library_base/utils/image_util.dart';
 
 
 class GlobalQuotePage extends StatefulWidget {

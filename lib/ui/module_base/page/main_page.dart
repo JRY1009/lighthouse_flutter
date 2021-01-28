@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lighthouse/generated/l10n.dart';
-import 'package:lighthouse/mvvm/base_page.dart';
-import 'package:lighthouse/mvvm/provider_widget.dart';
+import 'package:library_base/generated/l10n.dart';
+import 'package:library_base/mvvm/base_page.dart';
+import 'package:library_base/mvvm/provider_widget.dart';
+import 'package:library_base/widget/double_tap_back_exit_app.dart';
 import 'package:lighthouse/net/websocket_util.dart';
-import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/res/dimens.dart';
+import 'package:library_base/res/colors.dart';
+import 'package:library_base/res/dimens.dart';
 import 'package:lighthouse/ui/module_base/viewmodel/main_model.dart';
-import 'package:lighthouse/ui/module_base/widget/image/frame_animation_image.dart';
-import 'package:lighthouse/ui/module_base/widget/image/local_image.dart';
+import 'package:library_base/widget/image/frame_animation_image.dart';
+import 'package:library_base/widget/image/local_image.dart';
 import 'package:lighthouse/ui/module_home/page/home_page.dart';
 import 'package:lighthouse/ui/module_info/page/info_page.dart';
 import 'package:lighthouse/ui/module_mine/page/mine_page.dart';
-import 'package:lighthouse/utils/double_tap_back_exit_app.dart';
 
 class MainPage extends StatefulWidget {
   @override

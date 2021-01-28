@@ -1,23 +1,23 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:lighthouse/generated/l10n.dart';
-import 'package:lighthouse/mvvm/base_page.dart';
-import 'package:lighthouse/mvvm/provider_widget.dart';
+import 'package:library_base/generated/l10n.dart';
+import 'package:library_base/mvvm/base_page.dart';
+import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:lighthouse/net/constant.dart';
 import 'package:lighthouse/net/dio_util.dart';
 import 'package:lighthouse/net/model/spot_address_assets_distribution.dart';
 import 'package:lighthouse/net/model/spot_data_basic.dart';
-import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/ui/module_base/widget/common_scroll_view.dart';
-import 'package:lighthouse/ui/module_base/widget/easyrefresh/first_refresh.dart';
+import 'package:library_base/res/colors.dart';
+import 'package:library_base/res/styles.dart';
+import 'package:library_base/widget/common_scroll_view.dart';
+import 'package:library_base/widget/easyrefresh/first_refresh.dart';
 import 'package:lighthouse/ui/module_home/viewmodel/spot_data_model.dart';
 import 'package:lighthouse/ui/module_home/widget/spot_data_address_assets_distribution_bar.dart';
 import 'package:lighthouse/ui/module_home/widget/spot_data_circulation_bar.dart';
 import 'package:lighthouse/ui/module_home/widget/spot_data_treemap.dart';
-import 'package:lighthouse/utils/log_util.dart';
-import 'package:lighthouse/utils/toast_util.dart';
+import 'package:library_base/utils/log_util.dart';
+import 'package:library_base/utils/toast_util.dart';
 
 class SpotDataPage extends StatefulWidget {
 

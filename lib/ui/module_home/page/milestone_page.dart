@@ -1,12 +1,12 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:lighthouse/generated/l10n.dart';
-import 'package:lighthouse/mvvm/base_page.dart';
-import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/ui/module_base/widget/button/back_button.dart';
-import 'package:lighthouse/ui/module_base/widget/tab/kline_tab.dart';
+import 'package:library_base/generated/l10n.dart';
+import 'package:library_base/mvvm/base_page.dart';
+import 'package:library_base/res/colors.dart';
+import 'package:library_base/res/styles.dart';
+import 'package:library_base/widget/button/back_button.dart';
+import 'package:library_base/widget/tab/kline_tab.dart';
 import 'package:lighthouse/ui/module_home/page/milestone_list_page.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
 

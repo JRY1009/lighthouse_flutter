@@ -1,5 +1,5 @@
 
-import 'package:lighthouse/net/model/account.dart';
+import 'package:library_base/model/account.dart';
 
 class EntityFactory {
   static T generateOBJ<T>(json) {

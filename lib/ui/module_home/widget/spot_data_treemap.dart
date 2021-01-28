@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:core';
 
-import 'package:lighthouse/mvvm/provider_widget.dart';
-import 'package:lighthouse/ui/module_base/widget/chart/inapp_echart.dart';
-import 'package:lighthouse/ui/module_base/widget/easyrefresh/first_refresh.dart';
+import 'package:library_base/mvvm/provider_widget.dart';
+import 'package:library_base/widget/chart/inapp_echart.dart';
+import 'package:library_base/widget/easyrefresh/first_refresh.dart';
 import 'package:lighthouse/ui/module_home/viewmodel/treemap_model.dart';
 import 'package:flutter/material.dart';
 

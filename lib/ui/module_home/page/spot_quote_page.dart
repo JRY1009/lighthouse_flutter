@@ -2,17 +2,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
-import 'package:lighthouse/generated/l10n.dart';
-import 'package:lighthouse/mvvm/base_page.dart';
-import 'package:lighthouse/mvvm/provider_widget.dart';
-import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/res/gaps.dart';
-import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/ui/module_base/widget/easyrefresh/first_refresh.dart';
-import 'package:lighthouse/ui/module_base/widget/easyrefresh/loading_empty.dart';
+import 'package:library_base/generated/l10n.dart';
+import 'package:library_base/mvvm/base_page.dart';
+import 'package:library_base/mvvm/provider_widget.dart';
+import 'package:library_base/res/colors.dart';
+import 'package:library_base/res/gaps.dart';
+import 'package:library_base/res/styles.dart';
+import 'package:library_base/widget/easyrefresh/first_refresh.dart';
+import 'package:library_base/widget/easyrefresh/loading_empty.dart';
 import 'package:lighthouse/ui/module_home/item/spot_exchange_quote_item.dart';
 import 'package:lighthouse/ui/module_home/viewmodel/spot_quote_model.dart';
-import 'package:lighthouse/utils/num_util.dart';
+import 'package:library_base/utils/num_util.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
 class SpotQuotePage extends StatefulWidget {

@@ -1,16 +1,16 @@
 
 import 'package:flutter/material.dart';
-import 'package:lighthouse/generated/l10n.dart';
-import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/res/gaps.dart';
-import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/ui/module_base/widget/tab/bubble_indicator.dart';
-import 'package:lighthouse/ui/module_base/widget/tab/quotation_tab.dart';
+import 'package:library_base/generated/l10n.dart';
+import 'package:library_base/res/colors.dart';
+import 'package:library_base/res/gaps.dart';
+import 'package:library_base/res/styles.dart';
+import 'package:library_base/widget/tab/bubble_indicator.dart';
+import 'package:library_base/widget/tab/quotation_tab.dart';
 import 'package:lighthouse/ui/module_home/viewmodel/home_model.dart';
 import 'package:lighthouse/ui/module_home/widget/home_flexible_tabview.dart';
-import 'package:lighthouse/utils/image_util.dart';
-import 'package:lighthouse/utils/num_util.dart';
-import 'package:lighthouse/utils/screen_util.dart';
+import 'package:library_base/utils/image_util.dart';
+import 'package:library_base/utils/num_util.dart';
+import 'package:library_base/utils/screen_util.dart';
 import 'package:provider/provider.dart';
 
 class HomeFlexibleAppBar extends StatefulWidget {

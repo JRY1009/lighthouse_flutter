@@ -5,11 +5,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_bugly/flutter_bugly.dart';
 import 'package:flutter_xupdate/flutter_xupdate.dart';
-import 'package:lighthouse/event/event.dart';
-import 'package:lighthouse/event/main_jump_event.dart';
-import 'package:lighthouse/event/user_event.dart';
+import 'package:library_base/event/event.dart';
+import 'package:library_base/event/main_jump_event.dart';
+import 'package:library_base/event/user_event.dart';
 import 'package:lighthouse/router/routers.dart';
-import 'package:lighthouse/utils/device_util.dart';
+import 'package:library_base/utils/device_util.dart';
 
 class MainModel extends ValueNotifier<int> {
 

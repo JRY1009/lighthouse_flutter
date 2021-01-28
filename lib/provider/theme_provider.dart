@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/utils/sp_util.dart';
+import 'package:library_base/res/colors.dart';
+import 'package:library_base/utils/sp_util.dart';
 
 extension ThemeModeExtension on ThemeMode {
   String get value => ['system', 'light', 'dark'][index];

@@ -2,16 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
-import 'package:lighthouse/mvvm/base_page.dart';
-import 'package:lighthouse/mvvm/provider_widget.dart';
+import 'package:library_base/mvvm/base_page.dart';
+import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:lighthouse/net/model/news.dart';
-import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/ui/module_base/widget/easyrefresh/common_footer.dart';
-import 'package:lighthouse/ui/module_base/widget/easyrefresh/first_refresh.dart';
-import 'package:lighthouse/ui/module_base/widget/easyrefresh/loading_empty.dart';
+import 'package:library_base/res/colors.dart';
+import 'package:library_base/widget/easyrefresh/common_footer.dart';
+import 'package:library_base/widget/easyrefresh/first_refresh.dart';
+import 'package:library_base/widget/easyrefresh/loading_empty.dart';
 import 'package:lighthouse/ui/module_info/item/news_item.dart';
 import 'package:lighthouse/ui/module_info/model/news_model.dart';
-import 'package:lighthouse/utils/toast_util.dart';
+import 'package:library_base/utils/toast_util.dart';
 
 
 class NewsListPage extends StatefulWidget {

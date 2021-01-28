@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:lighthouse/event/event.dart';
-import 'package:lighthouse/event/ws_event.dart';
-import 'package:lighthouse/net/model/quote_ws.dart';
-import 'package:lighthouse/utils/log_util.dart';
+import 'package:library_base/event/event.dart';
+import 'package:library_base/event/ws_event.dart';
+import 'package:library_base/model/quote_ws.dart';
+import 'package:library_base/utils/log_util.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:lighthouse/net/constant.dart';
 

@@ -1,19 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lighthouse/generated/l10n.dart';
-import 'package:lighthouse/mvvm/base_page.dart';
-import 'package:lighthouse/net/model/account.dart';
+import 'package:library_base/generated/l10n.dart';
+import 'package:library_base/mvvm/base_page.dart';
+import 'package:library_base/model/account.dart';
 import 'package:lighthouse/net/rt_account.dart';
-import 'package:lighthouse/res/colors.dart';
-import 'package:lighthouse/res/gaps.dart';
-import 'package:lighthouse/res/styles.dart';
-import 'package:lighthouse/ui/module_base/widget/button/back_button.dart';
-import 'package:lighthouse/ui/module_base/widget/common_scroll_view.dart';
-import 'package:lighthouse/ui/module_base/widget/textfield/normal_text_field.dart';
+import 'package:library_base/res/colors.dart';
+import 'package:library_base/res/gaps.dart';
+import 'package:library_base/res/styles.dart';
+import 'package:library_base/widget/button/back_button.dart';
+import 'package:library_base/widget/common_scroll_view.dart';
+import 'package:library_base/widget/textfield/normal_text_field.dart';
 import 'package:lighthouse/ui/module_mine/viewmodel/modify_nickname_model.dart';
-import 'package:lighthouse/utils/object_util.dart';
-import 'package:lighthouse/utils/other_util.dart';
-import 'package:lighthouse/utils/toast_util.dart';
+import 'package:library_base/utils/object_util.dart';
+import 'package:library_base/utils/other_util.dart';
+import 'package:library_base/utils/toast_util.dart';
 
 class ModifyNicknamePage extends StatefulWidget {
   @override
