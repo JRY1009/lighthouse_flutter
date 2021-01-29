@@ -10,6 +10,7 @@ import 'package:library_base/global/rt_account.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
+import 'package:library_base/router/parameters.dart';
 import 'package:library_base/router/routers.dart';
 import 'package:library_base/widget/button/gradient_button.dart';
 import 'package:library_base/widget/common_scroll_view.dart';
@@ -21,6 +22,7 @@ import 'package:library_base/utils/encrypt_util.dart';
 import 'package:library_base/utils/object_util.dart';
 import 'package:library_base/utils/other_util.dart';
 import 'package:library_base/utils/toast_util.dart';
+import 'package:module_mine/mine_router.dart';
 import 'package:module_mine/viewmodel/login_model.dart';
 
 class LoginPage extends StatefulWidget {
@@ -77,7 +79,7 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
         closeProgress();
 
         Navigator.pop(context);
-        Routers.navigateTo(context, Routers.mainPage, clearStack: true);
+        Routers.navigateTo(context, MineRouter.isRunModule ? Routers.minePage : Routers.mainPage, clearStack: true);
       }
     });
   }
@@ -102,10 +104,8 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
   }
 
   void _selectArea() {
-
-    Map<String, dynamic> params = {
-      'areaCode': _area_code,
-    };
+    Parameters params = Parameters()
+      ..putString('areaCode', _area_code);
 
     Routers.navigateToResult(context, Routers.areaPage, params, (result) {
       setState(() {
@@ -119,12 +119,11 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
   }
 
   void _jump2Register() {
-    Map<String, dynamic> params = {
-      'title': 'xxx',
-      'url': 'https://www.baidu.com',
-    };
+    Parameters params = Parameters()
+      ..putString('title', 'xxx')
+      ..putString('url', 'https://www.baidu.com');
 
-    Routers.navigateTo(context, Routers.webviewPage, params: params);
+    Routers.navigateTo(context, Routers.webviewPage, parameters: params);
   }
 
   @override

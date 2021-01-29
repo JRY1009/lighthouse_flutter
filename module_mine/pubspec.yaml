@@ -37,6 +37,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+  assets:
+    - assets/files/
 
   module:
     androidX: true

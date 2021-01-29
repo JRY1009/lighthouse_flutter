@@ -55,6 +55,16 @@ class S {
     );
   }
 
+  /// `页面不存在`
+  String get notFoundPage {
+    return Intl.message(
+      '页面不存在',
+      name: 'notFoundPage',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `登录`
   String get login {
     return Intl.message(

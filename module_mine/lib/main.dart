@@ -9,13 +9,14 @@ import 'package:library_base/utils/log_util.dart';
 import 'package:library_base/utils/sp_util.dart';
 import 'package:library_base/utils/toast_util.dart';
 import 'package:module_mine/mine_router.dart';
-import 'package:module_mine/page/login_sms_page.dart';
+import 'package:module_mine/page/mine_page.dart';
 
 void main() => runApp(MyApp());
 
 class DefaultApp {
   //运行app
   static Future<void> run() async {
+
     WidgetsFlutterBinding.ensureInitialized();
 
     await SPUtil.init();
@@ -47,9 +48,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Routers.init([MineRouter()]);
 
+    MineRouter.isRunModule = true;
+
     return ToastUtil.init(MaterialApp(
       title: 'module_login',
-      home: LoginSmsPage(),
+      home: MinePage(),
       onGenerateRoute: Routers.router.generator,
       locale: Locale('zh', 'CN'),
       localizationsDelegates: const [

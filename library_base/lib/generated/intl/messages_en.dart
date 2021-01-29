@@ -74,6 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "noAccount" : MessageLookupByLibrary.simpleMessage("没有账号？"),
     "noData" : MessageLookupByLibrary.simpleMessage("暂无数据"),
     "noMoreData" : MessageLookupByLibrary.simpleMessage("没有更多数据"),
+    "notFoundPage" : MessageLookupByLibrary.simpleMessage("页面不存在"),
     "password" : MessageLookupByLibrary.simpleMessage("密码"),
     "passwordError" : MessageLookupByLibrary.simpleMessage("密码不能少于6位!"),
     "passwordHint" : MessageLookupByLibrary.simpleMessage("请输入密码"),

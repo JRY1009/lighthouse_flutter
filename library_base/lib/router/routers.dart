@@ -2,6 +2,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:library_base/global/rt_account.dart';
 import 'package:library_base/router/i_router.dart';
+import 'package:library_base/router/not_found_page.dart';
 import 'package:library_base/router/page_builder.dart';
 import 'package:library_base/router/parameters.dart';
 import 'package:library_base/utils/log_util.dart';
@@ -37,8 +38,7 @@ class Routers {
   static void configureRoutes(FluroRouter router, List<IRouter> listRouter) {
     router.notFoundHandler = Handler(
         handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-      print("route is not find !");
-      return null;
+      return NotFoundPage();
     });
 
     listRouter.forEach((routerImpl) {
@@ -57,47 +57,51 @@ class Routers {
       {Parameters parameters}) {
 
     PageBuilder pageBuilder = pageRounters[path];
-    Handler handler = (pageBuilder != null ? pageBuilder?.handler : router.notFoundHandler);
+    if (pageBuilder != null) {
+      pageBuilder.parameters = parameters ?? Parameters();
+      return pageBuilder.handler.handlerFunc(context, {});
 
-    pageBuilder.parameters = parameters ?? Parameters();
-    return handler.handlerFunc(context, {});
-
-//    AppRouteMatch match = router.match(path);
-//    AppRoute route = match?.route;
-//
-//    Handler handler = (route != null ? route?.handler : router.notFoundHandler);
-//    return handler.handlerFunc(context, params);
+    } else {
+      return router.notFoundHandler.handlerFunc(context, {});
+    }
   }
+
 
   // 对参数进行encode，解决参数中有特殊字符，影响fluro路由匹配(https://www.jianshu.com/p/e575787d173c)
   static Future navigateTo(BuildContext context, String path,
-      {Map<String, dynamic> params,
+      {Parameters parameters,
         bool clearStack = false,
         TransitionType transition = TransitionType.cupertino}) {
-    String query = "";
-    if (params != null) {
-      int index = 0;
-      for (var key in params.keys) {
-        var value = Uri.encodeComponent(params[key]);
-        if (index == 0) {
-          query = "?";
-        } else {
-          query = query + "\&";
-        }
-        query += "$key=$value";
-        index++;
-      }
+
+    var pageBuilder = pageRounters[path];
+    if (pageBuilder != null) {
+      pageBuilder.parameters = parameters ?? Parameters();
     }
 
-    path = path + query;
+//    String query = "";
+//    if (params != null) {
+//      int index = 0;
+//      for (var key in params.keys) {
+//        var value = Uri.encodeComponent(params[key]);
+//        if (index == 0) {
+//          query = "?";
+//        } else {
+//          query = query + "\&";
+//        }
+//        query += "$key=$value";
+//        index++;
+//      }
+//    }
+//
+//    path = path + query;
     return router.navigateTo(context, path,
         clearStack: clearStack, transition: transition);
   }
 
-  static void navigateToResult(BuildContext context, String path, Map<String, dynamic> params, Function(Object) function,
+  static void navigateToResult(BuildContext context, String path, Parameters parameters, Function(Object) function,
       {bool clearStack = false, TransitionType transition = TransitionType.cupertino}) {
     unfocus();
-    navigateTo(context, path, params: params, clearStack: clearStack, transition: transition).then((Object result) {
+    navigateTo(context, path, parameters: parameters, clearStack: clearStack, transition: transition).then((Object result) {
       // 页面返回result为null
       if (result == null) {
         return;
@@ -129,12 +133,12 @@ class Routers {
 
 
   static void loginGuardNavigateTo(BuildContext context, String path,
-      {Map<String, dynamic> params,
+      {Parameters parameters,
         bool clearStack = false,
         TransitionType transition = TransitionType.cupertino}) {
 
     if (RTAccount.instance().isLogin()) {
-      Routers.navigateTo(context, path, params: params, clearStack: clearStack, transition:  transition);
+      Routers.navigateTo(context, path, parameters: parameters, clearStack: clearStack, transition:  transition);
     } else {
       Routers.navigateTo(context, Routers.loginPage);
     }

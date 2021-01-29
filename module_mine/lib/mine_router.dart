@@ -13,16 +13,18 @@ import 'package:module_mine/page/setting_page.dart';
 
 class MineRouter implements IRouter{
 
+  static bool isRunModule = false;
+
   @override
   List<PageBuilder> getPageBuilders() {
     return [
       PageBuilder(Routers.minePage, (params) {
-        Key key = params.getObj('key');
+        Key key = params?.getObj('key');
         return MinePage(key: key);
       }),
 
       PageBuilder(Routers.areaPage, (params) {
-        String areaCode = params.getString('areaCode');
+        String areaCode = params?.getString('areaCode');
         return AreaPage(areaCode);
       }),
 

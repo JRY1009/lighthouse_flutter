@@ -135,7 +135,7 @@ class _ModifyPwdPageState extends State<ModifyPwdPage> with BasePageMixin<Modify
             brightness: Brightness.light,
             backgroundColor: Colours.white,
             centerTitle: true,
-        title: Text(S.of(context).modifyPassword, style: TextStyles.textBlack16)
+            title: Text(S.of(context).modifyPassword, style: TextStyles.textBlack16)
         ),
         body: CommonScrollView(
           keyboardConfig: OtherUtil.getKeyboardActionsConfig(context, <FocusNode>[_verifyNode, _pwdNode, _pwdRepeatNode]),

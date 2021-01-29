@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lpinyin/lpinyin.dart';
 import 'package:library_base/utils/object_util.dart';
+import 'package:module_mine/mine_router.dart';
 
 class Area {
 
@@ -50,7 +51,11 @@ class Area {
   }
 
   static Future<List<Area>> loadAreaFromFile() async{
-    String jsonString = await rootBundle.loadString("assets/files/country.json");
+    String jsonString = await rootBundle.loadString(
+        MineRouter.isRunModule ?
+        'assets/files/country.json' :
+        'packages/module_mine/assets/files/country.json');
+
     Map<String, dynamic> dataMap = json.decode(jsonString);
 
     return Area.fromJsonList(dataMap['codes']);

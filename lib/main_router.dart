@@ -15,14 +15,14 @@ class MainRouter implements IRouter{
   List<PageBuilder> getPageBuilders() {
     return [
       PageBuilder(Routers.webviewPage, (params) {
-        String title = params.getString('title');
-        String url = params.getString('url');
+        String title = params?.getString('title');
+        String url = params?.getString('url');
         return WebViewPage(url, title);
       }),
 
       PageBuilder(Routers.mainPage, (_) => MainPage()),
       PageBuilder(Routers.spotDetailPage, (params) {
-        String coinCode = params.getString('coinCode');
+        String coinCode = params?.getString('coinCode');
         return SpotDetailPage(coinCode: coinCode);
       }),
 
