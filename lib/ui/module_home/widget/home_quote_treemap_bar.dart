@@ -4,7 +4,7 @@ import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
-import 'package:lighthouse/router/routers.dart';
+import 'package:library_base/router/routers.dart';
 import 'package:library_base/widget/image/local_image.dart';
 import 'package:library_base/utils/image_util.dart';
 

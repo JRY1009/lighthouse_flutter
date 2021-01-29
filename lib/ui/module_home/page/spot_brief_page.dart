@@ -12,7 +12,7 @@ import 'package:library_base/net/model/milestone.dart';
 import 'package:library_base/net/model/spot_brief.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/styles.dart';
-import 'package:lighthouse/router/routers.dart';
+import 'package:library_base/router/routers.dart';
 import 'package:library_base/widget/common_scroll_view.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh.dart';
 import 'package:library_base/widget/shot_view.dart';

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/model/account.dart';
 import 'package:library_base/res/colors.dart';
@@ -71,7 +72,7 @@ class _MineAppBarState extends State<MineAppBar> {
                                 borderColor: Colours.white,
                                 boxShadow: BoxShadows.normalBoxShadow,
                                 placeholderImage: DecorationImage(
-                                  image: AssetImage(ImageUtil.getImgPath('icon_default_head')),
+                                  image: AssetImage(ImageUtil.getImgPath('icon_default_head'), package: Constant.baseLib),
                                   fit: BoxFit.fill,
                                 ),
                             ),

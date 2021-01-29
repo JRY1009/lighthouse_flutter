@@ -6,17 +6,19 @@ import 'package:fluwx/fluwx.dart';
 import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/net/apis.dart';
+import 'package:library_base/router/app_analysis.dart';
+import 'package:library_base/router/routers.dart';
+import 'package:lighthouse/main_router.dart';
 import 'package:lighthouse/provider/locale_provider.dart';
 import 'package:lighthouse/provider/store.dart';
 import 'package:lighthouse/provider/theme_provider.dart';
-import 'package:lighthouse/router/app_analysis.dart';
-import 'package:lighthouse/router/routers.dart';
 import 'package:lighthouse/ui/module_base/page/splash_page.dart';
 import 'package:library_base/utils/device_util.dart';
 import 'package:library_base/utils/log_util.dart';
 import 'package:library_base/utils/sp_util.dart';
 import 'package:library_base/utils/toast_util.dart';
 import 'package:library_base/utils/jpush_util.dart';
+import 'package:module_mine/mine_router.dart';
 import 'package:provider/provider.dart';
 import 'package:umeng_analytics_plugin/umeng_analytics_plugin.dart';
 
@@ -93,7 +95,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Routers.init();
+    Routers.init([
+      MainRouter(),
+      MineRouter()
+    ]);
 
     return Consumer2<ThemeProvider, LocaleProvider>(
         builder: (context, themeProvider, localeModel, _) {

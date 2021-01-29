@@ -13,12 +13,12 @@ import 'package:library_base/widget/clickbar/setting_clickbar.dart';
 import 'package:library_base/widget/common_scroll_view.dart';
 import 'package:library_base/widget/textfield/pwd_text_field.dart';
 import 'package:library_base/widget/textfield/verify_text_field.dart';
-import 'package:lighthouse/ui/module_mine/viewmodel/modify_pwd_model.dart';
-import 'package:lighthouse/ui/module_mine/viewmodel/verify_model.dart';
 import 'package:library_base/utils/encrypt_util.dart';
 import 'package:library_base/utils/object_util.dart';
 import 'package:library_base/utils/other_util.dart';
 import 'package:library_base/utils/toast_util.dart';
+import 'package:module_mine/viewmodel/modify_pwd_model.dart';
+import 'package:module_mine/viewmodel/verify_model.dart';
 
 class ModifyPwdPage extends StatefulWidget {
   @override

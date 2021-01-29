@@ -9,16 +9,16 @@ import 'package:library_base/global/rt_account.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
-import 'package:lighthouse/router/fade_route.dart';
-import 'package:lighthouse/router/routers.dart';
+import 'package:library_base/router/fade_route.dart';
+import 'package:library_base/router/routers.dart';
 import 'package:library_base/widget/button/back_button.dart';
 import 'package:library_base/widget/clickbar/setting_avatar_clickbar.dart';
 import 'package:library_base/widget/clickbar/setting_clickbar.dart';
 import 'package:library_base/widget/common_scroll_view.dart';
 import 'package:library_base/widget/dialog/dialog_util.dart';
 import 'package:library_base/widget/image/gallery_photo.dart';
-import 'package:lighthouse/ui/module_mine/viewmodel/setting_model.dart';
 import 'package:library_base/utils/toast_util.dart';
+import 'package:module_mine/viewmodel/setting_model.dart';
 
 class SettingPage extends StatefulWidget {
 

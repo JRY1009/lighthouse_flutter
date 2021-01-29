@@ -7,12 +7,12 @@ import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/net/model/area.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/styles.dart';
-import 'package:lighthouse/router/routers.dart';
+import 'package:library_base/router/routers.dart';
 import 'package:library_base/widget/button/back_button.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh.dart';
 import 'package:library_base/widget/easyrefresh/loading_empty.dart';
 import 'package:library_base/widget/textfield/search_text_field.dart';
-import 'package:lighthouse/ui/module_mine/item/area_item.dart';
+import 'package:module_mine/item/area_item.dart';
 
 
 class AreaPage extends StatefulWidget {

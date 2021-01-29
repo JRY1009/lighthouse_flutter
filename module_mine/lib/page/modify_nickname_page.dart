@@ -10,10 +10,10 @@ import 'package:library_base/res/styles.dart';
 import 'package:library_base/widget/button/back_button.dart';
 import 'package:library_base/widget/common_scroll_view.dart';
 import 'package:library_base/widget/textfield/normal_text_field.dart';
-import 'package:lighthouse/ui/module_mine/viewmodel/modify_nickname_model.dart';
 import 'package:library_base/utils/object_util.dart';
 import 'package:library_base/utils/other_util.dart';
 import 'package:library_base/utils/toast_util.dart';
+import 'package:module_mine/viewmodel/modify_nickname_model.dart';
 
 class ModifyNicknamePage extends StatefulWidget {
   @override

@@ -1,51 +1,72 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:library_base/global/rt_account.dart';
-import 'package:lighthouse/router/router_handler.dart';
+import 'package:library_base/router/i_router.dart';
+import 'package:library_base/router/page_builder.dart';
+import 'package:library_base/router/parameters.dart';
 import 'package:library_base/utils/log_util.dart';
 
 ///使用fluro进行路由管理
 class Routers {
   static FluroRouter router;
 
+  static Map<String, PageBuilder> pageRounters = {};
+
   static String webviewPage = '/webviewPage';
-  static String loginPage = '/loginPage';
-  static String loginSmsPage = '/loginSmsPage';
-  static String areaPage = '/areaPage';
   static String mainPage = '/mainPage';
-  static String settingPage = '/settingPage';
-  static String modifyNicknamePage = '/modifyNicknamePage';
-  static String modifyPwdPage = '/modifyPwdPage';
   static String spotDetailPage = '/spotDetailPage';
   static String globalQuotePage = '/globalQuotePage';
   static String treemapPage = '/treemapPage';
   static String milestonePage = '/milestonePage';
 
-  static void init() {
+  static String minePage = '/minePage';
+  static String loginPage = '/loginPage';
+  static String loginSmsPage = '/loginSmsPage';
+  static String areaPage = '/areaPage';
+  static String settingPage = '/settingPage';
+  static String modifyNicknamePage = '/modifyNicknamePage';
+  static String modifyPwdPage = '/modifyPwdPage';
+
+  static void init(List<IRouter> listRouter) {
     router = FluroRouter();
-    configureRoutes(router);
+    configureRoutes(router, listRouter);
   }
 
+
   ///路由配置
-  static void configureRoutes(FluroRouter router) {
+  static void configureRoutes(FluroRouter router, List<IRouter> listRouter) {
     router.notFoundHandler = Handler(
         handlerFunc: (BuildContext context, Map<String, List<String>> params) {
       print("route is not find !");
       return null;
     });
 
-    router.define(webviewPage, handler: webviewPageHandler);
-    router.define(loginPage, handler: loginPageHandler);
-    router.define(loginSmsPage, handler: loginSmsPageHandler);
-    router.define(areaPage, handler: areaPageHandler);
-    router.define(mainPage, handler: mainPageHandler);
-    router.define(settingPage, handler: settingPageHandler);
-    router.define(modifyNicknamePage, handler: modifyNicknamePageHandler);
-    router.define(modifyPwdPage, handler: modifyPwdPageHandler);
-    router.define(spotDetailPage, handler: spotDetailPageHandler);
-    router.define(globalQuotePage, handler: globalQuotePageHandler);
-    router.define(treemapPage, handler: treemapPageHandler);
-    router.define(milestonePage, handler: milestonePageHandler);
+    listRouter.forEach((routerImpl) {
+      List<PageBuilder> pages = routerImpl.getPageBuilders();
+      pages.forEach((page) {
+        router.define(page.path, handler: page.handler);
+        pageRounters[page.path] = page;
+      });
+    });
+  }
+
+  /**
+   * 生成对应的page
+   */
+  static Widget generatePage(BuildContext context, String path,
+      {Parameters parameters}) {
+
+    PageBuilder pageBuilder = pageRounters[path];
+    Handler handler = (pageBuilder != null ? pageBuilder?.handler : router.notFoundHandler);
+
+    pageBuilder.parameters = parameters ?? Parameters();
+    return handler.handlerFunc(context, {});
+
+//    AppRouteMatch match = router.match(path);
+//    AppRoute route = match?.route;
+//
+//    Handler handler = (route != null ? route?.handler : router.notFoundHandler);
+//    return handler.handlerFunc(context, params);
   }
 
   // 对参数进行encode，解决参数中有特殊字符，影响fluro路由匹配(https://www.jianshu.com/p/e575787d173c)

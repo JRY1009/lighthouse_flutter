@@ -2,40 +2,40 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
-import 'package:library_base/model/account.dart';
 import 'package:library_base/mvvm/base_page.dart';
+import 'package:library_base/model/account.dart';
 import 'package:library_base/global/rt_account.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
-import 'package:lighthouse/router/routers.dart';
+import 'package:library_base/router/routers.dart';
 import 'package:library_base/widget/button/gradient_button.dart';
 import 'package:library_base/widget/common_scroll_view.dart';
 import 'package:library_base/widget/image/local_image.dart';
 import 'package:library_base/widget/textfield/account_text_field.dart';
-import 'package:library_base/widget/textfield/verify_text_field.dart';
-import 'package:lighthouse/ui/module_mine/viewmodel/login_model.dart';
-import 'package:lighthouse/ui/module_mine/viewmodel/verify_model.dart';
+import 'package:library_base/widget/textfield/pwd_text_field.dart';
 import 'package:library_base/utils/date_util.dart';
+import 'package:library_base/utils/encrypt_util.dart';
 import 'package:library_base/utils/object_util.dart';
 import 'package:library_base/utils/other_util.dart';
 import 'package:library_base/utils/toast_util.dart';
+import 'package:module_mine/viewmodel/login_model.dart';
 
-class LoginSmsPage extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   @override
-  _LoginSmsPageState createState() => _LoginSmsPageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSmsPage> {
+class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
 
   final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _verifyController = TextEditingController();
+  final TextEditingController _pwdController = TextEditingController();
   final FocusNode _phoneNode = FocusNode();
-  final FocusNode _verifyNode = FocusNode();
+  final FocusNode _pwdNode = FocusNode();
 
   LoginModel _loginModel;
-  VerifyModel _verifyModel;
 
   String _area_code;
   bool _loginEnabled = false;
@@ -58,6 +58,7 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
       // _phoneController.text = t?.last;
       _area_code = '+86';
       _phoneController.text = account.phone;
+      _pwdController.text = 'tt123456';
     } else {
       _area_code = '+86';
     }
@@ -65,12 +66,9 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
 
   void initViewModel() {
     _loginModel = LoginModel();
-    _verifyModel = VerifyModel();
-
     _loginModel.addListener(() {
       if (_loginModel.isBusy) {
         showProgress(content: S.current.logingin);
-
       } else if (_loginModel.isError) {
         closeProgress();
         ToastUtil.error(_loginModel.viewStateError.message);
@@ -82,25 +80,11 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
         Routers.navigateTo(context, Routers.mainPage, clearStack: true);
       }
     });
-
-    _verifyModel.addListener(() {
-      if (_verifyModel.isBusy) {
-        showProgress(content: S.current.verifyin);
-
-      } else if (_verifyModel.isError) {
-        closeProgress();
-        ToastUtil.error(_verifyModel.viewStateError.message);
-
-      } else if (_verifyModel.isSuccess) {
-        closeProgress();
-        ToastUtil.normal(S.current.verifySended);
-      }
-    });
   }
 
   void _checkInput() {
     setState(() {
-      if (ObjectUtil.isEmpty(_phoneController.text) || ObjectUtil.isEmpty(_verifyController.text)) {
+      if (ObjectUtil.isEmpty(_phoneController.text)) {
         _loginEnabled = false;
       } else {
         _loginEnabled = true;
@@ -109,15 +93,16 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
   }
 
   void _login() {
-    //String phone = _area_code + ' ' + _phoneController.text;
     String phone = _phoneController.text;
-    String verify = _verifyController.text;
+    String pwd = _pwdController.text;
     int nonce = DateUtil.getNowDateMs() * 1000;
+    String pwdMd5 = EncryptUtil.encodeMd5(EncryptUtil.encodeMd5(pwd) + nonce.toString()).toLowerCase();
 
-    _loginModel.loginSms(phone, verify);
+    _loginModel.login(phone, pwdMd5, nonce);
   }
 
   void _selectArea() {
+
     Map<String, dynamic> params = {
       'areaCode': _area_code,
     };
@@ -129,8 +114,8 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
     }, transition: TransitionType.materialFullScreenDialog);
   }
 
-  void _pwdLogin() {
-    Routers.navigateTo(context, Routers.loginPage, clearStack: true);
+  void _smsLogin() {
+    Routers.navigateTo(context, Routers.loginSmsPage, clearStack: true);
   }
 
   void _jump2Register() {
@@ -140,16 +125,6 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
     };
 
     Routers.navigateTo(context, Routers.webviewPage, params: params);
-  }
-
-  Future<bool> _getVCode() async {
-    String phone = _phoneController.text;
-    if (ObjectUtil.isEmptyString(phone)) {
-      ToastUtil.normal(S.current.loginPhoneHint);
-      return Future.value(false);
-    }
-
-    return _verifyModel.getVCode(phone, VerifyModel.SMS_LOGIN);
   }
 
   @override
@@ -164,7 +139,7 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
           automaticallyImplyLeading: false,
         ),
         body: CommonScrollView(
-          keyboardConfig: OtherUtil.getKeyboardActionsConfig(context, <FocusNode>[_phoneNode, _verifyNode]),
+          keyboardConfig: OtherUtil.getKeyboardActionsConfig(context, <FocusNode>[_phoneNode, _pwdNode]),
           padding: const EdgeInsets.only(left: 24.0, right: 24.0, top: 20.0),
           children: <Widget>[
             Gaps.vGap32,
@@ -172,7 +147,7 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
-                  child: LocalImage('logo', width: 60, height: 60),
+                  child: LocalImage('logo', package: Constant.baseLib, width: 60, height: 60,),
                 ),
                 Expanded(
                   flex: 1,
@@ -186,7 +161,7 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
                               height: 22,
                               padding: EdgeInsets.only(bottom: 1),
                               alignment: Alignment.centerLeft,
-                              child: Text(S.of(context).smsLogin,
+                              child: Text(S.of(context).pwdLogin,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyles.textGray800_w400_17)
@@ -195,7 +170,7 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
                           Container(
                               height: 22,
                               alignment: Alignment.centerLeft,
-                              child: Text(S.of(context).smsLoginTips,
+                              child: Text(S.of(context).pwdLoginTips,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyles.textGray400_w400_12)
@@ -207,6 +182,7 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
               ],
             ),
             Gaps.vGap32,
+
             AccountTextField(
               focusNode: _phoneNode,
               controller: _phoneController,
@@ -215,11 +191,10 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
               onPrefixPressed: _selectArea,
             ),
             Gaps.vGap16,
-            VerifyTextField(
-              focusNode: _verifyNode,
-              controller: _verifyController,
+            PwdTextField(
+              focusNode: _pwdNode,
+              controller: _pwdController,
               onTextChanged: _checkInput,
-              getVCode: _getVCode,
             ),
             Gaps.vGap46,
             GradientButton(
@@ -238,10 +213,10 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
               alignment: Alignment.center,
               child: InkWell(
                 child: Text(
-                  S.of(context).pwdLogin,
+                  S.of(context).smsLogin,
                   style: TextStyles.textGray500_w400_15,
                 ),
-                onTap: _pwdLogin,
+                onTap: _smsLogin,
               ),
             ),
           ],

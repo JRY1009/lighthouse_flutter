@@ -7,12 +7,13 @@ import 'package:library_base/widget/double_tap_back_exit_app.dart';
 import 'package:library_base/net/websocket_util.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/dimens.dart';
+import 'package:library_base/router/parameters.dart';
+import 'package:library_base/router/routers.dart';
 import 'package:lighthouse/ui/module_base/viewmodel/main_model.dart';
 import 'package:library_base/widget/image/frame_animation_image.dart';
 import 'package:library_base/widget/image/local_image.dart';
 import 'package:lighthouse/ui/module_home/page/home_page.dart';
 import 'package:lighthouse/ui/module_info/page/info_page.dart';
-import 'package:lighthouse/ui/module_mine/page/mine_page.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -56,7 +57,8 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
     _pageList = [
       HomePage(key: _keyList[0]),
       InfoPage(key: _keyList[1]),
-      MinePage(key: _keyList[2]),
+      Routers.generatePage(context, Routers.minePage, parameters: Parameters()..putObj('key', _keyList[2]))
+      //MinePage(key: _keyList[2]),
     ];
   }
 

@@ -34,12 +34,12 @@ mixin BasePageMixin<T extends StatefulWidget> on State<T> implements IBasePage {
 
   @override
   Future<void> refresh({slient = false}) {
-
+    LogUtil.v('$T ==> refresh');
   }
 
   @override
   Future<Uint8List> screenShot() {
-
+    LogUtil.v('$T ==> screenShot');
   }
 
   @override
