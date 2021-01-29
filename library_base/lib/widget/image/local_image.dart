@@ -7,6 +7,7 @@ class LocalImage extends StatelessWidget {
   
   const LocalImage(this.image, {
     Key key,
+    this.package,
     this.width,
     this.height, 
     this.cacheWidth,
@@ -18,6 +19,7 @@ class LocalImage extends StatelessWidget {
   }): super(key: key);
 
   final String image;
+  final String package;
   final double width;
   final double height;
   final int cacheWidth;
@@ -32,6 +34,7 @@ class LocalImage extends StatelessWidget {
 
     return Image.asset(
       ImageUtil.getImgPath(image, format: format),
+      package: package,
       height: height,
       width: width,
       cacheWidth: cacheWidth,

@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
@@ -188,7 +189,7 @@ class NewsItem extends StatelessWidget {
                               Gaps.hGap4,
                               Container(
                                 margin: EdgeInsets.only(top: 2),
-                                child: LocalImage('icon_share', width: 12, height: 12),
+                                child: LocalImage('icon_share', package: Constant.baseLib, width: 12, height: 12),
                               )
 
                             ],

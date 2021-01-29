@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:fluwx/fluwx.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/net/apis.dart';
 import 'package:library_base/res/colors.dart';
@@ -107,7 +108,7 @@ class ShareDialog extends StatelessWidget {
       child: Container(
         child: Column(
           children: [
-            LocalImage('icon_share_wechat', width: 48, height: 48),
+            LocalImage('icon_share_wechat', package: Constant.baseLib, width: 48, height: 48),
             Gaps.vGap4,
             Text(S.of(context).shareWechat,
               style: TextStyles.textGray800_w400_12,
@@ -125,7 +126,7 @@ class ShareDialog extends StatelessWidget {
       child: Container(
         child: Column(
           children: [
-            LocalImage('icon_share_friend', width: 48, height: 48),
+            LocalImage('icon_share_friend', package: Constant.baseLib, width: 48, height: 48),
             Gaps.vGap4,
             Text(S.of(context).shareFriend,
               style: TextStyles.textGray800_w400_12,
@@ -143,7 +144,7 @@ class ShareDialog extends StatelessWidget {
       child: Container(
         child: Column(
           children: [
-            LocalImage('icon_share_save', width: 48, height: 48),
+            LocalImage('icon_share_save', package: Constant.baseLib, width: 48, height: 48),
             Gaps.vGap4,
             Text(S.of(context).shareSave,
               style: TextStyles.textGray800_w400_12,
@@ -161,7 +162,7 @@ class ShareDialog extends StatelessWidget {
       child: Container(
         child: Column(
           children: [
-            LocalImage('icon_share_more', width: 48, height: 48),
+            LocalImage('icon_share_more', package: Constant.baseLib, width: 48, height: 48),
             Gaps.vGap4,
             Text(S.of(context).shareMore,
               style: TextStyles.textGray800_w400_12,

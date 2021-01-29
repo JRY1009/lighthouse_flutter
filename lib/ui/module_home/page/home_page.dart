@@ -139,6 +139,7 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
                 pinned: true, // 固定在顶部
                 flexibleSpace: AnnotatedRegion<SystemUiOverlayStyle>(
                   value: SystemUiOverlayStyle(
+                    statusBarIconBrightness: _opacityNofifier.value <= 0.5 ? Brightness.light : Brightness.dark,
                     statusBarColor: Colors.transparent,
                     systemNavigationBarColor: Colors.white,
                   ),

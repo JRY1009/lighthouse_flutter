@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:library_base/constant/constant.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/utils/image_util.dart';
@@ -64,7 +65,7 @@ class _SettingAvatarClickBarState extends State<SettingAvatarClickBar> {
                   borderWidth: 0,
                   borderColor: Colours.white,
                   placeholderImage: DecorationImage(
-                    image: AssetImage(ImageUtil.getImgPath('icon_default_head')),
+                    image: AssetImage(ImageUtil.getImgPath('icon_default_head'), package: Constant.baseLib),
                     fit: BoxFit.fill,
                   ),
                 ),
