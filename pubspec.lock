@@ -378,6 +378,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.9.7"
+  module_info:
+    dependency: "direct main"
+    description:
+      path: module_info
+      relative: true
+    source: path
+    version: "1.0.0+1"
   module_mine:
     dependency: "direct main"
     description:

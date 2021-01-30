@@ -10,6 +10,8 @@ import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
+import 'package:library_base/router/parameters.dart';
+import 'package:library_base/router/routers.dart';
 import 'package:library_base/widget/button/back_button.dart';
 import 'package:library_base/widget/dialog/dialog_util.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh.dart';
@@ -20,7 +22,6 @@ import 'package:lighthouse/ui/module_home/page/spot_quote_page.dart';
 import 'package:lighthouse/ui/module_home/viewmodel/spot_detail_model.dart';
 import 'package:lighthouse/ui/module_home/widget/spot_detail_appbar.dart';
 import 'package:lighthouse/ui/module_home/widget/spot_detail_kline_bar.dart';
-import 'package:lighthouse/ui/module_info/page/article_list_page.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
 import 'package:library_base/utils/log_util.dart';
 import 'package:library_base/utils/num_util.dart';
@@ -232,10 +233,12 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
                                   SpotDataPage(key: _spotDetailModel.keyList[2], coinCode: widget.coinCode)
                               ),
                               extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[3]),
-                                  ArticleListPage(key: _spotDetailModel.keyList[3],
-                                    isSupportPull: false,
-                                    isSingleCard: true,
-                                    tag: widget.coinCode
+                                  Routers.generatePage(context, Routers.articleListPage,
+                                      parameters: Parameters()
+                                        ..putObj('key', _spotDetailModel.keyList[3])
+                                        ..putBool('isSupportPull', false)
+                                        ..putBool('isSingleCard', true)
+                                        ..putString('tag', widget.coinCode)
                                   )
                               )
                             ],

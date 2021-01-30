@@ -20,6 +20,10 @@ class Routers {
   static String treemapPage = '/treemapPage';
   static String milestonePage = '/milestonePage';
 
+  static String infoPage = '/infoPage';
+  static String articleListPage = '/articleListPage';
+  static String newsListPage = '/newsListPage';
+
   static String minePage = '/minePage';
   static String loginPage = '/loginPage';
   static String loginSmsPage = '/loginSmsPage';

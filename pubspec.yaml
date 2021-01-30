@@ -29,6 +29,9 @@ dependencies:
   library_base:
     path: library_base
 
+  module_info:
+    path: module_info
+
   module_mine:
     path: module_mine
 

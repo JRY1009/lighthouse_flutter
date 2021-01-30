@@ -8,6 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:library_base/res/colors.dart';
+import 'package:library_base/router/parameters.dart';
+import 'package:library_base/router/routers.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh.dart';
 import 'package:lighthouse/ui/module_home/viewmodel/home_model.dart';
 import 'package:lighthouse/ui/module_home/widget/home_flexible_appbar.dart';
@@ -15,7 +17,6 @@ import 'package:lighthouse/ui/module_home/widget/home_milestone_bar.dart';
 import 'package:lighthouse/ui/module_home/widget/home_pinned_appbar.dart';
 import 'package:lighthouse/ui/module_home/widget/home_quote_treemap_bar.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
-import 'package:lighthouse/ui/module_info/page/article_list_page.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -107,7 +108,13 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
                     headerSliverBuilder: (context, innerBoxIsScrolled) => _headerSliverBuilder(context),
                     body: extended.NestedScrollViewInnerScrollPositionKeyWidget(
                       Key('Tab0'),
-                      ArticleListPage(key: model.articlePageKey, isSupportPull: false, isSingleCard: true),
+                      Routers.generatePage(context, Routers.articleListPage,
+                          parameters: Parameters()
+                            ..putObj('key', model.articlePageKey)
+                            ..putBool('isSupportPull', false)
+                            ..putBool('isSingleCard', true)
+                      ),
+
                     ),
                   ),
                 ),

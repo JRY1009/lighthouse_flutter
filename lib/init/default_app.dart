@@ -18,6 +18,7 @@ import 'package:library_base/utils/sp_util.dart';
 import 'package:library_base/utils/toast_util.dart';
 import 'package:lighthouse/main_router.dart';
 import 'package:lighthouse/ui/module_base/page/splash_page.dart';
+import 'package:module_info/info_router.dart';
 import 'package:module_mine/mine_router.dart';
 import 'package:umeng_analytics_plugin/umeng_analytics_plugin.dart';
 
@@ -86,6 +87,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Routers.init([
       MainRouter(),
+      InfoRouter(),
       MineRouter()
     ]);
 
@@ -95,10 +97,10 @@ class MyApp extends StatelessWidget {
         builder: (context, themeProvider, localeModel, _) {
           return ToastUtil.init(MaterialApp(
             title: 'LightHouse',
+            home: SplashPage(),
             theme:  themeProvider.getThemeData(),
             darkTheme: themeProvider.getThemeData(isDarkMode: true),
             themeMode: themeProvider.getThemeMode(),
-            home: SplashPage(),
             onGenerateRoute: Routers.router.generator,
             navigatorObservers: [AppAnalysis()],
             locale: localeModel.getLocale(),

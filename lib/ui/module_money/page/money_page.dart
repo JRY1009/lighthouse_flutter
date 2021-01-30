@@ -7,7 +7,6 @@ import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/widget/tab/bubble_indicator.dart';
-import 'package:lighthouse/ui/module_info/page/article_list_page.dart';
 import 'package:library_base/utils/image_util.dart';
 import 'package:library_base/utils/screen_util.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
@@ -123,8 +122,8 @@ class _MoneyPageState extends State<MoneyPage> with BasePageMixin<MoneyPage>, Au
                       child: TabBarView(
                         controller: _tabController,
                         children: <Widget>[
-                          extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[0]), ArticleListPage(key: _keyList[0], isSupportPull: true)),
-                          extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[1]), ArticleListPage(key: _keyList[1], isSupportPull: true)),
+                          extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[0]), Container(color: Colors.red)),
+                          extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[1]), Container(color: Colors.yellow)),
                         ],
                       ),
                     )
