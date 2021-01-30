@@ -1,8 +1,9 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:library_base/global/rt_account.dart';
+import 'package:library_base/page/not_found_page.dart';
+import 'package:library_base/page/web_view_page.dart';
 import 'package:library_base/router/i_router.dart';
-import 'package:library_base/router/not_found_page.dart';
 import 'package:library_base/router/page_builder.dart';
 import 'package:library_base/router/parameters.dart';
 import 'package:library_base/utils/log_util.dart';
@@ -44,8 +45,17 @@ class Routers {
   static void configureRoutes(FluroRouter router, List<IRouter> listRouter) {
     router.notFoundHandler = Handler(
         handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-      return NotFoundPage();
-    });
+          return NotFoundPage();
+        });
+
+    router.define(
+        Routers.webviewPage,
+        handler: PageBuilder(Routers.webviewPage, (params) {
+          String title = params?.getString('title');
+          String url = params?.getString('url');
+          return WebViewPage(url, title);
+        }).handler
+    );
 
     listRouter.forEach((routerImpl) {
       List<PageBuilder> pages = routerImpl.getPageBuilders();
