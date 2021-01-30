@@ -2,11 +2,8 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:library_base/res/colors.dart';
 import 'package:library_base/router/routers.dart';
-import 'package:lighthouse/ui/module_base/viewmodel/splash_model.dart';
-import 'package:library_base/widget/image/local_image.dart';
-import 'package:library_base/utils/image_util.dart';
+import 'package:lighthouse/viewmodel/splash_model.dart';
 
 class SplashPage extends StatefulWidget {
   SplashPage({Key key}) : super(key: key);

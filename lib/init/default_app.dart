@@ -17,7 +17,7 @@ import 'package:library_base/utils/log_util.dart';
 import 'package:library_base/utils/sp_util.dart';
 import 'package:library_base/utils/toast_util.dart';
 import 'package:lighthouse/main_router.dart';
-import 'package:lighthouse/ui/module_base/page/splash_page.dart';
+import 'package:lighthouse/page/splash_page.dart';
 import 'package:module_home/home_router.dart';
 import 'package:module_info/info_router.dart';
 import 'package:module_mine/mine_router.dart';
