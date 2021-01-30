@@ -50,7 +50,6 @@ class CircleImage extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(radius)),
           border: Border.all(color: borderColor, width: borderWidth, style: BorderStyle.solid),
           color: Colours.gray_200,
-          image: placeholderImage,
         ),
       ),
       errorWidget: (_, __, dynamic error) => Container(

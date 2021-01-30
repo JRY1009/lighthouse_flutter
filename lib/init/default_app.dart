@@ -5,21 +5,20 @@ import 'package:flutter_xupdate/flutter_xupdate.dart';
 import 'package:fluwx/fluwx.dart';
 import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
+import 'package:library_base/global/locale_provider.dart';
+import 'package:library_base/global/theme_provider.dart';
+import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:library_base/net/apis.dart';
 import 'package:library_base/router/app_analysis.dart';
 import 'package:library_base/router/routers.dart';
-import 'package:lighthouse/main_router.dart';
-import 'package:lighthouse/provider/locale_provider.dart';
-import 'package:lighthouse/provider/store.dart';
-import 'package:lighthouse/provider/theme_provider.dart';
-import 'package:lighthouse/ui/module_base/page/splash_page.dart';
 import 'package:library_base/utils/device_util.dart';
+import 'package:library_base/utils/jpush_util.dart';
 import 'package:library_base/utils/log_util.dart';
 import 'package:library_base/utils/sp_util.dart';
 import 'package:library_base/utils/toast_util.dart';
-import 'package:library_base/utils/jpush_util.dart';
+import 'package:lighthouse/main_router.dart';
+import 'package:lighthouse/ui/module_base/page/splash_page.dart';
 import 'package:module_mine/mine_router.dart';
-import 'package:provider/provider.dart';
 import 'package:umeng_analytics_plugin/umeng_analytics_plugin.dart';
 
 //默认App的启动
@@ -41,7 +40,7 @@ class DefaultApp {
 
     await SPUtil.init();
 
-    runApp(Store.init(MyApp()));
+    runApp(MyApp());
 
     initApp();
   }
@@ -55,8 +54,8 @@ class DefaultApp {
     if (DeviceUtil.isAndroid) {
       // 透明状态栏
       const SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          systemNavigationBarColor: Colors.white,
+        statusBarColor: Colors.transparent,
+        systemNavigationBarColor: Colors.white,
       );
       SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
 
@@ -76,22 +75,12 @@ class DefaultApp {
           ///在下载过程中，如果点击了取消的话，是否弹出切换下载方式的重试提示弹窗
           enableRetry: false
       );
-
     }
-
   }
 }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-
-  final Widget home;
-  final ThemeData theme;
-
-  MyApp({
-    this.home,
-    this.theme
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -100,38 +89,42 @@ class MyApp extends StatelessWidget {
       MineRouter()
     ]);
 
-    return Consumer2<ThemeProvider, LocaleProvider>(
+    return ProviderWidget2(
+        model1: ThemeProvider(),
+        model2: LocaleProvider(SPUtil.getString(SPUtil.key_locale)),
         builder: (context, themeProvider, localeModel, _) {
-      return ToastUtil.init(MaterialApp(
-        title: 'LightHouse',
-        theme: theme ?? themeProvider.getThemeData(),
-        darkTheme: themeProvider.getThemeData(isDarkMode: true),
-        themeMode: themeProvider.getThemeMode(),
-        home: home ?? SplashPage(),
-        onGenerateRoute: Routers.router.generator,
-        navigatorObservers: [AppAnalysis()],
-        locale: localeModel.getLocale(),
-        localizationsDelegates: const [
-          S.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate
-        ],
-        supportedLocales: S.delegate.supportedLocales,
-        localeResolutionCallback:
-            (Locale _locale, Iterable<Locale> supportedLocales) {
-          if (localeModel.getLocale() != null) {
-            //如果已经选定语言，则不跟随系统
-            return localeModel.getLocale();
-          } else {
-            //跟随系统
-            if (S.delegate.isSupported(_locale)) {
-              return _locale;
-            }
-            return supportedLocales.first;
-          }
-        },
-      ));
-    });
+          return ToastUtil.init(MaterialApp(
+            title: 'LightHouse',
+            theme:  themeProvider.getThemeData(),
+            darkTheme: themeProvider.getThemeData(isDarkMode: true),
+            themeMode: themeProvider.getThemeMode(),
+            home: SplashPage(),
+            onGenerateRoute: Routers.router.generator,
+            navigatorObservers: [AppAnalysis()],
+            locale: localeModel.getLocale(),
+            localizationsDelegates: const [
+              S.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate
+            ],
+            supportedLocales: S.delegate.supportedLocales,
+            localeResolutionCallback:
+                (Locale _locale, Iterable<Locale> supportedLocales) {
+              if (localeModel.getLocale() != null) {
+                //如果已经选定语言，则不跟随系统
+                return localeModel.getLocale();
+              } else {
+                //跟随系统
+                if (S.delegate.isSupported(_locale)) {
+                  return _locale;
+                }
+                return supportedLocales.first;
+              }
+            },
+          )
+          );
+        }
+    );
   }
 }
