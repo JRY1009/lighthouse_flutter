@@ -15,6 +15,8 @@ class Routers {
 
   static String webviewPage = '/webviewPage';
   static String mainPage = '/mainPage';
+
+  static String homePage = '/homePage';
   static String spotDetailPage = '/spotDetailPage';
   static String globalQuotePage = '/globalQuotePage';
   static String treemapPage = '/treemapPage';

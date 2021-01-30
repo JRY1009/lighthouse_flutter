@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/widget/common_scroll_view.dart';
@@ -26,7 +27,7 @@ class LoadingEmptyTop extends StatelessWidget {
           Container(
             alignment: Alignment.center,
             margin: EdgeInsets.only(top: top),
-            child: LocalImage('img_nodata', width: 100, height: 100,),
+            child: LocalImage('img_nodata', width: 100, height: 100, package: Constant.baseLib),
           ),
           Container(
             alignment: Alignment.center,

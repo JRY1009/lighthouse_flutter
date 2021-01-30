@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
@@ -134,7 +135,7 @@ class ShareNewsHeader extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colours.gray_100,
         image: DecorationImage(
-          image: AssetImage(ImageUtil.getImgPath('bg_share_news')),
+          image: AssetImage(ImageUtil.getImgPath('bg_share_news'), package: Constant.baseLib),
           fit: BoxFit.fill,
         ),
         //borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
@@ -143,7 +144,7 @@ class ShareNewsHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          LocalImage('logo', width: 48, height: 48),
+          LocalImage('logo', width: 48, height: 48, package: Constant.baseLib),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 5),
             alignment: Alignment.centerLeft,

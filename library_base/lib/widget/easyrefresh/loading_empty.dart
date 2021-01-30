@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/widget/image/local_image.dart';
@@ -29,7 +30,7 @@ class LoadingEmpty extends StatelessWidget {
           SizedBox(
             width: 100.0,
             height: 100.0,
-            child: LocalImage(image ?? 'img_nodata'),
+            child: LocalImage(image ?? 'img_nodata', package: Constant.baseLib),
           ),
           Text(
             text ?? S.of(context).noData,
