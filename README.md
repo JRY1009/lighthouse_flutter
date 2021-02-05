@@ -51,7 +51,7 @@
 | [lpinyin](https://github.com/flutterchina/lpinyin)              | **汉字转拼音**   |
 | [date_utils](https://github.com/apptreesoftware/date_utils)           | **常用的日期工具类** |
 | [fl_chart](https://github.com/imaNNeoFighT/fl_chart)               | **图表库**       |
-| [flutter_echarts](ttps://github.com/entronad/flutter_echarts)                   | **基于echart的图表库**   |
+| [flutter_echarts](https://github.com/entronad/flutter_echarts)                   | **基于echart的图表库**   |
 | [qr_flutter](https://github.com/apptreesoftware/flutter_barcode_reader)     | **二维码** |
 | [intl](https://github.com/dart-lang/intl)     | **本地化** |
 | [umeng_analytics_plugin](https://github.com/flmn/umeng_analytics_plugin)     | **友盟统计** |
