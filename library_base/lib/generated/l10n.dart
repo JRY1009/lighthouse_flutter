@@ -1204,6 +1204,196 @@ class S {
       args: [],
     );
   }
+
+  /// `我的资产`
+  String get myMoney {
+    return Intl.message(
+      '我的资产',
+      name: 'myMoney',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `已成为灯塔塔民{param}天`
+  String becomeUserDays(Object param) {
+    return Intl.message(
+      '已成为灯塔塔民$param天',
+      name: 'becomeUserDays',
+      desc: '',
+      args: [param],
+    );
+  }
+
+  /// `总资产`
+  String get totalAssets {
+    return Intl.message(
+      '总资产',
+      name: 'totalAssets',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `资产走势`
+  String get assetsTrend {
+    return Intl.message(
+      '资产走势',
+      name: 'assetsTrend',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `收益走势`
+  String get profitTrend {
+    return Intl.message(
+      '收益走势',
+      name: 'profitTrend',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `资产指标`
+  String get assetsIndex {
+    return Intl.message(
+      '资产指标',
+      name: 'assetsIndex',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `今日盈亏`
+  String get proTodayProfit {
+    return Intl.message(
+      '今日盈亏',
+      name: 'proTodayProfit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `今日盈亏率`
+  String get proTodayProfitRate {
+    return Intl.message(
+      '今日盈亏率',
+      name: 'proTodayProfitRate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `已接入交易所`
+  String get proLinkedExchangeCount {
+    return Intl.message(
+      '已接入交易所',
+      name: 'proLinkedExchangeCount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `累计盈亏`
+  String get proTotalProfit {
+    return Intl.message(
+      '累计盈亏',
+      name: 'proTotalProfit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `累计盈亏率`
+  String get proTotalProfitRate {
+    return Intl.message(
+      '累计盈亏率',
+      name: 'proTotalProfitRate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `最大回撤`
+  String get proMaxRetracement {
+    return Intl.message(
+      '最大回撤',
+      name: 'proMaxRetracement',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `交易次数`
+  String get proNumOfTrade {
+    return Intl.message(
+      '交易次数',
+      name: 'proNumOfTrade',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `盈利次数`
+  String get proNumOfGain {
+    return Intl.message(
+      '盈利次数',
+      name: 'proNumOfGain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `亏损次数`
+  String get proNumOfLoss {
+    return Intl.message(
+      '亏损次数',
+      name: 'proNumOfLoss',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `交易量`
+  String get proTradeVolume {
+    return Intl.message(
+      '交易量',
+      name: 'proTradeVolume',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `手续费`
+  String get proFee {
+    return Intl.message(
+      '手续费',
+      name: 'proFee',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `交易胜率`
+  String get proWinRate {
+    return Intl.message(
+      '交易胜率',
+      name: 'proWinRate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `支持交易所`
+  String get supportExchanges {
+    return Intl.message(
+      '支持交易所',
+      name: 'supportExchanges',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

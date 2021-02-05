@@ -27,6 +27,8 @@ class Routers {
   static String articleListPage = '/articleListPage';
   static String newsListPage = '/newsListPage';
 
+  static String moneyPage = '/moneyPage';
+
   static String minePage = '/minePage';
   static String loginPage = '/loginPage';
   static String loginSmsPage = '/loginSmsPage';

@@ -20,6 +20,7 @@ import 'package:lighthouse/main_router.dart';
 import 'package:lighthouse/page/splash_page.dart';
 import 'package:module_home/home_router.dart';
 import 'package:module_info/info_router.dart';
+import 'package:module_money/money_router.dart';
 import 'package:module_mine/mine_router.dart';
 import 'package:umeng_analytics_plugin/umeng_analytics_plugin.dart';
 
@@ -90,6 +91,7 @@ class MyApp extends StatelessWidget {
       MainRouter(),
       HomeRouter(),
       InfoRouter(),
+      MoneyRouter(),
       MineRouter()
     ]);
 

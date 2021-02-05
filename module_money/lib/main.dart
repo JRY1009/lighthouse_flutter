@@ -8,8 +8,9 @@ import 'package:library_base/utils/device_util.dart';
 import 'package:library_base/utils/log_util.dart';
 import 'package:library_base/utils/sp_util.dart';
 import 'package:library_base/utils/toast_util.dart';
-import 'package:module_mine/mine_router.dart';
-import 'package:module_mine/page/mine_page.dart';
+
+import 'page/money_page.dart';
+import 'money_router.dart';
 
 void main() => runApp(MyApp());
 
@@ -46,13 +47,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Routers.init([MineRouter()]);
+    Routers.init([MoneyRouter()]);
 
-    MineRouter.isRunModule = true;
+    MoneyRouter.isRunModule = true;
 
     return ToastUtil.init(MaterialApp(
-      title: 'module_mine',
-      home: MinePage(),
+      title: 'module_money',
+      home: MoneyPage(),
       onGenerateRoute: Routers.router.generator,
       locale: Locale('zh', 'CN'),
       localizationsDelegates: const [

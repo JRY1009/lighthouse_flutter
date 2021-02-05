@@ -51,9 +51,24 @@ class TextStyles {
     color: Colours.text_black,
   );
 
+  static const TextStyle textWhite12 = TextStyle(
+    fontSize: 12.0,
+    color: Colours.white,
+  );
+
+  static const TextStyle textWhite80_12 = TextStyle(
+    fontSize: 12.0,
+    color: Colours.white80,
+  );
+
   static const TextStyle textWhite14 = TextStyle(
     fontSize: 14.0,
     color: Colours.white,
+  );
+
+  static const TextStyle textWhite80_14 = TextStyle(
+    fontSize: 14.0,
+    color: Colours.white80,
   );
 
   static const TextStyle textWhite15 = TextStyle(
@@ -71,9 +86,20 @@ class TextStyles {
     color: Colours.white,
   );
 
+  static const TextStyle textWhite20 = TextStyle(
+    fontSize: 20.0,
+    color: Colours.white,
+  );
+
   static const TextStyle textWhite24 = TextStyle(
     fontSize: 24.0,
     color: Colours.white,
+  );
+
+  static const TextStyle textGray800_w400_24 = TextStyle(
+    color: Colours.gray_800,
+    fontWeight: FontWeight.w400,
+    fontSize: 24.0,
   );
 
   static const TextStyle textGray800_w400_20 = TextStyle(

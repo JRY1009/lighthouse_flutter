@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
     HomeRouter.isRunModule = true;
 
     return ToastUtil.init(MaterialApp(
-      title: 'module_login',
+      title: 'module_home',
       home: HomePage(),
       onGenerateRoute: Routers.router.generator,
       locale: Locale('zh', 'CN'),

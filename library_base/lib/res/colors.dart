@@ -27,6 +27,7 @@ class Colours {
 
   static const Color transparent = Color(0x00000000);
   static const Color white = Color(0xFFFFFFFF);
+  static const Color white80 = Color(0x80FFFFFF);
   static const Color black = Color(0xff333A50);
   static const Color red = Color(0xFFFF4759);
 

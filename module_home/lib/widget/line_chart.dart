@@ -53,8 +53,8 @@ class _SimpleLineChartState extends State<SimpleLineChart> {
 
     double minX = 0, maxX = max(0, length.toDouble() - 1), minY = 0, maxY = 0;
     List<FlSpot> spotList = new List();
-    for (int i=0; i<length; i++) {
-      FlSpot spot = FlSpot(i.toDouble(), widget.quoteList[i].quote);
+    for (int i=length-1; i>=0; i--) {
+      FlSpot spot = FlSpot(length - i.toDouble() - 1, widget.quoteList[i].quote);
       spotList.add(spot);
 
       minY = minY == 0 ? widget.quoteList[i].quote : min(widget.quoteList[i].quote, minY);
@@ -88,25 +88,26 @@ class _SimpleLineChartState extends State<SimpleLineChart> {
           getTitles: (value) {
             if (value.toInt() == 0) {
               if (widget.timeFormat == ChartTimeFormat.MONTH_DAY) {
-                return '    ' + DateUtil.getDateStrByTimeStr(widget.quoteList[0].date, format: DateFormat.MONTH_DAY, dateSeparate: '/');
+                return '    ' + DateUtil.getDateStrByTimeStr(widget.quoteList[length - 1].date, format: DateFormat.MONTH_DAY, dateSeparate: '/');
               } else {
-                return '    ' + widget.quoteList[0].hour.toString() + ':00';
+                return '    ' + widget.quoteList[length - 1].hour.toString() + ':00';
               }
             } else if (value.toInt() == maxX) {
               if (widget.timeFormat == ChartTimeFormat.MONTH_DAY) {
-                return DateUtil.getDateStrByTimeStr(widget.quoteList[maxX.toInt()].date, format: DateFormat.MONTH_DAY, dateSeparate: '/') + '    ';
+                return DateUtil.getDateStrByTimeStr(widget.quoteList[length - 1 - maxX.toInt()].date, format: DateFormat.MONTH_DAY, dateSeparate: '/') + '    ';
               } else {
-                return widget.quoteList[maxX.toInt()].hour.toString() + ':00    ';
+                return widget.quoteList[length - 1 - maxX.toInt()].hour.toString() + ':00    ';
               }
             } else if (NumUtil.remainder(value.toInt(), NumUtil.divideDec(maxX - minX, 4).ceilToDouble()).toInt() == 0 && value.toInt() != 0 && value.toInt() != maxX) {
               if (widget.timeFormat == ChartTimeFormat.MONTH_DAY) {
-                return DateUtil.getDateStrByTimeStr(widget.quoteList[value.toInt()].date, format: DateFormat.MONTH_DAY, dateSeparate: '/');
+                return DateUtil.getDateStrByTimeStr(widget.quoteList[length - 1 - value.toInt()].date, format: DateFormat.MONTH_DAY, dateSeparate: '/');
               } else {
-                return widget.quoteList[value.toInt()].hour.toString() + ':00';
+                return widget.quoteList[length - 1 - value.toInt()].hour.toString() + ':00';
               }
             }
-            return '';
+            return null;
           },
+          interval: 1,
           margin: 8,
         ),
         leftTitles: SideTitles(showTitles: false),

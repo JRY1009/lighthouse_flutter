@@ -46,16 +46,18 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
   }
 
   void initView() {
-    _appBarTitles = [S.current.home, S.current.info, S.current.mine];
+    _appBarTitles = [S.current.home, S.current.info, S.current.money, S.current.mine];
     _keyList = [
       GlobalKey<BasePageMixin>(debugLabel: _appBarTitles[0]),
       GlobalKey<BasePageMixin>(debugLabel: _appBarTitles[1]),
       GlobalKey<BasePageMixin>(debugLabel: _appBarTitles[2]),
+      GlobalKey<BasePageMixin>(debugLabel: _appBarTitles[3]),
     ];
     _pageList = [
       Routers.generatePage(context, Routers.homePage, parameters: Parameters()..putObj('key', _keyList[0])),
       Routers.generatePage(context, Routers.infoPage, parameters: Parameters()..putObj('key', _keyList[1])),
-      Routers.generatePage(context, Routers.minePage, parameters: Parameters()..putObj('key', _keyList[2]))
+      Routers.generatePage(context, Routers.moneyPage, parameters: Parameters()..putObj('key', _keyList[2])),
+      Routers.generatePage(context, Routers.minePage, parameters: Parameters()..putObj('key', _keyList[3]))
       //MinePage(key: _keyList[2]),
     ];
   }
@@ -83,6 +85,7 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
       List<List<Widget>> _tabImages = [
         [LocalImage('tab_home', gaplessPlayback: true, width: _imageSize, color: Colours.unselected_item_color), FrameAnimationImage(anihome, width: _imageSize, height: _imageSize)],
         [LocalImage('tab_info', gaplessPlayback: true, width: _imageSize, color: Colours.unselected_item_color), FrameAnimationImage(aninews, width: _imageSize, height: _imageSize)],
+        [LocalImage('tab_money', gaplessPlayback: true, width: _imageSize, color: Colours.unselected_item_color), LocalImage('tab_money', gaplessPlayback: true, width: _imageSize, color: Colours.app_main)],
         [LocalImage('tab_mine', gaplessPlayback: true, width: _imageSize, color: Colours.unselected_item_color), FrameAnimationImage(animine, width: _imageSize, height: _imageSize)]
       ];
 
@@ -102,6 +105,7 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
 
     precacheImage(AssetImage('assets/images/tab_home.png'), context);
     precacheImage(AssetImage('assets/images/tab_info.png'), context);
+    precacheImage(AssetImage('assets/images/tab_money.png'), context);
     precacheImage(AssetImage('assets/images/tab_mine.png'), context);
 
     return ProviderWidget<MainModel>(
