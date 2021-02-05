@@ -50,7 +50,6 @@ Android版安装包：[./apk/lighthouse_V1.0.0_googleRelease.apk](./apk/lighthou
 | [keyboard_actions](https://github.com/diegoveloper/flutter_keyboard_actions)                  | **处理键盘事件**       |
 | [sticky_headers](https://github.com/fluttercommunity/flutter_sticky_headers)   | **列表悬浮头**       |
 | [lpinyin](https://github.com/flutterchina/lpinyin)              | **汉字转拼音**   |
-| [date_utils](https://github.com/apptreesoftware/date_utils)           | **常用的日期工具类** |
 | [fl_chart](https://github.com/imaNNeoFighT/fl_chart)               | **图表库**       |
 | [flutter_echarts](https://github.com/entronad/flutter_echarts)                   | **基于echart的图表库**   |
 | [qr_flutter](https://github.com/apptreesoftware/flutter_barcode_reader)     | **二维码** |
