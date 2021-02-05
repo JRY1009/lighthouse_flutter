@@ -21,6 +21,7 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+//打包时去掉这句
 project.setProperty('target-platform', 'android-arm')
 
 apply plugin: 'com.android.application'
@@ -57,7 +58,8 @@ android {
         flavorDimensions "default"
 
         ndk {
-            abiFilters "armeabi-v7a", 'x86'
+            //x86为了可以在模拟器上测试，打包时去掉x86
+            abiFilters "armeabi-v7a", "x86"
         }
 
         manifestPlaceholders = [

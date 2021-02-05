@@ -16,6 +16,7 @@
 * 微信分享，保存本地图片分享
 * 应用检查更新
 
+Android版安装包：[./apk/lighthouse_V1.0.0_googleRelease.apk](./apk/lighthouse_V1.0.0_googleRelease.apk)
 
 ## 使用的三方库
 
