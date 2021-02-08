@@ -14,7 +14,8 @@
 * 曲线图、饼状图、柱状图、热力图
 * 截图功能，长页面截图，webview截图
 * 微信分享，保存本地图片分享
-* 应用检查更新
+* 基于bugly的应用全量更新
+* 基于bugly + tinker的热更新
 
 Android版安装包：[./apk/lighthouse_V1.0.0_googleRelease.apk](./apk/lighthouse_V1.0.0_googleRelease.apk)
 
