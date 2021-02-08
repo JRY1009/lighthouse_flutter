@@ -33,6 +33,7 @@ class Routers {
   static String loginPage = '/loginPage';
   static String loginSmsPage = '/loginSmsPage';
   static String areaPage = '/areaPage';
+  static String aboutPage = '/aboutPage';
   static String settingPage = '/settingPage';
   static String modifyNicknamePage = '/modifyNicknamePage';
   static String modifyPwdPage = '/modifyPwdPage';

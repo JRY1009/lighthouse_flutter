@@ -98,7 +98,7 @@ class _ModifyNicknamePageState extends State<ModifyNicknamePage> with BasePageMi
                   onPressed: _saveEnabled ? _submit : null)
             ],
             centerTitle: true,
-        title: Text(S.of(context).modifyNickname, style: TextStyles.textBlack16)
+            title: Text(S.of(context).modifyNickname, style: TextStyles.textBlack16)
         ),
         body: CommonScrollView(
           keyboardConfig: OtherUtil.getKeyboardActionsConfig(context, <FocusNode>[_textNode]),

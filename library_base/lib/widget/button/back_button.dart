@@ -17,7 +17,7 @@ class BackButtonEx extends StatelessWidget {
   Widget build(BuildContext context) {
     assert(debugCheckHasMaterialLocalizations(context));
     return IconButton(
-      icon: icon ?? Icon(Icons.arrow_back_ios, color: Colours.black, size: 25),
+      icon: icon ?? Icon(Icons.arrow_back_ios, color: Colours.gray_400, size: 25),
       tooltip: MaterialLocalizations.of(context).backButtonTooltip,
       onPressed: () {
         if (onPressed != null) {

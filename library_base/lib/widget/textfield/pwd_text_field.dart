@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/styles.dart';
+import 'package:library_base/res/gaps.dart';
 
 //登陆注册界面edittext输入框
 class PwdTextField extends StatefulWidget {
@@ -42,6 +43,10 @@ class _AccountTextFieldState extends State<PwdTextField> {
     });
   }
 
+  bool _isEmptyText() {
+    return widget.controller.text == null || widget.controller.text.isEmpty;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -74,10 +79,35 @@ class _AccountTextFieldState extends State<PwdTextField> {
                       child:Text(widget.prefixText ?? S.of(context).password, style: TextStyles.textBlack14)
                     ),
                   )),
-              suffixIcon: IconButton(
-                iconSize: 20.0,
-                icon: Icon(_isShowPassWord ? Icons.visibility_off : Icons.visibility, color: Colours.text_black, size: 20),
-                onPressed: _showPassWord,
+              suffixIcon: Container(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    !_isEmptyText() ? IconButton(
+                      iconSize: 20.0,
+                      constraints: BoxConstraints(
+                        minWidth: 36,
+                        minHeight: 48,
+                      ),
+                      icon: Icon(Icons.close, color: Colours.gray_400, size: 20),
+                      onPressed: () {
+                        setState(() {
+                          widget.controller.text = "";
+                          widget.onTextChanged();
+                        });
+                      },
+                    ) : Gaps.empty,
+                    IconButton(
+                      iconSize: 20.0,
+                      constraints: BoxConstraints(
+                        minWidth: 48,
+                        minHeight: 48,
+                      ),
+                      icon: Icon(_isShowPassWord ? Icons.visibility_off : Icons.visibility, color: Colours.gray_400, size: 20),
+                      onPressed: _showPassWord,
+                    )
+                  ],
+                )
               )
           ),
           onChanged: (text) {

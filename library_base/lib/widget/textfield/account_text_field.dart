@@ -81,7 +81,7 @@ class _AccountTextFieldState extends State<AccountTextField> {
                 )),
             suffixIcon: !_isEmptyText() ? IconButton(
               iconSize: 20.0,
-              icon: Icon(Icons.close, color: Colours.text_black, size: 20),
+              icon: Icon(Icons.close, color: Colours.gray_400, size: 20),
               onPressed: () {
                 setState(() {
                   widget.controller.text = "";

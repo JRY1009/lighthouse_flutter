@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:library_base/router/i_router.dart';
 import 'package:library_base/router/page_builder.dart';
 import 'package:library_base/router/routers.dart';
+import 'package:module_mine/page/about_page.dart';
 import 'package:module_mine/page/area_page.dart';
 import 'package:module_mine/page/login_page.dart';
 import 'package:module_mine/page/login_sms_page.dart';
@@ -28,6 +29,7 @@ class MineRouter implements IRouter{
         return AreaPage(areaCode);
       }),
 
+      PageBuilder(Routers.aboutPage, (_) => AboutPage()),
       PageBuilder(Routers.loginPage, (_) => LoginPage()),
       PageBuilder(Routers.loginSmsPage, (_) => LoginSmsPage()),
       PageBuilder(Routers.settingPage, (_) => SettingPage()),

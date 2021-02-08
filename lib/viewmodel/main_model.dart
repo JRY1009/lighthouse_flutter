@@ -44,7 +44,11 @@ class MainModel extends ValueNotifier<int> {
   }
 
   void initBugly() {
-    FlutterBugly.init(androidAppId: '9e87287cfa', iOSAppId: 'ad8a0b5092');
+    FlutterBugly.init(
+        androidAppId: '9e87287cfa',
+        iOSAppId: 'ad8a0b5092',
+        enableHotfix: true
+    );
 
     if (DeviceUtil.isAndroid) {
       FlutterBugly.onCheckUpgrade.listen((_upgradeInfo) {

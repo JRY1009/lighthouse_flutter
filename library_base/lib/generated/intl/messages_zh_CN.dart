@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "about" : MessageLookupByLibrary.simpleMessage("关于"),
     "accountSecurity" : MessageLookupByLibrary.simpleMessage("账户与安全"),
     "all" : MessageLookupByLibrary.simpleMessage("全部"),
     "appName" : MessageLookupByLibrary.simpleMessage("区块灯塔"),
@@ -72,7 +73,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "modifyNicknameTips" : MessageLookupByLibrary.simpleMessage("*1~12个字符之间，可以汉字，字母和数字组合，不支持设置空格、特殊符号"),
     "modifyPassword" : MessageLookupByLibrary.simpleMessage("修改密码"),
     "modifySuccess" : MessageLookupByLibrary.simpleMessage("修改成功"),
-    "money" : MessageLookupByLibrary.simpleMessage("财富"),
+    "money" : MessageLookupByLibrary.simpleMessage("资产"),
     "moreLink" : MessageLookupByLibrary.simpleMessage("更多链接"),
     "myAvatar" : MessageLookupByLibrary.simpleMessage("我的头像"),
     "myMoney" : MessageLookupByLibrary.simpleMessage("我的资产"),

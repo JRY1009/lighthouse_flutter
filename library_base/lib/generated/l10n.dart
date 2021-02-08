@@ -505,10 +505,10 @@ class S {
     );
   }
 
-  /// `财富`
+  /// `资产`
   String get money {
     return Intl.message(
-      '财富',
+      '资产',
       name: 'money',
       desc: '',
       args: [],
@@ -680,6 +680,16 @@ class S {
     return Intl.message(
       '分享',
       name: 'share',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `关于`
+  String get about {
+    return Intl.message(
+      '关于',
+      name: 'about',
       desc: '',
       args: [],
     );

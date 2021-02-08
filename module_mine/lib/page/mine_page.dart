@@ -152,6 +152,11 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
                                     onPressed: () => DialogUtil.showShareDialog(context)
                                 ),
                                 MineClickBar(
+                                    title: S.of(context).about + S.of(context).appName,
+                                    icon: Icon(Icons.info_outline, color: Colours.gray_350, size: 20),
+                                    onPressed: () => Routers.loginGuardNavigateTo(context, Routers.aboutPage)
+                                ),
+                                MineClickBar(
                                     title: S.of(context).checkUpdate,
                                     icon: Icon(Icons.update, color: Colours.gray_350, size: 20),
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(bottom: Radius.circular(14.0))),

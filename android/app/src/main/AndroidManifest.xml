@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name="io.flutter.app.FlutterApplication"
+        android:name=".AppApplication"
         android:label="lighthouse"
         android:icon="@mipmap/ic_launcher">
         <activity
