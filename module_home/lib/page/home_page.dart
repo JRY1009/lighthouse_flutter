@@ -141,7 +141,7 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
                 brightness: _opacityNofifier.value > 0.5 ? Brightness.light : Brightness.dark,
                 title: HomePinnedAppBar(height: _toolbarHeight, appBarOpacity: _opacityNofifier.value),
                 centerTitle: true,
-                expandedHeight: 490.0,
+                expandedHeight: 465.0,
                 floating: false, // 不随着滑动隐藏标题
                 pinned: true, // 固定在顶部
                 flexibleSpace: AnnotatedRegion<SystemUiOverlayStyle>(

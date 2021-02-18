@@ -41,7 +41,7 @@ class _HomeMileStoneBarState extends State<HomeMileStoneBar>
   }
 
   void initViewModel() {
-    _mileStoneModel = MileStoneModel('bitcoin');
+    _mileStoneModel = MileStoneModel('all');
     _mileStoneModel.getMileStones(0, 3);
   }
 
@@ -54,7 +54,7 @@ class _HomeMileStoneBarState extends State<HomeMileStoneBar>
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        InkWell(
+        GestureDetector(
             onTap: () => Routers.navigateTo(context, Routers.milestonePage),
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 12, vertical: 9),
@@ -81,35 +81,37 @@ class _HomeMileStoneBarState extends State<HomeMileStoneBar>
                 ],
               ),
             )),
-        Container(
-            margin: EdgeInsets.symmetric(horizontal: 12, vertical: 9),
-            decoration: BoxDecoration(
-              color: Colours.white,
-              borderRadius: BorderRadius.all(Radius.circular(14.0)),
-              boxShadow: BoxShadows.normalBoxShadow,
-            ),
-            child: ProviderWidget<MileStoneModel>(
-                model: _mileStoneModel,
-                builder: (context, model, child) {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    primary: false,
-                    padding: EdgeInsets.all(0.0),
-                    itemBuilder: (context, index) {
-                      MileStone mileStone = model.mileStoneList[index];
-                      return MileStoneItem(
-                        index: index,
-                        content: mileStone?.content,
-                        time: mileStone?.date,
-                        isLast:
-                            index == (min(model.mileStoneList.length, 3) - 1),
-                      );
-                    },
-                    itemCount: min(model.mileStoneList.length, 3),
-                  );
-                })),
         GestureDetector(
-          onTap: () => Event.eventBus.fire(MainJumpEvent(MainJumpPage.info)),
+            onTap: () => Routers.navigateTo(context, Routers.milestonePage),
+            child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 12, vertical: 9),
+                decoration: BoxDecoration(
+                  color: Colours.white,
+                  borderRadius: BorderRadius.all(Radius.circular(14.0)),
+                  boxShadow: BoxShadows.normalBoxShadow,
+                ),
+                child: ProviderWidget<MileStoneModel>(
+                    model: _mileStoneModel,
+                    builder: (context, model, child) {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        primary: false,
+                        padding: EdgeInsets.all(0.0),
+                        itemBuilder: (context, index) {
+                          MileStone mileStone = model.mileStoneList[index];
+                          return MileStoneItem(
+                            index: index,
+                            content: mileStone?.content,
+                            time: mileStone?.date,
+                            isLast: index == (min(model.mileStoneList.length, 3) - 1),
+                          );
+                        },
+                        itemCount: min(model.mileStoneList.length, 3),
+                      );
+                    }))
+        ),
+        GestureDetector(
+          onTap: () => Event.eventBus.fire(MainJumpEvent(MainJumpPage.info, params: {"tab": 1})),
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 12, vertical: 9),
             height: 20,
@@ -117,14 +119,14 @@ class _HomeMileStoneBarState extends State<HomeMileStoneBar>
               children: [
                 Expanded(
                     child: Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    S.of(context).latestInfo,
-                    style: TextStyles.textGray500_w400_14,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                )),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        S.of(context).latestInfo,
+                        style: TextStyles.textGray500_w400_14,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    )),
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(S.of(context).all,

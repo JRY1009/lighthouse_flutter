@@ -18,6 +18,9 @@ class PwdTextField extends StatefulWidget {
   final InputBorder focusedBorder;
   final InputBorder enabledBorder;
 
+  final String hintText;
+  final TextStyle hintStyle;
+
   PwdTextField({
     Key key,
     @required this.controller,
@@ -26,7 +29,9 @@ class PwdTextField extends StatefulWidget {
     this.prefixText,
     this.backgroundColor,
     this.focusedBorder,
-    this.enabledBorder
+    this.enabledBorder,
+    this.hintText,
+    this.hintStyle
   }) : super(key: key);
 
   @override
@@ -63,9 +68,9 @@ class _AccountTextFieldState extends State<PwdTextField> {
           maxLength: 20,
           decoration: InputDecoration(
               counterText: "",
-              hintText: S.of(context).passwordHint,
+              hintText: widget.hintText ?? S.of(context).passwordHint,
               contentPadding: EdgeInsets.only(top: 16, bottom: 16),
-              hintStyle: TextStyles.textGray400_w400_14,
+              hintStyle: widget.hintStyle ?? TextStyles.textGray400_w400_14,
               focusedBorder: widget.focusedBorder ?? BorderStyles.underlineInputMain,
               enabledBorder: widget.enabledBorder ?? BorderStyles.underlineInputGray,
               prefixIcon: Container(

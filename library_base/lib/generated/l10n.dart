@@ -95,10 +95,10 @@ class S {
     );
   }
 
-  /// `请输入账户密码，推荐一键登录`
+  /// `请输入账户密码，推荐验证码`
   String get pwdLoginTips {
     return Intl.message(
-      '请输入账户密码，推荐一键登录',
+      '请输入账户密码，推荐验证码',
       name: 'pwdLoginTips',
       desc: '',
       args: [],
@@ -275,10 +275,20 @@ class S {
     );
   }
 
-  /// `密码不能少于6位!`
+  /// `8~20位数字、字母、符号组合`
+  String get passwordHintTips {
+    return Intl.message(
+      '8~20位数字、字母、符号组合',
+      name: 'passwordHintTips',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `密码不能少于8位!`
   String get passwordError {
     return Intl.message(
-      '密码不能少于6位!',
+      '密码不能少于8位!',
       name: 'passwordError',
       desc: '',
       args: [],
@@ -315,11 +325,51 @@ class S {
     );
   }
 
+  /// `跳过`
+  String get skip {
+    return Intl.message(
+      '跳过',
+      name: 'skip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `设置登录密码`
+  String get setPassword {
+    return Intl.message(
+      '设置登录密码',
+      name: 'setPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `首次登录，请设置登录密码`
+  String get setPasswordTips {
+    return Intl.message(
+      '首次登录，请设置登录密码',
+      name: 'setPasswordTips',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `密码`
   String get newPassword {
     return Intl.message(
       '密码',
       name: 'newPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `输入密码`
+  String get inputPassword {
+    return Intl.message(
+      '输入密码',
+      name: 'inputPassword',
       desc: '',
       args: [],
     );
@@ -350,6 +400,16 @@ class S {
     return Intl.message(
       '密码不一致',
       name: 'passwordNotSame',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `设置成功`
+  String get setSuccess {
+    return Intl.message(
+      '设置成功',
+      name: 'setSuccess',
       desc: '',
       args: [],
     );
@@ -945,30 +1005,40 @@ class S {
     );
   }
 
-  /// `24H量`
+  /// `24H成交量`
+  String get pro24hTradeVolume {
+    return Intl.message(
+      '24H成交量',
+      name: 'pro24hTradeVolume',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `24H成交量`
   String get pro24hVolume {
     return Intl.message(
-      '24H量',
+      '24H成交量',
       name: 'pro24hVolume',
       desc: '',
       args: [],
     );
   }
 
-  /// `24H额`
+  /// `24H成交额`
   String get pro24hAmount {
     return Intl.message(
-      '24H额',
+      '24H成交额',
       name: 'pro24hAmount',
       desc: '',
       args: [],
     );
   }
 
-  /// `全网算力（EH/S）`
+  /// `全网算力`
   String get proComputePower {
     return Intl.message(
-      '全网算力（EH/S）',
+      '全网算力',
       name: 'proComputePower',
       desc: '',
       args: [],

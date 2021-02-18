@@ -96,7 +96,7 @@ class _AboutPageState extends State<AboutPage> with BasePageMixin<AboutPage> {
               alignment: Alignment.center,
               child: InkWell(
                 child: Text(
-                  _version,
+                  'V$_version',
                   style: TextStyles.textGray500_w400_15,
                 ),
               ),

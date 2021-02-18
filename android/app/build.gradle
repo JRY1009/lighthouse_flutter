@@ -27,6 +27,8 @@ project.setProperty('target-platform', 'android-arm')
 apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 apply from: 'tinker-support.gradle'
+//多渠道使用walle
+apply from: 'multiple-channel.gradle'
 
 def releaseTime() {
     return new Date().format("yyyyMMdd_HHmm", TimeZone.getTimeZone("GMT+08"))
@@ -72,7 +74,7 @@ android {
         manifestPlaceholders = [
                 JPUSH_PKGNAME : applicationId,
                 JPUSH_APPKEY : "045af7241e8847d98c3112e1", // NOTE: JPush 上注册的包名对应的 Appkey.
-                JPUSH_CHANNEL : "google", //暂时填写默认值即可.
+                JPUSH_CHANNEL : "official", //暂时填写默认值即可.
         ]
     }
 
@@ -97,14 +99,6 @@ android {
             signingConfig signingConfigs.config
         }
     }
-
-    productFlavors {
-        google {}
-
-        productFlavors.all { flavor ->
-            flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
-        }
-    }
 }
 
 flutter {
@@ -124,5 +118,5 @@ dependencies {
     implementation 'com.tencent.tinker:tinker-android-lib:1.9.14.10'
     implementation 'com.tencent.bugly:nativecrashreport:latest.release'
 
-
+    compile 'com.meituan.android.walle:library:1.1.7'
 }

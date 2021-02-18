@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/res/colors.dart';
+import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/utils/num_util.dart';
 import 'package:module_home/model/quote_coin.dart';
@@ -73,20 +74,22 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
               Container(
                   margin: EdgeInsets.only(top: 5, right: 10),
                   alignment: Alignment.centerLeft,
+                  height: 27,
                   child: Text.rich(TextSpan(
                       children: [
                         TextSpan(text: '\$', style: rate >= 0 ? TextStyles.textGreen_w400_12 : TextStyles.textRed_w400_12),
                         TextSpan(text: priceStr, style: rate >= 0 ? TextStyles.textGreen_w400_22 : TextStyles.textRed_w400_22),
                         WidgetSpan(
-                          child: Icon(rate >= 0 ? Icons.arrow_upward : Icons.arrow_downward,
-                              color: rate >= 0 ? Colours.text_green : Colours.text_red,
-                              size: 14)
+                            child: Icon(rate >= 0 ? Icons.arrow_upward : Icons.arrow_downward,
+                                color: rate >= 0 ? Colours.text_green : Colours.text_red,
+                                size: 14)
                         )
                       ]
                   ))
               ),
               Container(
-                  margin: EdgeInsets.only(top: 5),
+                  margin: EdgeInsets.only(top: 2),
+                  height: 15,
                   alignment: Alignment.centerLeft,
                   child: Text('≈￥' + priceCnyStr,
                     style: TextStyles.textGray500_w400_12,
@@ -101,6 +104,7 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
             children: [
               Container(
                   margin: EdgeInsets.only(top: 10),
+                  height: 15,
                   alignment: Alignment.centerLeft,
                   child: Text(rateStr,
                     style: rate >= 0 ? TextStyles.textGreen_w400_12 : TextStyles.textRed_w400_12,
@@ -109,8 +113,9 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
                   )
               ),
               Container(
-                  margin: EdgeInsets.only(top: 10),
+                  margin: EdgeInsets.only(top: 6),
                   alignment: Alignment.centerLeft,
+                  height: 15,
                   child: Text(changeAmountStr,
                     style: rate >= 0 ? TextStyles.textGreen_w400_12 : TextStyles.textRed_w400_12,
                     maxLines: 1,
@@ -119,55 +124,27 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
               ),
             ],
           ),
-          Expanded(
-            child: Container(),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                  alignment: Alignment.centerRight,
-                  height: 20,
-                  child: Text(S.of(context).pro24hAmount,
-                    style: TextStyles.textGray400_w400_12,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  )
-              ),
-              Container(
-                  margin: EdgeInsets.only(top: 8),
-                  alignment: Alignment.centerRight,
-                  height: 20,
-                  child: Text(S.of(context).pro24hVolume,
-                    style: TextStyles.textGray400_w400_12,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  )
-              ),
-            ],
-          ),
 
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 5),
-            alignment: Alignment.centerLeft,
-            child: Column(
+          Expanded(
+            child:Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                    alignment: Alignment.centerLeft,
-                    height: 20,
-                    child: Text('\$' + amount24Str,
-                      style: TextStyles.textGray800_w400_12,
+                    margin: EdgeInsets.only(top: 10),
+                    alignment: Alignment.centerRight,
+                    height: 15,
+                    child: Text(S.of(context).pro24hAmount,
+                      style: TextStyles.textGray400_w400_12,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     )
                 ),
                 Container(
-                    margin: EdgeInsets.only(top: 8),
-                    alignment: Alignment.centerLeft,
-                    height: 20,
-                    child: Text(vol24Str + coin_code,
-                      style: TextStyles.textGray800_w400_12,
+                    margin: EdgeInsets.only(top: 6),
+                    alignment: Alignment.centerRight,
+                    height: 15,
+                    child: Text(S.of(context).pro24hVolume,
+                      style: TextStyles.textGray400_w400_12,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     )
@@ -175,6 +152,39 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
               ],
             ),
           ),
+
+          Expanded(
+            child: Container(
+              margin: EdgeInsets.only(left: 5),
+              alignment: Alignment.centerLeft,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Container(
+                      margin: EdgeInsets.only(top: 10),
+                      alignment: Alignment.centerLeft,
+                      height: 15,
+                      child: Text('\$' + amount24Str,
+                        style: TextStyles.textGray800_w400_12,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      )
+                  ),
+                  Container(
+                      margin: EdgeInsets.only(top: 6),
+                      alignment: Alignment.centerLeft,
+                      height: 15,
+                      child: Text(vol24Str + coin_code,
+                        style: TextStyles.textGray800_w400_12,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      )
+                  ),
+                ],
+              ),
+            ),
+          ),
+
 
         ],
       ),

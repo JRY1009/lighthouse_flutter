@@ -9,6 +9,7 @@ class SPUtil {
   static const String key_theme = 'key_theme';
   static const String key_locale = 'key_locale';
   static const String key_latest_account = 'key_latest_account';
+  static const String key_first_login = 'key_first_login';
 
   static SharedPreferences _spf;
 

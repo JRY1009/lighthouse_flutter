@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:library_base/net/apis.dart';
 import 'package:library_base/model/account.dart';
 import 'package:library_base/global/rt_account.dart';
+import 'package:library_base/utils/channel_util.dart';
 import 'package:library_base/utils/date_util.dart';
 import 'package:library_base/utils/device_util.dart';
 import 'package:library_base/utils/encrypt_util.dart';
@@ -18,7 +19,7 @@ class AuthInterceptor extends Interceptor {
     String version = packageInfo?.version;
     String language = WidgetsBinding.instance.window.locale.toString();
     String dev = DeviceUtil.isAndroid ? 'Android' : (DeviceUtil.isIOS ? 'iOS' : (DeviceUtil.isWeb ? 'Web' : 'Other'));
-    String channel = 'official';
+    String channel = await ChannelUtil.getChannel();
     String timestamp = (DateUtil.getNowDateMs() * 1000).toString();
 
     options.headers[Apis.KEY_VER] = version;

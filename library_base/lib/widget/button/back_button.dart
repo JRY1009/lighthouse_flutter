@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:library_base/constant/constant.dart';
 import 'package:library_base/res/colors.dart';
+import 'package:library_base/widget/image/local_image.dart';
 
 class BackButtonEx extends StatelessWidget {
 
@@ -17,7 +19,7 @@ class BackButtonEx extends StatelessWidget {
   Widget build(BuildContext context) {
     assert(debugCheckHasMaterialLocalizations(context));
     return IconButton(
-      icon: icon ?? Icon(Icons.arrow_back_ios, color: Colours.gray_400, size: 25),
+      icon: icon ?? LocalImage('icon_back', package: Constant.baseLib, width: 20, height: 20),
       tooltip: MaterialLocalizations.of(context).backButtonTooltip,
       onPressed: () {
         if (onPressed != null) {

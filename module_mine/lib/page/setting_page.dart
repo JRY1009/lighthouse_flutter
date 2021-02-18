@@ -55,7 +55,6 @@ class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPag
         closeProgress();
 
         ToastUtil.success(S.of(context).modifySuccess);
-        Navigator.pop(context);
       }
     });
   }
@@ -156,7 +155,7 @@ class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPag
                             height: 50.0,
                             width: double.infinity,
                             child: Text(S.of(context).logout,
-                              style: TextStyles.textRed_w400_15,
+                              style: TextStyles.textRedOri_w400_15,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             )

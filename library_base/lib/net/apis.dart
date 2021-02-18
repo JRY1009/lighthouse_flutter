@@ -28,6 +28,7 @@ class Apis {
   static const String URL_REGISTER = '/reg';
   static const String URL_VERIFY_CODE = '/sms/send';
   static const String URL_RESET_PASSWORD = '/account/forget_password';
+  static const String URL_SET_PASSWORD = '/account/set_password';
   static const String URL_GET_ACCOUNT_INFO = '/account/account_info';
   static const String URL_UPDATE_NICK_NAME = '/account/update_nick_name';
   static const String URL_UPLOAD_HEAD_ICON = '/account/upload_head_ico';

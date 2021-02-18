@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:dokit/dokit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bugly/flutter_bugly.dart';
 import 'package:library_base/constant/constant.dart';
@@ -12,9 +13,15 @@ import 'default_app.dart';
 //应用初始化
 class AppInit {
 
-  static void run() {
+  static Future<void> run() async {
+    DoKit.runApp(
+        appCreator: () async => DoKitApp(await DefaultApp.getApp()),
+        useInRelease: true,
+        exceptionCallback: (obj, trace) {
+          print('ttt$obj');
+        });
     //捕获异常
-    catchException(() => DefaultApp.run());
+    //catchException(() => DefaultApp.run());
   }
 
   ///异常捕获处理

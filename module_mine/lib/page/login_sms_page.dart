@@ -12,6 +12,7 @@ import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/router/parameters.dart';
 import 'package:library_base/router/routers.dart';
+import 'package:library_base/utils/sp_util.dart';
 import 'package:library_base/widget/button/gradient_button.dart';
 import 'package:library_base/widget/common_scroll_view.dart';
 import 'package:library_base/widget/image/local_image.dart';
@@ -82,7 +83,17 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
         closeProgress();
 
         Navigator.pop(context);
-        Routers.navigateTo(context, MineRouter.isRunModule ? Routers.minePage : Routers.mainPage, clearStack: true);
+
+        bool firstLogin = SPUtil.getBool(SPUtil.key_first_login, defValue: true);
+        bool had_pwd = _loginModel.loginResult.account_info.had_password;
+
+        if (firstLogin && !had_pwd) {
+          Routers.navigateTo(context, Routers.setPwdPage, clearStack: true);
+          SPUtil.putBool(SPUtil.key_first_login, false);
+
+        } else {
+          Routers.navigateTo(context, MineRouter.isRunModule ? Routers.minePage : Routers.mainPage, clearStack: true);
+        }
       }
     });
 
@@ -153,16 +164,32 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
     return _verifyModel.getVCode(phone, VerifyModel.SMS_LOGIN);
   }
 
+  void _skip() {
+    Navigator.pop(context);
+    Routers.navigateTo(context, MineRouter.isRunModule ? Routers.minePage : Routers.mainPage, clearStack: true);
+  }
+  
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
+        resizeToAvoidBottomInset:false,
         backgroundColor: Colours.white,
         appBar: AppBar(
           elevation: 0,
           brightness: Brightness.light,
           backgroundColor: Colours.white,
           automaticallyImplyLeading: false,
+          actions: <Widget>[
+            FlatButton(
+                padding: EdgeInsets.all(0),
+                minWidth: 70,
+                disabledTextColor: Colours.gray_500,
+                textColor: Colours.gray_400,
+                child: Text(S.of(context).skip, style: TextStyle(fontSize: 15)),
+                onPressed: _skip
+            )
+          ],
         ),
         body: CommonScrollView(
           keyboardConfig: OtherUtil.getKeyboardActionsConfig(context, <FocusNode>[_phoneNode, _verifyNode]),

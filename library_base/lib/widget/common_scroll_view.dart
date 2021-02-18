@@ -86,10 +86,10 @@ class CommonScrollView extends StatelessWidget {
       contents = Column(
         children: <Widget>[
           Expanded(
-            child: contents
+              child: contents
           ),
           SafeArea(
-            child: bottomButton
+              child: bottomButton
           )
         ],
       );

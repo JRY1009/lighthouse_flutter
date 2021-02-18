@@ -11,7 +11,7 @@ class QuotePair {
   double quote;
   double vol_24h;
   double amount_24h;
-  double hashrate;
+  String hashrate;
   List<Quote> quote_24h;
 
   QuotePair({
@@ -33,7 +33,7 @@ class QuotePair {
     quote = jsonMap['quote'] ?? 0;
     vol_24h = jsonMap['vol_24h'] ?? 0;
     amount_24h = jsonMap['amount_24h'] ?? 0;
-    hashrate = jsonMap['hashrate'] ?? 0;
+    hashrate = jsonMap['hashrate'] ?? '0';
     quote_24h = Quote.fromJsonList(jsonMap['quote_24h']);
   }
 

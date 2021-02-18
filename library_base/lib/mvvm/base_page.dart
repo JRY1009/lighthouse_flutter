@@ -12,6 +12,9 @@ abstract class IBasePage {
   // 刷新
   Future<void> refresh({slient = false});
 
+  // 跳转
+  Future<void> jump({Map<String, dynamic> params});
+
   // 截图
   Future<Uint8List> screenShot();
 
@@ -35,6 +38,11 @@ mixin BasePageMixin<T extends StatefulWidget> on State<T> implements IBasePage {
   @override
   Future<void> refresh({slient = false}) {
     LogUtil.v('$T ==> refresh');
+  }
+
+  @override
+  Future<void> jump({Map<String, dynamic> params}) {
+    LogUtil.v('$T ==> jump $params');
   }
 
   @override
@@ -108,7 +116,7 @@ mixin BasePageMixin<T extends StatefulWidget> on State<T> implements IBasePage {
 
   @override
   void didUpdateWidget(T oldWidget) {
-    LogUtil.v('$T ==> didUpdateWidgets');
+    //LogUtil.v('$T ==> didUpdateWidgets');
     super.didUpdateWidget(oldWidget);
   }
 

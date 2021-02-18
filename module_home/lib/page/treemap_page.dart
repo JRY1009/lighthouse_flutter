@@ -3,6 +3,7 @@ import 'dart:core';
 import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
+import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:library_base/res/gaps.dart';
@@ -11,6 +12,7 @@ import 'package:library_base/widget/chart/inapp_echart.dart';
 import 'package:library_base/widget/dialog/dialog_util.dart';
 import 'package:library_base/widget/dialog/share_widget.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh.dart';
+import 'package:library_base/widget/image/local_image.dart';
 import 'package:library_base/widget/shot_view.dart';
 import 'package:flutter/material.dart';
 import 'package:library_base/res/colors.dart';
@@ -81,7 +83,7 @@ class _TreemapPageState extends State<TreemapPage> {
                 backgroundColor: Colours.white,
                 actions: <Widget>[
                   IconButton(
-                    icon: Icon(Icons.share, color: Colours.black),
+                    icon: LocalImage('icon_share', package: Constant.baseLib, width: 20, height: 20),
                     onPressed: _share,
                   )
                 ],

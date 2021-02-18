@@ -50,6 +50,7 @@ class Account {
   String head_ico;
   String invite_code;
   String remark;
+  bool had_password;
 
   String token;
 
@@ -77,6 +78,7 @@ class Account {
     this.head_ico,
     this.invite_code,
     this.remark,
+    this.had_password,
     this.token,
   });
 
@@ -92,6 +94,7 @@ class Account {
     head_ico = jsonMap['head_ico'];
     invite_code = jsonMap['invite_code'];
     remark = jsonMap['remark'];
+    had_password = jsonMap['had_password'] ?? false;
     token = jsonMap['token'];
     //photos = Media.fromJsonList(jsonMap['pic']);
   }
@@ -108,6 +111,8 @@ class Account {
     jsonMap['updated_at'] = this.updated_at;
     jsonMap['head_ico'] = this.head_ico;
     jsonMap['invite_code'] = this.invite_code;
+    jsonMap['remark'] = this.remark;
+    jsonMap['had_password'] = this.had_password;
     jsonMap['token'] = this.token;
     //jsonMap['pic'] = this.photos?.map((v) => v.toJson()).toList();
 

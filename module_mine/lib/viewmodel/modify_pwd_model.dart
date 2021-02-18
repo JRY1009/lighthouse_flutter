@@ -7,8 +7,6 @@ import 'package:library_base/model/account.dart';
 
 class ModifyPwdModel extends ViewStateModel {
 
-  AccountEntity loginResult;
-
   ModifyPwdModel();
 
   Future resetPwd(newPassword, confirmpassword, verifyCode) {
@@ -27,7 +25,25 @@ class ModifyPwdModel extends ViewStateModel {
           setSuccess();
         },
         onError: (errno, msg) {
-          loginResult = null;
+          setError(errno, message: msg);
+        });
+  }
+
+  Future setPwd(password, confirmpassword) {
+
+    Map<String, dynamic> params = {
+      'password': password,
+      'confirm_password': confirmpassword,
+    };
+
+    setBusy();
+
+    return DioUtil.getInstance().requestNetwork(Apis.URL_SET_PASSWORD, "post", params: params,
+        cancelToken: cancelToken,
+        onSuccess: (data) {
+          setSuccess();
+        },
+        onError: (errno, msg) {
           setError(errno, message: msg);
         });
   }

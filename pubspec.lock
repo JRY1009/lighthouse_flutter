@@ -106,6 +106,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.10"
+  dokit:
+    dependency: "direct main"
+    description:
+      name: dokit
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.2.12"
   encrypt:
     dependency: transitive
     description:
@@ -426,7 +433,7 @@ packages:
       name: package_info
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.4.3"
+    version: "0.4.3+4"
   path:
     dependency: transitive
     description:
@@ -587,7 +594,7 @@ packages:
       name: shared_preferences
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.5.12+2"
+    version: "0.5.12+4"
   shared_preferences_linux:
     dependency: transitive
     description:
@@ -775,6 +782,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.0-nullsafety.3"
+  vm_service:
+    dependency: transitive
+    description:
+      name: vm_service
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "5.5.0"
   web_socket_channel:
     dependency: transitive
     description:

@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bugly/flutter_bugly.dart';
+import 'package:library_base/constant/constant.dart';
 import 'package:library_base/event/event.dart';
 import 'package:library_base/event/user_event.dart';
 import 'package:library_base/generated/l10n.dart';
@@ -20,6 +21,7 @@ import 'package:library_base/widget/common_scroll_view.dart';
 import 'package:library_base/widget/dialog/dialog_util.dart';
 import 'package:library_base/utils/path_util.dart';
 import 'package:library_base/utils/toast_util.dart';
+import 'package:library_base/widget/image/local_image.dart';
 import 'package:module_mine/viewmodel/setting_model.dart';
 import 'package:module_mine/widget/mine_appbar.dart';
 import 'package:path_provider/path_provider.dart';
@@ -137,23 +139,23 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
                               children: [
                                 MineClickBar(
                                   title: S.of(context).accountSecurity,
-                                  icon: Icon(Icons.security, color: Colours.gray_350, size: 20),
+                                  icon: LocalImage('icon_shield', package: Constant.baseLib, color: Colours.gray_350, width: 20, height: 20),
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(14.0))),
                                   onPressed: () => Routers.loginGuardNavigateTo(context, Routers.settingPage),
                                 ),
                                 MineClickBar(
                                     title: S.of(context).clearCache,
-                                    icon: Icon(Icons.cleaning_services, color: Colours.gray_350, size: 20),
+                                    icon: LocalImage('icon_broom', package: Constant.baseLib, color: Colours.gray_350, width: 20, height: 20),
                                     onPressed: _clearCache
                                 ),
                                 MineClickBar(
                                     title: S.of(context).share,
-                                    icon: Icon(Icons.share, color: Colours.gray_350, size: 20),
+                                    icon: LocalImage('icon_share', package: Constant.baseLib, color: Colours.gray_350, width: 20, height: 20),
                                     onPressed: () => DialogUtil.showShareDialog(context)
                                 ),
                                 MineClickBar(
                                     title: S.of(context).about + S.of(context).appName,
-                                    icon: Icon(Icons.info_outline, color: Colours.gray_350, size: 20),
+                                    icon: LocalImage('icon_info', package: Constant.baseLib, color: Colours.gray_350, width: 20, height: 20),
                                     onPressed: () => Routers.loginGuardNavigateTo(context, Routers.aboutPage)
                                 ),
                                 MineClickBar(
@@ -184,7 +186,7 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
                                     height: 50.0,
                                     width: double.infinity,
                                     child: Text(S.of(context).logout,
-                                      style: TextStyles.textRed_w400_15,
+                                      style: TextStyles.textRedOri_w400_15,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     )

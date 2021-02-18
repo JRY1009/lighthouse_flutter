@@ -42,6 +42,7 @@ class GlobalQuoteItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
+              height: 16,
               alignment: Alignment.centerLeft,
               child: Text(name ?? '',
                 style: TextStyles.textBlack13,
@@ -50,6 +51,7 @@ class GlobalQuoteItem extends StatelessWidget {
               )
           ),
           Container(
+            height: 17,
             margin: EdgeInsets.only(top: 9),
             alignment: Alignment.centerLeft,
             child: Text(price.toString(), style: rate >= 0 ? TextStyles.textRed_w400_14 : TextStyles.textGreen_w400_14,
@@ -58,6 +60,7 @@ class GlobalQuoteItem extends StatelessWidget {
           ),
           Expanded(child: Container()),
           Container(
+            height: 13,
             alignment: Alignment.centerLeft,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,

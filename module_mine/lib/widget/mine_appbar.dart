@@ -7,6 +7,7 @@ import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/widget/image/circle_image.dart';
 import 'package:library_base/utils/image_util.dart';
+import 'package:library_base/widget/image/local_image.dart';
 
 class MineAppBar extends StatefulWidget {
 
@@ -53,7 +54,7 @@ class _MineAppBarState extends State<MineAppBar> {
                   child: IconButton(
                     onPressed: widget.onActionPressed,
                     padding: EdgeInsets.only(right: 10, top: 0, left: 10, bottom: 20),
-                    icon: Icon(Icons.notifications, color: Colours.black, size: 24),
+                    icon: LocalImage('icon_notify', package: Constant.baseLib, width: 20, height: 20),
                   ),
                 ),
                 Padding(

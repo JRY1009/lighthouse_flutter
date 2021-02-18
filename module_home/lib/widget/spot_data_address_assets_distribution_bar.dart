@@ -50,6 +50,7 @@ class _SpotDataAddressAssetsDistributionBarState extends State<SpotDataAddressAs
     }
 
     int turnover = widget.spotDataBasic != null ? widget.spotDataBasic.turnover : 0;
+    String update_time = widget.spotDataBasic != null ? widget.spotDataBasic.update_time : '';
 
     return Container(
         margin: EdgeInsets.symmetric(horizontal: 12 , vertical: 9),
@@ -74,7 +75,7 @@ class _SpotDataAddressAssetsDistributionBarState extends State<SpotDataAddressAs
             Container(
               alignment: Alignment.topLeft,
               margin: const EdgeInsets.only(left: 15, top: 8),
-              child: Text(S.of(context).updateTime + ' : 2020-11-11 11:11',
+              child: Text(S.of(context).updateTime + ' : $update_time',
                 style: TextStyles.textGray300_w400_12,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

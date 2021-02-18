@@ -43,6 +43,7 @@ class SpotDetailModel extends ViewStateModel {
 
       if (quoteCoin != null && quoteWs.coin_code.toLowerCase() == quoteCoin.coin_code.toLowerCase()) {
         quoteCoin.quote = quoteWs.quote;
+        quoteCoin.change_percent = quoteWs.change_percent_24hr;
       }
 
       notifyListeners();

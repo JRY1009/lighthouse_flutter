@@ -102,7 +102,7 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
               Gaps.vGap15,
 
               Container(
-                height: 361,
+                height: 335,
                 decoration: BoxDecoration(
                   color: Colours.white,
                   borderRadius: BorderRadius.all(Radius.circular(14.0)),

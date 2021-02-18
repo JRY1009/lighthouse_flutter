@@ -57,6 +57,6 @@
             android:name="flutterEmbedding"
             android:value="2" />
 
-        <meta-data android:value="${UMENG_CHANNEL_VALUE}" android:name="UMENG_CHANNEL"/>
+        <!--meta-data android:value="${UMENG_CHANNEL_VALUE}" android:name="UMENG_CHANNEL"/-->
     </application>
 </manifest>

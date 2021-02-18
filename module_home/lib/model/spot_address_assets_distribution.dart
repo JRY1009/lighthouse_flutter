@@ -17,13 +17,13 @@ class SpotAddressAssetsDistribution {
       case 2:
         return Color(0xff845bef);
       case 3:
-        return Color(0xff13d38e);
+        return Color(0xffFFB660);
       case 4:
         return Color(0xff845bef);
       case 5:
-        return Color(0xfff8b2a0);
+        return Color(0xff46A9E1);
       case 6:
-        return Color(0xff0293ee);
+        return Color(0xff4EDDB6);
     }
   }
 

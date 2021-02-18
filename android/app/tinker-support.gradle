@@ -37,7 +37,7 @@ tinkerSupport {
     // 对应tinker插件applyResourceMapping
     baseApkResourceMapping = "${bakPath}/${baseApkDir}/app-release-R.txt"
 
-    buildAllFlavorsDir = "${bakPath}/${baseApkDir}"
+    //buildAllFlavorsDir = "${bakPath}/${baseApkDir}"
     // 是否开启加固模式，默认为false
     isProtectedApp = false
 

@@ -13,6 +13,8 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         classpath 'com.tencent.bugly:tinker-support:1.2.0'
+        //多渠道插件
+        classpath 'com.meituan.android.walle:plugin:1.1.7'
     }
 }
 

@@ -21,9 +21,7 @@ class MileStoneItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {},
-      child: Container(
+    return Container(
         width: double.infinity,
         child: IntrinsicHeight(
           child: Row(
@@ -90,7 +88,6 @@ class MileStoneItem extends StatelessWidget {
             ],
           ),
         ),
-      ),
     );
   }
 }

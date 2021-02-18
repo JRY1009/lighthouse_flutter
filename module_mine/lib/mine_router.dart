@@ -10,6 +10,7 @@ import 'package:module_mine/page/login_sms_page.dart';
 import 'package:module_mine/page/mine_page.dart';
 import 'package:module_mine/page/modify_nickname_page.dart';
 import 'package:module_mine/page/modify_pwd_page.dart';
+import 'package:module_mine/page/set_pwd_page.dart';
 import 'package:module_mine/page/setting_page.dart';
 
 class MineRouter implements IRouter{
@@ -34,6 +35,7 @@ class MineRouter implements IRouter{
       PageBuilder(Routers.loginSmsPage, (_) => LoginSmsPage()),
       PageBuilder(Routers.settingPage, (_) => SettingPage()),
       PageBuilder(Routers.modifyNicknamePage, (_) => ModifyNicknamePage()),
+      PageBuilder(Routers.setPwdPage, (_) => SetPwdPage()),
       PageBuilder(Routers.modifyPwdPage, (_) => ModifyPwdPage()),
     ];
   }

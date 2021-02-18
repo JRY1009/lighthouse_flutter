@@ -49,7 +49,7 @@ class _HomeQuoteTreemapBarState extends State<HomeQuoteTreemapBar> {
         children: [
           Expanded(
               flex: 1,
-              child: InkWell(
+              child: GestureDetector(
                   onTap: () => Routers.navigateTo(context, Routers.globalQuotePage),
                   child: Container(
                     height: 82,
@@ -98,7 +98,7 @@ class _HomeQuoteTreemapBarState extends State<HomeQuoteTreemapBar> {
           Gaps.hGap12,
           Expanded(
               flex: 1,
-              child: InkWell(
+              child: GestureDetector(
                   onTap: () => Routers.navigateTo(context, Routers.treemapPage),
                   child: Container(
                     height: 82,

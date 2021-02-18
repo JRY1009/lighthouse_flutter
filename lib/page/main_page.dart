@@ -67,7 +67,7 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
     WebSocketUtil.initWS();
 
     _mainModel = MainModel();
-    _mainModel.listenEvent(context, _pageController);
+    _mainModel.listenEvent(context, _pageController, _keyList);
     _mainModel.initBugly();
   }
 

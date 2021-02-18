@@ -1,5 +1,7 @@
 
 
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:library_base/generated/l10n.dart';
@@ -11,6 +13,8 @@ import 'package:library_base/res/styles.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh.dart';
 import 'package:library_base/widget/easyrefresh/loading_empty.dart';
 import 'package:library_base/utils/num_util.dart';
+import 'package:library_base/widget/shot_view.dart';
+import 'package:library_base/widget/common_scroll_view.dart';
 import 'package:module_home/item/spot_exchange_quote_item.dart';
 import 'package:module_home/viewmodel/spot_quote_model.dart';
 import 'package:sticky_headers/sticky_headers.dart';
@@ -34,6 +38,8 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
   @override
   bool get wantKeepAlive => true;
 
+  ShotController _shotController = new ShotController();
+
   SpotQuoteModel _quoteModel;
 
   @override
@@ -50,11 +56,17 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
 
   void initViewModel() {
     _quoteModel.getQuote(widget.coinCode);
+    _quoteModel.listenEvent();
   }
 
   @override
   Future<void> refresh({slient = false}) {
     return _quoteModel.getQuote(widget.coinCode);
+  }
+
+  @override
+  Future<Uint8List> screenShot() {
+    return _shotController.makeImageUint8List();
   }
 
   @override
@@ -65,34 +77,62 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
         model: _quoteModel,
         builder: (context, model, child) {
           return model.isFirst ? FirstRefresh() :
-          EasyRefresh(
-            topBouncing: false,
-            bottomBouncing: false,
-            emptyWidget: (model.isEmpty || model.isError) ? LoadingEmpty() : null,
-            child: ListView.builder(
-              padding: EdgeInsets.all(0.0),
-              itemBuilder: (context, index) {
-                return StickyHeader(
-                  header: Container(
-                    alignment: Alignment.centerLeft,
-                    width: double.infinity,
-                    color: Colours.normal_bg,
-                    height: 188.0,
-                    child: _buildHeader(),
+          CommonScrollView(
+              shotController: _shotController,
+              physics: ClampingScrollPhysics(),
+              children: [
+                Container(
+                  child: Column(
+                      children: [
+                        ListView.builder(
+                          shrinkWrap: true,
+                          primary: false, //不滚动
+                          padding: EdgeInsets.all(0.0),
+                          itemBuilder: (context, index) {
+                            return StickyHeader(
+                              header: Container(
+                                alignment: Alignment.centerLeft,
+                                width: double.infinity,
+                                color: Colours.normal_bg,
+                                height: 188.0,
+                                child: _buildHeader(),
+                              ),
+                              content: _buildItem(),
+                            );
+                          },
+                          itemCount: 1,
+                        )]
                   ),
-                  content: _buildItem(),
-                );
-              },
-              itemCount: 1,
-            ),
+                ),
 
-            onRefresh: null,
-            onLoad: null,
+              ]
           );
+//          EasyRefresh(
+//            topBouncing: false,
+//            bottomBouncing: false,
+//            emptyWidget: (model.isEmpty || model.isError) ? LoadingEmpty() : null,
+//            child: ListView.builder(
+//              padding: EdgeInsets.all(0.0),
+//              itemBuilder: (context, index) {
+//                return StickyHeader(
+//                  header: Container(
+//                    alignment: Alignment.centerLeft,
+//                    width: double.infinity,
+//                    color: Colours.normal_bg,
+//                    height: 188.0,
+//                    child: _buildHeader(),
+//                  ),
+//                  content: _buildItem(),
+//                );
+//              },
+//              itemCount: 1,
+//            ),
+//
+//            onRefresh: null,
+//            onLoad: null,
+//          );
         }
     );
-    
-    
   }
 
   Widget _buildHeader() {

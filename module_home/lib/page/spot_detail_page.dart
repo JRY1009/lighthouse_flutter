@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
+import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
@@ -15,6 +16,7 @@ import 'package:library_base/router/routers.dart';
 import 'package:library_base/widget/button/back_button.dart';
 import 'package:library_base/widget/dialog/dialog_util.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh.dart';
+import 'package:library_base/widget/image/local_image.dart';
 import 'package:library_base/widget/tab/bubble_indicator.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
 import 'package:library_base/utils/log_util.dart';
@@ -73,7 +75,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
   }
 
   void initViewModel() {
-    _tabTitles = [S.current.briefInfo, S.current.quote, S.current.data, S.current.info];
+    _tabTitles = [S.current.quote, S.current.info, S.current.briefInfo, S.current.data];
     _spotDetailModel = SpotDetailModel(_tabTitles);
     _spotDetailModel.listenEvent();
     _spotDetailModel.getSpotDetail(widget.coinCode);
@@ -119,6 +121,8 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
 
     Future.delayed(new Duration(milliseconds: 100), () async {
 
+      String title = _spotDetailModel.quoteCoin != null ? _spotDetailModel.quoteCoin.pair : '';
+
       Uint8List pngBytes = await _spotDetailModel.keyList[0]?.currentState.screenShot();
       DialogUtil.showShareDialog(context,
           children: [
@@ -127,7 +131,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
                 width: double.infinity,
                 alignment: Alignment.center,
                 color: Colours.white,
-                child: Text(widget.coinCode, style: TextStyles.textBlack16)
+                child: Text(title, style: TextStyles.textBlack16)
             ),
             Container(
               color: Colours.gray_100,
@@ -148,110 +152,111 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-      backgroundColor: Colours.gray_100,
-      appBar: AppBar(
-          leading: BackButtonEx(),
-          elevation: 0,
-          brightness: Brightness.light,
-          backgroundColor: Colours.white,
-          actions: <Widget>[
-            IconButton(
-                icon: Icon(Icons.share, color: Colours.black,),
-                onPressed: _share
-            ),
-          ],
-          centerTitle: true,
-          title: _titleBuilder()
-      ),
-      body: ProviderWidget<SpotDetailModel>(
-          model: _spotDetailModel,
-          builder: (context, model, child) {
-            return model.isFirst ? FirstRefresh() : NestedScrollViewRefreshIndicator(
-              key: _nestedRefreshKey,
-              onRefresh: _refresh,
-              child: NotificationListener<ScrollNotification>(
-                onNotification: (ScrollNotification notification) {
-                  if (notification.depth == 0 && notification is ScrollUpdateNotification) {
-                    _scrollNotify(notification.metrics.pixels);
-                  }
-                  return false;
-                },
-                child: extended.NestedScrollView(
-                    physics: const ClampingScrollPhysics(),
-                    pinnedHeaderSliverHeightBuilder: () {
-                      return 0;
-                    },
-                    innerScrollPositionKeyBuilder: () {
-                      return Key(_tabTitles[_tabController.index]);
-                    },
-                    headerSliverBuilder: (context, innerBoxIsScrolled) => _headerSliverBuilder(context),
-                    body: Column(
-                      children: <Widget>[
-                        Container(
-                          height: 40,
-                          margin: EdgeInsets.symmetric(horizontal: 12, vertical: 9),
-                          decoration: BoxDecoration(
-                            color: Colours.white,
-                            borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                            boxShadow: BoxShadows.normalBoxShadow,
-                          ),
-                          child: TabBar(
-                            controller: _tabController,
-                            labelColor: Colours.gray_800,
-                            indicatorColor: Colours.gray_100,
-                            unselectedLabelColor: Colours.gray_500,
-                            indicatorSize: TabBarIndicatorSize.tab,
-                            indicator: new BubbleTabIndicator(
-                              insets: const EdgeInsets.symmetric(horizontal: 3),
-                              indicatorHeight: 34.0,
-                              indicatorRadius: 14,
-                              indicatorColor: Colours.gray_100,
-                              tabBarIndicatorSize: TabBarIndicatorSize.tab,
-                            ),
-                            isScrollable: false,
-                            tabs: <Tab>[
-                              Tab(text: _tabTitles[0]),
-                              Tab(text: _tabTitles[1]),
-                              Tab(text: _tabTitles[2]),
-                              Tab(text: _tabTitles[3]),
-                            ],
-                          ),
-                        ),
-
-                        Expanded(
-                          child: TabBarView(
-                            controller: _tabController,
-                            children: <Widget>[
-                              extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[0]),
-                                  SpotBriefPage(key: _spotDetailModel.keyList[0], coinCode: widget.coinCode)
-                              ),
-                              extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[1]),
-                                  SpotQuotePage(key: _spotDetailModel.keyList[1], coinCode: widget.coinCode)
-                              ),
-                              extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[2]),
-                                  SpotDataPage(key: _spotDetailModel.keyList[2], coinCode: widget.coinCode)
-                              ),
-                              extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[3]),
-                                  Routers.generatePage(context, Routers.articleListPage,
-                                      parameters: Parameters()
-                                        ..putObj('key', _spotDetailModel.keyList[3])
-                                        ..putBool('isSupportPull', false)
-                                        ..putBool('isSingleCard', true)
-                                        ..putString('tag', widget.coinCode)
-                                  )
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    )
-                ),
+    return ProviderWidget<SpotDetailModel>(
+        model: _spotDetailModel,
+        builder: (context, model, child) {
+          return model.isFirst ? FirstRefresh() :
+          Scaffold(
+              backgroundColor: Colours.gray_100,
+              appBar: AppBar(
+                  leading: BackButtonEx(),
+                  elevation: 0,
+                  brightness: Brightness.light,
+                  backgroundColor: Colours.white,
+                  actions: <Widget>[
+                    IconButton(
+                        icon: LocalImage('icon_share', package: Constant.baseLib, width: 20, height: 20),
+                        onPressed: _share
+                    ),
+                  ],
+                  centerTitle: true,
+                  title: _titleBuilder()
               ),
-            );
-          }
-      ),
+              body: NestedScrollViewRefreshIndicator(
+                key: _nestedRefreshKey,
+                onRefresh: _refresh,
+                child: NotificationListener<ScrollNotification>(
+                  onNotification: (ScrollNotification notification) {
+                    if (notification.depth == 0 && notification is ScrollUpdateNotification) {
+                      _scrollNotify(notification.metrics.pixels);
+                    }
+                    return false;
+                  },
+                  child: extended.NestedScrollView(
+                      physics: const ClampingScrollPhysics(),
+                      pinnedHeaderSliverHeightBuilder: () {
+                        return 0;
+                      },
+                      innerScrollPositionKeyBuilder: () {
+                        return Key(_tabTitles[_tabController.index]);
+                      },
+                      headerSliverBuilder: (context, innerBoxIsScrolled) => _headerSliverBuilder(context),
+                      body: Column(
+                        children: <Widget>[
+                          Container(
+                            height: 40,
+                            margin: EdgeInsets.symmetric(horizontal: 12, vertical: 9),
+                            decoration: BoxDecoration(
+                              color: Colours.white,
+                              borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                              boxShadow: BoxShadows.normalBoxShadow,
+                            ),
+                            child: TabBar(
+                              controller: _tabController,
+                              labelColor: Colours.gray_800,
+                              indicatorColor: Colours.gray_100,
+                              unselectedLabelColor: Colours.gray_500,
+                              indicatorSize: TabBarIndicatorSize.tab,
+                              indicator: new BubbleTabIndicator(
+                                insets: const EdgeInsets.symmetric(horizontal: 3),
+                                indicatorHeight: 34.0,
+                                indicatorRadius: 14,
+                                indicatorColor: Colours.gray_100,
+                                tabBarIndicatorSize: TabBarIndicatorSize.tab,
+                              ),
+                              isScrollable: false,
+                              tabs: <Tab>[
+                                Tab(text: _tabTitles[0]),
+                                Tab(text: _tabTitles[1]),
+                                Tab(text: _tabTitles[2]),
+                                Tab(text: _tabTitles[3]),
+                              ],
+                            ),
+                          ),
 
+                          Expanded(
+                            child: TabBarView(
+                              controller: _tabController,
+                              children: <Widget>[
+                                extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[0]),
+                                    SpotQuotePage(key: _spotDetailModel.keyList[0], coinCode: widget.coinCode)
+                                ),
+                                extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[1]),
+                                    Routers.generatePage(context, Routers.articleListPage,
+                                        parameters: Parameters()
+                                          ..putObj('key', _spotDetailModel.keyList[1])
+                                          ..putBool('isSupportPull', false)
+                                          ..putBool('isSingleCard', true)
+                                          ..putString('tag', widget.coinCode)
+                                    )
+                                ),
+                                extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[2]),
+                                    SpotBriefPage(key: _spotDetailModel.keyList[2], coinCode: widget.coinCode)
+                                ),
+                                extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[3]),
+                                    SpotDataPage(key: _spotDetailModel.keyList[3], coinCode: widget.coinCode)
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      )
+                  ),
+                ),
+              )
+          );
+
+        }
 
     );
   }
@@ -273,6 +278,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
         model: _opacityNofifier,
         builder: (context, model, child) {
 
+          String title = _spotDetailModel.quoteCoin != null ? _spotDetailModel.quoteCoin.pair : '';
           double rate = _spotDetailModel.quoteCoin != null ? _spotDetailModel.quoteCoin.change_percent : 0;
           double price = _spotDetailModel.quoteCoin != null ? _spotDetailModel.quoteCoin.quote : 0;
           String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate, 2).toString() + '%';
@@ -283,7 +289,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                  child: Text(widget.coinCode, style: TextStyles.textBlack16,
+                  child: Text(title, style: TextStyles.textBlack16,
                   )),
               _opacityNofifier.value > 0.5 ? Container(
                   child: Text(priceStr + '  ' + rateStr,

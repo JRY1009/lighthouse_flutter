@@ -7,6 +7,8 @@ class GlobalQuote {
   double quote ;
   double change_amount;
   double change_percent;
+  double posX;
+  double posY;
 
   GlobalQuote({
     this.code,
@@ -22,6 +24,11 @@ class GlobalQuote {
     quote = jsonMap['quote'];
     change_amount = jsonMap['change_amount'];
     change_percent = jsonMap['change_percent'];
+    var position = jsonMap['position'];
+    if (position != null) {
+      posX = position['x'] ?? 0;
+      posY = position['y'] ?? 0;
+    }
   }
 
   Map<String, dynamic> toJson() {

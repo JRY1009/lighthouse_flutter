@@ -31,18 +31,25 @@ class WebSocketUtil {
 
           Map<String, dynamic> params = {
             'op': 'subscribe',
-            'group': 'test',
-            'message': 'quote.eth,quote.btc',
+            'group': 'public.quote',
+            'message': 'eth,btc',
           };
           WebSocketUtil.instance().sendMessage(json.encode(params));
         },
 
         messageCallback: (data) {
 
-          Map<String, dynamic> dataMap = json.decode(data);
-          if (dataMap != null) {
-            QuoteWs quoteWs = QuoteWs.fromJson(dataMap);
-            Event.eventBus.fire(WsEvent(quoteWs, WsEventState.quote));
+          Map<String, dynamic> result = json.decode(data);
+          if (result != null) {
+            String group = result['group'];
+            switch(group) {
+              case 'public.quote': {
+                QuoteWs quoteWs = QuoteWs.fromJson(result['message']);
+                Event.eventBus.fire(WsEvent(quoteWs, WsEventState.quote));
+                break;
+              }
+              default: break;
+            }
           }
         });
   }

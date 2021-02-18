@@ -28,7 +28,7 @@ class ShareQRHeader extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          LocalImage('logo', width: 48, height: 48),
+          LocalImage('logo', width: 48, height: 48, package: Constant.baseLib),
           Expanded(
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 5),

@@ -17,8 +17,6 @@
 * 基于bugly的应用全量更新
 * 基于bugly + tinker的热更新
 
-Android版安装包：[./apk/lighthouse_V1.0.0_googleRelease.apk](./apk/lighthouse_V1.0.0_googleRelease.apk)
-
 ## 使用的三方库
 
 | 库                         | 功能             |
@@ -70,14 +68,14 @@ Android版安装包：[./apk/lighthouse_V1.0.0_googleRelease.apk](./apk/lighthou
 
 ## 注意事项
 
-* 调试APP时多渠道的编译配置 main.dart->Edit Configurations->填写Build Flavor 如 google
+* 渠道信息在 android\app\channel 文件中配置
 
-* flutter工程下单独打某个渠道包加参数 --flavor 如 `flutter build apk --flavor google`
+* 多渠道打包，android工程下执行gradle->app->Tasks->package->assembleReleaseChannels
 
 ##  热更新注意事项
 
-* tinker-support.gradle 中设置 enable = true
+* tinker-support.gradle 中设置 enable = true，tinkerEnable = true
 
-* 打基准包，android工程下执行gradle->app->Tasks->other->assembleGoogleRelease，文件生成在build\app\bakApk目录
+* 打基准包，android工程下执行gradle->app->Tasks->other->assembleRelease，文件生成在build\app\bakApk目录
 
-* 打补丁包，将 build\app\bakApk 目录中的文件夹名称拷贝到 tinker-support.gradle 的 baseApkDir 中，执行gradle->app->Tasks->tinker-support->buildAllFlavorsTinkerPatchRelease，补丁文件生成在build\app\outputs\patch目录
+* 打补丁包，将 build\app\bakApk 目录中的文件夹名称拷贝到 tinker-support.gradle 的 baseApkDir 中，执行gradle->app->Tasks->tinker-support->buildTinkerPatchRelease，补丁文件生成在build\app\outputs\patch目录

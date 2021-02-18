@@ -1,6 +1,5 @@
 
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bugly/flutter_bugly.dart';
@@ -8,22 +7,26 @@ import 'package:flutter_xupdate/flutter_xupdate.dart';
 import 'package:library_base/event/event.dart';
 import 'package:library_base/event/main_jump_event.dart';
 import 'package:library_base/event/user_event.dart';
+import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/router/routers.dart';
+import 'package:library_base/utils/channel_util.dart';
 import 'package:library_base/utils/device_util.dart';
 
 class MainModel extends ValueNotifier<int> {
 
   BuildContext context;
   PageController pageController;
+  List<GlobalKey<BasePageMixin>> keyList;
 
   StreamSubscription userSubscription;
   StreamSubscription mainJumpSubscription;
 
   MainModel() : super(0);
 
-  void listenEvent(BuildContext context, PageController pageController) {
+  void listenEvent(BuildContext context, PageController pageController, List<GlobalKey<BasePageMixin>> keyList) {
     this.context = context;
     this.pageController = pageController;
+    this.keyList = keyList;
 
     userSubscription?.cancel();
     mainJumpSubscription?.cancel();
@@ -38,16 +41,23 @@ class MainModel extends ValueNotifier<int> {
     mainJumpSubscription = Event.eventBus.on<MainJumpEvent>().listen((event) {
 
       if (event.page.value >= 0) {
-        pageController.jumpToPage(event.page.value);
+        this.pageController.jumpToPage(event.page.value);
+
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          this.keyList[event.page.value].currentState?.jump(params: event.params);
+        });
       }
     });
   }
 
-  void initBugly() {
+  Future<void> initBugly() async {
+    String channel = await ChannelUtil.getChannel();
+
     FlutterBugly.init(
         androidAppId: '9e87287cfa',
         iOSAppId: 'ad8a0b5092',
-        enableHotfix: true
+        enableHotfix: true,
+        channel: DeviceUtil.isAndroid ? channel : 'ios'
     );
 
     if (DeviceUtil.isAndroid) {

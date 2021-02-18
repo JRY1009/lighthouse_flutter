@@ -126,16 +126,32 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
     Routers.navigateTo(context, Routers.webviewPage, parameters: params);
   }
 
+  void _skip() {
+    Navigator.pop(context);
+    Routers.navigateTo(context, MineRouter.isRunModule ? Routers.minePage : Routers.mainPage, clearStack: true);
+  }
+
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
+        resizeToAvoidBottomInset:false,
         backgroundColor: Colours.white,
         appBar: AppBar(
           elevation: 0,
           brightness: Brightness.light,
           backgroundColor: Colours.white,
           automaticallyImplyLeading: false,
+          actions: <Widget>[
+            FlatButton(
+                padding: EdgeInsets.all(0),
+                minWidth: 70,
+                disabledTextColor: Colours.gray_500,
+                textColor: Colours.gray_400,
+                child: Text(S.of(context).skip, style: TextStyle(fontSize: 15)),
+                onPressed: _skip
+            )
+          ],
         ),
         body: CommonScrollView(
           keyboardConfig: OtherUtil.getKeyboardActionsConfig(context, <FocusNode>[_phoneNode, _pwdNode]),

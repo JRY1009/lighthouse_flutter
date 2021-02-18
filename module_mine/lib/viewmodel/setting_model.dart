@@ -43,6 +43,7 @@ class SettingModel extends ViewStateModel {
           RTAccount.instance().saveAccount();
 
           setSuccess();
+          Event.eventBus.fire(UserEvent(account, UserEventState.userme));
         },
         onError: (errno, msg) {
           setError(errno, message: msg);

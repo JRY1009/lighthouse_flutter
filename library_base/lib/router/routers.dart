@@ -36,6 +36,7 @@ class Routers {
   static String aboutPage = '/aboutPage';
   static String settingPage = '/settingPage';
   static String modifyNicknamePage = '/modifyNicknamePage';
+  static String setPwdPage = '/setPwdPage';
   static String modifyPwdPage = '/modifyPwdPage';
 
   static void init(List<IRouter> listRouter) {
@@ -51,14 +52,17 @@ class Routers {
           return NotFoundPage();
         });
 
+    PageBuilder webviewPageBuilder = PageBuilder(Routers.webviewPage, (params) {
+      String title = params?.getString('title');
+      String url = params?.getString('url');
+      return WebViewPage(url, title);
+    });
+
     router.define(
         Routers.webviewPage,
-        handler: PageBuilder(Routers.webviewPage, (params) {
-          String title = params?.getString('title');
-          String url = params?.getString('url');
-          return WebViewPage(url, title);
-        }).handler
+        handler: webviewPageBuilder.handler
     );
+    pageRounters[Routers.webviewPage] = webviewPageBuilder;
 
     listRouter.forEach((routerImpl) {
       List<PageBuilder> pages = routerImpl.getPageBuilders();

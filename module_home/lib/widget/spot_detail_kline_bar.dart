@@ -6,7 +6,8 @@ import 'package:library_base/res/styles.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh_top.dart';
 import 'package:library_base/widget/tab/kline_tab.dart';
 import 'package:module_home/viewmodel/spot_kline_model.dart';
-import 'package:module_home/widget/line_chart.dart';
+import 'package:module_home/widget/time_sharing_chart.dart';
+import 'package:module_home/widget/time_sharing_chart_24h.dart';
 
 class SpotDetailKLineBar extends StatefulWidget {
 
@@ -115,9 +116,14 @@ class _SpotDetailKLineBarState extends State<SpotDetailKLineBar> with AutomaticK
                     child: Container(
                       height: 170,
                       padding: EdgeInsets.symmetric(horizontal: 12),
-                      child: model.isBusy ? FirstRefreshTop() : SimpleLineChart(
+                      child: model.isBusy ? FirstRefreshTop() :
+                      (_tabController.index == 0 ?
+                      TimeSharingChart24h(
+                          quoteList: model.getQuoteList(_tabController.index)):
+                      TimeSharingChart(
                           quoteList: model.getQuoteList(_tabController.index),
-                          timeFormat: _tabController.index == 0 ? ChartTimeFormat.HOUR_MINUTE : ChartTimeFormat.MONTH_DAY),
+                          timeFormat: _tabController.index == 0 ? ChartTimeFormat.HOUR_MINUTE : ChartTimeFormat.MONTH_DAY))
+                      ,
                     ),
                   )
                 ],

@@ -4,6 +4,7 @@ class QuoteWs {
 
   String coin_code;
   double quote;
+  double change_percent_24hr;
   String time;
 
   QuoteWs({
@@ -14,7 +15,8 @@ class QuoteWs {
 
   QuoteWs.fromJson(Map<String, dynamic> jsonMap) {
     coin_code = jsonMap['coin_code'];
-    quote = jsonMap['quote'];
+    quote = jsonMap['quote'] ?? 0;
+    change_percent_24hr = jsonMap['change_percent_24hr'] ?? 0;
     time = jsonMap['time'];
   }
 
