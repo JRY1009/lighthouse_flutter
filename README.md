@@ -16,6 +16,10 @@
 * 微信分享，保存本地图片分享
 * 基于bugly的应用全量更新
 * 基于bugly + tinker的热更新
+* 基于walle的多渠道打包
+
+
+Android版安装包：[./apk/app-release.apk](./apk/app-release.apk)
 
 ## 使用的三方库
 
