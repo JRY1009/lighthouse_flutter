@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
+import 'package:library_base/utils/num_util.dart';
 
 
 class GlobalQuoteItem extends StatelessWidget {
@@ -30,6 +31,12 @@ class GlobalQuoteItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate, 2).toString() + '%';
+
+    String priceStr = NumUtil.formatNum(price, point: 2);
+    String changeStr = NumUtil.formatNum(change, point: 2);
+
     return Container(
       height: 107.0,
       width: double.infinity,
@@ -54,7 +61,7 @@ class GlobalQuoteItem extends StatelessWidget {
             height: 17,
             margin: EdgeInsets.only(top: 9),
             alignment: Alignment.centerLeft,
-            child: Text(price.toString(), style: rate >= 0 ? TextStyles.textRed_w400_14 : TextStyles.textGreen_w400_14,
+            child: Text(priceStr, style: rate >= 0 ? TextStyles.textGreen_w400_14 : TextStyles.textRed_w400_14,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,),
           ),
@@ -67,14 +74,14 @@ class GlobalQuoteItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  child: Text((change >= 0 ? '+' : '') + change.toString(), style: rate >= 0 ? TextStyles.textRed_w400_10 : TextStyles.textGreen_w400_10,
+                  child: Text((change >= 0 ? '+' : '') + changeStr, style: rate >= 0 ? TextStyles.textGreen_w400_10 : TextStyles.textRed_w400_10,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 Gaps.hGap10,
                 Expanded(
-                  child: Text((rate >= 0 ? '+' : '') + rate.toString() + '%', style: rate >= 0 ? TextStyles.textRed_w400_10 : TextStyles.textGreen_w400_10,
+                  child: Text(rateStr, style: rate >= 0 ? TextStyles.textGreen_w400_10 : TextStyles.textRed_w400_10,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),

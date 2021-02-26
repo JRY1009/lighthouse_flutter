@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/res/colors.dart';
-import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/utils/num_util.dart';
 import 'package:module_home/model/quote_coin.dart';
@@ -52,9 +51,9 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
 
     String coin_code = widget.quoteCoin != null ? widget.quoteCoin.coin_code : '';
     String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate, 2).toString() + '%';
-    String priceStr = NumUtil.getNumByValueDouble(price, 2).toString();
-    String priceCnyStr = NumUtil.getNumByValueDouble(priceCny, 2).toString();
-    String changeAmountStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(change_amount, 2).toString();
+    String priceStr = NumUtil.formatNum(price, point: 2);
+    String priceCnyStr = NumUtil.formatNum(priceCny, point: 2);
+    String changeAmountStr = (rate >= 0 ? '+' : '') + NumUtil.formatNum(change_amount, point: 2);
     String amount24Str = NumUtil.getBigVolumFormat(amount_24h, fractionDigits: 2).toString();
     String vol24Str = NumUtil.getBigVolumFormat(vol_24h, fractionDigits: 2).toString();
 
@@ -79,11 +78,11 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar> with AutomaticKeepA
                       children: [
                         TextSpan(text: '\$', style: rate >= 0 ? TextStyles.textGreen_w400_12 : TextStyles.textRed_w400_12),
                         TextSpan(text: priceStr, style: rate >= 0 ? TextStyles.textGreen_w400_22 : TextStyles.textRed_w400_22),
-                        WidgetSpan(
-                            child: Icon(rate >= 0 ? Icons.arrow_upward : Icons.arrow_downward,
-                                color: rate >= 0 ? Colours.text_green : Colours.text_red,
-                                size: 14)
-                        )
+//                        WidgetSpan(
+//                            child: Icon(rate >= 0 ? Icons.arrow_upward : Icons.arrow_downward,
+//                                color: rate >= 0 ? Colours.text_green : Colours.text_red,
+//                                size: 14)
+//                        )
                       ]
                   ))
               ),

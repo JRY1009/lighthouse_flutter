@@ -38,6 +38,8 @@ class Routers {
   static String modifyNicknamePage = '/modifyNicknamePage';
   static String setPwdPage = '/setPwdPage';
   static String modifyPwdPage = '/modifyPwdPage';
+  static String forgetPwdPage = '/forgetPwdPage';
+  static String languagePage = '/languagePage';
 
   static void init(List<IRouter> listRouter) {
     router = FluroRouter();

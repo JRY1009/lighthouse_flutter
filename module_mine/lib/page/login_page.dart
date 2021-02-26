@@ -60,7 +60,6 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
       // _phoneController.text = t?.last;
       _area_code = '+86';
       _phoneController.text = account.phone;
-      _pwdController.text = 'tt123456';
     } else {
       _area_code = '+86';
     }
@@ -118,6 +117,10 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
     Routers.navigateTo(context, Routers.loginSmsPage, clearStack: true);
   }
 
+  void _forgetPwd() {
+    Routers.navigateTo(context, Routers.forgetPwdPage);
+  }
+
   void _jump2Register() {
     Parameters params = Parameters()
       ..putString('title', 'xxx')
@@ -127,7 +130,6 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
   }
 
   void _skip() {
-    Navigator.pop(context);
     Routers.navigateTo(context, MineRouter.isRunModule ? Routers.minePage : Routers.mainPage, clearStack: true);
   }
 
@@ -226,12 +228,25 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
             Container(
               height: 40.0,
               alignment: Alignment.center,
-              child: InkWell(
-                child: Text(
-                  S.of(context).smsLogin,
-                  style: TextStyles.textGray500_w400_15,
-                ),
-                onTap: _smsLogin,
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    child: Text(
+                      S.of(context).smsLogin,
+                      style: TextStyles.textGray500_w400_15,
+                    ),
+                    onTap: _smsLogin,
+                  ),
+                  InkWell(
+                    child: Text(
+                      S.of(context).forgetPassword,
+                      style: TextStyles.textGray500_w400_15,
+                    ),
+                    onTap: _forgetPwd,
+                  )
+                ],
               ),
             ),
           ],

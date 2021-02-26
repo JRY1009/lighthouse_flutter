@@ -1,3 +1,4 @@
+import 'package:library_base/utils/date_util.dart';
 import 'package:library_base/utils/object_util.dart';
 
 class QuoteWs {
@@ -6,6 +7,13 @@ class QuoteWs {
   double quote;
   double change_percent_24hr;
   String time;
+
+  int get id => _getIdTs();
+
+  int _getIdTs() {
+    int ts = (DateUtil.getDateMsByTimeStr(time) / 1000).floor();
+    return ts;
+  }
 
   QuoteWs({
     this.coin_code,

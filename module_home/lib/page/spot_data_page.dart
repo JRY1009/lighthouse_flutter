@@ -6,6 +6,7 @@ import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/styles.dart';
+import 'package:library_base/router/routers.dart';
 import 'package:library_base/widget/common_scroll_view.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh.dart';
 import 'package:module_home/viewmodel/spot_data_model.dart';
@@ -71,36 +72,51 @@ class _SpotDataPageState extends State<SpotDataPage> with WidgetsBindingObserver
           CommonScrollView(
             physics: ClampingScrollPhysics(),
             children: [
-              SpotDataCirculationBar(spotDataBasic: model.dataBasic),
+              //SpotDataCirculationBar(spotDataBasic: model.dataBasic),
 
-              Container(
-                margin: const EdgeInsets.fromLTRB(12, 9, 12, 9),
-                decoration: BoxDecoration(
-                  color: Colours.white,
-                  borderRadius: BorderRadius.all(Radius.circular(14.0)),
-                  boxShadow: BoxShadows.normalBoxShadow,
-                ),
-                child: Column(
-                  children: [
-                    Container(
-                      alignment: Alignment.topLeft,
-                      margin: const EdgeInsets.only(left: 15, top: 18),
-                      child: Text(S.of(context).proAssetsCompare,
-                        style: TextStyles.textGray800_w400_15,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+              GestureDetector(
+                onTap: () => Routers.navigateTo(context, Routers.treemapPage),
+                child: Container(
+                  margin: const EdgeInsets.fromLTRB(12, 9, 12, 9),
+                  decoration: BoxDecoration(
+                    color: Colours.white,
+                    borderRadius: BorderRadius.all(Radius.circular(14.0)),
+                    boxShadow: BoxShadows.normalBoxShadow,
+                  ),
+                  child: Column(
+                    children: [
+                      Container(
+                          margin: const EdgeInsets.fromLTRB(15, 18, 16, 9),
+                          height: 20,
+                          child: Row(
+                            children: [
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                child: Text(S.of(context).proAssetsCompare,
+                                  style: TextStyles.textGray800_w400_15,
+                                ),
+                              ),
+                              Expanded(
+                                child: Container(),
+                              ),
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                child: Text(S.of(context).all, style: TextStyles.textGray400_w400_12),
+                              ),
+                              Icon(Icons.keyboard_arrow_right, color: Colours.gray_400, size: 16),
+                            ],
+                          )
                       ),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      margin: const EdgeInsets.only(left: 15, top: 12, right: 15, bottom: 15),
-                      height: 200,
-                      child: SpotTreemap(),
-                    )
-                  ],
-                ),
+                      Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.only(left: 15, top: 12, right: 15, bottom: 15),
+                        height: 200,
+                        child: SpotTreemap(),
+                      )
+                    ],
+                  ),
+                )
               ),
-
               SpotDataAddressAssetsDistributionBar(spotDataBasic: model.dataBasic, dataList: model.dataList),
             ],
           );

@@ -15,6 +15,10 @@ class AccountTextField extends StatefulWidget {
   final String areaCode;
   final TextEditingController controller;
 
+  final Color backgroundColor;
+  final InputBorder focusedBorder;
+  final InputBorder enabledBorder;
+
   AccountTextField({
     Key key,
     @required this.controller,
@@ -22,6 +26,9 @@ class AccountTextField extends StatefulWidget {
     this.focusNode,
     this.areaCode,
     this.onPrefixPressed,
+    this.backgroundColor,
+    this.focusedBorder,
+    this.enabledBorder
   }) : super(key: key);
 
   @override
@@ -38,6 +45,7 @@ class _AccountTextFieldState extends State<AccountTextField> {
   Widget build(BuildContext context) {
     return Container(
         height: 48.0,
+        color: widget.backgroundColor ?? Colours.transparent,
         child: TextField(
           focusNode: widget.focusNode,
           controller: widget.controller,
@@ -51,8 +59,8 @@ class _AccountTextFieldState extends State<AccountTextField> {
             hintText: S.of(context).loginPhoneHint,
             contentPadding: EdgeInsets.only(top: 16, bottom: 16),
             hintStyle: TextStyles.textGray400_w400_14,
-            focusedBorder: BorderStyles.underlineInputMain,
-            enabledBorder: BorderStyles.underlineInputGray,
+            focusedBorder: widget.focusedBorder ?? BorderStyles.underlineInputMain,
+            enabledBorder: widget.enabledBorder ?? BorderStyles.underlineInputGray,
             prefixIcon: InkWell(
                 onTap: () {
                   widget.focusNode.unfocus();

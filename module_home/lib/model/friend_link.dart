@@ -5,21 +5,25 @@ class FriendLink {
 
   String name;
   String url;
+  String ico;
 
   FriendLink({
     this.name,
     this.url,
+    this.ico,
   });
 
   FriendLink.fromJson(Map<String, dynamic> jsonMap) {
     name = jsonMap['name'];
     url = jsonMap['url'];
+    ico = jsonMap['ico'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> jsonMap = new Map<String, dynamic>();
     jsonMap['name'] = this.name;
     jsonMap['url'] = this.url;
+    jsonMap['ico'] = this.ico;
 
     return jsonMap;
   }

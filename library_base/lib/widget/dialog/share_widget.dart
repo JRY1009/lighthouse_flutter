@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
+import 'package:library_base/net/apis.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
@@ -53,7 +54,7 @@ class ShareQRHeader extends StatelessWidget {
               )
           ),
           QrImage(
-            data: "https://www.baidu.com",
+            data: Apis.URL_OFFICIAL_WEBSITE,
             version: QrVersions.auto,
             padding: EdgeInsets.all(0),
             size: 44.0,
@@ -107,7 +108,7 @@ class ShareQRFoooter extends StatelessWidget {
               )
           ),
           QrImage(
-            data: "https://www.baidu.com",
+            data: Apis.URL_OFFICIAL_WEBSITE,
             version: QrVersions.auto,
             padding: EdgeInsets.all(0),
             size: 44.0,

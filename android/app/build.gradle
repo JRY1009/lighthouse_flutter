@@ -21,18 +21,11 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
-//打包时去掉这句
-project.setProperty('target-platform', 'android-arm')
-
 apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 apply from: 'tinker-support.gradle'
 //多渠道使用walle
 apply from: 'multiple-channel.gradle'
-
-def releaseTime() {
-    return new Date().format("yyyyMMdd_HHmm", TimeZone.getTimeZone("GMT+08"))
-}
 
 android {
 
@@ -65,12 +58,6 @@ android {
         versionName flutterVersionName
         flavorDimensions "default"
 
-        ndk {
-            //x86为了可以在模拟器上测试，打包时去掉x86
-            abiFilters "armeabi-v7a", "x86"
-            //abiFilters "armeabi-v7a"
-        }
-
         manifestPlaceholders = [
                 JPUSH_PKGNAME : applicationId,
                 JPUSH_APPKEY : "045af7241e8847d98c3112e1", // NOTE: JPush 上注册的包名对应的 Appkey.
@@ -80,6 +67,12 @@ android {
 
     buildTypes {
         debug {
+            ndk {
+                //x86为了可以在模拟器上测试，打Release包时去掉x86
+                //如果选择 abiFilters "armeabi-v7a", "x86", 打出来的就只包含"x86"的libflutter.so包
+                abiFilters "armeabi-v7a", "arm64-v8a", "x86"
+            }
+
             multiDexEnabled true
             minifyEnabled false
 
@@ -87,15 +80,14 @@ android {
         }
 
         release {
+            ndk {
+                abiFilters "armeabi-v7a"
+            }
+
             multiDexEnabled true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-//            applicationVariants.all { variant ->
-//                variant.outputs.all {
-//                    outputFileName = "lighthouse_V${variant.versionName}_${releaseTime()}_${variant.name}.apk"
-//                }
-//            }
             signingConfig signingConfigs.config
         }
     }

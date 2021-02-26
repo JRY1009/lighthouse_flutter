@@ -5,13 +5,15 @@ class SpotBrief {
 
   String key;
   String title;
-  String value ;
+  String value;
+  String detail;
   int type;
 
   SpotBrief({
     this.key,
     this.title,
     this.value,
+    this.detail,
     this.type,
   });
 
@@ -19,6 +21,7 @@ class SpotBrief {
     key = jsonMap['key'];
     title = jsonMap['title'];
     value = jsonMap['value'];
+    detail = jsonMap['detail'];
     type = jsonMap['type'];
   }
 
@@ -27,6 +30,7 @@ class SpotBrief {
     jsonMap['key'] = this.key;
     jsonMap['title'] = this.title;
     jsonMap['value'] = this.value;
+    jsonMap['detail'] = this.detail;
     jsonMap['type'] = this.type;
 
     return jsonMap;

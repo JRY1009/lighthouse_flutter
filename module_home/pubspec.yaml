@@ -29,6 +29,9 @@ dependencies:
   library_base:
     path: ../library_base
 
+  library_kchart:
+    path: ../library_kchart
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

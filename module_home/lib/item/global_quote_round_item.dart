@@ -38,7 +38,7 @@ class GlobalQuoteRoundItem extends StatelessWidget {
         width: 50.0,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(50.0),   //圆角
-            color: rate >= 0 ? Colours.text_red : Colours.text_green
+            color: rate >= 0 ? Colours.text_green : Colours.text_red
         ),
         child: Column (
           mainAxisAlignment: MainAxisAlignment.center,

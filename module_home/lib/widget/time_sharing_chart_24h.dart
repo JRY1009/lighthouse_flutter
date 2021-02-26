@@ -112,9 +112,9 @@ class _TimeSharingChart24hState extends State<TimeSharingChart24h> {
       lineBarsData: [
         LineChartBarData(
           spots: spotList,
-          isCurved: true,
+          isCurved: false,
           colors: [Colours.app_main],
-          barWidth: 2,
+          barWidth: 1,
           isStrokeCapRound: true,
           dotData: FlDotData(
             show: false,

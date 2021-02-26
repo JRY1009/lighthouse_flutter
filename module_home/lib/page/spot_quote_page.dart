@@ -3,19 +3,19 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
-import 'package:library_base/widget/easyrefresh/first_refresh.dart';
-import 'package:library_base/widget/easyrefresh/loading_empty.dart';
 import 'package:library_base/utils/num_util.dart';
-import 'package:library_base/widget/shot_view.dart';
+import 'package:library_base/widget/button/sort_button.dart';
 import 'package:library_base/widget/common_scroll_view.dart';
+import 'package:library_base/widget/easyrefresh/first_refresh.dart';
+import 'package:library_base/widget/shot_view.dart';
 import 'package:module_home/item/spot_exchange_quote_item.dart';
+import 'package:module_home/model/spot_exchange_quote.dart';
 import 'package:module_home/viewmodel/spot_quote_model.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 
@@ -67,6 +67,11 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
   @override
   Future<Uint8List> screenShot() {
     return _shotController.makeImageUint8List();
+  }
+
+  //state 0 priceClicked，1 rateClicked
+  void _changeSortState(int state) {
+    _quoteModel.changeSortState(state);
   }
 
   @override
@@ -144,9 +149,10 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
 
     String groupStr = _quoteModel.quoteBasic != null ? _quoteModel.quoteBasic.data_src : '';
     String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate, 2).toString() + '%';
-    String priceStr = NumUtil.getNumByValueDouble(price, 2).toString();
-    String cnyStr = NumUtil.getNumByValueDouble(cny, 2).toString();
-    String changeAmountStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(change_amount, 2).toString();
+
+    String priceStr = NumUtil.formatNum(price, point: 2);
+    String cnyStr = NumUtil.formatNum(cny, point: 2);
+    String changeAmountStr = (rate >= 0 ? '+' : '') + NumUtil.formatNum(change_amount, point: 2);
 
     return Column(
       children: [
@@ -183,10 +189,10 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
                           children: [
                             TextSpan(text: '\$', style: rate >= 0 ? TextStyles.textGreen_w400_12 : TextStyles.textRed_w400_12),
                             TextSpan(text: priceStr, style: rate >= 0 ? TextStyles.textGreen_w400_22 : TextStyles.textRed_w400_22),
-                            WidgetSpan(
-                              child: Icon(rate >= 0 ? Icons.arrow_upward : Icons.arrow_downward,
-                                  color: rate >= 0 ? Colours.text_green : Colours.text_red,
-                                  size: 14),)
+//                            WidgetSpan(
+//                              child: Icon(rate >= 0 ? Icons.arrow_upward : Icons.arrow_downward,
+//                                  color: rate >= 0 ? Colours.text_green : Colours.text_red,
+//                                  size: 14),)
                           ]
                       ))
                   ),
@@ -252,25 +258,41 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,)
               ),
-              Container(
-                width: 90,
-                alignment: Alignment.centerRight,
-                child: Text.rich(TextSpan(
-                    children: [
-                      TextSpan(text: S.of(context).proLatestPrice, style: TextStyles.textGray500_w400_12),
-                      WidgetSpan(child: Icon(Icons.arrow_drop_down_sharp, color: Colours.text_red, size: 14),)
-                    ]
-                )),
+              GestureDetector(
+                  onTap: () =>_changeSortState(0),
+                  child: Container(
+                    width: 90,
+                    alignment: Alignment.centerRight,
+                    child: Text.rich(TextSpan(
+                        children: [
+                          TextSpan(text: S.of(context).proLatestPrice, style: TextStyles.textGray500_w400_12),
+                          WidgetSpan(
+                              child: SortButton(
+                                  state: _quoteModel.sortState == QuoteSortState.PRICE_ASCEND ? SortButtonState.ASCEND :
+                                  _quoteModel.sortState == QuoteSortState.PRICE_DESCEND ? SortButtonState.DESCEND : SortButtonState.NORMAL
+                              )
+                          )
+                        ]
+                    )),
+                  )
               ),
-              Container(
-                width: 70,
-                alignment: Alignment.centerRight,
-                child: Text.rich(TextSpan(
-                    children: [
-                      TextSpan(text: S.of(context).proRate, style: TextStyles.textGray500_w400_12),
-                      WidgetSpan(child: Icon(Icons.arrow_drop_down_sharp, color: Colours.text_red, size: 14),)
-                    ]
-                )),
+              GestureDetector(
+                  onTap: () =>_changeSortState(1),
+                child: Container(
+                  width: 70,
+                  alignment: Alignment.centerRight,
+                  child: Text.rich(TextSpan(
+                      children: [
+                        TextSpan(text: S.of(context).proRate, style: TextStyles.textGray500_w400_12),
+                        WidgetSpan(
+                            child: SortButton(
+                                state: _quoteModel.sortState == QuoteSortState.RATE_ASCEND ? SortButtonState.ASCEND :
+                                _quoteModel.sortState == QuoteSortState.RATE_DESCEND ? SortButtonState.DESCEND : SortButtonState.NORMAL
+                            )
+                        )
+                      ]
+                  )),
+                )
               )
             ],
           ),
@@ -281,13 +303,16 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
   }
 
   Widget _buildItem() {
-    final list = List.generate(_quoteModel.quoteList.length, (i) {
+    List<SpotExchangeQuote> sortedList = _quoteModel.getSortedList();
+    
+    final list = List.generate(sortedList.length, (i) {
       return SpotExchangeQuoteItem(
         index: i,
-        tradePlatform: _quoteModel.quoteList[i].name,
-        price: _quoteModel.quoteList[i].quote,
-        rate: _quoteModel.quoteList[i].change_percent,
-        cny: _quoteModel.quoteList[i].cny,
+        tradePlatform: sortedList[i].name,
+        price: sortedList[i].quote,
+        rate: sortedList[i].change_percent,
+        cny: sortedList[i].cny,
+        ico: sortedList[i].ico,
       );
     });
     return Container(

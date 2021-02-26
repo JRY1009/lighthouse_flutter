@@ -15,8 +15,10 @@ import 'package:library_base/router/parameters.dart';
 import 'package:library_base/router/routers.dart';
 import 'package:library_base/widget/button/back_button.dart';
 import 'package:library_base/widget/dialog/dialog_util.dart';
+import 'package:library_base/widget/dialog/share_widget.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh.dart';
 import 'package:library_base/widget/image/local_image.dart';
+import 'package:library_base/widget/shot_view.dart';
 import 'package:library_base/widget/tab/bubble_indicator.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
 import 'package:library_base/utils/log_util.dart';
@@ -48,6 +50,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
   SpotDetailModel _spotDetailModel;
 
   List<String> _tabTitles ;
+  ShotController _tabBarSC = new ShotController();
 
   ScrollController _nestedController = ScrollController();
   final _nestedRefreshKey = GlobalKey<NestedScrollViewRefreshIndicatorState>();
@@ -123,7 +126,8 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
 
       String title = _spotDetailModel.quoteCoin != null ? _spotDetailModel.quoteCoin.pair : '';
 
-      Uint8List pngBytes = await _spotDetailModel.keyList[0]?.currentState.screenShot();
+      Uint8List tabViewpngBytes = await _spotDetailModel.keyList[0]?.currentState.screenShot();
+      Uint8List tabBarPngBytes = await _tabBarSC.makeImageUint8List();
       DialogUtil.showShareDialog(context,
           children: [
             Container(
@@ -139,10 +143,12 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
                 children: [
                   SpotDetailAppbar(showShadow: false, quoteCoin: _spotDetailModel.quoteCoin),
                   SpotDetailKLineBar(coinCode: widget.coinCode),
-                  Image.memory(pngBytes),
+                  Image.memory(tabBarPngBytes),
+                  Image.memory(tabViewpngBytes),
                 ],
               ),
             ),
+            ShareQRFoooter(),
           ]
       );
     });
@@ -193,36 +199,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
                       headerSliverBuilder: (context, innerBoxIsScrolled) => _headerSliverBuilder(context),
                       body: Column(
                         children: <Widget>[
-                          Container(
-                            height: 40,
-                            margin: EdgeInsets.symmetric(horizontal: 12, vertical: 9),
-                            decoration: BoxDecoration(
-                              color: Colours.white,
-                              borderRadius: BorderRadius.all(Radius.circular(16.0)),
-                              boxShadow: BoxShadows.normalBoxShadow,
-                            ),
-                            child: TabBar(
-                              controller: _tabController,
-                              labelColor: Colours.gray_800,
-                              indicatorColor: Colours.gray_100,
-                              unselectedLabelColor: Colours.gray_500,
-                              indicatorSize: TabBarIndicatorSize.tab,
-                              indicator: new BubbleTabIndicator(
-                                insets: const EdgeInsets.symmetric(horizontal: 3),
-                                indicatorHeight: 34.0,
-                                indicatorRadius: 14,
-                                indicatorColor: Colours.gray_100,
-                                tabBarIndicatorSize: TabBarIndicatorSize.tab,
-                              ),
-                              isScrollable: false,
-                              tabs: <Tab>[
-                                Tab(text: _tabTitles[0]),
-                                Tab(text: _tabTitles[1]),
-                                Tab(text: _tabTitles[2]),
-                                Tab(text: _tabTitles[3]),
-                              ],
-                            ),
-                          ),
+                          _tabBarBuilder(),
 
                           Expanded(
                             child: TabBarView(
@@ -263,9 +240,15 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
 
   List<Widget> _headerSliverBuilder(BuildContext context) {
     return <Widget>[
-      SliverToBoxAdapter(
-        child: SpotDetailAppbar(quoteCoin: _spotDetailModel.quoteCoin),
+      ProviderWidget<SpotHeaderModel>(
+          model: _spotDetailModel.spotHeaderModel,
+          builder: (context, model, child) {
+            return SliverToBoxAdapter(
+              child: SpotDetailAppbar(quoteCoin: _spotDetailModel.quoteCoin),
+            );
+          }
       ),
+
       SliverToBoxAdapter(
         child: SpotDetailKLineBar(coinCode: widget.coinCode),
       ),
@@ -303,4 +286,38 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
 
   }
 
+  Widget _tabBarBuilder() {
+    return ShotView(
+        controller: _tabBarSC,
+        child: Container(
+          height: 40,
+          margin: EdgeInsets.symmetric(horizontal: 12, vertical: 9),
+          decoration: BoxDecoration(
+            color: Colours.white,
+            borderRadius: BorderRadius.all(Radius.circular(16.0)),
+            boxShadow: BoxShadows.normalBoxShadow,
+          ),
+          child: TabBar(
+            controller: _tabController,
+            labelColor: Colours.gray_800,
+            indicatorColor: Colours.gray_100,
+            unselectedLabelColor: Colours.gray_500,
+            indicatorSize: TabBarIndicatorSize.tab,
+            indicator: new BubbleTabIndicator(
+              insets: const EdgeInsets.symmetric(horizontal: 3),
+              indicatorHeight: 34.0,
+              indicatorRadius: 14,
+              indicatorColor: Colours.gray_100,
+              tabBarIndicatorSize: TabBarIndicatorSize.tab,
+            ),
+            isScrollable: false,
+            tabs: <Tab>[
+              Tab(text: _tabTitles[0]),
+              Tab(text: _tabTitles[1]),
+              Tab(text: _tabTitles[2]),
+              Tab(text: _tabTitles[3]),
+            ],
+          ),
+        ));
+  }
 }

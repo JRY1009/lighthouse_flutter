@@ -5,11 +5,11 @@ import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
-import 'package:library_base/widget/tab/bubble_indicator.dart';
-import 'package:library_base/widget/tab/quotation_tab.dart';
 import 'package:library_base/utils/image_util.dart';
 import 'package:library_base/utils/num_util.dart';
 import 'package:library_base/utils/screen_util.dart';
+import 'package:library_base/widget/tab/bubble_indicator.dart';
+import 'package:library_base/widget/tab/quotation_tab.dart';
 import 'package:module_home/home_router.dart';
 import 'package:module_home/viewmodel/home_model.dart';
 import 'package:module_home/widget/home_flexible_tabview.dart';
@@ -57,12 +57,12 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
     double btcRate = homeModel.btcUsdPair != null ? homeModel.btcUsdPair.change_percent : 0;
     double btcPrice = homeModel.btcUsdPair != null ? homeModel.btcUsdPair.quote : 0;
     String btcRateStr = (btcRate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(btcRate, 2).toString() + '%';
-    String btcPriceStr = NumUtil.getNumByValueDouble(btcPrice, 2).toString();
+    String btcPriceStr = '\$' + NumUtil.formatNum(btcPrice, point: 2);
 
     double ethRate = homeModel.ethUsdPair != null ? homeModel.ethUsdPair.change_percent : 0;
     double ethPrice = homeModel.ethUsdPair != null ? homeModel.ethUsdPair.quote : 0;
     String ethRateStr = (ethRate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(ethRate, 2).toString() + '%';
-    String ethPriceStr = NumUtil.getNumByValueDouble(ethPrice, 2).toString();
+    String ethPriceStr = '\$' + NumUtil.formatNum(ethPrice, point: 2);
 
     bool isVertical = ScreenUtil.getScreenW(context) < ScreenUtil.getScreenH(context);
 
@@ -116,7 +116,7 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
                         color: Colours.bubble_bg,
                         borderRadius: BorderRadius.all(Radius.circular(12.0)),
                       ),
-                      margin: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                      margin: EdgeInsets.fromLTRB(12, 12, 12, 0),
                       child: TabBar(
                         controller: _tabController,
                         labelColor: Colours.gray_800,

@@ -1,6 +1,10 @@
 {
   "appName": "区块灯塔",
   "slogan": "照亮数字世界之海",
+  "language": "语言",
+  "chinese": "简体中文",
+  "english": "英语",
+  "auto": "系统默认",
   "notFoundPage": "页面不存在",
   "login": "登录",
   "welcomeLogin": "欢迎登录",
@@ -12,7 +16,7 @@
   "logout": "退出登录",
   "logoutConfirm": "确定要退出当前账号吗？",
   "loginNow": "立即登录",
-  "loginGuide": "登录后可同步数据",
+  "loginGuide": "开启数字之旅",
   "loginPhone": "手机号",
   "loginPhoneHint": "请输入手机号",
   "loginPhoneError": "手机号不能为空!",
@@ -25,7 +29,7 @@
   "passwordHint": "请输入密码",
   "passwordHintTips": "8~20位数字、字母、符号组合",
   "passwordError": "密码不能少于8位!",
-  "forgetPassword": "忘记密码？",
+  "forgetPassword": "忘记密码",
   "loginSuccess": "登录成功",
   "register": "注册",
   "skip": "跳过",
@@ -142,5 +146,11 @@
   "proTradeVolume": "交易量",
   "proFee": "手续费",
   "proWinRate": "交易胜率",
-  "supportExchanges": "支持交易所"
+  "supportExchanges": "支持交易所",
+  "kline1h": "1H",
+  "kline24h": "24H",
+  "kline1week": "1周",
+  "kline1month": "1月",
+  "kline1year": "1年",
+  "klineAll": "全部"
 }

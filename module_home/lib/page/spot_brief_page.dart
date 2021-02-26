@@ -12,6 +12,7 @@ import 'package:library_base/res/styles.dart';
 import 'package:library_base/router/routers.dart';
 import 'package:library_base/widget/common_scroll_view.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh.dart';
+import 'package:library_base/widget/image/round_image.dart';
 import 'package:library_base/widget/shot_view.dart';
 import 'package:library_base/utils/other_util.dart';
 import 'package:module_home/item/milestone_item.dart';
@@ -105,6 +106,7 @@ class _SpotBriefPageState extends State<SpotBriefPage> with BasePageMixin<SpotBr
                             index: index,
                             title: spotBrief.title,
                             subTitle: spotBrief.value,
+                            detailInfo: spotBrief.detail,
                             type: spotBrief.type,
                           );
                         },
@@ -129,11 +131,22 @@ class _SpotBriefPageState extends State<SpotBriefPage> with BasePageMixin<SpotBr
                         itemBuilder: (_, index) {
                           FriendLink friendLink = model.friendLinkList[index];
                           return Text.rich(
-                              TextSpan(
-                                text: friendLink.name,
-                                style: TextStyles.textMain14,
-                                recognizer: new TapGestureRecognizer()..onTap = () => OtherUtil.launchURL(friendLink.url),
-                              )
+                            TextSpan(
+                              children: [
+                                WidgetSpan(
+                                  child: RoundImage(friendLink.ico ?? '',
+                                    width: 14,
+                                    height: 14,
+                                    borderRadius: BorderRadius.all(Radius.circular(0)),
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: ' ${friendLink.name}',
+                                  style: TextStyles.textMain14,
+                                  recognizer: new TapGestureRecognizer()..onTap = () => OtherUtil.launchURL(friendLink.url),
+                                )
+                              ]
+                            )
                           );
                         },
                       )

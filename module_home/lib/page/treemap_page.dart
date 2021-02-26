@@ -102,6 +102,7 @@ class _TreemapPageState extends State<TreemapPage> {
             {
             series: [{
                 type: 'treemap',
+                squareRatio: 0.8,
                 left: '0%',
                 right: '0%',
                 bottom: '0%',
@@ -114,7 +115,7 @@ class _TreemapPageState extends State<TreemapPage> {
                 },
                 levels: [
                     {
-                        color: ['#DAF6F3', '#ACEFE8', '#97EEE5', '#F8F8F8', '#FFF8F4', '#FFDECB', '#FCC09C'],
+                        color: ['#B4DAB5', '#69BA88', '#58A975', '#F8F8F8', '#ECA5A9', '#D95867', '#C2404C'],
                         visualMin: 0,
                         visualMax: 6,
                         colorMappingBy: 'value', 
@@ -150,25 +151,27 @@ class _TreemapPageState extends State<TreemapPage> {
                     rich: {
                                 label: {
                                     fontSize: 12,
-                                    color: '#079F8E',
-                                    lineHeight: 20,
+                                    color: '#FFFFFF',
+                                    lineHeight: 12,
                                     align: 'center'
                                 },
                                 name: {
-                                    fontSize: 15,
-                                    lineHeight: 30,
-                                    color: '#079F8E'
+                                    fontSize: 14,
+                                    lineHeight: 14,
+                                    color: '#FFFFFF',
+                                    align: 'center'
                                 },
                                 label2: {
                                     fontSize: 12,
-                                    color: '#F05A00',
-                                    lineHeight: 20,
+                                    color: '#FFFFFF',
+                                    lineHeight: 12,
                                     align: 'center'
                                 },
                                 name2: {
-                                    fontSize: 15,
-                                    lineHeight: 30,
-                                    color: '#F05A00'
+                                    fontSize: 14,
+                                    lineHeight: 14,
+                                    color: '#FFFFFF',
+                                    align: 'center'
                                 },
                             }
                 },
@@ -199,12 +202,12 @@ class _TreemapPageState extends State<TreemapPage> {
                         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
                         child: Row(
                           children: [
-                            Expanded(child: Container(color: Color(0xFFFCC09C)), flex: 1),
-                            Expanded(child: Container(color: Color(0xFFFFDECB)), flex: 1),
-                            Expanded(child: Container(color: Color(0xFFFFF8F4)), flex: 1),
-                            Expanded(child: Container(color: Color(0xFFDAF6F3)), flex: 1),
-                            Expanded(child: Container(color: Color(0xFFACEFE8)), flex: 1),
-                            Expanded(child: Container(color: Color(0xFF97EEE5)), flex: 1),
+                            Expanded(child: Container(color: Color(0xFFC2404C)), flex: 1),
+                            Expanded(child: Container(color: Color(0xFFD95867)), flex: 1),
+                            Expanded(child: Container(color: Color(0xFFECA5A9)), flex: 1),
+                            Expanded(child: Container(color: Color(0xFFB4DAB5)), flex: 1),
+                            Expanded(child: Container(color: Color(0xFF69BA88)), flex: 1),
+                            Expanded(child: Container(color: Color(0xFF58A975)), flex: 1),
                           ],
                         ),
                       ),

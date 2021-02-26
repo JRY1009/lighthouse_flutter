@@ -28,6 +28,7 @@ class Apis {
   static const String URL_REGISTER = '/reg';
   static const String URL_VERIFY_CODE = '/sms/send';
   static const String URL_RESET_PASSWORD = '/account/forget_password';
+  static const String URL_FORGET_PASSWORD = '/account/forget_password_v2';
   static const String URL_SET_PASSWORD = '/account/set_password';
   static const String URL_GET_ACCOUNT_INFO = '/account/account_info';
   static const String URL_UPDATE_NICK_NAME = '/account/update_nick_name';
@@ -46,5 +47,5 @@ class Apis {
   static const String URL_GET_NEWS = '/user/selectAccounts';
 
 
-  static const String URL_OFFICIAL_WEBSITE = 'https://www.baidu.com';
+  static const String URL_OFFICIAL_WEBSITE = 'https://www.blockdt.com';
 }

@@ -35,9 +35,9 @@ class DefaultApp {
     LogUtil.v('channel: $channel');
 
     await UmengAnalyticsPlugin.init(
-      androidKey: '5fa62c2745b2b751a925bf49',
-      iosKey: '5fa62c921c520d3073a2536f',
-      channel: DeviceUtil.isAndroid ? channel : 'ios'
+        androidKey: '5fa62c2745b2b751a925bf49',
+        iosKey: '5fa62c921c520d3073a2536f',
+        channel: DeviceUtil.isAndroid ? channel : 'ios'
     );
 
     await registerWxApi(
@@ -57,9 +57,12 @@ class DefaultApp {
   static Future<void> run() async {
     WidgetsFlutterBinding.ensureInitialized();
 
+    String channel = await ChannelUtil.getChannel();
+
     await UmengAnalyticsPlugin.init(
-      androidKey: '5fa62c2745b2b751a925bf49',
-      iosKey: '5fa62c921c520d3073a2536f',
+        androidKey: '5fa62c2745b2b751a925bf49',
+        iosKey: '5fa62c921c520d3073a2536f',
+        channel: DeviceUtil.isAndroid ? channel : 'ios'
     );
 
     await registerWxApi(
@@ -154,6 +157,13 @@ class MyApp extends StatelessWidget {
                 }
                 return supportedLocales.first;
               }
+            },
+            builder: (context, widget) {
+              return MediaQuery(
+                //设置文字大小不随系统设置改变
+                data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+                child: widget,
+              );
             },
           )
           );

@@ -29,6 +29,27 @@ class ModifyPwdModel extends ViewStateModel {
         });
   }
 
+  Future forgetPwd(phone, newPassword, confirmpassword, verifyCode) {
+
+    Map<String, dynamic> params = {
+      'phone': phone,
+      'new_password': newPassword,
+      'confirm_password': confirmpassword,
+      'verification_code': verifyCode,
+    };
+
+    setBusy();
+
+    return DioUtil.getInstance().requestNetwork(Apis.URL_FORGET_PASSWORD, "post", params: params,
+        cancelToken: cancelToken,
+        onSuccess: (data) {
+          setSuccess();
+        },
+        onError: (errno, msg) {
+          setError(errno, message: msg);
+        });
+  }
+
   Future setPwd(password, confirmpassword) {
 
     Map<String, dynamic> params = {

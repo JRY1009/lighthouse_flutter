@@ -1,13 +1,15 @@
 
 import 'package:flutter/material.dart';
+import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh_top.dart';
 import 'package:library_base/widget/tab/kline_tab.dart';
+import 'package:module_home/viewmodel/spot_detail_model.dart';
 import 'package:module_home/viewmodel/spot_kline_model.dart';
-import 'package:module_home/widget/time_sharing_chart.dart';
-import 'package:module_home/widget/time_sharing_chart_24h.dart';
+import 'package:module_home/widget/kline_chart.dart';
+import 'package:provider/provider.dart';
 
 class SpotDetailKLineBar extends StatefulWidget {
 
@@ -37,7 +39,7 @@ class _SpotDetailKLineBarState extends State<SpotDetailKLineBar> with AutomaticK
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 6, vsync: this);
+    _tabController = TabController(initialIndex:1, length: 6, vsync: this);
     initViewModel();
   }
 
@@ -49,7 +51,8 @@ class _SpotDetailKLineBarState extends State<SpotDetailKLineBar> with AutomaticK
 
   void initViewModel() {
     _kLineModel = SpotKLineModel();
-    _kLineModel.getQuote(widget.coinCode, 0);
+    _kLineModel.listenEvent();
+    _kLineModel.getQuote(widget.coinCode, 1);
   }
 
   @override
@@ -75,7 +78,7 @@ class _SpotDetailKLineBarState extends State<SpotDetailKLineBar> with AutomaticK
                 children: [
                   Container(
                     height: 24,
-                    margin: EdgeInsets.symmetric(horizontal: 4, vertical: 12),
+                    margin: EdgeInsets.fromLTRB(4, 12, 4, 0),
                     child: TabBar(
                       controller: _tabController,
                       labelPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 8.0),
@@ -95,12 +98,12 @@ class _SpotDetailKLineBarState extends State<SpotDetailKLineBar> with AutomaticK
 //              ),
                       isScrollable: false,
                       tabs: <KLineTab>[
-                        KLineTab(text: '24H', select: _tabController.index == 0),
-                        KLineTab(text: '1周', select: _tabController.index == 1),
-                        KLineTab(text: '1月', select: _tabController.index == 2),
-                        KLineTab(text: '6月', select: _tabController.index == 3),
-                        KLineTab(text: '1年', select: _tabController.index == 4),
-                        KLineTab(text: '全部', select: _tabController.index == 5),
+                        KLineTab(text: S.of(context).kline1h, select: _tabController.index == 0),
+                        KLineTab(text: S.of(context).kline24h, select: _tabController.index == 1),
+                        KLineTab(text: S.of(context).kline1week, select: _tabController.index == 2),
+                        KLineTab(text: S.of(context).kline1month, select: _tabController.index == 3),
+                        KLineTab(text: S.of(context).kline1year, select: _tabController.index == 4),
+                        KLineTab(text: S.of(context).klineAll, select: _tabController.index == 5),
                       ],
                       onTap: (index) {
                         if (model.getQuoteList(_tabController.index) != null) {
@@ -114,17 +117,16 @@ class _SpotDetailKLineBarState extends State<SpotDetailKLineBar> with AutomaticK
 
                   Expanded(
                     child: Container(
-                      height: 170,
+                      height: 180,
                       padding: EdgeInsets.symmetric(horizontal: 12),
-                      child: model.isBusy ? FirstRefreshTop() :
-                      (_tabController.index == 0 ?
-                      TimeSharingChart24h(
-                          quoteList: model.getQuoteList(_tabController.index)):
-                      TimeSharingChart(
-                          quoteList: model.getQuoteList(_tabController.index),
-                          timeFormat: _tabController.index == 0 ? ChartTimeFormat.HOUR_MINUTE : ChartTimeFormat.MONTH_DAY))
-                      ,
-                    ),
+                      child: model.isBusy ? FirstRefreshTop() : KLineChart(
+                        quoteList: model.getQuoteList(_tabController.index),
+                        onLongPressChanged: (entity) {
+                          SpotDetailModel spotDetailModel = Provider.of<SpotDetailModel>(context, listen: false);
+                          spotDetailModel?.handleKLineLongPress(entity);
+                        },
+                      )
+                    )
                   )
                 ],
               );

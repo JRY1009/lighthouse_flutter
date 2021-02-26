@@ -47,6 +47,7 @@ class _SpotTreemapState extends State<SpotTreemap> {
             {
             series: [{
                 type: 'treemap',
+                squareRatio: 0.6,
                 left: '0%',
                 right: '0%',
                 bottom: '0%',
@@ -59,7 +60,7 @@ class _SpotTreemapState extends State<SpotTreemap> {
                 },
                 levels: [
                     {
-                        color: ['#DAF6F3', '#ACEFE8', '#97EEE5', '#F8F8F8', '#FFF8F4', '#FFDECB', '#FCC09C'],
+                        color: ['#B4DAB5', '#69BA88', '#58A975', '#F8F8F8', '#ECA5A9', '#D95867', '#C2404C'],
                         visualMin: 0,
                         visualMax: 6,
                         colorMappingBy: 'value', 
@@ -95,25 +96,27 @@ class _SpotTreemapState extends State<SpotTreemap> {
                     rich: {
                                 label: {
                                     fontSize: 11,
-                                    color: '#079F8E',
+                                    color: '#FFFFFF',
                                     lineHeight: 12,
                                     align: 'center'
                                 },
                                 name: {
-                                    fontSize: 14,
-                                    lineHeight: 15,
-                                    color: '#079F8E'
+                                    fontSize: 12,
+                                    lineHeight: 12,
+                                    color: '#FFFFFF',
+                                    align: 'center'
                                 },
                                 label2: {
                                     fontSize: 11,
-                                    color: '#F05A00',
+                                    color: '#FFFFFF',
                                     lineHeight: 12,
                                     align: 'center'
                                 },
                                 name2: {
-                                    fontSize: 14,
-                                    lineHeight: 15,
-                                    color: '#F05A00'
+                                    fontSize: 12,
+                                    lineHeight: 12,
+                                    color: '#FFFFFF',
+                                    align: 'center'
                                 },
                             }
                 },

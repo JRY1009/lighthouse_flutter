@@ -13,6 +13,14 @@ import 'package:library_base/utils/object_util.dart';
 import 'package:module_home/model/spot_exchange_quote.dart';
 import 'package:module_home/model/spot_exchange_quote_basic.dart';
 
+enum QuoteSortState {
+  NORMAL,
+  PRICE_ASCEND, //升序
+  PRICE_DESCEND,  //降序
+  RATE_ASCEND, //升序
+  RATE_DESCEND,  //降序
+}
+
 class SpotQuoteModel extends ViewStateModel {
 
   SpotExchangeQuoteBasic quoteBasic;
@@ -20,7 +28,75 @@ class SpotQuoteModel extends ViewStateModel {
 
   StreamSubscription quoteSubscription;
 
+  QuoteSortState sortState = QuoteSortState.NORMAL;
+
   SpotQuoteModel() : super(viewState: ViewState.first);
+
+  //state 0 priceClicked，1 rateClicked
+  void changeSortState(int state) {
+    if (state == 0) {
+      if (sortState == QuoteSortState.NORMAL || sortState == QuoteSortState.RATE_ASCEND || sortState == QuoteSortState.RATE_DESCEND) {
+        sortState = QuoteSortState.PRICE_ASCEND;
+      } else if (sortState == QuoteSortState.PRICE_ASCEND) {
+        sortState = QuoteSortState.PRICE_DESCEND;
+      } else if (sortState == QuoteSortState.PRICE_DESCEND) {
+        sortState = QuoteSortState.NORMAL;
+      }
+    } else if (state == 1) {
+      if (sortState == QuoteSortState.NORMAL || sortState == QuoteSortState.PRICE_ASCEND || sortState == QuoteSortState.PRICE_DESCEND) {
+        sortState = QuoteSortState.RATE_ASCEND;
+      } else if (sortState == QuoteSortState.RATE_ASCEND) {
+        sortState = QuoteSortState.RATE_DESCEND;
+      } else if (sortState == QuoteSortState.RATE_DESCEND) {
+        sortState = QuoteSortState.NORMAL;
+      }
+    }
+
+    notifyListeners();
+  }
+
+  List<SpotExchangeQuote> getSortedList() {
+
+    List<SpotExchangeQuote> sortedList = [];
+    sortedList.addAll(quoteList);
+
+    sortedList.sort((a, b) {
+      if (sortState == QuoteSortState.NORMAL) {
+        return 0;
+      } else if (sortState == QuoteSortState.PRICE_ASCEND) {
+        if (a.quote > b.quote) {
+          return 1;
+        } else if (a.quote < b.quote) {
+          return -1;
+        }
+
+      } else if (sortState == QuoteSortState.PRICE_DESCEND) {
+        if (a.quote > b.quote) {
+          return -1;
+        } else if (a.quote < b.quote) {
+          return 1;
+        }
+
+      } else if (sortState == QuoteSortState.RATE_ASCEND) {
+        if (a.change_percent > b.change_percent) {
+          return -1;
+        } else if (a.change_percent < b.change_percent) {
+          return 1;
+        }
+
+      } else if (sortState == QuoteSortState.RATE_DESCEND) {
+        if (a.change_percent > b.change_percent) {
+          return 1;
+        } else if (a.change_percent < b.change_percent) {
+          return -1;
+        }
+      }
+
+      return 0;
+    });
+
+    return sortedList;
+  }
 
   void listenEvent() {
     quoteSubscription?.cancel();

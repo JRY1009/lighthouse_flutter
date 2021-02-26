@@ -70,8 +70,13 @@ class _GlobalQuotePageState extends State<GlobalQuotePage> with BasePageMixin<Gl
           ShareQRHeader(),
           Container(
             color: Colours.gray_100,
-            child: Image.memory(pngBytes),
-          )
+            child: RotatedBox(
+              quarterTurns: 1, // 90°的整数倍
+              child: Image.memory(pngBytes),
+            ),
+          ),
+
+
         ]
     );
   }

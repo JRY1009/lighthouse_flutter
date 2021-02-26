@@ -43,12 +43,12 @@ class _HomePinnedAppBarState extends State<HomePinnedAppBar> {
     double btcRate = homeModel.btcUsdPair != null ? homeModel.btcUsdPair.change_percent : 0;
     double btcPrice = homeModel.btcUsdPair != null ? homeModel.btcUsdPair.quote : 0;
     String btcRateStr = (btcRate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(btcRate, 2).toString() + '%';
-    String btcPriceStr = NumUtil.getNumByValueDouble(btcPrice, 2).toString();
+    String btcPriceStr = '\$' + NumUtil.formatNum(btcPrice, point: 2);
 
     double ethRate = homeModel.ethUsdPair != null ? homeModel.ethUsdPair.change_percent : 0;
     double ethPrice = homeModel.ethUsdPair != null ? homeModel.ethUsdPair.quote : 0;
-    String ethRateStr = (btcRate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(ethRate, 2).toString() + '%';
-    String ethPriceStr = NumUtil.getNumByValueDouble(ethPrice, 2).toString();
+    String ethRateStr = (ethRate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(ethRate, 2).toString() + '%';
+    String ethPriceStr = '\$' + NumUtil.formatNum(ethPrice, point: 2);
 
     return Opacity(
       opacity: widget.appBarOpacity,

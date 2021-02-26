@@ -49,14 +49,14 @@ class _MineAppBarState extends State<MineAppBar> {
             ),
             child: Stack(
               children: <Widget>[
-                Positioned(
-                  right: 5,
-                  child: IconButton(
-                    onPressed: widget.onActionPressed,
-                    padding: EdgeInsets.only(right: 10, top: 0, left: 10, bottom: 20),
-                    icon: LocalImage('icon_notify', package: Constant.baseLib, width: 20, height: 20),
-                  ),
-                ),
+//                Positioned(
+//                  right: 5,
+//                  child: IconButton(
+//                    onPressed: widget.onActionPressed,
+//                    padding: EdgeInsets.only(right: 10, top: 0, left: 10, bottom: 20),
+//                    icon: LocalImage('icon_notify', package: Constant.baseLib, width: 20, height: 20),
+//                  ),
+//                ),
                 Padding(
                   padding: EdgeInsets.only(top: 30),
                   child: Row(

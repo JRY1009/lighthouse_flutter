@@ -99,14 +99,11 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
 
     _verifyModel.addListener(() {
       if (_verifyModel.isBusy) {
-        showProgress(content: S.current.verifyin);
 
       } else if (_verifyModel.isError) {
-        closeProgress();
         ToastUtil.error(_verifyModel.viewStateError.message);
 
       } else if (_verifyModel.isSuccess) {
-        closeProgress();
         ToastUtil.normal(S.current.verifySended);
       }
     });
@@ -165,7 +162,6 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
   }
 
   void _skip() {
-    Navigator.pop(context);
     Routers.navigateTo(context, MineRouter.isRunModule ? Routers.minePage : Routers.mainPage, clearStack: true);
   }
   

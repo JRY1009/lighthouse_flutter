@@ -35,7 +35,7 @@ class _QuotationTabState extends State<QuotationTab> {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
-          Gaps.vGap3,
+          Gaps.vGap5,
           Text(widget.subTitle ?? '',
             style: widget.subStyle ?? TextStyles.textGray400_w400_12,
             maxLines: 1,

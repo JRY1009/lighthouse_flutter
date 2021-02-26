@@ -8,8 +8,7 @@ import 'package:library_base/router/parameters.dart';
 import 'package:library_base/router/routers.dart';
 import 'package:library_base/utils/num_util.dart';
 import 'package:module_home/model/quote_pair.dart';
-import 'package:module_home/widget/time_sharing_chart.dart';
-import 'package:module_home/widget/time_sharing_chart_24h.dart';
+import 'package:module_home/widget/kline_chart.dart';
 
 class HomeFlexibleTabView extends StatefulWidget {
 
@@ -51,19 +50,18 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
           Routers.spotDetailPage,
           parameters: Parameters()..putString('coinCode', widget.quotePair != null ? widget.quotePair.coin_code : '')),
       child: Container(
-        height: 245,
+        height: 255,
         padding: EdgeInsets.symmetric(horizontal: 12),
         color: Colours.transparent,
         child: Column(
           children: [
             Container(
-              height: 170,
-              child: TimeSharingChart24h(quoteList: widget.quotePair?.quote_24h),
+              height: 180,
+              child: KLineChart(quoteList: widget.quotePair?.quote_24h),
             ),
             Container(
               height: 75,
               child: Row (
-
                 children: [
                   Expanded(
                       flex: 1,

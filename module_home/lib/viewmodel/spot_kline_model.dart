@@ -2,21 +2,68 @@
 
 import 'dart:async';
 
+import 'package:library_base/event/event.dart';
+import 'package:library_base/event/ws_event.dart';
+import 'package:library_base/model/quote_ws.dart';
 import 'package:library_base/mvvm/view_state.dart';
 import 'package:library_base/mvvm/view_state_model.dart';
 import 'package:library_base/net/apis.dart';
 import 'package:library_base/net/dio_util.dart';
 import 'package:module_home/model/quote.dart';
 
+import 'home_model.dart';
+
 class SpotKLineModel extends ViewStateModel {
 
+  String coinCode;
   List<String> rangeList;
   Map<String, List<Quote>> quoteMap = {};
+
+  StreamSubscription quoteSubscription;
 
   SpotKLineModel() :
         super(viewState: ViewState.first) {
 
-    rangeList = ['24h', '1w', '1m', '6m', '1y', 'all'];
+    rangeList = ['1h', '24h', '1w', '1m', '1y', 'all'];
+  }
+
+  void listenEvent() {
+    quoteSubscription?.cancel();
+
+    quoteSubscription = Event.eventBus.on<WsEvent>().listen((event) {
+      QuoteWs quoteWs = event.quoteWs;
+      if (quoteWs == null) {
+        return;
+      }
+
+      if ((quoteWs.coin_code == 'btc' && coinCode == HomeModel.COIN_BITCOIN) ||
+          (quoteWs.coin_code == 'eth' && coinCode == HomeModel.COIN_ETHEREUM)) {
+
+        quoteMap.forEach((key, value) {
+          List<Quote> quoteList = value;
+          if (quoteList != null && quoteList.length > 1) {
+            int nowTime = quoteWs.id ?? 0;
+            int firstTime = quoteList.first?.id ?? 0;
+            int secondTime = quoteList[1]?.id ?? 0;
+            int time = firstTime - secondTime;
+            int intervalTime = nowTime - firstTime;
+
+            if (intervalTime >= time) {
+              Quote quote = Quote(quote: quoteWs.quote);
+              quote.setTs(firstTime + time);
+              quoteList.insert(0, quote);
+
+            } else {
+              quoteList.first?.quote = quoteWs.quote;
+            }
+
+            quoteMap[key] = quoteList;
+          }
+        });
+
+        notifyListeners();
+      }
+    });
   }
 
   List<Quote> getQuoteList(int index) {
@@ -24,6 +71,7 @@ class SpotKLineModel extends ViewStateModel {
   }
 
   Future getQuote(String chain, int index) {
+    coinCode = chain;
     Map<String, dynamic> params = {
       'chain': chain,
       'time_range': rangeList[index],
@@ -45,4 +93,9 @@ class SpotKLineModel extends ViewStateModel {
         });
   }
 
+  @override
+  void dispose() {
+    quoteSubscription?.cancel();
+    super.dispose();
+  }
 }

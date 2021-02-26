@@ -1,9 +1,13 @@
 
 import 'package:flutter/material.dart';
+import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/styles.dart';
+import 'package:library_base/utils/object_util.dart';
 import 'package:library_base/widget/dialog/dialog_util.dart';
+import 'package:library_base/widget/image/local_image.dart';
+import 'package:library_base/widget/text/text_expand.dart';
 
 
 class SpotBriefItem extends StatelessWidget {
@@ -47,10 +51,16 @@ class SpotBriefItem extends StatelessWidget {
             Container(
               alignment: Alignment.topLeft,
               margin: EdgeInsets.symmetric(vertical: 15),
-              child: Text(subTitle ?? '',
-                style: TextStyles.textGray400_w400_14,
-                strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
-              ),
+              child: TextExpand(
+                text: subTitle ?? '',
+                minLines: 4,
+                textStyle: TextStyles.textGray400_w400_14,
+                strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5)
+              )
+//              Text(subTitle ?? '',
+//                style: TextStyles.textGray400_w400_14,
+//                strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
+//              ),
             )
           ],
         )
@@ -68,24 +78,25 @@ class SpotBriefItem extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            type == 3 ? InkWell(
+            !ObjectUtil.isEmptyString(detailInfo) ? InkWell(
               onTap: () => DialogUtil.showCupertinoAlertDialog(context,
                   title: title,
-                  content: subTitle,
+                  content: detailInfo,
                   confirm: S.of(context).confirm,
                   confirmPressed: () => Navigator.of(context).pop()
               ),
-              child: Icon(Icons.info_outline, color: Colours.gray_400, size: 20),
+              child: LocalImage('icon_info', package: Constant.baseLib, color: Colours.gray_350, width: 20, height: 20),
             ) : Container(),
-            Expanded(child: Container(
-              padding: EdgeInsets.only(right: 5),
-              alignment: Alignment.centerRight,
-              child: Text(subTitle ?? '',
-                style: TextStyles.textGray800_w400_14,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ))
+            Expanded(
+                child: Container(
+                  padding: EdgeInsets.only(right: 5),
+                  alignment: Alignment.centerRight,
+                  child: Text(subTitle ?? '',
+                    style: TextStyles.textGray800_w400_14,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ))
 
           ],
         )

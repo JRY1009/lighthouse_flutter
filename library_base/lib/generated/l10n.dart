@@ -55,6 +55,46 @@ class S {
     );
   }
 
+  /// `Language`
+  String get language {
+    return Intl.message(
+      'Language',
+      name: 'language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chinese`
+  String get chinese {
+    return Intl.message(
+      'Chinese',
+      name: 'chinese',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `English`
+  String get english {
+    return Intl.message(
+      'English',
+      name: 'english',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Auto`
+  String get auto {
+    return Intl.message(
+      'Auto',
+      name: 'auto',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `页面不存在`
   String get notFoundPage {
     return Intl.message(
@@ -165,10 +205,10 @@ class S {
     );
   }
 
-  /// `登录后可同步数据`
+  /// `开启数字之旅`
   String get loginGuide {
     return Intl.message(
-      '登录后可同步数据',
+      '开启数字之旅',
       name: 'loginGuide',
       desc: '',
       args: [],
@@ -295,10 +335,10 @@ class S {
     );
   }
 
-  /// `忘记密码？`
+  /// `忘记密码`
   String get forgetPassword {
     return Intl.message(
-      '忘记密码？',
+      '忘记密码',
       name: 'forgetPassword',
       desc: '',
       args: [],
@@ -1470,6 +1510,66 @@ class S {
     return Intl.message(
       '支持交易所',
       name: 'supportExchanges',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `1H`
+  String get kline1h {
+    return Intl.message(
+      '1H',
+      name: 'kline1h',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `24H`
+  String get kline24h {
+    return Intl.message(
+      '24H',
+      name: 'kline24h',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `1周`
+  String get kline1week {
+    return Intl.message(
+      '1周',
+      name: 'kline1week',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `1月`
+  String get kline1month {
+    return Intl.message(
+      '1月',
+      name: 'kline1month',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `1年`
+  String get kline1year {
+    return Intl.message(
+      '1年',
+      name: 'kline1year',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `全部`
+  String get klineAll {
+    return Intl.message(
+      '全部',
+      name: 'klineAll',
       desc: '',
       args: [],
     );

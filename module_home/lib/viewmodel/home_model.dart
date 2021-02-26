@@ -11,6 +11,7 @@ import 'package:library_base/mvvm/view_state.dart';
 import 'package:library_base/mvvm/view_state_model.dart';
 import 'package:library_base/net/apis.dart';
 import 'package:library_base/net/dio_util.dart';
+import 'package:module_home/model/quote.dart';
 import 'package:module_home/model/quote_pair.dart';
 
 class HomeModel extends ViewStateModel {
@@ -41,9 +42,43 @@ class HomeModel extends ViewStateModel {
         btcUsdPair.quote = quoteWs.quote;
         btcUsdPair.change_percent = quoteWs.change_percent_24hr;
 
+        if (btcUsdPair.quote_24h != null || btcUsdPair.quote_24h.length >1) {
+          int nowTime = quoteWs.id ?? 0;
+          int firstTime = btcUsdPair.quote_24h.first?.id ?? 0;
+          int secondTime = btcUsdPair.quote_24h[1]?.id ?? 0;
+          int time = firstTime - secondTime;
+          int intervalTime = nowTime - firstTime;
+
+          if (intervalTime >= time) {
+            Quote quote = Quote(quote: quoteWs.quote);
+            quote.setTs(firstTime + time);
+            btcUsdPair.quote_24h.insert(0, quote);
+
+          } else {
+            btcUsdPair.quote_24h.first?.quote = quoteWs.quote;
+          }
+        }
+
       } else if (quoteWs.coin_code == 'eth' && ethUsdPair != null) {
         ethUsdPair.quote = quoteWs.quote;
         ethUsdPair.change_percent = quoteWs.change_percent_24hr;
+
+        if (ethUsdPair.quote_24h != null || ethUsdPair.quote_24h.length >1) {
+          int nowTime = quoteWs.id ?? 0;
+          int firstTime = ethUsdPair.quote_24h.first?.id ?? 0;
+          int secondTime = ethUsdPair.quote_24h[1]?.id ?? 0;
+          int time = firstTime - secondTime;
+          int intervalTime = nowTime - firstTime;
+
+          if (intervalTime >= time) {
+            Quote quote = Quote(quote: quoteWs.quote);
+            quote.setTs(firstTime + time);
+            ethUsdPair.quote_24h.insert(0, quote);
+
+          } else {
+            ethUsdPair.quote_24h.first?.quote = quoteWs.quote;
+          }
+        }
       }
 
       notifyListeners();

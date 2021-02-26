@@ -357,6 +357,13 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  library_kchart:
+    dependency: "direct main"
+    description:
+      path: "../library_kchart"
+      relative: true
+    source: path
+    version: "0.0.1"
   lpinyin:
     dependency: transitive
     description:

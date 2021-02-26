@@ -2,23 +2,25 @@
 
 import 'package:flutter/material.dart';
 import 'package:library_base/generated/l10n.dart';
+import 'package:library_base/global/locale_provider.dart';
+import 'package:library_base/global/rt_account.dart';
+import 'package:library_base/model/account.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
-import 'package:library_base/model/account.dart';
-import 'package:library_base/global/rt_account.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/router/fade_route.dart';
 import 'package:library_base/router/routers.dart';
+import 'package:library_base/utils/toast_util.dart';
 import 'package:library_base/widget/button/back_button.dart';
 import 'package:library_base/widget/clickbar/setting_avatar_clickbar.dart';
 import 'package:library_base/widget/clickbar/setting_clickbar.dart';
 import 'package:library_base/widget/common_scroll_view.dart';
 import 'package:library_base/widget/dialog/dialog_util.dart';
 import 'package:library_base/widget/image/gallery_photo.dart';
-import 'package:library_base/utils/toast_util.dart';
 import 'package:module_mine/viewmodel/setting_model.dart';
+import 'package:provider/provider.dart';
 
 class SettingPage extends StatefulWidget {
 
@@ -120,6 +122,8 @@ class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPag
         body: ProviderWidget<SettingModel>(
             model: _settingModel,
             builder: (context, model, child) {
+
+              LocaleProvider localeModel = Provider.of<LocaleProvider>(context);
               Account account = RTAccount.instance().getActiveAccount();
 
               return CommonScrollView(
@@ -142,6 +146,11 @@ class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPag
                     SettingClickBar(
                       title: S.of(context).modifyPassword,
                       onPressed: () => Routers.loginGuardNavigateTo(context, Routers.modifyPwdPage),
+                    ),
+                    SettingClickBar(
+                      title: S.of(context).language,
+                      subTitle: localeModel?.localeName,
+                      onPressed: () => Routers.loginGuardNavigateTo(context, Routers.languagePage),
                     ),
 
                     Gaps.vGap18,
