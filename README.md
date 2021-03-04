@@ -72,7 +72,7 @@
 
 * 渠道信息在 android\app\channel 文件中配置
 
-* 多渠道打包，android工程下执行gradle->app->Tasks->package->assembleReleaseChannels
+* 多渠道打包，android工程下执行命令行 gradlew clean assembleReleaseChannels
 
 ##  热更新注意事项
 
