@@ -30,6 +30,8 @@ class ChartPainter extends BaseChartPainter {
       secondaryState,
       this.sink,
       this.outsink,
+      int gridRows,
+      int gridColumns,
       bool isLine,
       bool isAutoScaled,
       this.controller,
@@ -43,6 +45,8 @@ class ChartPainter extends BaseChartPainter {
             mainState: mainState,
             volState: volState,
             secondaryState: secondaryState,
+            gridRows: gridRows ?? ChartStyle.gridRows,
+            gridColumns: gridColumns ?? ChartStyle.gridColumns,
             isLine: isLine,
             isAutoScaled: isAutoScaled);
 
@@ -85,9 +89,9 @@ class ChartPainter extends BaseChartPainter {
 
   @override
   void drawGrid(canvas) {
-    mMainRenderer?.drawGrid(canvas, ChartStyle.gridRows, ChartStyle.gridColumns, showColumns: isAutoScaled == false);
-    mVolRenderer?.drawGrid(canvas, ChartStyle.gridRows, ChartStyle.gridColumns);
-    mSecondaryRenderer?.drawGrid(canvas, ChartStyle.gridRows, ChartStyle.gridColumns);
+    mMainRenderer?.drawGrid(canvas, gridRows, gridColumns, showRows: isAutoScaled == false, showColumns: isAutoScaled == false);
+    mVolRenderer?.drawGrid(canvas, gridRows, gridColumns);
+    mSecondaryRenderer?.drawGrid(canvas, gridRows, gridColumns);
   }
 
   @override
@@ -118,9 +122,9 @@ class ChartPainter extends BaseChartPainter {
     }
 
     var textStyle = getTextStyle(ChartColors.yAxisTextColor);
-    mMainRenderer?.drawRightText(canvas, textStyle, ChartStyle.gridRows);
-    mVolRenderer?.drawRightText(canvas, textStyle, ChartStyle.gridRows);
-    mSecondaryRenderer?.drawRightText(canvas, textStyle, ChartStyle.gridRows);
+    mMainRenderer?.drawRightText(canvas, textStyle, gridRows);
+    mVolRenderer?.drawRightText(canvas, textStyle, gridRows);
+    mSecondaryRenderer?.drawRightText(canvas, textStyle, gridRows);
   }
 
   @override
@@ -129,11 +133,11 @@ class ChartPainter extends BaseChartPainter {
       return;
     }
 
-    double columnSpace = size.width / ChartStyle.gridColumns;
+    double columnSpace = size.width / gridColumns;
     double startX = getX(mStartIndex) - mPointWidth / 2;
     double stopX = getX(mStopIndex) + mPointWidth / 2;
     double y = 0.0;
-    for (var i = 0; i <= ChartStyle.gridColumns; ++i) {
+    for (var i = 0; i <= gridColumns; ++i) {
       double translateX = xToTranslateX(columnSpace * i);
       if (translateX >= startX && translateX <= stopX) {
         int index = indexOfTranslateX(translateX);
@@ -144,7 +148,7 @@ class ChartPainter extends BaseChartPainter {
         y = size.height - (ChartStyle.bottomDateHigh - tp.height) / 2 - tp.height;
         if (i == 0) {
           tp.paint(canvas, Offset(0, y));
-        } else if(i == ChartStyle.gridColumns) {
+        } else if(i == gridColumns) {
           tp.paint(canvas, Offset(columnSpace * i - tp.width, y));
         } else {
           tp.paint(canvas, Offset(columnSpace * i - tp.width / 2, y));
@@ -155,7 +159,7 @@ class ChartPainter extends BaseChartPainter {
           int index = datas.length - 1;
           TextPainter tp = getTextPainter(getDate(datas[index].id), color: ChartColors.xAxisTextColor);
           y = size.height - (ChartStyle.bottomDateHigh - tp.height) / 2 - tp.height;
-          tp.paint(canvas, Offset(columnSpace * ChartStyle.gridColumns - tp.width, y));
+          tp.paint(canvas, Offset(columnSpace * gridColumns - tp.width, y));
           break;
         }
       }
@@ -222,9 +226,9 @@ class ChartPainter extends BaseChartPainter {
       x = translateXtoX(getX(index));
       y = size.height - ChartStyle.bottomDateHigh;
 
-      if (x < textWidth + 2 * w1) {
+      if (x < textWidth / 2 + 2 * w1) {
         x = 1 + textWidth / 2 + w1;
-      } else if (mWidth - x < textWidth + 2 * w1) {
+      } else if (mWidth - x < textWidth / 2 + 2 * w1) {
         x = mWidth - 1 - textWidth / 2 - w1;
       }
       double baseLine = textHeight / 2;
@@ -241,13 +245,14 @@ class ChartPainter extends BaseChartPainter {
     } else {
 
       bool isLeft = false;
+      double w1 = 0;
+      double w2 = 3;
+
       if (outsink == null) {
         TextPainter tp = getTextPainter(format(point.close), color: ChartColors.realTextColor);
         double textHeight = tp.height;
         double textWidth = tp.width;
 
-        double w1 = 5;
-        double w2 = 3;
         double r = textHeight / 2 + w2;
         double y = getMainY(point.close);
         double x;
@@ -265,19 +270,17 @@ class ChartPainter extends BaseChartPainter {
       TextPainter dateTp = getTextPainter(getDate(point.id), color: ChartColors.realTextColor);
       double textHeight = dateTp.height;
       double textWidth = dateTp.width;
-      double w1 = 5;
-      double w2 = 3;
       double r = textHeight / 2;
       double x = translateXtoX(getX(index));
       double y = size.height - ChartStyle.bottomDateHigh;
 
-      if (x < textWidth + 2 * w1) {
+      if (x < textWidth / 2 + 2 * w1) {
         x = 1 + textWidth / 2 + w1;
-      } else if (mWidth - x < textWidth + 2 * w1) {
+      } else if (mWidth - x < textWidth / 2 + 2 * w1) {
         x = mWidth - 1 - textWidth / 2 - w1;
       }
 
-      dateTp.paint(canvas, Offset(x - textWidth / 2, y + w2));
+      dateTp.paint(canvas, Offset(x - textWidth / 2, outsink == null ? y + w2 : ChartStyle.topPadding - textHeight));
       //长按显示这条数据详情
       sink?.add(InfoWindowEntity(point, isLeft));
       outsink?.add(InfoWindowEntity(point, isLeft));
@@ -348,7 +351,7 @@ class ChartPainter extends BaseChartPainter {
         ..strokeWidth = ChartStyle.hCrossWidth
         ..isAntiAlias = true;
       // k线图横线
-      canvas.drawLine(Offset(-mTranslateX, y), Offset(-mTranslateX + mWidth, y), paintX);
+      canvas.drawLine(Offset(-mTranslateX, y), Offset(-mTranslateX + mWidth / scaleX, y), paintX);
 //    canvas.drawCircle(Offset(x, y), 2.0, paintX);
       canvas.drawOval(Rect.fromCenter(center: Offset(x, y), height: 2.0, width: 2.0), paintX);
     }
@@ -414,7 +417,7 @@ class ChartPainter extends BaseChartPainter {
       const triangleHeight = 8.0; //三角高度
       const triangleWidth = 5.0; //三角宽度
 
-      double left = mWidth - mWidth / ChartStyle.gridColumns - tp.width / 2 - padding * 2;
+      double left = mWidth - mWidth / gridColumns - tp.width / 2 - padding * 2;
       double top = y - tp.height / 2 - padding;
       //加上三角形的宽以及padding
       double right = left + tp.width + padding * 2 + triangleWidth + padding;

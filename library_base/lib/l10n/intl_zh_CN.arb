@@ -8,6 +8,7 @@
   "notFoundPage": "页面不存在",
   "login": "登录",
   "welcomeLogin": "欢迎登录",
+  "thirdLogin": "其他方式登录",
   "pwdLogin": "密码登录",
   "pwdLoginTips": "请输入账户密码，推荐验证码",
   "smsLogin": "验证码登录",

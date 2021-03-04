@@ -2,7 +2,6 @@
 
 import 'dart:typed_data';
 
-import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
@@ -20,7 +19,9 @@ import 'package:library_base/widget/easyrefresh/first_refresh.dart';
 import 'package:library_base/widget/image/local_image.dart';
 import 'package:library_base/widget/shot_view.dart';
 import 'package:library_base/widget/tab/bubble_indicator.dart';
-import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
+import 'package:library_base/widget/nestedscroll/nested_scroll_view_inner_scroll_position_key_widget.dart' as extended;
+import 'package:library_base/widget/nestedscroll/nested_scroll_view_refresh_indicator.dart';
+import 'package:library_base/widget/nestedscroll/old_extended_nested_scroll_view.dart' as extended;
 import 'package:library_base/utils/log_util.dart';
 import 'package:library_base/utils/num_util.dart';
 import 'package:module_home/page/spot_brief_page.dart';
@@ -57,7 +58,10 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
 
   TabController _tabController;
 
-  ValueNotifier<double> _opacityNofifier = ValueNotifier<double>(0);
+  ValueNotifier<bool> _topBarExtentNofifier = ValueNotifier<bool>(false);
+  ValueNotifier<bool> _scrollExtentNofifier = ValueNotifier<bool>(false);
+
+  double _tabBarHeight = 58.0;
 
   @override
   void initState() {
@@ -109,12 +113,30 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
     return _spotDetailModel.getSpotDetailWithChild(widget.coinCode, _tabController.index);
   }
 
-  void _scrollNotify(double scrollY) {
+  void _scrollNotify(double scrollY, double maxExtent) {
     if (scrollY > 50) {
       var opacity = (scrollY - 50) / 50;
-      _opacityNofifier.value = opacity <= 1 ? opacity : 1;
+      opacity = opacity <= 1 ? opacity : 1;
+      bool extent = (opacity > 0.5);
+      
+      if (extent != _topBarExtentNofifier.value) {
+        _topBarExtentNofifier.value = extent;
+      }
+      
     } else {
-      _opacityNofifier.value = 0;
+      if (_topBarExtentNofifier.value) {
+        _topBarExtentNofifier.value = false;
+      }
+    }
+
+    if (scrollY > maxExtent - _tabBarHeight) {
+      if (!_scrollExtentNofifier.value) {
+        _scrollExtentNofifier.value = true;
+      }
+    } else {
+      if (_scrollExtentNofifier.value) {
+        _scrollExtentNofifier.value = false;
+      }
     }
   }
 
@@ -161,7 +183,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
     return ProviderWidget<SpotDetailModel>(
         model: _spotDetailModel,
         builder: (context, model, child) {
-          return model.isFirst ? FirstRefresh() :
+          return model.isFirst ? Container(color: Colours.gray_100, child: FirstRefresh()) :
           Scaffold(
               backgroundColor: Colours.gray_100,
               appBar: AppBar(
@@ -184,7 +206,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
                 child: NotificationListener<ScrollNotification>(
                   onNotification: (ScrollNotification notification) {
                     if (notification.depth == 0 && notification is ScrollUpdateNotification) {
-                      _scrollNotify(notification.metrics.pixels);
+                      _scrollNotify(notification.metrics.pixels, notification.metrics.maxScrollExtent);
                     }
                     return false;
                   },
@@ -199,8 +221,6 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
                       headerSliverBuilder: (context, innerBoxIsScrolled) => _headerSliverBuilder(context),
                       body: Column(
                         children: <Widget>[
-                          _tabBarBuilder(),
-
                           Expanded(
                             child: TabBarView(
                               controller: _tabController,
@@ -244,7 +264,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
           model: _spotDetailModel.spotHeaderModel,
           builder: (context, model, child) {
             return SliverToBoxAdapter(
-              child: SpotDetailAppbar(quoteCoin: _spotDetailModel.quoteCoin),
+              child: SpotDetailAppbar(showShadow: false, quoteCoin: _spotDetailModel.quoteCoin),
             );
           }
       ),
@@ -252,13 +272,20 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
       SliverToBoxAdapter(
         child: SpotDetailKLineBar(coinCode: widget.coinCode),
       ),
+      SliverPersistentHeader(
+        pinned: true,
+        delegate: SliverAppBarDelegate(
+          _tabBarBuilder(),
+          _tabBarHeight,
+        ),
+      ),
     ];
   }
 
   Widget _titleBuilder() {
 
-    return ProviderWidget<ValueNotifier<double>>(
-        model: _opacityNofifier,
+    return ProviderWidget<ValueNotifier<bool>>(
+        model: _topBarExtentNofifier,
         builder: (context, model, child) {
 
           String title = _spotDetailModel.quoteCoin != null ? _spotDetailModel.quoteCoin.pair : '';
@@ -274,7 +301,8 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
               Container(
                   child: Text(title, style: TextStyles.textBlack16,
                   )),
-              _opacityNofifier.value > 0.5 ? Container(
+              _topBarExtentNofifier.value ? Container(
+                  padding: EdgeInsets.only(top: 5),
                   child: Text(priceStr + '  ' + rateStr,
                     style: rate >= 0 ? TextStyles.textGreen_w400_14 : TextStyles.textRed_w400_14,
                   )
@@ -287,37 +315,77 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
   }
 
   Widget _tabBarBuilder() {
-    return ShotView(
-        controller: _tabBarSC,
-        child: Container(
-          height: 40,
-          margin: EdgeInsets.symmetric(horizontal: 12, vertical: 9),
-          decoration: BoxDecoration(
-            color: Colours.white,
-            borderRadius: BorderRadius.all(Radius.circular(16.0)),
-            boxShadow: BoxShadows.normalBoxShadow,
-          ),
-          child: TabBar(
-            controller: _tabController,
-            labelColor: Colours.gray_800,
-            indicatorColor: Colours.gray_100,
-            unselectedLabelColor: Colours.gray_500,
-            indicatorSize: TabBarIndicatorSize.tab,
-            indicator: new BubbleTabIndicator(
-              insets: const EdgeInsets.symmetric(horizontal: 3),
-              indicatorHeight: 34.0,
-              indicatorRadius: 14,
-              indicatorColor: Colours.gray_100,
-              tabBarIndicatorSize: TabBarIndicatorSize.tab,
-            ),
-            isScrollable: false,
-            tabs: <Tab>[
-              Tab(text: _tabTitles[0]),
-              Tab(text: _tabTitles[1]),
-              Tab(text: _tabTitles[2]),
-              Tab(text: _tabTitles[3]),
-            ],
-          ),
-        ));
+    return ProviderWidget<ValueNotifier<bool>>(
+        model: _scrollExtentNofifier,
+        builder: (context, model, child) {
+          return ShotView(
+              controller: _tabBarSC,
+              child: Container(
+                height: _tabBarHeight,
+                decoration: BoxDecoration(
+                  color: model.value ? Colours.white : Colours.transparent,
+                  boxShadow: model.value ? BoxShadows.normalBoxShadow : null,
+                ),
+                child: Container(
+                  height: 40,
+                  margin: model.value ? EdgeInsets.all(0) : EdgeInsets.symmetric(horizontal: 12, vertical: 9),
+                  padding: model.value ? EdgeInsets.symmetric(horizontal: 12, vertical: 9) : EdgeInsets.all(0),
+                  decoration: model.value ? BoxDecoration(
+                    color: Colours.white,
+                  ): BoxDecoration(
+                    color: Colours.white,
+                    borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                    boxShadow: BoxShadows.normalBoxShadow,
+                  ),
+                  child: TabBar(
+                    controller: _tabController,
+                    labelColor: Colours.gray_800,
+                    indicatorColor: Colours.gray_100,
+                    unselectedLabelColor: Colours.gray_500,
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    indicator: new BubbleTabIndicator(
+                      insets: const EdgeInsets.symmetric(horizontal: 3),
+                      indicatorHeight: 34.0,
+                      indicatorRadius: 14,
+                      indicatorColor: Colours.gray_100,
+                      tabBarIndicatorSize: TabBarIndicatorSize.tab,
+                    ),
+                    isScrollable: false,
+                    tabs: <Tab>[
+                      Tab(text: _tabTitles[0]),
+                      Tab(text: _tabTitles[1]),
+                      Tab(text: _tabTitles[2]),
+                      Tab(text: _tabTitles[3]),
+                    ],
+                  ),
+                ),
+              )
+          );
+        }
+        );
+  }
+}
+
+
+class SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  final Widget widget;
+  final double height;
+  SliverAppBarDelegate(this.widget, this.height);
+
+  // minHeight 和 maxHeight 的值设置为相同时，header就不会收缩了
+  @override
+  double get minExtent => height;
+
+  @override
+  double get maxExtent => height;
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return widget;
+  }
+
+  @override
+  bool shouldRebuild(SliverAppBarDelegate oldDelegate) {
+    return true;
   }
 }

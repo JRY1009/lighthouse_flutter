@@ -19,9 +19,6 @@
 * 基于bugly + tinker的热更新
 * 基于walle的多渠道打包
 
-
-Android版安装包：[./apk/app-release.apk](./apk/app-release.apk)
-
 ## 使用的三方库
 
 | 库                         | 功能             |
@@ -67,9 +64,9 @@ Android版安装包：[./apk/app-release.apk](./apk/app-release.apk)
 
 ## 项目运行环境
 
-    1. Flutter version 1.22.5
+    1. Flutter version 2.0.0
      
-    2. Dart version 2.10.4
+    2. Dart version 2.12.0
 
 ## 注意事项
 

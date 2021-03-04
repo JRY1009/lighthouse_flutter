@@ -82,7 +82,7 @@ class DefaultApp {
   static void initApp() {
 
     LogUtil.init(isDebug: Apis.isTestEnvironment);
-    JPushUtil.initPlatformState();
+    //JPushUtil.initPlatformState();
 
     if (DeviceUtil.isAndroid) {
       // 透明状态栏

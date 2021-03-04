@@ -2,7 +2,6 @@
 
 import 'dart:async';
 
-import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:library_base/mvvm/base_page.dart';
@@ -11,7 +10,9 @@ import 'package:library_base/res/colors.dart';
 import 'package:library_base/router/parameters.dart';
 import 'package:library_base/router/routers.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh.dart';
-import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
+import 'package:library_base/widget/nestedscroll/nested_scroll_view_inner_scroll_position_key_widget.dart' as extended;
+import 'package:library_base/widget/nestedscroll/nested_scroll_view_refresh_indicator.dart';
+import 'package:library_base/widget/nestedscroll/old_extended_nested_scroll_view.dart' as extended;
 import 'package:module_home/viewmodel/home_model.dart';
 import 'package:module_home/widget/home_flexible_appbar.dart';
 import 'package:module_home/widget/home_milestone_bar.dart';

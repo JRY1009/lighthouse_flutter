@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:library_base/widget/easyrefresh/first_refresh.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh_top.dart';
+import 'package:library_base/widget/easyrefresh/loading_empty.dart';
 import 'package:library_base/widget/easyrefresh/loading_empty_top.dart';
 import 'package:library_kchart/entity/k_line_entity.dart';
 import 'package:library_kchart/k_chart_widget.dart';
@@ -9,11 +11,17 @@ import 'package:module_home/model/quote.dart';
 
 class KLineChart extends StatefulWidget {
 
+  final double height;
+  final int gridRows;
+  final int gridColumns;
   final List<Quote> quoteList;
   final Function(KLineEntity entity) onLongPressChanged;
 
   const KLineChart({
     Key key,
+    this.height,
+    this.gridRows,
+    this.gridColumns,
     this.quoteList,
     this.onLongPressChanged
   }): super(key: key);
@@ -33,9 +41,8 @@ class _KLineChartState extends State<KLineChart> {
 
   @override
   Widget build(BuildContext context) {
-    bool _inited = widget.quoteList != null;
-    int length = 0;
 
+    int length = 0;
     if (widget.quoteList != null) {
       List<KLineEntity> entityList = [];
 
@@ -59,9 +66,9 @@ class _KLineChartState extends State<KLineChart> {
     }
 
     return Container(
-      height: 180,
+      height: widget.height,
       width: double.infinity,
-      child: !_inited ? FirstRefreshTop() : length == 0 ? LoadingEmptyTop(top: 20) : KChartWidget(
+      child: length == 0 ? LoadingEmpty() : KChartWidget(
         datas,
         isLine: true,
         isAutoScaled: true,
@@ -69,6 +76,8 @@ class _KLineChartState extends State<KLineChart> {
         secondaryState: SecondaryState.NONE,
         volState: VolState.NONE,
         fractionDigits: 2,
+        gridRows: widget.gridRows,
+        gridColumns: widget.gridColumns,
         onLongPressChanged: widget.onLongPressChanged,
       ),
     );

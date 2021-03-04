@@ -1,9 +1,12 @@
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:library_base/res/colors.dart';
-import 'package:library_base/res/styles.dart';
+import 'package:library_base/utils/screen_util.dart';
+import 'package:library_base/widget/easyrefresh/first_refresh.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh_top.dart';
 import 'package:library_base/widget/tab/kline_tab.dart';
 import 'package:module_home/viewmodel/spot_detail_model.dart';
@@ -63,22 +66,37 @@ class _SpotDetailKLineBarState extends State<SpotDetailKLineBar> with AutomaticK
   @override
   Widget build(BuildContext context) {
 
+    double height = max(235, ScreenUtil.instance().screenHeight * 0.5);
+
     return Container(
-        height: 235,
-        margin: EdgeInsets.symmetric(horizontal: 12, vertical: 9),
-        decoration: BoxDecoration(
-          color: Colours.white,
-          borderRadius: BorderRadius.all(Radius.circular(14.0)),
-          boxShadow: BoxShadows.normalBoxShadow,
-        ),
+        height: height,
+        color: Colours.white,
+        margin: EdgeInsets.only(bottom: 9),
         child: ProviderWidget<SpotKLineModel>(
             model: _kLineModel,
             builder: (context, model, child) {
               return  Column(
                 children: [
+
+                  Expanded(
+                    child: Container(
+                      height: height - 55,
+                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      child: model.isBusy ? FirstRefresh() : KLineChart(
+                        height: height - 55,
+                        gridRows: 5,
+                        quoteList: model.getQuoteList(_tabController.index),
+                        onLongPressChanged: (entity) {
+                          SpotDetailModel spotDetailModel = Provider.of<SpotDetailModel>(context, listen: false);
+                          spotDetailModel?.handleKLineLongPress(entity);
+                        },
+                      )
+                    )
+                  ),
+
                   Container(
                     height: 24,
-                    margin: EdgeInsets.fromLTRB(4, 12, 4, 0),
+                    margin: EdgeInsets.fromLTRB(4, 0, 4, 12),
                     child: TabBar(
                       controller: _tabController,
                       labelPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 8.0),
@@ -115,19 +133,6 @@ class _SpotDetailKLineBarState extends State<SpotDetailKLineBar> with AutomaticK
                     ),
                   ),
 
-                  Expanded(
-                    child: Container(
-                      height: 180,
-                      padding: EdgeInsets.symmetric(horizontal: 12),
-                      child: model.isBusy ? FirstRefreshTop() : KLineChart(
-                        quoteList: model.getQuoteList(_tabController.index),
-                        onLongPressChanged: (entity) {
-                          SpotDetailModel spotDetailModel = Provider.of<SpotDetailModel>(context, listen: false);
-                          spotDetailModel?.handleKLineLongPress(entity);
-                        },
-                      )
-                    )
-                  )
                 ],
               );
             }

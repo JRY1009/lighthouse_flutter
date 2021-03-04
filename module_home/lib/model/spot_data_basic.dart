@@ -10,6 +10,7 @@ class SpotDataBasic {
   int total_supply_market_vol;
   int address_count;
   String update_time;
+  String pair;
   List<SpotAddressAssetsDistribution> address_balance_list;
 
 
@@ -19,6 +20,8 @@ class SpotDataBasic {
     this.total_supply,
     this.total_supply_market_vol,
     this.address_count,
+    this.update_time,
+    this.pair,
     this.address_balance_list,
   });
 
@@ -29,6 +32,7 @@ class SpotDataBasic {
     total_supply_market_vol = jsonMap['total_supply_market_vol'] ?? 0;
     address_count = jsonMap['address_count'] ?? 0;
     update_time = jsonMap['update_time'] ?? '';
+    pair = jsonMap['pair'] ?? '';
     address_balance_list = SpotAddressAssetsDistribution.fromJsonList(jsonMap['address_balance_list']) ?? [];
   }
 
@@ -40,6 +44,7 @@ class SpotDataBasic {
     jsonMap['total_supply_market_vol'] = this.total_supply_market_vol;
     jsonMap['address_count'] = this.address_count;
     jsonMap['update_time'] = this.update_time;
+    jsonMap['pair'] = this.pair;
     jsonMap['address_balance_list'] = this.address_balance_list?.map((v) => v.toJson()).toList();
 
     return jsonMap;

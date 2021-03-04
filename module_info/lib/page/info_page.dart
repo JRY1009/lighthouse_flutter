@@ -8,7 +8,7 @@ import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/widget/tab/round_indicator.dart';
 import 'package:library_base/utils/log_util.dart';
-import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
+import 'package:library_base/widget/nestedscroll/nested_scroll_view_inner_scroll_position_key_widget.dart' as extended;
 import 'package:module_info/page/article_list_page.dart';
 import 'package:module_info/page/news_list_page.dart';
 

@@ -20,6 +20,8 @@ class KChartWidget extends StatefulWidget {
   final SecondaryState secondaryState;
   final bool isLine;
   final bool isAutoScaled;
+  final int gridRows;
+  final int gridColumns;
   final Function(KLineEntity entity) onLongPressChanged;
 
   KChartWidget(
@@ -29,6 +31,8 @@ class KChartWidget extends StatefulWidget {
     this.secondaryState = SecondaryState.MACD,
     this.isLine,
     this.isAutoScaled = false,
+    this.gridRows,
+    this.gridColumns,
     this.onLongPressChanged,
     int fractionDigits = 2,
   }) {
@@ -165,14 +169,14 @@ class _KChartWidgetState extends State<KChartWidget> with TickerProviderStateMix
       },
       onLongPressStart: (details) {
         isLongPress = true;
-        if (mSelectX != details.globalPosition.dx) {
-          mSelectX = details.globalPosition.dx;
+        if (mSelectX != details.localPosition.dx) {
+          mSelectX = details.localPosition.dx;
           notifyChanged();
         }
       },
       onLongPressMoveUpdate: (details) {
-        if (mSelectX != details.globalPosition.dx) {
-          mSelectX = details.globalPosition.dx;
+        if (mSelectX != details.localPosition.dx) {
+          mSelectX = details.localPosition.dx;
           notifyChanged();
         }
       },
@@ -192,6 +196,8 @@ class _KChartWidgetState extends State<KChartWidget> with TickerProviderStateMix
                 isAutoScaled: widget.isAutoScaled,
                 scrollX: mScrollX,
                 selectX: mSelectX,
+                gridRows: widget.gridRows,
+                gridColumns: widget.gridColumns,
                 isLongPass: isLongPress,
                 mainState: widget.mainState,
                 volState: widget.volState,

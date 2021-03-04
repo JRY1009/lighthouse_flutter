@@ -83,6 +83,7 @@ class _SpotDataAddressAssetsDistributionBarState extends State<SpotDataAddressAs
 
     int turnover = widget.spotDataBasic != null ? widget.spotDataBasic.turnover : 0;
     String update_time = widget.spotDataBasic != null ? widget.spotDataBasic.update_time : '';
+    String pair = widget.spotDataBasic != null ? widget.spotDataBasic.pair : '';
 
     return Container(
         margin: EdgeInsets.symmetric(horizontal: 12 , vertical: 9),
@@ -150,7 +151,7 @@ class _SpotDataAddressAssetsDistributionBarState extends State<SpotDataAddressAs
                       Text(total_count.toString(),
                         style: TextStyles.textGray800_w400_12,
                       ),
-                      Text(turnover.toString(),
+                      Text(turnover.toString() + pair,
                         style: TextStyles.textGray800_w400_12,
                       ),
                     ],

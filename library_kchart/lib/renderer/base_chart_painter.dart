@@ -18,6 +18,8 @@ abstract class BaseChartPainter extends CustomPainter {
   bool isLongPress = false;
   bool isLine = false;
   bool isAutoScaled = false;
+  int gridRows = ChartStyle.gridRows;
+  int gridColumns = ChartStyle.gridColumns;
 
   //3块区域大小与位置
   Rect mMainRect, mVolRect, mSecondaryRect;
@@ -42,11 +44,14 @@ abstract class BaseChartPainter extends CustomPainter {
       @required this.scrollX,
       @required this.isLongPress,
       @required this.selectX,
+      this.gridRows,
+      this.gridColumns,
       this.mainState,
       this.volState,
       this.secondaryState,
       this.isLine,
       this.isAutoScaled}) {
+
     mItemCount = datas?.length ?? 0;
     mDataLen = mItemCount * mPointWidth;
     initFormats();
@@ -90,6 +95,9 @@ abstract class BaseChartPainter extends CustomPainter {
     mWidth = size.width;
 
     if (isAutoScaled) {
+      mPointWidth = mItemCount == 0 ? 1.0 : (mWidth / mItemCount).clamp(0.5, 11.0);
+      mDataLen = mItemCount * mPointWidth;
+
       scaleX =  mWidth / (mDataLen + mPointWidth / 2);
       mMarginRight = 0;
     } else {

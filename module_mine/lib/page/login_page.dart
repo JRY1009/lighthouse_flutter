@@ -24,6 +24,7 @@ import 'package:library_base/utils/other_util.dart';
 import 'package:library_base/utils/toast_util.dart';
 import 'package:module_mine/mine_router.dart';
 import 'package:module_mine/viewmodel/login_model.dart';
+import 'package:module_mine/widget/third_login_bar.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -249,6 +250,8 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
                 ],
               ),
             ),
+            Gaps.vGap16,
+            ThirdLoginBar(),
           ],
           bottomButton: Container(
               alignment: Alignment.bottomCenter,

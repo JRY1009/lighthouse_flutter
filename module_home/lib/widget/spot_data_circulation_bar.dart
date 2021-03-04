@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/styles.dart';
+import 'package:library_base/res/gaps.dart';
 import 'package:library_base/widget/percent/linear_percent_indicator.dart';
 import 'package:library_base/utils/num_util.dart';
 import 'package:module_home/model/spot_data_basic.dart';
@@ -37,17 +38,19 @@ class _SpotDataCirculationBarState extends State<SpotDataCirculationBar> {
 
   @override
   Widget build(BuildContext context) {
-    int turnover = widget.spotDataBasic != null ? widget.spotDataBasic.turnover : 0;
-    int turnover_market_vol = widget.spotDataBasic != null ? widget.spotDataBasic.turnover_market_vol : 0;
     int total_supply = widget.spotDataBasic != null ? widget.spotDataBasic.total_supply : 0;
     int total_supply_market_vol = widget.spotDataBasic != null ? widget.spotDataBasic.total_supply_market_vol : 0;
 
-    double lp = turnover_market_vol == 0 ? 0 : NumUtil.divideDec(turnover, turnover_market_vol).toDouble() * 100;
-    double rp = turnover_market_vol == 0 ? 0 : NumUtil.divideDec(turnover_market_vol - turnover, turnover_market_vol).toDouble() * 100;
+    int turnover = widget.spotDataBasic != null ? widget.spotDataBasic.turnover : 0;
+    int turnover_market_vol = total_supply == 0 ? 0 : NumUtil.getNumByValueDouble(NumUtil.multiply(NumUtil.divide(total_supply_market_vol, total_supply), turnover), 0);
+
+    double percent = total_supply == 0 ? 0 : NumUtil.getNumByValueDouble(NumUtil.divideDec(turnover, total_supply).toDouble(), 2);
+    double lp = total_supply == 0 ? 0 : NumUtil.divideDec(turnover, total_supply).toDouble() * 100;
+    double rp = total_supply == 0 ? 0 : NumUtil.divideDec(total_supply - turnover, total_supply).toDouble() * 100;
     String lpStr = NumUtil.getNumByValueDouble(lp, 2).toString() + "%";
     String rpStr = NumUtil.getNumByValueDouble(rp, 2).toString() + "%";
 
-    return Container(
+    return percent == 0 ? Gaps.empty: Container(
         margin: EdgeInsets.symmetric(horizontal: 12 , vertical: 9),
         decoration: BoxDecoration(
           color: Colours.white,
@@ -89,7 +92,7 @@ class _SpotDataCirculationBarState extends State<SpotDataCirculationBar> {
                 animation: true,
                 lineHeight: 8.0,
                 animationDuration: 1000,
-                percent: lp,
+                percent: percent,
                 animateFromLastPercent: true,
                 linearStrokeCap: LinearStrokeCap.roundHalf,
                 progressColor: Colours.app_main,

@@ -125,6 +125,16 @@ class S {
     );
   }
 
+  /// `其他方式登录`
+  String get thirdLogin {
+    return Intl.message(
+      '其他方式登录',
+      name: 'thirdLogin',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `密码登录`
   String get pwdLogin {
     return Intl.message(

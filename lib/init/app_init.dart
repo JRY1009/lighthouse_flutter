@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bugly/flutter_bugly.dart';
 import 'package:library_base/constant/constant.dart';
 import 'package:library_base/utils/date_util.dart';
+import 'package:library_base/utils/device_util.dart';
 import 'package:library_base/utils/object_util.dart';
 import 'package:library_base/utils/path_util.dart';
 import 'default_app.dart';
@@ -14,14 +15,20 @@ import 'default_app.dart';
 class AppInit {
 
   static Future<void> run() async {
-    DoKit.runApp(
-        appCreator: () async => DoKitApp(await DefaultApp.getApp()),
-        useInRelease: true,
-        exceptionCallback: (obj, trace) {
-          print('ttt$obj');
-        });
-    //捕获异常
-    //catchException(() => DefaultApp.run());
+
+    if (DeviceUtil.isAndroid) {
+      DoKit.runApp(
+          appCreator: () async => DoKitApp(await DefaultApp.getApp()),
+          useInRelease: true,
+          exceptionCallback: (obj, trace) {
+            var details = makeDetails(obj, trace);
+            reportErrorAndLog(details);
+          });
+
+    } else {
+      //捕获异常
+      catchException(() => DefaultApp.run());
+    }
   }
 
   ///异常捕获处理
@@ -89,6 +96,6 @@ class AppInit {
 
   // 构建错误信息
   static FlutterErrorDetails makeDetails(Object obj, StackTrace stack) {
-    return FlutterErrorDetails(stack: stack);
+    return FlutterErrorDetails(exception: obj, stack: stack);
   }
 }

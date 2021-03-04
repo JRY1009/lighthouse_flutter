@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
+import 'package:library_base/utils/device_util.dart';
 import 'package:library_base/utils/num_util.dart';
 import 'package:library_base/utils/screen_util.dart';
 import 'package:module_home/viewmodel/home_model.dart';
@@ -53,7 +54,7 @@ class _HomePinnedAppBarState extends State<HomePinnedAppBar> {
     return Opacity(
       opacity: widget.appBarOpacity,
       child: Container(
-        padding: EdgeInsets.only(top: ScreenUtil.getStatusBarH(context) + 10),
+        padding: EdgeInsets.only(top: ScreenUtil.getStatusBarH(context) + (DeviceUtil.isAndroid ? 10 : 1)),
         height: widget.height,
         decoration: BoxDecoration(
           color: Colours.white,

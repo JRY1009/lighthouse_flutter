@@ -12,13 +12,18 @@ class FirstRefresh extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Center(
+    return Container(
+      height: double.infinity,
+      width: double.infinity,
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Container(
+          Expanded(
+            child: SizedBox(),
+            flex: 2,
+          ),
+          SizedBox(
             width: 60.0,
             height: 60.0,
             child: SpinKitCircle(
@@ -26,9 +31,11 @@ class FirstRefresh extends StatelessWidget {
               size: 30.0,
             ),
           ),
-          Container(
-            child: Text(S.of(context).loading, style: TextStyles.textGray400_w400_14),
-          )
+          Text(S.of(context).loading, style: TextStyles.textGray400_w400_14),
+          Expanded(
+            child: SizedBox(),
+            flex: 3,
+          ),
         ],
       ),);
   }

@@ -23,9 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter
-  dokit: ^0.2.12
+
   library_base:
     path: library_base
 

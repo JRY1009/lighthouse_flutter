@@ -160,6 +160,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "smsLogin" : MessageLookupByLibrary.simpleMessage("验证码登录"),
     "smsLoginTips" : MessageLookupByLibrary.simpleMessage("验证即登录，新手机号自动注册"),
     "supportExchanges" : MessageLookupByLibrary.simpleMessage("支持交易所"),
+    "thirdLogin" : MessageLookupByLibrary.simpleMessage("其他方式登录"),
     "totalAssets" : MessageLookupByLibrary.simpleMessage("总资产"),
     "treemap" : MessageLookupByLibrary.simpleMessage("热力图"),
     "updateTime" : MessageLookupByLibrary.simpleMessage("更新时间"),

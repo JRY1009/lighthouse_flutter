@@ -57,7 +57,10 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
           children: [
             Container(
               height: 180,
-              child: KLineChart(quoteList: widget.quotePair?.quote_24h),
+              child: KLineChart(
+                  height: 180,
+                  quoteList: widget.quotePair?.quote_24h
+              ),
             ),
             Container(
               height: 75,

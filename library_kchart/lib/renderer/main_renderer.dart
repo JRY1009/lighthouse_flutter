@@ -78,7 +78,7 @@ class MainRenderer extends BaseChartRenderer<CandleEntity> {
 
   Shader mLineFillShader;
   Path mLinePath, mLineFillPath;
-  final double mLineStrokeWidth = 1.0;
+  final double mLineStrokeWidth = 1.5;
   final Paint mLinePaint = Paint()
     ..isAntiAlias = true
     ..style = PaintingStyle.stroke
@@ -101,8 +101,9 @@ class MainRenderer extends BaseChartRenderer<CandleEntity> {
 //    }
     if (lastX == curX) lastX = 0; //起点位置填充
     mLinePath.moveTo(lastX, getY(lastPrice));
-    mLinePath.cubicTo(
-        (lastX + curX) / 2, getY(lastPrice), (lastX + curX) / 2, getY(curPrice), curX, getY(curPrice));
+    mLinePath.lineTo(curX, getY(curPrice));
+//    mLinePath.cubicTo(
+//        (lastX + curX) / 2, getY(lastPrice), (lastX + curX) / 2, getY(curPrice), curX, getY(curPrice));
 
 //    //画阴影
     mLineFillShader ??= LinearGradient(
@@ -125,7 +126,7 @@ class MainRenderer extends BaseChartRenderer<CandleEntity> {
     canvas.drawPath(mLineFillPath, mLineFillPaint);
     mLineFillPath.reset();
 
-    canvas.drawPath(mLinePath, mLinePaint..strokeWidth = (mLineStrokeWidth / scaleX).clamp(0.3, 1.0));
+    canvas.drawPath(mLinePath, mLinePaint..strokeWidth = (mLineStrokeWidth / scaleX).clamp(0.3, 1.5));
     mLinePath.reset();
   }
 

@@ -25,6 +25,7 @@ import 'package:library_base/utils/toast_util.dart';
 import 'package:module_mine/mine_router.dart';
 import 'package:module_mine/viewmodel/login_model.dart';
 import 'package:module_mine/viewmodel/verify_model.dart';
+import 'package:module_mine/widget/third_login_bar.dart';
 
 class LoginSmsPage extends StatefulWidget {
   @override
@@ -268,6 +269,8 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
                 onTap: _pwdLogin,
               ),
             ),
+            Gaps.vGap16,
+            ThirdLoginBar(),
           ],
           bottomButton: Container(
               alignment: Alignment.bottomCenter,

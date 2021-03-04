@@ -72,7 +72,7 @@ class _SpotDataPageState extends State<SpotDataPage> with WidgetsBindingObserver
           CommonScrollView(
             physics: ClampingScrollPhysics(),
             children: [
-              //SpotDataCirculationBar(spotDataBasic: model.dataBasic),
+              SpotDataCirculationBar(spotDataBasic: model.dataBasic),
 
               GestureDetector(
                 onTap: () => Routers.navigateTo(context, Routers.treemapPage),

@@ -7,7 +7,7 @@ import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/widget/button/back_button.dart';
 import 'package:library_base/widget/tab/kline_tab.dart';
-import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' as extended;
+import 'package:library_base/widget/nestedscroll/nested_scroll_view_inner_scroll_position_key_widget.dart' as extended;
 import 'package:module_home/page/milestone_list_page.dart';
 
 
