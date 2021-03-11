@@ -77,17 +77,24 @@ class _SpotTreemapState extends State<SpotTreemap> {
                 label: {
                     position: 'inside',
                     formatter: function (params) {
-                        if (params.value[1] >= 0) {
+                        if (params.value[0] >= 700000000000) {
                           var arr = [
                               '{name|' + params.name + '}',
                               '{label|' + params.value[1] + '%'  + '}',
                           ];
           
                           return arr.join('\\n');
-                        } else {
+                        } else if (params.value[0] >= 250000000000) {
                           var arr = [
                               '{name2|' + params.name + '}',
                               '{label2|' + params.value[1] + '%' + '}',
+                          ];
+          
+                          return arr.join('\\n');
+                        } else {
+                          var arr = [
+                              '{name3|' + params.name + '}',
+                              '{label3|' + params.value[1] + '%' + '}',
                           ];
           
                           return arr.join('\\n');
@@ -107,14 +114,26 @@ class _SpotTreemapState extends State<SpotTreemap> {
                                     align: 'center'
                                 },
                                 label2: {
-                                    fontSize: 11,
+                                    fontSize: 9,
                                     color: '#FFFFFF',
-                                    lineHeight: 12,
+                                    lineHeight: 9,
                                     align: 'center'
                                 },
                                 name2: {
-                                    fontSize: 12,
-                                    lineHeight: 12,
+                                    fontSize: 9,
+                                    lineHeight: 9,
+                                    color: '#FFFFFF',
+                                    align: 'center'
+                                },
+                                label3: {
+                                    fontSize: 6,
+                                    color: '#FFFFFF',
+                                    lineHeight: 6,
+                                    align: 'center'
+                                },
+                                name3: {
+                                    fontSize: 6,
+                                    lineHeight: 6,
                                     color: '#FFFFFF',
                                     align: 'center'
                                 },

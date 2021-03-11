@@ -10,11 +10,11 @@ import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/router/routers.dart';
+import 'package:library_base/utils/other_util.dart';
 import 'package:library_base/widget/common_scroll_view.dart';
-import 'package:library_base/widget/easyrefresh/first_refresh.dart';
+import 'package:library_base/widget/easyrefresh/first_refresh_top.dart';
 import 'package:library_base/widget/image/round_image.dart';
 import 'package:library_base/widget/shot_view.dart';
-import 'package:library_base/utils/other_util.dart';
 import 'package:module_home/item/milestone_item.dart';
 import 'package:module_home/item/spot_brief_item.dart';
 import 'package:module_home/model/friend_link.dart';
@@ -83,7 +83,7 @@ class _SpotBriefPageState extends State<SpotBriefPage> with BasePageMixin<SpotBr
     return ProviderWidget<SpotBriefModel>(
         model: _briefModel,
         builder: (context, model, child) {
-          return model.isFirst ? FirstRefresh() : CommonScrollView(
+          return model.isFirst ? FirstRefreshTop() : CommonScrollView(
             shotController: _shotController,
             physics: ClampingScrollPhysics(),
             children: [

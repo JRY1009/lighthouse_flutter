@@ -9,6 +9,7 @@ import 'package:library_base/res/styles.dart';
 import 'package:library_base/router/routers.dart';
 import 'package:library_base/widget/common_scroll_view.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh.dart';
+import 'package:library_base/widget/easyrefresh/first_refresh_top.dart';
 import 'package:module_home/viewmodel/spot_data_model.dart';
 import 'package:module_home/widget/spot_data_address_assets_distribution_bar.dart';
 import 'package:module_home/widget/spot_data_circulation_bar.dart';
@@ -68,7 +69,7 @@ class _SpotDataPageState extends State<SpotDataPage> with WidgetsBindingObserver
     return ProviderWidget<SpotDataModel>(
         model: _dataModel,
         builder: (context, model, child) {
-          return model.isFirst ? FirstRefresh() :
+          return model.isFirst ? FirstRefreshTop() :
           CommonScrollView(
             physics: ClampingScrollPhysics(),
             children: [

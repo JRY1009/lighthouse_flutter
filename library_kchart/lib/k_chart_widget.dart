@@ -110,7 +110,10 @@ class _KChartWidgetState extends State<KChartWidget> with TickerProviderStateMix
   @override
   void didUpdateWidget(KChartWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.datas != widget.datas) mScrollX = mSelectX = 0.0;
+    if (oldWidget.datas != widget.datas) {
+      if (isScale || isLongPress) return;
+      mScrollX = mSelectX = 0.0;
+    }
   }
 
   @override

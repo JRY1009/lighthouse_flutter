@@ -132,7 +132,7 @@ class _TreemapPageState extends State<TreemapPage> {
                 label: {
                     position: 'inside',
                     formatter: function (params) {
-                        if (params.value[1] >= 0) {
+                        if (params.value[0] >= 250000000000) {
                           var arr = [
                               '{name|' + params.name + '}',
                               '{label|' + params.value[1] + '%'  + '}',
@@ -162,14 +162,14 @@ class _TreemapPageState extends State<TreemapPage> {
                                     align: 'center'
                                 },
                                 label2: {
-                                    fontSize: 12,
+                                    fontSize: 10,
                                     color: '#FFFFFF',
-                                    lineHeight: 12,
+                                    lineHeight: 10,
                                     align: 'center'
                                 },
                                 name2: {
-                                    fontSize: 14,
-                                    lineHeight: 14,
+                                    fontSize: 10,
+                                    lineHeight: 10,
                                     color: '#FFFFFF',
                                     align: 'center'
                                 },

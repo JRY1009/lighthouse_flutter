@@ -13,6 +13,7 @@ import 'package:library_base/utils/num_util.dart';
 import 'package:library_base/widget/button/sort_button.dart';
 import 'package:library_base/widget/common_scroll_view.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh.dart';
+import 'package:library_base/widget/easyrefresh/first_refresh_top.dart';
 import 'package:library_base/widget/shot_view.dart';
 import 'package:module_home/item/spot_exchange_quote_item.dart';
 import 'package:module_home/model/spot_exchange_quote.dart';
@@ -81,7 +82,7 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
     return ProviderWidget<SpotQuoteModel>(
         model: _quoteModel,
         builder: (context, model, child) {
-          return model.isFirst ? FirstRefresh() :
+          return model.isFirst ? FirstRefreshTop() :
           CommonScrollView(
               shotController: _shotController,
               physics: ClampingScrollPhysics(),
