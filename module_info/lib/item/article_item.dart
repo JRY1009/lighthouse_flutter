@@ -2,25 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/widget/image/round_image.dart';
+import 'package:module_info/model/article.dart';
 
 /// 资讯列表详情
 class ArticleItem extends StatelessWidget {
 
   final int index;
-  final String newsUrl;
-  final String imageUrl;
-  final String title;
-  final String author;
-  final String time;
+  final Article aritcle;
 
   const ArticleItem(
       {Key key,
         this.index,
-        this.newsUrl = '',
-        this.imageUrl = '',
-        this.title = '',
-        this.author = '',
-        this.time
+        this.aritcle
       })
       : super(key: key);
 
@@ -46,7 +39,7 @@ class ArticleItem extends StatelessWidget {
                       Expanded(
                         child: Container(
                           alignment: Alignment.topLeft,
-                          child: Text(title + '的快乐撒娇的刻录机萨克来得及奥斯卡了佳度了佳度科拉了佳度科拉了佳度科拉科拉屎佳度科拉屎觉得',
+                          child: Text(aritcle?.title + '这是标题这是标题这是标题这是标题这是标题这是标题',
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
@@ -61,13 +54,13 @@ class ArticleItem extends StatelessWidget {
                             Container(
                               margin: EdgeInsets.only(left: 5),
                               alignment: Alignment.centerLeft,
-                              child: Text(author, style: TextStyles.textGray400_w400_12),
+                              child: Text(aritcle?.author, style: TextStyles.textGray400_w400_12),
                             ),
                             Expanded(
                                 child: Container(
                                   margin: EdgeInsets.only(right: 5),
                                   alignment: Alignment.centerRight,
-                                  child: Text(time??'11-11 11:11',
+                                  child: Text(aritcle?.publish_time ?? '11-11 11:11',
                                     style: TextStyles.textGray500_w400_12,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
@@ -82,7 +75,7 @@ class ArticleItem extends StatelessWidget {
             ),
             Container(
               margin: EdgeInsets.only(right: 18),
-              child: RoundImage(imageUrl ?? '',
+              child: RoundImage(aritcle?.snapshot_url ?? '',
                 width: 88,
                 height: 66,
                 borderRadius: BorderRadius.all(Radius.circular(8)),

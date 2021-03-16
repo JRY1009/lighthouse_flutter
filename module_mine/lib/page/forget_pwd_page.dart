@@ -76,7 +76,7 @@ class _ForgetPwdPageState extends State<ForgetPwdPage> with BasePageMixin<Forget
       if (_verifyModel.isBusy) {
 
       } else if (_verifyModel.isError) {
-        ToastUtil.error(_verifyModel.viewStateError.message);
+        ToastUtil.waring(_verifyModel.viewStateError.message);
 
       } else if (_verifyModel.isSuccess) {
         ToastUtil.normal(S.current.verifySended);
@@ -161,7 +161,8 @@ class _ForgetPwdPageState extends State<ForgetPwdPage> with BasePageMixin<Forget
             ),
             Gaps.line,
             PwdTextField(
-              prefixText: S.of(context).newPassword,
+              prefixText: S.of(context).inputPassword,
+              hintText: S.of(context).passwordHintTips,
               backgroundColor: Colours.white,
               focusedBorder: BorderStyles.outlineInputR0White,
               enabledBorder: BorderStyles.outlineInputR0White,
@@ -172,6 +173,7 @@ class _ForgetPwdPageState extends State<ForgetPwdPage> with BasePageMixin<Forget
             Gaps.line,
             PwdTextField(
               prefixText: S.of(context).repeatPassword,
+              hintText: S.of(context).passwordHintTips,
               backgroundColor: Colours.white,
               focusedBorder: BorderStyles.outlineInputR0White,
               enabledBorder: BorderStyles.outlineInputR0White,

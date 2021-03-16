@@ -14,19 +14,47 @@ class AuthInterceptor extends Interceptor {
   @override
   Future onRequest(RequestOptions options) async {
 
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
-
-    String version = packageInfo?.version;
-    String language = WidgetsBinding.instance.window.locale.toString();
-    String dev = DeviceUtil.isAndroid ? 'Android' : (DeviceUtil.isIOS ? 'iOS' : (DeviceUtil.isWeb ? 'Web' : 'Other'));
-    String channel = await ChannelUtil.getChannel();
     String timestamp = (DateUtil.getNowDateMs() * 1000).toString();
 
-    options.headers[Apis.KEY_VER] = version;
-    options.headers[Apis.KEY_DEV] = dev;
-    options.headers[Apis.KEY_LANGUAGE] = language;
-    options.headers[Apis.KEY_CHANNEL] = channel;
-    options.headers[Apis.KEY_USER_TS] = timestamp;
+    if (DeviceUtil.isWeb) {
+      String version = '1.0.0';
+      String language = WidgetsBinding.instance.window.locale.toString();
+      String dev = 'Web';
+      String channel = 'official';
+
+      options.headers[Apis.KEY_VER] = version;
+      options.headers[Apis.KEY_DEV] = dev;
+      options.headers[Apis.KEY_LANGUAGE] = language;
+      options.headers[Apis.KEY_CHANNEL] = channel;
+      options.headers[Apis.KEY_USER_TS] = timestamp;
+
+    } else if (DeviceUtil.isDesktop) {
+      String version = '1.0.0';
+      String language = WidgetsBinding.instance.window.locale.toString();
+      String dev = DeviceUtil.isWindows ? 'windows' : DeviceUtil.isMacOS ? 'macos' : DeviceUtil.isLinux ? 'linux' : 'desktop';
+      String channel = 'official';
+
+      options.headers[Apis.KEY_VER] = version;
+      options.headers[Apis.KEY_DEV] = dev;
+      options.headers[Apis.KEY_LANGUAGE] = language;
+      options.headers[Apis.KEY_CHANNEL] = channel;
+      options.headers[Apis.KEY_USER_TS] = timestamp;
+
+    } else {
+
+      PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+      String version = packageInfo?.version;
+      String language = WidgetsBinding.instance.window.locale.toString();
+      String dev = DeviceUtil.isAndroid ? 'Android' : (DeviceUtil.isIOS ? 'iOS' : 'Other');
+      String channel = 'official';
+
+      options.headers[Apis.KEY_VER] = version;
+      options.headers[Apis.KEY_DEV] = dev;
+      options.headers[Apis.KEY_LANGUAGE] = language;
+      options.headers[Apis.KEY_CHANNEL] = channel;
+      options.headers[Apis.KEY_USER_TS] = timestamp;
+    }
 
     if (RTAccount.instance().isLogin()) {
       Account account = RTAccount.instance().getActiveAccount();

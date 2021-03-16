@@ -3,31 +3,47 @@ import 'package:library_base/utils/object_util.dart';
 
 class Article {
 
-  String account_name;
-  String city;
-  String created_at ;
-  String avatar_300;
+  num article_id;
+  String publish_time;
+  String author;
+  String publisher;
+  String title;
+  String summary;
+  String snapshot_url;
+  String url;
 
   Article({
-    this.account_name,
-    this.city,
-    this.created_at,
-    this.avatar_300,
+    this.article_id,
+    this.publish_time,
+    this.author,
+    this.publisher,
+    this.title,
+    this.summary,
+    this.snapshot_url,
+    this.url,
   });
 
   Article.fromJson(Map<String, dynamic> jsonMap) {
-    account_name = jsonMap['account_name'];
-    city = jsonMap['city'];
-    created_at = jsonMap['created_at'];
-    avatar_300 = jsonMap['avatar_300'];
+    article_id = jsonMap['article_id'] ?? 0;
+    publish_time = jsonMap['publish_time'] ?? '';
+    author = jsonMap['author'] ?? '';
+    publisher = jsonMap['publisher'] ?? '';
+    title = jsonMap['title'] ?? '';
+    summary = jsonMap['summary'] ?? '';
+    snapshot_url = jsonMap['snapshot_url'] ?? '';
+    url = jsonMap['url'] ?? '';
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> jsonMap = new Map<String, dynamic>();
-    jsonMap['account_name'] = this.account_name;
-    jsonMap['city'] = this.city;
-    jsonMap['created_at'] = this.created_at;
-    jsonMap['avatar_300'] = this.avatar_300;
+    jsonMap['article_id'] = this.article_id;
+    jsonMap['publish_time'] = this.publish_time;
+    jsonMap['author'] = this.author;
+    jsonMap['publisher'] = this.publisher;
+    jsonMap['title'] = this.title;
+    jsonMap['summary'] = this.summary;
+    jsonMap['snapshot_url'] = this.snapshot_url;
+    jsonMap['url'] = this.url;
 
     return jsonMap;
   }

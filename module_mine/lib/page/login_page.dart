@@ -86,7 +86,7 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
 
   void _checkInput() {
     setState(() {
-      if (ObjectUtil.isEmpty(_phoneController.text)) {
+      if (ObjectUtil.isEmpty(_phoneController.text) || ObjectUtil.isEmpty(_pwdController.text)) {
         _loginEnabled = false;
       } else {
         _loginEnabled = true;
@@ -261,7 +261,6 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
                     TextSpan(text: S.of(context).loginPolicy, style: TextStyles.textGray400_w400_14),
                     TextSpan(text: S.of(context).registAgreement, style: TextStyles.textMain14,
                         recognizer: new TapGestureRecognizer()..onTap = _jump2Register),
-                    TextSpan(text: '、', style: TextStyles.textGray400_w400_14),
                     TextSpan(text: S.of(context).privatePolicy, style: TextStyles.textMain14,
                         recognizer: new TapGestureRecognizer()..onTap = _jump2Register),
                   ]

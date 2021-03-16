@@ -129,7 +129,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
       }
     }
 
-    if (scrollY > maxExtent - _tabBarHeight) {
+    if (scrollY >= maxExtent) {
       if (!_scrollExtentNofifier.value) {
         _scrollExtentNofifier.value = true;
       }
@@ -221,6 +221,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
                       headerSliverBuilder: (context, innerBoxIsScrolled) => _headerSliverBuilder(context),
                       body: Column(
                         children: <Widget>[
+                          _tabBarBuilder(),
                           Expanded(
                             child: TabBarView(
                               controller: _tabController,
@@ -272,13 +273,13 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
       SliverToBoxAdapter(
         child: SpotDetailKLineBar(coinCode: widget.coinCode),
       ),
-      SliverPersistentHeader(
-        pinned: true,
-        delegate: SliverAppBarDelegate(
-          _tabBarBuilder(),
-          _tabBarHeight,
-        ),
-      ),
+//      SliverPersistentHeader(
+//        pinned: true,
+//        delegate: SliverAppBarDelegate(
+//          _tabBarBuilder(),
+//          _tabBarHeight,
+//        ),
+//      ),
     ];
   }
 

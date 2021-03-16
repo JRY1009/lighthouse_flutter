@@ -69,6 +69,7 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
     return Stack(
       children: <Widget>[
         Container(
+          height: 120,
           decoration: BoxDecoration(
             color: Colours.transparent,
             image: DecorationImage(
@@ -76,36 +77,46 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
               fit: BoxFit.fill,
             ),
           ),
-          child: isVertical ? AspectRatio (
-            aspectRatio: 1.45,
-          ) : null,
+//          child: isVertical ? AspectRatio (
+//            aspectRatio: 3.125,
+//          ) : null,
+        ),
+        Container(
+          height: 190,
+          margin: EdgeInsets.only(top: 120),
+          decoration: BoxDecoration(
+            color: Colours.transparent,
+            image: DecorationImage(
+              image: AssetImage(ImageUtil.getImgPath('bg_home2'), package: package),
+              fit: BoxFit.fill,
+            ),
+          ),
         ),
         Container(  //占满
           padding: EdgeInsets.symmetric(horizontal: 12),
           color: Colours.transparent,
           child: Column(
             children: [
-              Gaps.vGap50,
+              Gaps.vGap60,
               Container(
                 height: 30,
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.only(left: 10),
                 child: Text(S.of(context).appName, style: TextStyles.textWhite24,),
               ),
-              Gaps.vGap5,
               Container(
-                height: 20,
+                height: 24,
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.only(left: 10),
-                child: Text(S.of(context).slogan, style: TextStyles.textWhite15,),
+                child: Text(S.of(context).slogan, style: TextStyles.textWhite14,),
               ),
-              Gaps.vGap15,
+              Gaps.vGap20,
 
               Container(
-                height: 335,
+                height: 350,
                 decoration: BoxDecoration(
                   color: Colours.white,
-                  borderRadius: BorderRadius.all(Radius.circular(14.0)),
+                  borderRadius: BorderRadius.all(Radius.circular(16.0)),
                   boxShadow: BoxShadows.normalBoxShadow,
                 ),
                 child: Column(

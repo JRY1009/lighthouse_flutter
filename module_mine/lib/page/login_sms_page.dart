@@ -102,7 +102,7 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
       if (_verifyModel.isBusy) {
 
       } else if (_verifyModel.isError) {
-        ToastUtil.error(_verifyModel.viewStateError.message);
+        ToastUtil.waring(_verifyModel.viewStateError.message);
 
       } else if (_verifyModel.isSuccess) {
         ToastUtil.normal(S.current.verifySended);
@@ -250,7 +250,7 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
             GradientButton(
               width: double.infinity,
               height: 48,
-              text: S.of(context).login,
+              text: S.of(context).login + '/' + S.of(context).register,
               colors: <Color>[   //背景渐变
                 Colours.app_main,
                 Colours.app_main_500
@@ -280,7 +280,6 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
                     TextSpan(text: S.of(context).loginPolicy, style: TextStyles.textGray400_w400_14),
                     TextSpan(text: S.of(context).registAgreement, style: TextStyles.textMain14,
                         recognizer: new TapGestureRecognizer()..onTap = _jump2Register),
-                    TextSpan(text: '、', style: TextStyles.textGray400_w400_14),
                     TextSpan(text: S.of(context).privatePolicy, style: TextStyles.textMain14,
                         recognizer: new TapGestureRecognizer()..onTap = _jump2Register),
                   ]

@@ -19,16 +19,17 @@ class Apis {
   static const String KEY_USER_SIGN = "lh-Sign";
 
   static const String PRIVATE_KEY = "5ffF03b858D5Fd16";       //测试环境
-  static const String BASE_URL_YAPI = 'http://81.70.145.64:8083/api';  //测试环境
-  static const String WEB_SOCKET_URL = 'ws://81.70.145.64:8083/api/ws';
+  static const String BASE_URL_YAPI = 'http://81.70.145.64/api';  //测试环境
+  static const String WEB_SOCKET_URL = 'ws://81.70.145.64/api/ws';
 
-  static bool get isTestEnvironment => (BASE_URL_YAPI == 'http://81.70.145.64:8083/api');
+  static bool get isTestEnvironment => (BASE_URL_YAPI == 'http://81.70.145.64/api');
 
   static const String URL_LOGIN = '/login';
   static const String URL_REGISTER = '/reg';
   static const String URL_VERIFY_CODE = '/sms/send';
   static const String URL_RESET_PASSWORD = '/account/forget_password';
   static const String URL_FORGET_PASSWORD = '/account/forget_password_v2';
+  static const String URL_UPDATE_PASSWORD = '/account/update_password';
   static const String URL_SET_PASSWORD = '/account/set_password';
   static const String URL_GET_ACCOUNT_INFO = '/account/account_info';
   static const String URL_UPDATE_NICK_NAME = '/account/update_nick_name';
@@ -44,7 +45,9 @@ class Apis {
   static const String URL_GET_CHAIN_DATA = '/chain/data';
   static const String URL_GET_QUOTE = '/quote';
 
-  static const String URL_GET_NEWS = '/user/selectAccounts';
+  static const String URL_GET_ARTICLE_CHANNELS = '/v1/c/channels/';
+  static const String URL_GET_ARTICLE_SUB_CHANNELS = '/v1/c/channels/';
+  static const String URL_GET_ARTICLES = '/v1/c/channels/';
 
 
   static const String URL_OFFICIAL_WEBSITE = 'https://www.blockdt.com';

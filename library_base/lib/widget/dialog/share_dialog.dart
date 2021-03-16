@@ -11,6 +11,8 @@ import 'package:library_base/net/apis.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
+import 'package:library_base/utils/device_util.dart';
+import 'package:library_base/utils/path_util.dart';
 import 'package:library_base/widget/common_scroll_view.dart';
 import 'package:library_base/widget/image/local_image.dart';
 import 'package:library_base/widget/shot_view.dart';
@@ -40,10 +42,11 @@ class ShareDialog extends StatelessWidget {
     Uint8List pngBytes = await _shotController.makeImageUint8List();
     final result = await ImageGallerySaver.saveImage(pngBytes);
 
-    if(ObjectUtil.isEmpty(result)){
+    if (ObjectUtil.isEmpty(result)){
       ToastUtil.error(S.of(context).saveFailed);
-    }else{
-      ToastUtil.success(S.of(context).saveSuccess + result['filePath'].replaceAll("file://", ""));
+    } else{
+      String suffix = result['filePath'] != null ? result['filePath']?.replaceAll("file://", "") : '';
+      ToastUtil.success(S.of(context).saveSuccess + suffix);
     }
 
     Navigator.pop(context);
@@ -64,11 +67,24 @@ class ShareDialog extends StatelessWidget {
       }
 
       Uint8List pngBytes = await _shotController.makeImageUint8List();
-      final result = await ImageGallerySaver.saveImage(pngBytes);
 
-      if(ObjectUtil.isNotEmpty(result)){
-        File saveFile = new File(result['filePath'].replaceAll("file://", ""));
+      if (DeviceUtil.isAndroid) {
 
+        final result = await ImageGallerySaver.saveImage(pngBytes);
+
+        if(ObjectUtil.isNotEmpty(result)){
+          File saveFile = new File(result['filePath']?.replaceAll("file://", ""));
+          Share.shareFiles([
+            saveFile.path
+          ]);
+        }
+
+      } else if (DeviceUtil.isIOS) {
+        String docPath = await PathUtils.getDocumentsDirPath();
+        bool isDirExist = await Directory(docPath).exists();
+        if (!isDirExist) Directory(docPath).create();
+
+        File saveFile = await File(docPath + "/${DateTime.now().toIso8601String()}.jpg").writeAsBytes(pngBytes);
         Share.shareFiles([
           saveFile.path
         ]);

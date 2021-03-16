@@ -125,10 +125,10 @@ class S {
     );
   }
 
-  /// `其他方式登录`
+  /// `更多方式登录`
   String get thirdLogin {
     return Intl.message(
-      '其他方式登录',
+      '更多方式登录',
       name: 'thirdLogin',
       desc: '',
       args: [],
@@ -405,6 +405,16 @@ class S {
     );
   }
 
+  /// `原密码`
+  String get oldPassword {
+    return Intl.message(
+      '原密码',
+      name: 'oldPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `密码`
   String get newPassword {
     return Intl.message(
@@ -425,10 +435,10 @@ class S {
     );
   }
 
-  /// `重复密码`
+  /// `再次确认`
   String get repeatPassword {
     return Intl.message(
-      '重复密码',
+      '再次确认',
       name: 'repeatPassword',
       desc: '',
       args: [],
@@ -555,10 +565,10 @@ class S {
     );
   }
 
-  /// `登录即代表您已同意`
+  /// `点击登录即代表您已同意`
   String get loginPolicy {
     return Intl.message(
-      '登录即代表您已同意',
+      '点击登录即代表您已同意',
       name: 'loginPolicy',
       desc: '',
       args: [],

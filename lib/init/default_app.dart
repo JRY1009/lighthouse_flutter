@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -30,21 +31,23 @@ class DefaultApp {
   static Future<Widget> getApp() async {
     WidgetsFlutterBinding.ensureInitialized();
 
-    String channel = await ChannelUtil.getChannel();
+    if (DeviceUtil.isMobile) {
+      String channel = await ChannelUtil.getChannel();
 
-    LogUtil.v('channel: $channel');
+      LogUtil.v('channel: $channel');
 
-    await UmengAnalyticsPlugin.init(
-        androidKey: '5fa62c2745b2b751a925bf49',
-        iosKey: '5fa62c921c520d3073a2536f',
-        channel: DeviceUtil.isAndroid ? channel : 'ios'
-    );
+      await UmengAnalyticsPlugin.init(
+          androidKey: '5fa62c2745b2b751a925bf49',
+          iosKey: '5fa62c921c520d3073a2536f',
+          channel: DeviceUtil.isAndroid ? channel : 'ios'
+      );
 
-    await registerWxApi(
-        appId: "wxfdba5c8a01643f82",
-        doOnAndroid: true,
-        doOnIOS: true,
-        universalLink: "https://your.univerallink.com/link/");
+      await registerWxApi(
+          appId: "wxfdba5c8a01643f82",
+          doOnAndroid: true,
+          doOnIOS: true,
+          universalLink: "https://your.univerallink.com/link/");
+    }
 
     await SPUtil.init();
 
@@ -57,19 +60,22 @@ class DefaultApp {
   static Future<void> run() async {
     WidgetsFlutterBinding.ensureInitialized();
 
-    String channel = await ChannelUtil.getChannel();
+    if (DeviceUtil.isMobile) {
 
-    await UmengAnalyticsPlugin.init(
-        androidKey: '5fa62c2745b2b751a925bf49',
-        iosKey: '5fa62c921c520d3073a2536f',
-        channel: DeviceUtil.isAndroid ? channel : 'ios'
-    );
+      String channel = await ChannelUtil.getChannel();
 
-    await registerWxApi(
-        appId: "wxfdba5c8a01643f82",
-        doOnAndroid: true,
-        doOnIOS: true,
-        universalLink: "https://your.univerallink.com/link/");
+      await UmengAnalyticsPlugin.init(
+          androidKey: '5fa62c2745b2b751a925bf49',
+          iosKey: '5fa62c921c520d3073a2536f',
+          channel: DeviceUtil.isAndroid ? channel : 'ios'
+      );
+
+      await registerWxApi(
+          appId: "wxfdba5c8a01643f82",
+          doOnAndroid: true,
+          doOnIOS: true,
+          universalLink: "https://your.univerallink.com/link/");
+    }
 
     await SPUtil.init();
 

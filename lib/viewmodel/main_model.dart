@@ -51,6 +51,10 @@ class MainModel extends ValueNotifier<int> {
   }
 
   Future<void> initBugly() async {
+    if (!DeviceUtil.isMobile) {
+      return Future.value(0);
+    }
+
     String channel = await ChannelUtil.getChannel();
 
     FlutterBugly.init(

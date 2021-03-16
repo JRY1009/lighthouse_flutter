@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
 import 'package:keyboard_actions/keyboard_actions_config.dart';
+import 'package:library_base/utils/device_util.dart';
 import 'package:library_base/widget/shot_view.dart';
 
 /// 本项目通用的布局（SingleChildScrollView）
@@ -53,7 +54,7 @@ class CommonScrollView extends StatelessWidget {
       children: children,
     );
 
-    if (defaultTargetPlatform == TargetPlatform.iOS && keyboardConfig != null) {
+    if (DeviceUtil.isIOS && keyboardConfig != null) {
       /// iOS 键盘处理
 
       if (padding != null) {
@@ -72,14 +73,23 @@ class CommonScrollView extends StatelessWidget {
       );
 
     } else {
-      contents = ScrollConfiguration(
-        behavior: OverScrollBehavior(),
-        child: SingleChildScrollView(
+      if (DeviceUtil.isWeb || DeviceUtil.isDesktop) {
+        contents = SingleChildScrollView(
           padding: padding,
           physics: physics,
           child: contents,
-        ),
-      );
+        );
+
+      } else {
+        contents = ScrollConfiguration(
+          behavior: OverScrollBehavior(),
+          child: SingleChildScrollView(
+            padding: padding,
+            physics: physics,
+            child: contents,
+          ),
+        );
+      }
     }
 
     if (bottomButton != null) {

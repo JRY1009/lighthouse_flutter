@@ -10,26 +10,19 @@ import 'package:library_base/widget/dash_line.dart';
 import 'package:library_base/widget/dialog/dialog_util.dart';
 import 'package:library_base/widget/dialog/share_widget.dart';
 import 'package:library_base/widget/image/local_image.dart';
+import 'package:module_info/model/news.dart';
 
 class NewsItem extends StatelessWidget {
 
   final int index;
-  final String newsUrl;
-  final String imageUrl;
-  final String title;
-  final String author;
-  final String time;
+  final News news;
   final bool isLast;
 
   const NewsItem(
       {Key key,
         this.index,
-        this.newsUrl,
-        this.imageUrl,
-        this.title,
-        this.author,
+        this.news,
         this.isLast = false,
-        this.time
       })
       : super(key: key);
 
@@ -46,7 +39,7 @@ class NewsItem extends StatelessWidget {
                 Container(
                     margin: EdgeInsets.only(top: 10),
                     alignment: Alignment.centerLeft,
-                    child: Text((title ?? '') + '外媒：中国季节性矿工迁移致BTC算力下降哥哥哥',
+                    child: Text((news?.title ?? '') + '这是标题这是标题这是标题这是标题这是标题这是标题这是标题这是标题',
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
@@ -59,12 +52,12 @@ class NewsItem extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text((time ?? '11:11'),
+                      Text((news?.publish_time ?? '11:11'),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyles.textMain12
                       ),
-                      Text(author ?? '',
+                      Text(news?.author ?? '',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyles.textGray500_w400_12
@@ -75,7 +68,7 @@ class NewsItem extends StatelessWidget {
                 Container(
                     margin: EdgeInsets.only(top: 10),
                     alignment: Alignment.centerLeft,
-                    child: Text((title ?? '') + '外媒：中国季节性矿工迁移致BTC算力下降外媒：中国季节性矿工迁移致BTC算力下降外媒：中国季节性矿工迁移致BTC算力下降外媒：中国季节性矿工迁移致BTC算力下降外媒：中国季节性矿工迁移致BTC算力下降外媒：中国季节性矿工迁移致BTC算力下降',
+                    child: Text((news?.summary ?? '') + '这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容',
                         strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
                         style: TextStyles.textGray800_w400_14
                     )
@@ -136,12 +129,12 @@ class NewsItem extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text((time ?? '11:11'),
+                            Text((news?.publish_time ?? '11:11'),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyles.textMain12
                             ),
-                            Text(author ?? '',
+                            Text(news?.author ?? '',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyles.textGray500_w400_12
@@ -153,7 +146,7 @@ class NewsItem extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(top: 10),
                         alignment: Alignment.centerLeft,
-                        child: Text((title ?? '') + '外媒：中国季节性矿工迁移致BTC算力下降哥哥哥',
+                        child: Text((news?.title ?? '') + '外媒：这是标题这是标题这是标题这是标题这是标题这是标题这是标题这是标题',
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
@@ -164,7 +157,7 @@ class NewsItem extends StatelessWidget {
                       Container(
                           margin: EdgeInsets.only(top: 10),
                           alignment: Alignment.centerLeft,
-                          child: Text((title ?? '') + '外媒：中国季节性矿工迁移致BTC算力下降外媒：中国季节性矿工迁移致BTC算力下降外媒：中国季节性矿工迁移致BTC算力下降外媒：中国季节性矿工迁移致BTC算力下降外媒：中国季节性矿工迁移致BTC算力下降外媒：中国季节性矿工迁移致BTC算力下降',
+                          child: Text((news?.summary ?? '') + '这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容',
                               maxLines: 3,
                               overflow: TextOverflow.ellipsis,
                               strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),

@@ -5,22 +5,20 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bugly/flutter_bugly.dart';
 import 'package:library_base/constant/constant.dart';
-import 'package:library_base/event/event.dart';
-import 'package:library_base/event/user_event.dart';
 import 'package:library_base/generated/l10n.dart';
-import 'package:library_base/mvvm/base_page.dart';
-import 'package:library_base/model/account.dart';
 import 'package:library_base/global/rt_account.dart';
+import 'package:library_base/model/account.dart';
+import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/router/routers.dart';
+import 'package:library_base/utils/path_util.dart';
+import 'package:library_base/utils/toast_util.dart';
 import 'package:library_base/widget/clickbar/mine_clickbar.dart';
 import 'package:library_base/widget/common_scroll_view.dart';
 import 'package:library_base/widget/dialog/dialog_util.dart';
-import 'package:library_base/utils/path_util.dart';
-import 'package:library_base/utils/toast_util.dart';
 import 'package:library_base/widget/image/local_image.dart';
 import 'package:module_mine/viewmodel/setting_model.dart';
 import 'package:module_mine/widget/mine_appbar.dart';
@@ -86,7 +84,7 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
           cancelPressed: () => Navigator.of(context).pop(),
           confirmPressed: () async {
             Navigator.of(context).pop();
-            await PathUtils.delDir(cacheDir);
+            await PathUtils.delDir(cacheDir, onlyChild: true);
             ToastUtil.normal(S.of(context).clearCacheSuccess);
           }
       );
@@ -156,7 +154,7 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
                                 MineClickBar(
                                     title: S.of(context).about + S.of(context).appName,
                                     icon: LocalImage('icon_info', package: Constant.baseLib, color: Colours.gray_350, width: 20, height: 20),
-                                    onPressed: () => Routers.loginGuardNavigateTo(context, Routers.aboutPage)
+                                    onPressed: () => Routers.navigateTo(context, Routers.aboutPage)
                                 ),
                                 MineClickBar(
                                     title: S.of(context).checkUpdate,

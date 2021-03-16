@@ -49,7 +49,7 @@ class CommonFooter extends Footer {
     bool float = false,
     Duration completeDuration = const Duration(seconds: 1),
     bool enableInfiniteLoad = true,
-    bool enableHapticFeedback = true,
+    bool enableHapticFeedback = false,
     bool overScroll = false,
     bool safeArea = true,
     EdgeInsets padding,

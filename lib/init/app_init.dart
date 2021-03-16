@@ -64,7 +64,7 @@ class AppInit {
     print(details);
     saveErrorToFile(details.toString());
 
-    if (Constant.isReleaseMode) {
+    if (DeviceUtil.isMobile && Constant.isReleaseMode) {
       FlutterBugly.uploadException(
           message: details.exception.toString(),
           detail: details.stack.toString());
@@ -72,10 +72,21 @@ class AppInit {
   }
 
   static Future<void> saveErrorToFile(String error) async {
+    if (!DeviceUtil.isMobile) {
+      return Future.value(0);
+    }
 
-    String dirPath = await PathUtils.getExternalCacheDirPath();
-    if (ObjectUtil.isEmpty(dirPath)) {
-      return null;
+    String dirPath = '';
+    if (DeviceUtil.isIOS) {
+      dirPath = await PathUtils.getCacheDirPath();
+      if (ObjectUtil.isEmpty(dirPath)) {
+        return null;
+      }
+    } else {
+      dirPath = await PathUtils.getExternalCacheDirPath();
+      if (ObjectUtil.isEmpty(dirPath)) {
+        return null;
+      }
     }
 
     Directory crashDir = PathUtils.createDirSync('$dirPath/crash');

@@ -18,6 +18,12 @@
 * 基于bugly的应用全量更新
 * 基于bugly + tinker的热更新
 * 基于walle的多渠道打包
+* 全平台适配，Web、Android、iOS、Windows、macos
+
+## 在线Demo
+[http://www.jerryplay.top/lighthouse](http://www.jerryplay.top/lighthouse)
+
+备注：部分三方库不支持Web、Desktop平台，如微信、bugly、webview等，因此Web、Desktop端相关功能暂时缺失
 
 ## 使用的三方库
 
@@ -64,7 +70,7 @@
 
 ## 项目运行环境
 
-    1. Flutter version 2.0.0
+    1. Flutter version 2.0.1
      
     2. Dart version 2.12.0
 

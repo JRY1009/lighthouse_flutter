@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
@@ -64,7 +65,9 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
 
   void initViewModel() {
 
-    WebSocketUtil.initWS();
+    if (Constant.isReleaseMode) {
+      WebSocketUtil.initWS();
+    }
 
     _mainModel = MainModel();
     _mainModel.listenEvent(context, _pageController, _keyList);

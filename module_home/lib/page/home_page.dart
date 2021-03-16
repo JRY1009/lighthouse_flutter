@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-        backgroundColor: Colours.normal_bg,
+        backgroundColor: Colours.white,
         body: ProviderWidget<HomeModel>(
             model: _homeModel,
             builder: (context, model, child) {
@@ -138,11 +138,11 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
                 primary: false,
                 actions: null,
                 automaticallyImplyLeading : false,
-                backgroundColor: Colours.normal_bg,
+                backgroundColor: Colours.white,
                 brightness: _opacityNofifier.value > 0.5 ? Brightness.light : Brightness.dark,
                 title: HomePinnedAppBar(height: _toolbarHeight, appBarOpacity: _opacityNofifier.value),
                 centerTitle: true,
-                expandedHeight: 465.0,
+                expandedHeight: 495.0,
                 floating: false, // 不随着滑动隐藏标题
                 pinned: true, // 固定在顶部
                 flexibleSpace: AnnotatedRegion<SystemUiOverlayStyle>(

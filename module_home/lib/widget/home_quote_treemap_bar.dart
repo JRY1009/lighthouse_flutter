@@ -54,21 +54,20 @@ class _HomeQuoteTreemapBarState extends State<HomeQuoteTreemapBar> {
                   child: Container(
                     height: 82,
                     decoration: BoxDecoration(
-                      color: Colours.white,
-                      borderRadius: BorderRadius.all(Radius.circular(14.0)),
-                      boxShadow: BoxShadows.normalBoxShadow,
+                      color: Colours.light_red,
+                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
                     ),
                     child: Stack(
                       children: <Widget>[
-                        Positioned(left: 0, top: 2,
-                          child: LocalImage('icon_home_global_quote', width: 55, height: 54, package: package),
+                        Positioned(left: 12, top: 12,
+                          child: LocalImage('icon_home_global_quote', width: 38, height: 34, package: package),
                         ),
                         Positioned(right: 0, top: 0,
                           child: Container(
                             width: 65,
                             height: 59,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(topRight: Radius.circular(14)),
+                              borderRadius: BorderRadius.only(topRight: Radius.circular(8)),
                               image: DecorationImage(
                                 image: AssetImage(ImageUtil.getImgPath('icon_home_global_quote_rt'), package: package),
                               ),
@@ -80,15 +79,15 @@ class _HomeQuoteTreemapBarState extends State<HomeQuoteTreemapBar> {
                             width: 38,
                             height: 41,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(bottomRight: Radius.circular(14)),
+                              borderRadius: BorderRadius.only(bottomRight: Radius.circular(8)),
                               image: DecorationImage(
                                 image: AssetImage(ImageUtil.getImgPath('icon_home_global_quote_rb'), package: package),
                               ),
                             ),
                           ),
                         ),
-                        Positioned(left: 14, top: 50,
-                          child: Text(S.of(context).globalQuote, style: TextStyles.textGray800_w400_16,),
+                        Positioned(left: 14, top: 56,
+                          child: Text(S.of(context).globalQuote, style: TextStyle(color: Colours.light_red_text, fontSize: 14, height: 1.0)),
                         ),
                       ],
                     ),
@@ -103,21 +102,20 @@ class _HomeQuoteTreemapBarState extends State<HomeQuoteTreemapBar> {
                   child: Container(
                     height: 82,
                     decoration: BoxDecoration(
-                      color: Colours.white,
-                      borderRadius: BorderRadius.all(Radius.circular(14.0)),
-                      boxShadow: BoxShadows.normalBoxShadow,
+                      color: Colours.light_blue,
+                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
                     ),
                     child: Stack(
                       children: <Widget>[
-                        Positioned(left: 0, top: 2,
-                          child: LocalImage('icon_home_treemap', width: 60, height: 57, package: package),
+                        Positioned(left: 12, top: 12,
+                          child: LocalImage('icon_home_treemap', width: 38, height: 34, package: package),
                         ),
                         Positioned(right: 0, top: 0,
                           child: Container(
                             width: 52,
                             height: 62,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(topRight: Radius.circular(14)),
+                              borderRadius: BorderRadius.only(topRight: Radius.circular(8)),
                               image: DecorationImage(
                                 image: AssetImage(ImageUtil.getImgPath('icon_home_treemap_rt'), package: package),
                               ),
@@ -129,15 +127,15 @@ class _HomeQuoteTreemapBarState extends State<HomeQuoteTreemapBar> {
                             width: 60,
                             height: 41,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(bottomRight: Radius.circular(14)),
+                              borderRadius: BorderRadius.only(bottomRight: Radius.circular(8)),
                               image: DecorationImage(
                                 image: AssetImage(ImageUtil.getImgPath('icon_home_treemap_rb'), package: package),
                               ),
                             ),
                           ),
                         ),
-                        Positioned(left: 14, top: 50,
-                          child: Text(S.of(context).treemap, style: TextStyles.textGray800_w400_16,),
+                        Positioned(left: 14, top: 56,
+                          child: Text(S.of(context).treemap, style: TextStyle(color: Colours.light_blue_text, fontSize: 14, height: 1.0)),
                         )
                       ],
                     ),

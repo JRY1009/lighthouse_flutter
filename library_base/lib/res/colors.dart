@@ -38,6 +38,10 @@ class Colours {
   static const Color text_red = Color(0xFFEC3944);
   static const Color text_green = Color(0xFF22C29B);
   static const Color text_green_light = Color(0xFF4EDDB6);
+  static const Color light_red = Color(0xFFFCF1ED);
+  static const Color light_red_text = Color(0xFFA65F3D);
+  static const Color light_blue = Color(0xFFEEF5FF);
+  static const Color light_blue_text = Color(0xFF36547E);
 
   static const Color default_line = Color(0xFFEEEEEE);
   static const Color text_disabled = Color(0xFFD4E2FA);

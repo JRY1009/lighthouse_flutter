@@ -225,8 +225,8 @@ class BoxShadows {
   static const List<BoxShadow> normalBoxShadow = [
     BoxShadow(
       color: Colours.normal_border_shadow,
-      offset: Offset(0.0, 4.0),
-      blurRadius: 30.0,
+      offset: Offset(0.0, 3.0),
+      blurRadius: 15.0,
       spreadRadius: 0.0,
     ),
   ];

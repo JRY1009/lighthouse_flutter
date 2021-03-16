@@ -159,7 +159,7 @@ class _SpotDataAddressAssetsDistributionBarState extends State<SpotDataAddressAs
                 ),
 
                 Container(
-                  alignment: Alignment.topCenter,
+                  alignment: Alignment.center,
                   height: 200,
                   margin: const EdgeInsets.only(left: 15, top: 5, right: 15),
                   child: PieChart(

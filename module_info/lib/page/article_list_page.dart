@@ -124,16 +124,10 @@ class _ArticleListPageState extends State<ArticleListPage> with BasePageMixin<Ar
                 Article article = model.articleList[index];
                 return widget.isSingleCard ? ArticleCardItem(
                   index: index,
-                  title: '杜绝浪费矿机时空裂缝接SDK龙卷风克雷登斯荆防颗粒圣诞节快乐福建省断开连接付款了圣诞节疯狂了圣诞节',
-                  time: 'article.created_at',
-                  author: 'article.city',
-                  imageUrl: 'article.avatar_300',
+                  aritcle: article,
                 ) : ArticleItem(
                   index: index,
-                  title: 'article.account_name' + '杜绝浪费矿机时空裂缝接SDK龙卷风克雷登斯荆防颗粒圣诞节快乐福建省断开连接付款了圣诞节疯狂了圣诞节',
-                  time: 'article.created_at',
-                  author: 'article.city',
-                  imageUrl: 'article.avatar_300',
+                  aritcle: article,
                 );
               },
               itemCount: model.articleList.length,

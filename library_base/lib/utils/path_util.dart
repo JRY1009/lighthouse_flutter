@@ -67,14 +67,16 @@ class PathUtils {
     return dir;
   }
 
-  static Future<Null> delDir(FileSystemEntity file) async {
+  static Future<Null> delDir(FileSystemEntity file, {bool onlyChild = false}) async {
     if (file is Directory) {
       final List<FileSystemEntity> children = file.listSync();
       for (final FileSystemEntity child in children) {
         await delDir(child);
       }
     }
-    await file.delete();
+    if (!onlyChild) {
+      await file.delete();
+    }
   }
 
   static Future getTotalSizeOfFilesInDir(final FileSystemEntity file) async {

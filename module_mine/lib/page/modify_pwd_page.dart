@@ -30,6 +30,9 @@ class _ModifyPwdPageState extends State<ModifyPwdPage> with BasePageMixin<Modify
   final TextEditingController _verifyController = TextEditingController();
   final FocusNode _verifyNode = FocusNode();
 
+  final TextEditingController _oldPwdController = TextEditingController();
+  final FocusNode _oldPwdNode = FocusNode();
+
   final TextEditingController _pwdController = TextEditingController();
   final FocusNode _pwdNode = FocusNode();
 
@@ -40,10 +43,13 @@ class _ModifyPwdPageState extends State<ModifyPwdPage> with BasePageMixin<Modify
   VerifyModel _verifyModel;
 
   bool _saveEnabled = false;
+  bool _had_password = false;
 
   @override
   void initState() {
     super.initState();
+    Account account = RTAccount.instance().getActiveAccount();
+    _had_password = account?.had_password ?? false;
     initViewModel();
   }
 
@@ -73,7 +79,7 @@ class _ModifyPwdPageState extends State<ModifyPwdPage> with BasePageMixin<Modify
 
       } else if (_verifyModel.isError) {
         closeProgress();
-        ToastUtil.error(_verifyModel.viewStateError.message);
+        ToastUtil.waring(_verifyModel.viewStateError.message);
 
       } else if (_verifyModel.isSuccess) {
         closeProgress();
@@ -84,7 +90,8 @@ class _ModifyPwdPageState extends State<ModifyPwdPage> with BasePageMixin<Modify
 
   void _checkInput() {
     setState(() {
-      if (ObjectUtil.isEmpty(_verifyController.text) || ObjectUtil.isEmpty(_pwdController.text) || ObjectUtil.isEmpty(_pwdRepeatController.text)) {
+      String unconfirmed = _had_password ? _oldPwdController.text : _verifyController.text;
+      if (ObjectUtil.isEmpty(unconfirmed) || ObjectUtil.isEmpty(_pwdController.text) || ObjectUtil.isEmpty(_pwdRepeatController.text)) {
         _saveEnabled = false;
       } else {
         _saveEnabled = true;
@@ -94,6 +101,7 @@ class _ModifyPwdPageState extends State<ModifyPwdPage> with BasePageMixin<Modify
 
   void _submit() {
     String verifyCode = _verifyController.text;
+    String oldPwd = _oldPwdController.text;
     String pwd = _pwdController.text;
     String pwdRepeat = _pwdRepeatController.text;
     String pwdMd5 = EncryptUtil.encodeMd5(pwd);
@@ -103,7 +111,11 @@ class _ModifyPwdPageState extends State<ModifyPwdPage> with BasePageMixin<Modify
       return;
     }
 
-    _modifyPwdModel.resetPwd(pwd, pwdRepeat, verifyCode);
+    if (_had_password) {
+      _modifyPwdModel.modifyPwd(oldPwd, pwd, pwdRepeat);
+    } else {
+      _modifyPwdModel.resetPwd(pwd, pwdRepeat, verifyCode);
+    }
   }
 
   Future<bool> _getVCode() {
@@ -149,7 +161,15 @@ class _ModifyPwdPageState extends State<ModifyPwdPage> with BasePageMixin<Modify
               iconSpace: false,
             ),
 
-            VerifyTextField(
+            _had_password ? PwdTextField(
+              prefixText: S.of(context).oldPassword,
+              backgroundColor: Colours.white,
+              focusedBorder: BorderStyles.outlineInputR0White,
+              enabledBorder: BorderStyles.outlineInputR0White,
+              focusNode: _oldPwdNode,
+              controller: _oldPwdController,
+              onTextChanged: _checkInput,
+            ) : VerifyTextField(
               backgroundColor: Colours.white,
               focusedBorder: BorderStyles.outlineInputR0White,
               enabledBorder: BorderStyles.outlineInputR0White,
@@ -158,9 +178,11 @@ class _ModifyPwdPageState extends State<ModifyPwdPage> with BasePageMixin<Modify
               onTextChanged: _checkInput,
               getVCode: _getVCode,
             ),
+
             Gaps.line,
             PwdTextField(
-              prefixText: S.of(context).newPassword,
+              prefixText: S.of(context).inputPassword,
+              hintText: S.of(context).passwordHintTips,
               backgroundColor: Colours.white,
               focusedBorder: BorderStyles.outlineInputR0White,
               enabledBorder: BorderStyles.outlineInputR0White,
@@ -171,6 +193,7 @@ class _ModifyPwdPageState extends State<ModifyPwdPage> with BasePageMixin<Modify
             Gaps.line,
             PwdTextField(
               prefixText: S.of(context).repeatPassword,
+              hintText: S.of(context).passwordHintTips,
               backgroundColor: Colours.white,
               focusedBorder: BorderStyles.outlineInputR0White,
               enabledBorder: BorderStyles.outlineInputR0White,

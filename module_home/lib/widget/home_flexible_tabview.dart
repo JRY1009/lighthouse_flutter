@@ -50,20 +50,20 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
           Routers.spotDetailPage,
           parameters: Parameters()..putString('coinCode', widget.quotePair != null ? widget.quotePair.coin_code : '')),
       child: Container(
-        height: 255,
+        height: 270,
         padding: EdgeInsets.symmetric(horizontal: 12),
         color: Colours.transparent,
         child: Column(
           children: [
             Container(
-              height: 180,
+              height: 205,
               child: KLineChart(
-                  height: 180,
+                  height: 205,
                   quoteList: widget.quotePair?.quote_24h
               ),
             ),
             Container(
-              height: 75,
+              height: 65,
               child: Row (
                 children: [
                   Expanded(
@@ -83,10 +83,10 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
                           ),
                           Gaps.vGap5,
                           Container(
-                              height: 24,
+                              height: 15,
                               alignment: Alignment.centerLeft,
                               child: Text(NumUtil.getBigVolumFormat(widget.quotePair?.market_val, fractionDigits: 0).toString(),
-                                style: TextStyles.textBlack20,
+                                style: TextStyles.textGray500_w400_12,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               )
@@ -103,7 +103,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
                           Container(
                               height: 15,
                               alignment: Alignment.centerLeft,
-                              child: Text(S.of(context).pro24hTradeVolume + '（${widget.quotePair != null ? widget.quotePair.pair.split('/').first : ''}）',
+                              child: Text(S.of(context).pro24hTradeVolume + '(${widget.quotePair != null ? widget.quotePair.pair.split('/').first : ''})',
                                 style: TextStyles.textGray400_w400_12,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -111,10 +111,10 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
                           ),
                           Gaps.vGap5,
                           Container(
-                              height: 24,
+                              height: 15,
                               alignment: Alignment.centerLeft,
                               child: Text(NumUtil.getNumByValueDouble(widget.quotePair?.vol_24h, 0).toString(),
-                                style: TextStyles.textBlack20,
+                                style: TextStyles.textGray500_w400_12,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               )
@@ -130,6 +130,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
                         children: [
                           Container(
                               height: 15,
+                              padding: EdgeInsets.only(left: 10),
                               alignment: Alignment.centerLeft,
                               child: Text(S.of(context).proComputePower,
                                 style: TextStyles.textGray400_w400_12,
@@ -139,10 +140,11 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
                           ),
                           Gaps.vGap5,
                           Container(
-                              height: 24,
+                              height: 15,
+                              padding: EdgeInsets.only(left: 10),
                               alignment: Alignment.centerLeft,
                               child: Text(widget.quotePair != null ? widget.quotePair.hashrate : '0',
-                                style: TextStyles.textBlack20,
+                                style: TextStyles.textGray500_w400_12,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               )
