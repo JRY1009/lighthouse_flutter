@@ -4,9 +4,11 @@ import 'dart:convert';
 import 'package:library_base/event/event.dart';
 import 'package:library_base/event/ws_event.dart';
 import 'package:library_base/model/quote_ws.dart';
+import 'package:library_base/net/apis.dart';
+import 'package:library_base/utils/device_util.dart';
 import 'package:library_base/utils/log_util.dart';
 import 'package:web_socket_channel/io.dart';
-import 'package:library_base/net/apis.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 
 class WebSocketUtil {
@@ -54,7 +56,7 @@ class WebSocketUtil {
         });
   }
 
-  IOWebSocketChannel _channel; // WebSocket
+  WebSocketChannel _channel; // WebSocket
   bool _isConnect = false;
 
   num _heartTimes = 10000; // 心跳间隔(毫秒)
@@ -81,7 +83,11 @@ class WebSocketUtil {
   void openSocket() {
 
     closed();
-    _channel = IOWebSocketChannel.connect(Apis.WEB_SOCKET_URL, pingInterval: Duration(milliseconds: _heartTimes));
+    if (DeviceUtil.isWeb) {
+      _channel = WebSocketChannel.connect(Uri.parse(Apis.WEB_SOCKET_URL));
+    } else {
+      _channel = IOWebSocketChannel.connect(Apis.WEB_SOCKET_URL, pingInterval: Duration(milliseconds: _heartTimes));
+    }
 
     LogUtil.v('websocket connect:  ${Apis.WEB_SOCKET_URL}', tag: _TAG);
 
@@ -157,7 +163,13 @@ class WebSocketUtil {
         _rcTimer = new Timer.periodic(Duration(milliseconds: _heartTimes), (timer) {
 
           LogUtil.v('websocket reconnect:  ${Apis.WEB_SOCKET_URL}', tag: _TAG);
-          _channel = IOWebSocketChannel.connect(Apis.WEB_SOCKET_URL, pingInterval: Duration(milliseconds: _heartTimes));
+
+          if (DeviceUtil.isWeb) {
+            _channel = WebSocketChannel.connect(Uri.parse(Apis.WEB_SOCKET_URL));
+          } else {
+            _channel = IOWebSocketChannel.connect(Apis.WEB_SOCKET_URL, pingInterval: Duration(milliseconds: _heartTimes));
+          }
+
           _channel.stream.listen((data) => _onMessage(data),
               onError: _onError,
               onDone: _onDone
