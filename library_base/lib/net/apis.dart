@@ -20,6 +20,7 @@ class Apis {
 
   static const String PRIVATE_KEY = "5ffF03b858D5Fd16";       //测试环境
   static const String BASE_URL_YAPI = 'http://81.70.145.64/api';  //测试环境
+  static const String BASE_URL_ARITCLE = 'http://test-news.blockbase.info/api';  //测试环境
   static const String WEB_SOCKET_URL = 'ws://81.70.145.64:8083/api/ws';
 
   static bool get isTestEnvironment => (BASE_URL_YAPI == 'http://81.70.145.64/api');

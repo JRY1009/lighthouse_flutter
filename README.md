@@ -78,7 +78,11 @@
 
 * 渠道信息在 android\app\channel 文件中配置
 
-* 多渠道打包，android工程下执行命令行 gradlew clean assembleReleaseChannels
+* 多渠道打包，android工程下执行命令行 gradlew clean assembleReleaseChannels，文件生成在build\app\outputs\channels 目录
+
+* 单独打某些渠道包，android工程下执行命令行 gradlew clean assembleReleaseChannels -PchannelList=official,google，文件生成在build\app\outputs\channels 目录
+
+* 热更新开启时，使用 assembleReleaseChannels 命令也会打出基准包，文件生成在build\app\bakApk目录
 
 ##  热更新注意事项
 

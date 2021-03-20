@@ -14,10 +14,8 @@
             android:src="@mipmap/launch_image"/>
     </item>
 
-    <item android:drawable="@mipmap/launch_foot"
-        android:right="0dp"
-        android:left="0dp"
-        android:bottom="0dp"
-        android:gravity="bottom">
+    <item android:bottom="0dp">
+        <bitmap android:src="@mipmap/launch_foot"
+            android:gravity="bottom|fill_horizontal"/>
     </item>
 </layer-list>

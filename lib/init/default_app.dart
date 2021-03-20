@@ -31,27 +31,7 @@ class DefaultApp {
   static Future<Widget> getApp() async {
     WidgetsFlutterBinding.ensureInitialized();
 
-    if (DeviceUtil.isMobile) {
-      String channel = await ChannelUtil.getChannel();
-
-      LogUtil.v('channel: $channel');
-
-      await UmengAnalyticsPlugin.init(
-          androidKey: '5fa62c2745b2b751a925bf49',
-          iosKey: '5fa62c921c520d3073a2536f',
-          channel: DeviceUtil.isAndroid ? channel : 'ios'
-      );
-
-      await registerWxApi(
-          appId: "wxfdba5c8a01643f82",
-          doOnAndroid: true,
-          doOnIOS: true,
-          universalLink: "https://your.univerallink.com/link/");
-    }
-
-    await SPUtil.init();
-
-    initApp();
+    await initApp();
 
     return MyApp();
   }
@@ -60,32 +40,13 @@ class DefaultApp {
   static Future<void> run() async {
     WidgetsFlutterBinding.ensureInitialized();
 
-    if (DeviceUtil.isMobile) {
-
-      String channel = await ChannelUtil.getChannel();
-
-      await UmengAnalyticsPlugin.init(
-          androidKey: '5fa62c2745b2b751a925bf49',
-          iosKey: '5fa62c921c520d3073a2536f',
-          channel: DeviceUtil.isAndroid ? channel : 'ios'
-      );
-
-      await registerWxApi(
-          appId: "wxfdba5c8a01643f82",
-          doOnAndroid: true,
-          doOnIOS: true,
-          universalLink: "https://your.univerallink.com/link/");
-    }
-
-    await SPUtil.init();
+    await initApp();
 
     runApp(MyApp());
-
-    initApp();
   }
 
   //程序初始化操作
-  static void initApp() {
+  static Future<void> initApp() async {
 
     LogUtil.init(isDebug: Apis.isTestEnvironment);
     //JPushUtil.initPlatformState();
@@ -115,6 +76,25 @@ class DefaultApp {
           enableRetry: false
       );
     }
+
+    if (DeviceUtil.isMobile) {
+
+      String channel = await ChannelUtil.getChannel();
+
+      await UmengAnalyticsPlugin.init(
+          androidKey: '5fa62c2745b2b751a925bf49',
+          iosKey: '5fa62c921c520d3073a2536f',
+          channel: channel
+      );
+
+      await registerWxApi(
+          appId: "wxfdba5c8a01643f82",
+          doOnAndroid: true,
+          doOnIOS: true,
+          universalLink: "https://your.univerallink.com/link/");
+    }
+
+    await SPUtil.init();
   }
 }
 

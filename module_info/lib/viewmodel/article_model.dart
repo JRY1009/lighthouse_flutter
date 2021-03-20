@@ -35,15 +35,15 @@ class ArticleModel extends ViewStateModel {
   Future getArticles(int page, int pageSize) {
     Map<String, dynamic> params = {
       'tag': tag,
-      'page_num': page,
-      'page_size': pageSize,
+      'start': page,
+      'count': pageSize,
     };
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_GET_MILESTONES, 'get', params: params,
+    return DioUtil.getInstance().requestArticle(Apis.URL_GET_ARTICLES + '1/articles', 'get', params: params,
         cancelToken: cancelToken,
         onSuccess: (data) {
 
-          List<Article> newsList = Article.fromJsonList(data['records']) ?? [];
+          List<Article> newsList = Article.fromJsonList(data) ?? [];
           if (page == 0) {
             articleList.clear();
             articleList.addAll(newsList);

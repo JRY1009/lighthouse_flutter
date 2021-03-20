@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/styles.dart';
+import 'package:library_base/utils/date_util.dart';
 import 'package:library_base/widget/image/round_image.dart';
 import 'package:module_info/model/article.dart';
 
@@ -65,7 +66,7 @@ class ArticleCardItem extends StatelessWidget {
                                   child: Container(
                                     margin: EdgeInsets.only(right: 5),
                                     alignment: Alignment.centerRight,
-                                    child: Text(aritcle?.publish_time ?? '11-11 11:11',
+                                    child: Text(DateUtil.getDateStrByTimeStr(aritcle?.publish_time) ?? '',
                                       style: TextStyles.textGray500_w400_12,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
