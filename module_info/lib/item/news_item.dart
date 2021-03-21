@@ -6,7 +6,10 @@ import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
+import 'package:library_base/router/parameters.dart';
+import 'package:library_base/router/routers.dart';
 import 'package:library_base/utils/date_util.dart';
+import 'package:library_base/utils/time_count_util.dart';
 import 'package:library_base/widget/dash_line.dart';
 import 'package:library_base/widget/dialog/dialog_util.dart';
 import 'package:library_base/widget/dialog/share_widget.dart';
@@ -53,7 +56,7 @@ class NewsItem extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(DateUtil.getDateStrByTimeStr(news?.publish_time) ?? '',
+                      Text(TimeCountUtil.formatStr(news?.publish_time) ?? '',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyles.textMain12
@@ -86,7 +89,13 @@ class NewsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Parameters params = Parameters()
+          ..putString('title', news.title ?? '')
+          ..putString('url', news.url ?? '');
+
+        Routers.navigateTo(context, Routers.webviewPage, parameters: params);
+      },
       child: Container(
         width: double.infinity,
         child: IntrinsicHeight(
@@ -130,7 +139,7 @@ class NewsItem extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(DateUtil.getDateStrByTimeStr(news?.publish_time) ?? '',
+                            Text(TimeCountUtil.formatStr(news?.publish_time) ?? '',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyles.textMain12

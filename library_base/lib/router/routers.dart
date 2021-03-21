@@ -1,6 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:library_base/global/rt_account.dart';
+import 'package:library_base/page/inapp_webview_page.dart';
 import 'package:library_base/page/not_found_page.dart';
 import 'package:library_base/page/web_view_page.dart';
 import 'package:library_base/router/i_router.dart';
@@ -15,6 +16,8 @@ class Routers {
   static Map<String, PageBuilder> pageRounters = {};
 
   static String webviewPage = '/webviewPage';
+  static String inappWebviewPage = '/inappWebviewPage';
+
   static String mainPage = '/mainPage';
 
   static String homePage = '/homePage';
@@ -60,11 +63,17 @@ class Routers {
       return WebViewPage(url, title);
     });
 
-    router.define(
-        Routers.webviewPage,
-        handler: webviewPageBuilder.handler
-    );
+    PageBuilder inappWebviewPageBuilder = PageBuilder(Routers.inappWebviewPage, (params) {
+      String title = params?.getString('title');
+      String url = params?.getString('url');
+      return InappWebviewPage(url, title);
+    });
+
+    router.define(Routers.webviewPage, handler: webviewPageBuilder.handler);
+    router.define(Routers.inappWebviewPage, handler: inappWebviewPageBuilder.handler);
+
     pageRounters[Routers.webviewPage] = webviewPageBuilder;
+    pageRounters[Routers.inappWebviewPage] = inappWebviewPageBuilder;
 
     listRouter.forEach((routerImpl) {
       List<PageBuilder> pages = routerImpl.getPageBuilders();

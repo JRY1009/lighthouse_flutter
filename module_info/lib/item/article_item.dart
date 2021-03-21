@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/styles.dart';
-import 'package:library_base/utils/date_util.dart';
+import 'package:library_base/router/parameters.dart';
+import 'package:library_base/router/routers.dart';
+import 'package:library_base/utils/time_count_util.dart';
 import 'package:library_base/widget/image/round_image.dart';
 import 'package:module_info/model/article.dart';
 
@@ -21,7 +23,13 @@ class ArticleItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlatButton(
-      onPressed: () {},
+      onPressed: () {
+        Parameters params = Parameters()
+          ..putString('title', aritcle.title ?? '')
+          ..putString('url', aritcle.url ?? '');
+
+        Routers.navigateTo(context, Routers.inappWebviewPage, parameters: params);
+      },
       padding: EdgeInsets.all(0.0),
       child: Container(
         height: 100.0,
@@ -61,7 +69,7 @@ class ArticleItem extends StatelessWidget {
                                 child: Container(
                                   margin: EdgeInsets.only(right: 5),
                                   alignment: Alignment.centerRight,
-                                  child: Text(DateUtil.getDateStrByTimeStr(aritcle?.publish_time) ?? '',
+                                  child: Text(TimeCountUtil.formatStr(aritcle?.publish_time) ?? '',
                                     style: TextStyles.textGray500_w400_12,
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
