@@ -83,8 +83,6 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
       } else if (_loginModel.isSuccess) {
         closeProgress();
 
-        Navigator.pop(context);
-
         bool firstLogin = SPUtil.getBool(SPUtil.key_first_login, defValue: true);
         bool had_pwd = _loginModel.loginResult.account_info.had_password;
 

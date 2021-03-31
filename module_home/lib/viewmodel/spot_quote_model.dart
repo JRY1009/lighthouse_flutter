@@ -110,9 +110,9 @@ class SpotQuoteModel extends ViewStateModel {
       if (quoteBasic != null && quoteWs.coin_code.toLowerCase() == quoteBasic.coin_code.toLowerCase()) {
         quoteBasic.quote = quoteWs.quote;
         quoteBasic.change_percent = quoteWs.change_percent_24hr;
-      }
 
-      notifyListeners();
+        notifyListeners();
+      }
     });
   }
 

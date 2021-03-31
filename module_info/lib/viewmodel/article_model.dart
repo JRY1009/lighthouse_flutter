@@ -39,7 +39,7 @@ class ArticleModel extends ViewStateModel {
       'count': pageSize,
     };
 
-    return DioUtil.getInstance().requestArticle(Apis.URL_GET_ARTICLES + '1/articles', 'get', params: params,
+    return DioUtil.getInstance().requestArticle(Apis.URL_GET_ARTICLES + '15/articles', 'get', params: params,
         cancelToken: cancelToken,
         onSuccess: (data) {
 

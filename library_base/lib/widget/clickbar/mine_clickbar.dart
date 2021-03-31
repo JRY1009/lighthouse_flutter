@@ -40,10 +40,7 @@ class _MineClickBarState extends State<MineClickBar> {
       child: Container(
           height: 54.0,
           width: double.infinity,
-          padding: EdgeInsets.only(left: 6, right: 16),
-          decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(width: 0.6, color: Colours.default_line))
-          ),
+          padding: EdgeInsets.only(left: 6),
           child: Row(
             children: <Widget>[
               widget.icon != null ? IconButton(
@@ -53,25 +50,37 @@ class _MineClickBarState extends State<MineClickBar> {
                 icon: widget.icon,
               ) : Gaps.empty,
               Expanded(
-                flex: 1,
-                child: Text(widget.title,
-                  style: TextStyles.textGray800_w400_16,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
+                  child: Container(
+                    padding: EdgeInsets.only(right: 16),
+                    decoration: BoxDecoration(
+                        border: Border(bottom: BorderSide(width: 0.6, color: Colours.default_line))
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Text(widget.title,
+                            style: TextStyles.textGray800_w400_16,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        Expanded(
+                            flex: 1,
+                            child: Container(
+                              alignment: Alignment.centerRight,
+                              child: Text(widget.subTitle ?? '',
+                                style: TextStyles.textGray800_w400_14,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            )
+                        ),
+                        widget.onPressed != null ? Icon(Icons.keyboard_arrow_right, color: Colours.gray_200, size: 24) : Container(),
+                      ],
+                    ),
+                  )
               ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                  alignment: Alignment.centerRight,
-                  child: Text(widget.subTitle ?? '',
-                    style: TextStyles.textGray800_w400_14,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                )
-              ),
-              widget.onPressed != null ? Icon(Icons.keyboard_arrow_right, color: Colours.gray_200, size: 24) : Container(),
             ],
           )),
     );

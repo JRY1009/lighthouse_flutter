@@ -56,5 +56,19 @@
     <!-- Permission options for the `photos` group -->
     <key>NSPhotoLibraryUsageDescription</key>
     <string>photos</string>
+
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleURLName</key>
+        <string>idengta.com</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>szwj</string>
+        </array>
+      </dict>
+    </array>
 </dict>
 </plist>

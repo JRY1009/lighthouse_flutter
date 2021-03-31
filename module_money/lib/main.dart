@@ -8,6 +8,7 @@ import 'package:library_base/utils/device_util.dart';
 import 'package:library_base/utils/log_util.dart';
 import 'package:library_base/utils/sp_util.dart';
 import 'package:library_base/utils/toast_util.dart';
+import 'package:library_base/utils/refresh_util.dart';
 
 import 'page/money_page.dart';
 import 'money_router.dart';
@@ -51,7 +52,7 @@ class MyApp extends StatelessWidget {
 
     MoneyRouter.isRunModule = true;
 
-    return ToastUtil.init(MaterialApp(
+    Widget child = MaterialApp(
       title: 'module_money',
       home: MoneyPage(),
       onGenerateRoute: Routers.router.generator,
@@ -63,7 +64,8 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate
       ],
       supportedLocales: S.delegate.supportedLocales,
-    )
     );
+
+    return ToastUtil.init(RefreshUtil.init(child));
   }
 }

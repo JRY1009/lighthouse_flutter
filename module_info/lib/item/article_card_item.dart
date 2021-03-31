@@ -33,7 +33,9 @@ class ArticleCardItem extends StatelessWidget {
         onPressed: () {
           Parameters params = Parameters()
             ..putString('title', aritcle.title ?? '')
-            ..putString('url', aritcle.url ?? '');
+            ..putString('url', aritcle.url_app ?? '')
+            ..putString('url_share', aritcle.url ?? '')
+            ..putString('thumb_share', aritcle.snapshot_url ?? '');
 
           Routers.navigateTo(context, Routers.inappWebviewPage, parameters: params);
         },
@@ -53,7 +55,7 @@ class ArticleCardItem extends StatelessWidget {
                         Expanded(
                           child: Container(
                             alignment: Alignment.topLeft,
-                            child: Text(aritcle?.title + '这是标题这是标题这是标题这是标题这是标题这是标题',
+                            child: Text(aritcle?.title ?? '',
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),

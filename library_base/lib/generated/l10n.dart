@@ -665,10 +665,10 @@ class S {
     );
   }
 
-  /// `正在加载...`
+  /// `正在加载中...`
   String get loading {
     return Intl.message(
-      '正在加载...',
+      '正在加载中...',
       name: 'loading',
       desc: '',
       args: [],
@@ -965,6 +965,26 @@ class S {
     );
   }
 
+  /// `灯塔学院`
+  String get dengtaSchool {
+    return Intl.message(
+      '灯塔学院',
+      name: 'dengtaSchool',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `了解更多`
+  String get learnMore {
+    return Intl.message(
+      '了解更多',
+      name: 'learnMore',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `BTC/ETH为实时行情数据，其余数据为15分钟延时报价；`
   String get quoteDefinition {
     return Intl.message(
@@ -995,10 +1015,10 @@ class S {
     );
   }
 
-  /// `最新资讯`
+  /// `推荐阅读`
   String get latestInfo {
     return Intl.message(
-      '最新资讯',
+      '推荐阅读',
       name: 'latestInfo',
       desc: '',
       args: [],

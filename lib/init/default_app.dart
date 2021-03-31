@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,6 +20,7 @@ import 'package:library_base/utils/jpush_util.dart';
 import 'package:library_base/utils/log_util.dart';
 import 'package:library_base/utils/sp_util.dart';
 import 'package:library_base/utils/toast_util.dart';
+import 'package:library_base/utils/refresh_util.dart';
 import 'package:lighthouse/main_router.dart';
 import 'package:lighthouse/page/splash_page.dart';
 import 'package:module_home/home_router.dart';
@@ -25,6 +28,7 @@ import 'package:module_info/info_router.dart';
 import 'package:module_money/money_router.dart';
 import 'package:module_mine/mine_router.dart';
 import 'package:umeng_analytics_plugin/umeng_analytics_plugin.dart';
+import 'package:uni_links/uni_links.dart';
 
 //默认App的启动
 class DefaultApp {
@@ -98,11 +102,20 @@ class DefaultApp {
   }
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => new _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  StreamSubscription _sub;
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    initUniLinks();
+
     Routers.init([
       MainRouter(),
       HomeRouter(),
@@ -110,12 +123,46 @@ class MyApp extends StatelessWidget {
       MoneyRouter(),
       MineRouter()
     ]);
+  }
+
+  @override
+  void dispose() {
+    if (_sub != null) _sub.cancel();
+    super.dispose();
+  }
+
+  Future<void> initUniLinks() async {
+    if (!DeviceUtil.isMobile) {
+      return;
+    }
+
+    try {
+      final initialLink = await getInitialLink();
+      LogUtil.v('initial link: $initialLink');
+      if (!mounted) return;
+
+    } on PlatformException {
+      LogUtil.e('Failed to get initial link.');
+    }
+
+    _sub = getLinksStream().listen((String link) {
+      LogUtil.v('got link: $link');
+      if (!mounted) return;
+
+    }, onError: (err) {
+      LogUtil.e('got err: $err');
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
 
     return ProviderWidget2(
         model1: ThemeProvider(),
         model2: LocaleProvider(SPUtil.getString(SPUtil.key_locale)),
         builder: (context, themeProvider, localeModel, _) {
-          return ToastUtil.init(MaterialApp(
+
+          Widget child = MaterialApp(
             title: 'LightHouse',
             home: SplashPage(),
             theme:  themeProvider.getThemeData(),
@@ -131,13 +178,11 @@ class MyApp extends StatelessWidget {
               GlobalWidgetsLocalizations.delegate
             ],
             supportedLocales: S.delegate.supportedLocales,
-            localeResolutionCallback:
-                (Locale _locale, Iterable<Locale> supportedLocales) {
-              if (localeModel.getLocale() != null) {
-                //如果已经选定语言，则不跟随系统
+            localeResolutionCallback: (Locale _locale, Iterable<Locale> supportedLocales) {
+              if (localeModel.getLocale() != null) {  //如果已经选定语言，则不跟随系统
                 return localeModel.getLocale();
-              } else {
-                //跟随系统
+
+              } else {  //跟随系统
                 if (S.delegate.isSupported(_locale)) {
                   return _locale;
                 }
@@ -151,8 +196,9 @@ class MyApp extends StatelessWidget {
                 child: widget,
               );
             },
-          )
           );
+
+          return ToastUtil.init(RefreshUtil.init(child));
         }
     );
   }

@@ -41,16 +41,18 @@ class _MineAppBarState extends State<MineAppBar> {
     return InkWell(
         onTap: widget.onPressed,
         child: Container(
-            height: 110,
+            height: 150,
             decoration: BoxDecoration(
-              color: Colours.white,
-              borderRadius: BorderRadius.vertical(bottom:  Radius.circular(16.0)),
-              boxShadow: BoxShadows.normalBoxShadow,
+              image: DecorationImage(
+                image: AssetImage(ImageUtil.getImgPath('bg_mine'), package: Constant.baseLib),
+                fit: BoxFit.fill,
+              ),
             ),
             child: Stack(
               children: <Widget>[
 //                Positioned(
 //                  right: 5,
+//                  top: 40,
 //                  child: IconButton(
 //                    onPressed: widget.onActionPressed,
 //                    padding: EdgeInsets.only(right: 10, top: 0, left: 10, bottom: 20),
@@ -58,7 +60,7 @@ class _MineAppBarState extends State<MineAppBar> {
 //                  ),
 //                ),
                 Padding(
-                  padding: EdgeInsets.only(top: 30),
+                  padding: EdgeInsets.only(top: 60),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[

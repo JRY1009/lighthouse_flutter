@@ -2,18 +2,17 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
-import 'package:library_base/res/colors.dart';
-import 'package:library_base/widget/easyrefresh/common_footer.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh.dart';
+import 'package:library_base/widget/easyrefresh/first_refresh_top.dart';
 import 'package:library_base/widget/easyrefresh/loading_empty.dart';
 import 'package:library_base/utils/toast_util.dart';
+import 'package:library_base/widget/easyrefresh/loading_empty_top.dart';
 import 'package:module_home/item/milestone_item.dart';
 import 'package:module_home/model/milestone.dart';
 import 'package:module_home/viewmodel/milestone_model.dart';
-
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MileStoneListPage extends StatefulWidget {
   
@@ -37,7 +36,7 @@ class _MileStoneListPageState extends State<MileStoneListPage> with BasePageMixi
   @override
   bool get wantKeepAlive => true;
 
-  EasyRefreshController _easyController = EasyRefreshController();
+  RefreshController _easyController = RefreshController();
 
   MileStoneModel _mileStoneModel;
 
@@ -61,17 +60,21 @@ class _MileStoneListPageState extends State<MileStoneListPage> with BasePageMixi
     _mileStoneModel.addListener(() {
       if (_mileStoneModel.isError) {
         if (_mileStoneModel.page == 0) {
-          _easyController.finishRefresh(success: false);
+          _easyController.refreshFailed();
         } else {
-          _easyController.finishLoad(success: false, noMore: _mileStoneModel.noMore);
+          _easyController.loadFailed();
         }
         ToastUtil.error(_mileStoneModel.viewStateError.message);
 
       } else if (_mileStoneModel.isSuccess || _mileStoneModel.isEmpty) {
         if (_mileStoneModel.page == 0) {
-          _easyController.finishRefresh(success: true);
+          _easyController.refreshCompleted(resetFooterState: !_mileStoneModel.noMore);
         } else {
-          _easyController.finishLoad(success: true, noMore: _mileStoneModel.noMore);
+          if (_mileStoneModel.noMore) {
+            _easyController.loadNoData();
+          } else {
+            _easyController.loadComplete();
+          }
         }
       }
     });
@@ -84,7 +87,7 @@ class _MileStoneListPageState extends State<MileStoneListPage> with BasePageMixi
 
     } else {
       return Future<void>.delayed(const Duration(milliseconds: 100), () {
-        _easyController.callRefresh();
+        _easyController.requestRefresh();
       });
     }
   }
@@ -96,28 +99,34 @@ class _MileStoneListPageState extends State<MileStoneListPage> with BasePageMixi
     return ProviderWidget<MileStoneModel>(
         model: _mileStoneModel,
         builder: (context, model, child) {
-          return model.isFirst ? FirstRefresh() : EasyRefresh(
-            header: widget.isSupportPull ? MaterialHeader(valueColor: AlwaysStoppedAnimation<Color>(Colours.app_main)) : null,
-            footer:  CommonFooter(enableInfiniteLoad: !model.noMore),
-            controller: _easyController,
-            topBouncing: false,
-            emptyWidget: (model.isEmpty || model.isError) ? LoadingEmpty() : null,
-            child: ListView.builder(
-              padding: EdgeInsets.all(0.0),
-              itemBuilder: (context, index) {
-                MileStone mileStone = model.mileStoneList[index];
-                return MileStoneItem(
-                  index: index,
-                  content: mileStone?.content,
-                  time: mileStone?.date,
-                  isLast: index == (model.mileStoneList.length - 1),
-                );
-              },
-              itemCount: model.mileStoneList.length,
-            ),
 
-            onRefresh: widget.isSupportPull ? model.refresh : null,
-            onLoad: model.noMore ? null : model.loadMore,
+          Widget refreshWidget = widget.isSupportPull ? FirstRefresh() : FirstRefreshTop();
+          Widget emptyWidget = widget.isSupportPull ? LoadingEmpty() : LoadingEmptyTop();
+
+          return model.isFirst ? refreshWidget : model.isEmpty ? emptyWidget :
+          SmartRefresher(
+              controller: _easyController,
+              enablePullDown: widget.isSupportPull,
+              enablePullUp: !model.noMore,
+              onRefresh: widget.isSupportPull ? model.refresh : null,
+              onLoading: model.noMore ? null : model.loadMore,
+              child: CustomScrollView(
+                slivers: [
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate((context, index) {
+                      MileStone mileStone = model.mileStoneList[index];
+                      return MileStoneItem(
+                        index: index,
+                        content: mileStone?.content,
+                        time: mileStone?.date,
+                        isLast: index == (model.mileStoneList.length - 1),
+                      );
+                    },
+                      childCount: model.mileStoneList.length,
+                    ),
+                  ),
+                ],
+              )
           );
         }
     );

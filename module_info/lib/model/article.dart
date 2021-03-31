@@ -11,6 +11,7 @@ class Article {
   String summary;
   String snapshot_url;
   String url;
+  String url_app;
 
   Article({
     this.article_id,
@@ -32,6 +33,7 @@ class Article {
     summary = jsonMap['summary'] ?? '';
     snapshot_url = jsonMap['snapshot_url'] ?? '';
     url = jsonMap['url'] ?? '';
+    url_app = url + '?app=1';
   }
 
   Map<String, dynamic> toJson() {

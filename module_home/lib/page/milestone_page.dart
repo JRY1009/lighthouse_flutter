@@ -6,6 +6,7 @@ import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/widget/button/back_button.dart';
+import 'package:library_base/widget/image/local_image.dart';
 import 'package:library_base/widget/tab/kline_tab.dart';
 import 'package:library_base/widget/nestedscroll/nested_scroll_view_inner_scroll_position_key_widget.dart' as extended;
 import 'package:module_home/page/milestone_list_page.dart';
@@ -33,16 +34,14 @@ class _MileStonePageState extends State<MileStonePage> with BasePageMixin<MileSt
   void initState() {
     super.initState();
 
-    _tabController = TabController(length: 5, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
 
-    _tabTitles = [S.current.all, 'BTC', 'ETH', 'USDT', 'DECP'];
+    _tabTitles = [S.current.all, 'BTC', 'ETH'];
 
     _keyList = [
       GlobalKey<BasePageMixin>(debugLabel: _tabTitles[0]),
       GlobalKey<BasePageMixin>(debugLabel: _tabTitles[1]),
       GlobalKey<BasePageMixin>(debugLabel: _tabTitles[2]),
-      GlobalKey<BasePageMixin>(debugLabel: _tabTitles[3]),
-      GlobalKey<BasePageMixin>(debugLabel: _tabTitles[4]),
     ];
   }
 
@@ -61,27 +60,27 @@ class _MileStonePageState extends State<MileStonePage> with BasePageMixin<MileSt
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colours.app_main,
+      backgroundColor: Colours.normal_bg,
       appBar: AppBar(
-          leading: BackButtonEx(icon: Icon(Icons.arrow_back_ios, color: Colours.white, size: 25)),
+          leading: BackButtonEx(),
           elevation: 0,
           brightness: Brightness.light,
-          backgroundColor: Colours.app_main,
+          backgroundColor: Colours.white,
           centerTitle: true,
-          title: Text(S.of(context).milestone, style: TextStyles.textWhite18)
+          title: Text(S.of(context).dengtaSchool, style: TextStyles.textBlack16)
       ),
       body: Stack(
         children: <Widget>[
           Column(
             children: <Widget>[
               Container(
+                  padding: EdgeInsets.only(top: 18.0, bottom: 5),
+                  child: Text(S.of(context).blockMileStone, style: TextStyles.textBlack18)
+              ),
+              Container(
                 height: 50.0,
                 padding: EdgeInsets.symmetric(horizontal: 8.0),
-                alignment: Alignment.centerLeft,
-                decoration: BoxDecoration(
-                  color: Colours.white,
-                  borderRadius: BorderRadius.vertical(top:  Radius.circular(14.0)),
-                ),
+                alignment: Alignment.center,
                 child: TabBar(
                   controller: _tabController,
                   labelPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 8.0),
@@ -94,8 +93,6 @@ class _MileStonePageState extends State<MileStonePage> with BasePageMixin<MileSt
                     KLineTab(text: _tabTitles[0], select:_tabController.index  == 0, padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2)),
                     KLineTab(text: _tabTitles[1], select:_tabController.index  == 1, padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2)),
                     KLineTab(text: _tabTitles[2], select:_tabController.index  == 2, padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2)),
-                    KLineTab(text: _tabTitles[3], select:_tabController.index  == 3, padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2)),
-                    KLineTab(text: _tabTitles[4], select:_tabController.index  == 4, padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2)),
                   ],
                   onTap: (index) {
                     _pageController.animateToPage(index,
@@ -107,7 +104,6 @@ class _MileStonePageState extends State<MileStonePage> with BasePageMixin<MileSt
 
               Expanded(
                 child: Container(
-                  color: Colours.white,
                   child: PageView(
                     physics: const AlwaysScrollableScrollPhysics(),
                     controller: _pageController,
@@ -116,8 +112,6 @@ class _MileStonePageState extends State<MileStonePage> with BasePageMixin<MileSt
                       extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[0]), MileStoneListPage(key: _keyList[0], tag: 'all', isSupportPull: true)),
                       extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[1]), MileStoneListPage(key: _keyList[1], tag: 'bitcoin', isSupportPull: true)),
                       extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[2]), MileStoneListPage(key: _keyList[2], tag: 'ethereum', isSupportPull: true)),
-                      extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[3]), MileStoneListPage(key: _keyList[3], tag: 'ustd', isSupportPull: true)),
-                      extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[4]), MileStoneListPage(key: _keyList[4], tag: 'decp', isSupportPull: true)),
                     ],
                   ),
                 )

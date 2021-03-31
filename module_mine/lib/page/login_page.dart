@@ -78,7 +78,6 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
       } else if (_loginModel.isSuccess) {
         closeProgress();
 
-        Navigator.pop(context);
         Routers.navigateTo(context, MineRouter.isRunModule ? Routers.minePage : Routers.mainPage, clearStack: true);
       }
     });

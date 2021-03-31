@@ -55,8 +55,8 @@ class KLineTab extends StatelessWidget {
       padding: padding,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: select ? Colours.app_main : Colours.gray_100,
-        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+        color: select ? Colours.app_main_500 : Colours.gray_100,
+        borderRadius: BorderRadius.all(Radius.circular(4.0)),
       ),
       child: Text(text, softWrap: false, overflow: TextOverflow.fade,
           style: select ? TextStyle(fontSize: 13, color: Colours.white) : TextStyle(fontSize: 13, color: Colours.gray_500)

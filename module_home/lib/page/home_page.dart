@@ -10,9 +10,7 @@ import 'package:library_base/res/colors.dart';
 import 'package:library_base/router/parameters.dart';
 import 'package:library_base/router/routers.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh.dart';
-import 'package:library_base/widget/nestedscroll/nested_scroll_view_inner_scroll_position_key_widget.dart' as extended;
-import 'package:library_base/widget/nestedscroll/nested_scroll_view_refresh_indicator.dart';
-import 'package:library_base/widget/nestedscroll/old_extended_nested_scroll_view.dart' as extended;
+import 'package:library_base/widget/nestedscroll/nested_refresh_indicator.dart';
 import 'package:module_home/viewmodel/home_model.dart';
 import 'package:module_home/widget/home_flexible_appbar.dart';
 import 'package:module_home/widget/home_milestone_bar.dart';
@@ -41,7 +39,7 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
   ValueNotifier<double> _opacityNofifier = ValueNotifier<double>(0);
 
   ScrollController _nestedController = ScrollController();
-  final _nestedRefreshKey = GlobalKey<NestedScrollViewRefreshIndicatorState>();
+  final _nestedRefreshKey = GlobalKey<NestedRefreshIndicatorState>();
 
   @override
   void initState() {
@@ -87,7 +85,7 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
         body: ProviderWidget<HomeModel>(
             model: _homeModel,
             builder: (context, model, child) {
-              return model.isFirst ? FirstRefresh() : NestedScrollViewRefreshIndicator(
+              return model.isFirst ? FirstRefresh() : NestedRefreshIndicator(
                 key: _nestedRefreshKey,
                 onRefresh: model.getHomeAllWithChild,
                 child: NotificationListener<ScrollNotification>(
@@ -97,26 +95,15 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
                     }
                     return false;
                   },
-                  child: extended.NestedScrollView(
+                  child: NestedScrollView(
                     controller: _nestedController,
                     physics: const ClampingScrollPhysics(),
-                    pinnedHeaderSliverHeightBuilder: () {
-                      return _toolbarHeight;
-                    },
-                    innerScrollPositionKeyBuilder: () {
-                      return Key('Tab0');
-                    },
                     headerSliverBuilder: (context, innerBoxIsScrolled) => _headerSliverBuilder(context),
-                    body: extended.NestedScrollViewInnerScrollPositionKeyWidget(
-                      Key('Tab0'),
-                      Routers.generatePage(context, Routers.articleListPage,
+                    body: Routers.generatePage(context, Routers.articleListPage,
                           parameters: Parameters()
                             ..putObj('key', model.articlePageKey)
                             ..putBool('isSupportPull', false)
-                            ..putBool('isSingleCard', true)
-                      ),
-
-                    ),
+                            ..putBool('isSingleCard', true))
                   ),
                 ),
               );

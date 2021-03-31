@@ -12,18 +12,16 @@ import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/router/parameters.dart';
 import 'package:library_base/router/routers.dart';
+import 'package:library_base/utils/log_util.dart';
+import 'package:library_base/utils/num_util.dart';
 import 'package:library_base/widget/button/back_button.dart';
 import 'package:library_base/widget/dialog/dialog_util.dart';
 import 'package:library_base/widget/dialog/share_widget.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh.dart';
 import 'package:library_base/widget/image/local_image.dart';
+import 'package:library_base/widget/nestedscroll/nested_refresh_indicator.dart';
 import 'package:library_base/widget/shot_view.dart';
 import 'package:library_base/widget/tab/bubble_indicator.dart';
-import 'package:library_base/widget/nestedscroll/nested_scroll_view_inner_scroll_position_key_widget.dart' as extended;
-import 'package:library_base/widget/nestedscroll/nested_scroll_view_refresh_indicator.dart';
-import 'package:library_base/widget/nestedscroll/old_extended_nested_scroll_view.dart' as extended;
-import 'package:library_base/utils/log_util.dart';
-import 'package:library_base/utils/num_util.dart';
 import 'package:module_home/page/spot_brief_page.dart';
 import 'package:module_home/page/spot_data_page.dart';
 import 'package:module_home/page/spot_quote_page.dart';
@@ -54,7 +52,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
   ShotController _tabBarSC = new ShotController();
 
   ScrollController _nestedController = ScrollController();
-  final _nestedRefreshKey = GlobalKey<NestedScrollViewRefreshIndicatorState>();
+  final _nestedRefreshKey = GlobalKey<NestedRefreshIndicatorState>();
 
   TabController _tabController;
 
@@ -163,7 +161,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
               color: Colours.gray_100,
               child: Column(
                 children: [
-                  SpotDetailAppbar(showShadow: false, quoteCoin: _spotDetailModel.quoteCoin),
+                  SpotDetailShareBar(showShadow: false, quoteCoin: _spotDetailModel.quoteCoin),
                   SpotDetailKLineBar(coinCode: widget.coinCode),
                   Image.memory(tabBarPngBytes),
                   Image.memory(tabViewpngBytes),
@@ -200,7 +198,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
                   centerTitle: true,
                   title: _titleBuilder()
               ),
-              body: NestedScrollViewRefreshIndicator(
+              body: NestedRefreshIndicator(
                 key: _nestedRefreshKey,
                 onRefresh: _refresh,
                 child: NotificationListener<ScrollNotification>(
@@ -210,14 +208,8 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
                     }
                     return false;
                   },
-                  child: extended.NestedScrollView(
+                  child: NestedScrollView(
                       physics: const ClampingScrollPhysics(),
-                      pinnedHeaderSliverHeightBuilder: () {
-                        return 0;
-                      },
-                      innerScrollPositionKeyBuilder: () {
-                        return Key(_tabTitles[_tabController.index]);
-                      },
                       headerSliverBuilder: (context, innerBoxIsScrolled) => _headerSliverBuilder(context),
                       body: Column(
                         children: <Widget>[
@@ -226,24 +218,16 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
                             child: TabBarView(
                               controller: _tabController,
                               children: <Widget>[
-                                extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[0]),
-                                    SpotQuotePage(key: _spotDetailModel.keyList[0], coinCode: widget.coinCode)
+                                SpotQuotePage(key: _spotDetailModel.keyList[0], coinCode: widget.coinCode),
+                                Routers.generatePage(context, Routers.articleListPage,
+                                    parameters: Parameters()
+                                      ..putObj('key', _spotDetailModel.keyList[1])
+                                      ..putBool('isSupportPull', false)
+                                      ..putBool('isSingleCard', true)
+                                      ..putString('tag', widget.coinCode)
                                 ),
-                                extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[1]),
-                                    Routers.generatePage(context, Routers.articleListPage,
-                                        parameters: Parameters()
-                                          ..putObj('key', _spotDetailModel.keyList[1])
-                                          ..putBool('isSupportPull', false)
-                                          ..putBool('isSingleCard', true)
-                                          ..putString('tag', widget.coinCode)
-                                    )
-                                ),
-                                extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[2]),
-                                    SpotBriefPage(key: _spotDetailModel.keyList[2], coinCode: widget.coinCode)
-                                ),
-                                extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[3]),
-                                    SpotDataPage(key: _spotDetailModel.keyList[3], coinCode: widget.coinCode)
-                                ),
+                                SpotBriefPage(key: _spotDetailModel.keyList[2], coinCode: widget.coinCode),
+                                SpotDataPage(key: _spotDetailModel.keyList[3], coinCode: widget.coinCode),
                               ],
                             ),
                           )
@@ -261,18 +245,23 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
 
   List<Widget> _headerSliverBuilder(BuildContext context) {
     return <Widget>[
-      ProviderWidget<SpotHeaderModel>(
-          model: _spotDetailModel.spotHeaderModel,
+      ProviderWidget<SpotKLineHandleModel>(
+          model: _spotDetailModel.spotKLineHandleModel,
           builder: (context, model, child) {
             return SliverToBoxAdapter(
-              child: SpotDetailAppbar(showShadow: false, quoteCoin: _spotDetailModel.quoteCoin),
+              child: SpotDetailAppbar(
+                  showShadow: false,
+                  quoteCoin: _spotDetailModel.quoteCoin,
+                  numberSlideController: _spotDetailModel.quoteSlideController
+              ),
             );
           }
       ),
 
       SliverToBoxAdapter(
         child: SpotDetailKLineBar(coinCode: widget.coinCode),
-      ),
+      )
+
 //      SliverPersistentHeader(
 //        pinned: true,
 //        delegate: SliverAppBarDelegate(
@@ -285,9 +274,10 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
 
   Widget _titleBuilder() {
 
-    return ProviderWidget<ValueNotifier<bool>>(
-        model: _topBarExtentNofifier,
-        builder: (context, model, child) {
+    return ProviderWidget2(
+        model1: _spotDetailModel.spotHeaderModel,
+        model2: _topBarExtentNofifier,
+        builder: (context, model1, model2, child) {
 
           String title = _spotDetailModel.quoteCoin != null ? _spotDetailModel.quoteCoin.pair : '';
           double rate = _spotDetailModel.quoteCoin != null ? _spotDetailModel.quoteCoin.change_percent : 0;

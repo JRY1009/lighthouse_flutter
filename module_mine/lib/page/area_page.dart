@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/res/colors.dart';
@@ -9,10 +8,10 @@ import 'package:library_base/res/styles.dart';
 import 'package:library_base/router/routers.dart';
 import 'package:library_base/widget/button/back_button.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh.dart';
-import 'package:library_base/widget/easyrefresh/loading_empty.dart';
 import 'package:library_base/widget/textfield/search_text_field.dart';
 import 'package:module_mine/item/area_item.dart';
 import 'package:module_mine/model/area.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 
 class AreaPage extends StatefulWidget {
@@ -37,7 +36,21 @@ class _AreaPageState extends State<AreaPage> with BasePageMixin<AreaPage> {
   List<Area> _allList = [];
   List<Area> _searchList = [];
 
+  RefreshController _easyController = RefreshController();
+  bool _init = false;
+
   _AreaPageState({this.areaCode});
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _refresh();
+      }
+    });
+  }
 
   Future<void> _refresh() async {
     return Area.loadAreaFromFile().then((value) {
@@ -53,6 +66,7 @@ class _AreaPageState extends State<AreaPage> with BasePageMixin<AreaPage> {
         return 0;
       });
 
+      _init = true;
       _allList.addAll(value);
       _currentList.addAll(value);
       setState(() {});
@@ -124,28 +138,26 @@ class _AreaPageState extends State<AreaPage> with BasePageMixin<AreaPage> {
               ),
             ),
             Expanded(
-                child: EasyRefresh.custom(
-                  header: MaterialHeader(valueColor: AlwaysStoppedAnimation<Color>(Colours.app_main)),
-                  firstRefresh: true,
-                  firstRefreshWidget: FirstRefresh(),
-                  emptyWidget: _currentList.isEmpty ? LoadingEmpty() : null,
-                  slivers: <Widget>[
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                            (context, index) {
-                          return AreaItem(
-                            title: '+' + _currentList[index].code + '  ' + _currentList[index].name,
-                            check: areaCode == ('+' + _currentList[index].code),
-                            onPressed: () { _selectArea(_currentList[index]); },
-                          );
-                        },
-                        childCount: _currentList.length,
-                      ),
-                    ),
-                  ],
+              child: !_init ? FirstRefresh() : SmartRefresher(
+                  controller: _easyController,
                   onRefresh: _refresh,
-                  onLoad: null,
-                )
+                  child: CustomScrollView(
+                    slivers: [
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                              (context, index) {
+                            return AreaItem(
+                              title: '+' + _currentList[index].code + '  ' + _currentList[index].name,
+                              check: areaCode == ('+' + _currentList[index].code),
+                              onPressed: () { _selectArea(_currentList[index]); },
+                            );
+                          },
+                          childCount: _currentList.length,
+                        ),
+                      ),
+                    ],
+                  )
+              ),
             )
           ],
         )

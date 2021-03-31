@@ -31,8 +31,8 @@ dependencies:
   permission_handler: ^5.1.0+2
   # 加密库 https://github.com/leocavalcante/encrypt
   encrypt: ^4.1.0
-  # 下拉刷新上拉加载 https://github.com/xuelongqy/flutter_easyrefresh
-  flutter_easyrefresh: ^2.1.8
+  # 下拉刷新上拉加载 https://github.com/peng8350/flutter_pulltorefresh
+  pull_to_refresh: ^1.6.4
   # 扩展NestedScrollView https://github.com/fluttercandies/extended_nested_scroll_view
   # extended_nested_scroll_view: ^2.0.1-dev
   # loading动画 https://github.com/jogboms/flutter_spinkit
@@ -91,6 +91,8 @@ dependencies:
   sticky_headers: ^0.1.8+1
   # 极光推送 https://github.com/jpush/jpush-flutter-plugin
   # jpush_flutter: 0.6.3
+  # https://github.com/avioli/uni_links/tree/master/uni_links
+  uni_links: ^0.4.0
 
 dev_dependencies:
   flutter_test:

@@ -43,7 +43,7 @@ class NewsItem extends StatelessWidget {
                 Container(
                     margin: EdgeInsets.only(top: 10),
                     alignment: Alignment.centerLeft,
-                    child: Text((news?.title ?? '') + '这是标题这是标题这是标题这是标题这是标题这是标题这是标题这是标题',
+                    child: Text(news?.title ?? '',
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
@@ -72,7 +72,7 @@ class NewsItem extends StatelessWidget {
                 Container(
                     margin: EdgeInsets.only(top: 10),
                     alignment: Alignment.centerLeft,
-                    child: Text((news?.summary ?? '') + '这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容',
+                    child: Text(news?.summary ?? '',
                         strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
                         style: TextStyles.textGray800_w400_14
                     )
@@ -92,9 +92,11 @@ class NewsItem extends StatelessWidget {
       onTap: () {
         Parameters params = Parameters()
           ..putString('title', news.title ?? '')
-          ..putString('url', news.url ?? '');
+          ..putString('url', news.url_app ?? '')
+          ..putString('url_share', news.url ?? '')
+          ..putString('thumb_share', news.snapshot_url ?? '');
 
-        Routers.navigateTo(context, Routers.webviewPage, parameters: params);
+        Routers.navigateTo(context, Routers.inappWebviewPage, parameters: params);
       },
       child: Container(
         width: double.infinity,
@@ -156,7 +158,7 @@ class NewsItem extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(top: 10),
                         alignment: Alignment.centerLeft,
-                        child: Text((news?.title ?? '') + '外媒：这是标题这是标题这是标题这是标题这是标题这是标题这是标题这是标题',
+                        child: Text(news?.title ?? '',
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
@@ -167,7 +169,7 @@ class NewsItem extends StatelessWidget {
                       Container(
                           margin: EdgeInsets.only(top: 10),
                           alignment: Alignment.centerLeft,
-                          child: Text((news?.summary ?? '') + '这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容这是内容',
+                          child: Text(news?.summary ?? '',
                               maxLines: 3,
                               overflow: TextOverflow.ellipsis,
                               strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),

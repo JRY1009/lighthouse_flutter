@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Colours {
   static const Color app_main = Color(0xFF2872FC);
-  static const Color app_main_500 = Color(0xFF2872FC);
+  static const Color app_main_500 = Color(0xFF308BE6);
   static const Color dark_app_main = Color(0xFF3842Ff);
 
   static const Color normal_bg = Color(0xFFF3F6FF);
@@ -43,7 +43,7 @@ class Colours {
   static const Color light_blue = Color(0xFFEEF5FF);
   static const Color light_blue_text = Color(0xFF36547E);
 
-  static const Color default_line = Color(0xFFEEEEEE);
+  static const Color default_line = Color(0xFFEBEBEB);
   static const Color text_disabled = Color(0xFFD4E2FA);
   static const Color unselected_item_color = Color(0xFFC0C9DF);
 

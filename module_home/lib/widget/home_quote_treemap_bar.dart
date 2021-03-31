@@ -44,7 +44,7 @@ class _HomeQuoteTreemapBarState extends State<HomeQuoteTreemapBar> {
     String package = HomeRouter.isRunModule ? null : Constant.moduleHome;
 
     return Container(
-      padding: EdgeInsets.fromLTRB(12, 9, 12, 9),
+      padding: EdgeInsets.fromLTRB(12, 8, 12, 8),
       child: Row (
         children: [
           Expanded(

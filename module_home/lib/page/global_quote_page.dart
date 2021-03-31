@@ -97,7 +97,7 @@ class _GlobalQuotePageState extends State<GlobalQuotePage> with BasePageMixin<Gl
               )
             ],
             centerTitle: true,
-            title: Text(S.of(context).globalQuote, style: TextStyles.textBlack18)
+            title: Text(S.of(context).globalQuote, style: TextStyles.textBlack16)
         ),
         body: ProviderWidget<GlobalQuoteModel>(
             model: _globalQuoteModel,

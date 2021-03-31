@@ -65,9 +65,8 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
 
   void initViewModel() {
 
-    if (Constant.isReleaseMode) {
+    //if (Constant.isReleaseMode)
       WebSocketUtil.initWS();
-    }
 
     _mainModel = MainModel();
     _mainModel.listenEvent(context, _pageController, _keyList);

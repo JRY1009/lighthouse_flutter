@@ -2,20 +2,18 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
-import 'package:library_base/res/colors.dart';
-import 'package:library_base/widget/easyrefresh/common_footer.dart';
+import 'package:library_base/utils/toast_util.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh_top.dart';
 import 'package:library_base/widget/easyrefresh/loading_empty.dart';
 import 'package:library_base/widget/easyrefresh/loading_empty_top.dart';
-import 'package:library_base/utils/toast_util.dart';
 import 'package:module_info/item/article_card_item.dart';
 import 'package:module_info/item/article_item.dart';
 import 'package:module_info/model/article.dart';
 import 'package:module_info/viewmodel/article_model.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 
 class ArticleListPage extends StatefulWidget {
@@ -42,7 +40,7 @@ class _ArticleListPageState extends State<ArticleListPage> with BasePageMixin<Ar
   @override
   bool get wantKeepAlive => true;
 
-  EasyRefreshController _easyController = EasyRefreshController();
+  RefreshController _easyController = RefreshController();
 
   ArticleModel _articleModel;
 
@@ -71,17 +69,21 @@ class _ArticleListPageState extends State<ArticleListPage> with BasePageMixin<Ar
     _articleModel.addListener(() {
       if (_articleModel.isError) {
         if (_articleModel.page == 0) {
-          _easyController.finishRefresh(success: false);
+          _easyController.refreshFailed();
         } else {
-          _easyController.finishLoad(success: false, noMore: _articleModel.noMore);
+          _easyController.loadFailed();
         }
         ToastUtil.error(_articleModel.viewStateError.message);
 
       } else if (_articleModel.isSuccess || _articleModel.isEmpty) {
         if (_articleModel.page == 0) {
-          _easyController.finishRefresh(success: true);
+          _easyController.refreshCompleted(resetFooterState: !_articleModel.noMore);
         } else {
-          _easyController.finishLoad(success: true, noMore: _articleModel.noMore);
+          if (_articleModel.noMore) {
+            _easyController.loadNoData();
+          } else {
+            _easyController.loadComplete();
+          }
         }
       }
     });
@@ -94,7 +96,7 @@ class _ArticleListPageState extends State<ArticleListPage> with BasePageMixin<Ar
 
     } else {
       return Future<void>.delayed(const Duration(milliseconds: 100), () {
-        _easyController.callRefresh();
+        _easyController.requestRefresh();
       });
     }
   }
@@ -102,39 +104,39 @@ class _ArticleListPageState extends State<ArticleListPage> with BasePageMixin<Ar
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    
-    Widget refreshWidget = widget.isSingleCard ? FirstRefreshTop() : FirstRefresh();
-    Widget emptyWidget = widget.isSingleCard ? LoadingEmptyTop() : LoadingEmpty();
+
     
     return ProviderWidget<ArticleModel>(
         model: _articleModel,
         builder: (context, model, child) {
-          return model.isFirst ? refreshWidget : model.isEmpty ? emptyWidget : EasyRefresh(
-            header: widget.isSupportPull ? MaterialHeader(valueColor: AlwaysStoppedAnimation<Color>(Colours.app_main)) : null,
-            footer:  CommonFooter(enableInfiniteLoad: !model.noMore),
-            controller: _easyController,
-//                firstRefresh配合NestedScrollView使用会造成刷新跳动问题
-//                firstRefresh: true,
-//                firstRefreshWidget: FirstRefresh(),
-            topBouncing: false,
-            emptyWidget: (model.isEmpty || model.isError) ? emptyWidget : null,
-            child: ListView.builder(
-              padding: EdgeInsets.all(0.0),
-              itemBuilder: (context, index) {
-                Article article = model.articleList[index];
-                return widget.isSingleCard ? ArticleCardItem(
-                  index: index,
-                  aritcle: article,
-                ) : ArticleItem(
-                  index: index,
-                  aritcle: article,
-                );
-              },
-              itemCount: model.articleList.length,
-            ),
+          Widget refreshWidget = widget.isSupportPull ? FirstRefresh() : FirstRefreshTop();
+          Widget emptyWidget = widget.isSupportPull ? LoadingEmpty() : LoadingEmptyTop();
 
-            onRefresh: widget.isSupportPull ? model.refresh : null,
-            onLoad: model.noMore ? null : model.loadMore,
+          return model.isFirst ? refreshWidget : model.isEmpty ? emptyWidget :
+          SmartRefresher(
+              controller: _easyController,
+              enablePullDown: widget.isSupportPull,
+              enablePullUp: !model.noMore,
+              onRefresh: widget.isSupportPull ? model.refresh : null,
+              onLoading: model.noMore ? null : model.loadMore,
+              child: CustomScrollView(
+                slivers: [
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate((context, index) {
+                      Article article = model.articleList[index];
+                      return widget.isSingleCard ? ArticleCardItem(
+                        index: index,
+                        aritcle: article,
+                      ) : ArticleItem(
+                        index: index,
+                        aritcle: article,
+                      );
+                    },
+                      childCount: model.articleList.length,
+                    ),
+                  ),
+                ],
+              )
           );
         }
     );

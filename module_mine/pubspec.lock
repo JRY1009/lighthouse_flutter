@@ -202,13 +202,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.1"
-  flutter_easyrefresh:
-    dependency: transitive
-    description:
-      name: flutter_easyrefresh
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.1.8"
   flutter_echarts:
     dependency: transitive
     description:
@@ -539,6 +532,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "5.0.0"
+  pull_to_refresh:
+    dependency: transitive
+    description:
+      name: pull_to_refresh
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.6.4"
   qr:
     dependency: transitive
     description:
@@ -712,6 +712,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.3"
+  uni_links:
+    dependency: transitive
+    description:
+      name: uni_links
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.4.0"
   url_launcher:
     dependency: transitive
     description:

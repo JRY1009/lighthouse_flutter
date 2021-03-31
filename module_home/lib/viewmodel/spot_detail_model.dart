@@ -11,24 +11,33 @@ import 'package:library_base/mvvm/view_state.dart';
 import 'package:library_base/mvvm/view_state_model.dart';
 import 'package:library_base/net/apis.dart';
 import 'package:library_base/net/dio_util.dart';
+import 'package:library_base/utils/num_util.dart';
 import 'package:library_base/utils/object_util.dart';
+import 'package:library_base/widget/text/number_slide_animation.dart';
 import 'package:library_kchart/entity/k_line_entity.dart';
 import 'package:module_home/model/quote_coin.dart';
 
 class SpotDetailModel extends ViewStateModel {
 
+  SpotKLineHandleModel spotKLineHandleModel;
   SpotHeaderModel spotHeaderModel;
+
   QuoteCoin quoteCoin;
   QuoteCoin lastQuoteCoin;
 
   List<GlobalKey<BasePageMixin>> keyList = [];
 
+  NumberSlideController quoteSlideController = NumberSlideController();
   StreamSubscription quoteSubscription;
+
+  bool _handleKLine = false;
 
   SpotDetailModel(List<String> titles)
       : super(viewState: ViewState.first) {
 
+    spotKLineHandleModel = SpotKLineHandleModel();
     spotHeaderModel = SpotHeaderModel();
+
     if (ObjectUtil.isNotEmpty(titles)) {
       titles.forEach((element) {
         keyList.add(GlobalKey<BasePageMixin>(debugLabel: element));
@@ -46,16 +55,22 @@ class SpotDetailModel extends ViewStateModel {
       }
 
       if (quoteCoin != null && quoteWs.coin_code.toLowerCase() == quoteCoin.coin_code.toLowerCase()) {
-        quoteCoin.quote = quoteWs.quote;
-        quoteCoin.change_percent = quoteWs.change_percent_24hr;
 
+        if (!_handleKLine) {
+          quoteCoin.quote = quoteWs.quote;
+          quoteCoin.change_percent = quoteWs.change_percent_24hr;
+        }
+        
         if (lastQuoteCoin != null) {
           lastQuoteCoin.quote = quoteWs.quote;
           lastQuoteCoin.change_percent = quoteWs.change_percent_24hr;
         }
-      }
 
-      notifyListeners();
+        if (!_handleKLine) {
+          quoteSlideController.number = NumUtil.formatNum(quoteWs.quote, point: 2);
+          spotHeaderModel.notifyListeners();
+        }
+      }
     });
   }
 
@@ -65,15 +80,16 @@ class SpotDetailModel extends ViewStateModel {
     }
 
     if (entity == null) {
+      _handleKLine = false;
       if (lastQuoteCoin != null) {
         quoteCoin.quote = lastQuoteCoin.quote;
         quoteCoin.change_percent = lastQuoteCoin.change_percent;
       }
     } else {
+      _handleKLine = true;
       quoteCoin.quote = entity.close;
     }
-
-    spotHeaderModel.notifyListeners();
+    spotKLineHandleModel.notifyListeners();
   }
 
   Future getSpotDetail(String chain) async {
@@ -118,7 +134,16 @@ class SpotDetailModel extends ViewStateModel {
   @override
   void dispose() {
     quoteSubscription?.cancel();
+    quoteSlideController?.dispose();
     super.dispose();
+  }
+}
+
+class SpotKLineHandleModel extends ViewStateModel {
+
+  SpotKLineHandleModel()
+      : super(viewState: ViewState.first) {
+
   }
 }
 
@@ -128,5 +153,4 @@ class SpotHeaderModel extends ViewStateModel {
       : super(viewState: ViewState.first) {
 
   }
-
 }
