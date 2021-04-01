@@ -546,13 +546,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.6.4"
-  pull_to_refresh_notification:
-    dependency: transitive
-    description:
-      name: pull_to_refresh_notification
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.0.1"
   qr:
     dependency: transitive
     description:
@@ -669,7 +662,7 @@ packages:
       name: sticky_headers
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.1.8+1"
+    version: "0.2.0"
   stream_channel:
     dependency: transitive
     description:

@@ -59,3 +59,9 @@ flutter:
     - assets/images/anihome/
     - assets/images/aninews/
     - assets/images/animine/
+
+  fonts:
+    - family: HYQiHei
+      fonts:
+        - asset: assets/fonts/HYQiHei-55S.otf
+          weight: 400

@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
@@ -37,7 +38,7 @@ class NewsItem extends StatelessWidget {
           ShareNewsHeader(),
           Container(
             color: Colours.white,
-            padding: EdgeInsets.fromLTRB(16, 20, 18, isLast ? 20 : 6),
+            padding: EdgeInsets.fromLTRB(16, 20, 18, 20),
             child: Column(
               children: [
                 Container(
@@ -47,7 +48,7 @@ class NewsItem extends StatelessWidget {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
-                        style: TextStyles.textGray800_w400_16
+                        style: TextStyles.textGray800_w400_20
                     )
                 ),
                 Container(
@@ -56,12 +57,12 @@ class NewsItem extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(TimeCountUtil.formatStr(news?.publish_time) ?? '',
+                      Text(TimeCountUtil.formatDateStr(news?.publish_time, format: DateFormat.NORMAL) ?? '',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyles.textMain12
+                          style: TextStyles.textGray500_w400_12
                       ),
-                      Text(news?.author ?? '',
+                      Text(news?.publisher ?? '',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyles.textGray500_w400_12
@@ -74,7 +75,7 @@ class NewsItem extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: Text(news?.summary ?? '',
                         strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
-                        style: TextStyles.textGray800_w400_14
+                        style: TextStyles.textGray800_w400_15
                     )
                 ),
 
@@ -91,8 +92,10 @@ class NewsItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         Parameters params = Parameters()
-          ..putString('title', news.title ?? '')
+          ..putString('title', S.of(context).infoDetail)
           ..putString('url', news.url_app ?? '')
+          ..putString('title_share', news.title ?? '')
+          ..putString('summary_share', news.summary ?? '')
           ..putString('url_share', news.url ?? '')
           ..putString('thumb_share', news.snapshot_url ?? '');
 
@@ -128,8 +131,8 @@ class NewsItem extends StatelessWidget {
                       ),
                     ]
                 ),
-
               ),
+
               Expanded(
                 flex: 1,
                 child: Container(
@@ -141,12 +144,12 @@ class NewsItem extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(TimeCountUtil.formatStr(news?.publish_time) ?? '',
+                            Text(TimeCountUtil.formatDateStr(news?.publish_time, format: DateFormat.HOUR_MINUTE) ?? '',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: TextStyles.textMain12
+                                style: TextStyles.textGray500_w400_12
                             ),
-                            Text(news?.author ?? '',
+                            Text(news?.publisher ?? '',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyles.textGray500_w400_12
@@ -162,7 +165,7 @@ class NewsItem extends StatelessWidget {
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
-                            style: TextStyles.textGray800_w400_16
+                            style: TextStyles.textGray800_w400_17
                         )
                       ),
 
@@ -173,30 +176,30 @@ class NewsItem extends StatelessWidget {
                               maxLines: 3,
                               overflow: TextOverflow.ellipsis,
                               strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
-                              style: TextStyles.textGray800_w400_14
+                              style: TextStyles.textGray800_w400_15
                           )
                       ),
 
                       InkWell(
                         onTap: () => _share(context),
                         child: Container(
-                          margin: EdgeInsets.only(top: 10),
                           height: 20,
-                          alignment: Alignment.centerLeft,
+                          margin: EdgeInsets.only(top: 10),
+                          alignment: Alignment.centerRight,
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(S.of(context).share,
-                                  style: TextStyles.textGray500_w400_12
+                              Container(
+                                child: LocalImage('icon_share', package: Constant.baseLib, width: 15, height: 15),
                               ),
                               Gaps.hGap4,
                               Container(
-                                margin: EdgeInsets.only(top: 2),
-                                child: LocalImage('icon_share', package: Constant.baseLib, width: 12, height: 12),
+                                padding: EdgeInsets.only(top: 1),
+                                child: Text(S.of(context).share,
+                                    style: TextStyles.textGray350_w400_14
+                                ),
                               )
-
                             ],
                           ),
                         )

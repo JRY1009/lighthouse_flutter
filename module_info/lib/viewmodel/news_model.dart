@@ -6,12 +6,14 @@ import 'package:library_base/mvvm/view_state.dart';
 import 'package:library_base/mvvm/view_state_model.dart';
 import 'package:library_base/net/apis.dart';
 import 'package:library_base/net/dio_util.dart';
+import 'package:library_base/utils/date_util.dart';
 import 'package:library_base/utils/object_util.dart';
 import 'package:module_info/model/news.dart';
 
 class NewsModel extends ViewStateModel {
 
   List<News> newsList = [];
+  List<List<News>> dateNewsList = [];
 
   final String tag;
   int page = 0;
@@ -24,6 +26,7 @@ class NewsModel extends ViewStateModel {
   Future refresh() {
     page = 0;
     noMore = false;
+
     return getNews(page, pageSize);
   }
 
@@ -54,6 +57,8 @@ class NewsModel extends ViewStateModel {
 
           noMore = list?.length < pageSize;
 
+          generateList();
+
           if (ObjectUtil.isEmptyList(newsList)) {
             setEmpty();
           } else {
@@ -63,6 +68,34 @@ class NewsModel extends ViewStateModel {
         onError: (errno, msg) {
           setError(errno, message: msg);
         });
+  }
+
+  void generateList() {
+    newsList.sort((a, b) {
+      DateTime aD = DateUtil.getDateTime(a.publish_time);
+      DateTime bD = DateUtil.getDateTime(b.publish_time);
+      return bD.compareTo(aD);
+    });
+
+    int length = newsList.length;
+    if (length > 0) {
+
+      dateNewsList.clear();
+      dateNewsList.add([]);
+      DateTime groupDt = DateUtil.getDateTime(newsList.first?.publish_time);
+
+      for (int i=0; i<length; i++) {
+        DateTime dt = DateUtil.getDateTime(newsList[i].publish_time);
+        if (DateUtil.dayIsEqual(dt, groupDt)) {
+          dateNewsList.last.add(newsList[i]);
+
+        } else {
+          groupDt = dt;
+          dateNewsList.add([]);
+          dateNewsList.last.add(newsList[i]);
+        }
+      }
+    }
   }
 
   @override

@@ -40,7 +40,7 @@ class TreemapModel extends ViewStateModel {
           if (ObjectUtil.isEmptyList(treeNodeList)) {
             setEmpty();
           } else {
-            setSuccess();
+            setIdle();
           }
         },
         onError: (errno, msg) {

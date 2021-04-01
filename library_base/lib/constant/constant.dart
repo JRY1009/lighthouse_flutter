@@ -5,4 +5,5 @@ class Constant {
   static const bool isDriverTest  = true;
   static const String baseLib  = 'library_base';
   static const String moduleHome  = 'module_home';
+  static const String moduleInfo  = 'module_info';
 }

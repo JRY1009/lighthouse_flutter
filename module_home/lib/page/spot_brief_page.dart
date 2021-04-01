@@ -8,6 +8,7 @@ import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:library_base/res/colors.dart';
+import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/router/routers.dart';
 import 'package:library_base/utils/other_util.dart';
@@ -88,12 +89,6 @@ class _SpotBriefPageState extends State<SpotBriefPage> with BasePageMixin<SpotBr
             physics: ClampingScrollPhysics(),
             children: [
               Container(
-                  margin: EdgeInsets.symmetric(horizontal: 12 , vertical: 9),
-                  decoration: BoxDecoration(
-                    color: Colours.white,
-                    borderRadius: BorderRadius.all(Radius.circular(14.0)),
-                    boxShadow: BoxShadows.normalBoxShadow,
-                  ),
                   child: Column(
                     children: [
                       ListView.builder(
@@ -115,7 +110,7 @@ class _SpotBriefPageState extends State<SpotBriefPage> with BasePageMixin<SpotBr
 
                       Container(
                         alignment: Alignment.centerLeft,
-                        padding: const EdgeInsets.fromLTRB(15, 15, 16, 20),
+                        padding: const EdgeInsets.fromLTRB(15, 15, 16, 17),
                         child: Text(S.of(context).moreLink, style: TextStyles.textGray800_w400_14),
                       ),
 
@@ -125,28 +120,34 @@ class _SpotBriefPageState extends State<SpotBriefPage> with BasePageMixin<SpotBr
                         physics: const NeverScrollableScrollPhysics(),
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
-                          childAspectRatio: 5.0,
+                          childAspectRatio: 4.0,
                         ),
                         itemCount: model.friendLinkList.length,
                         itemBuilder: (_, index) {
                           FriendLink friendLink = model.friendLinkList[index];
-                          return Text.rich(
-                            TextSpan(
-                              children: [
-                                WidgetSpan(
-                                  child: RoundImage(friendLink.ico ?? '',
-                                    width: 14,
-                                    height: 14,
-                                    borderRadius: BorderRadius.all(Radius.circular(0)),
+                          return Container(
+                            alignment: Alignment.centerLeft,
+                            decoration: BoxDecoration(
+                                border: Border.all(width: 0.6, color: Colours.default_line)
+                            ),
+                            child: Text.rich(
+                              TextSpan(
+                                children: [
+                                  WidgetSpan(
+                                    child: RoundImage(friendLink.ico ?? '',
+                                      width: 14,
+                                      height: 14,
+                                      borderRadius: BorderRadius.all(Radius.circular(0)),
+                                    ),
                                   ),
-                                ),
-                                TextSpan(
-                                  text: ' ${friendLink.name}',
-                                  style: TextStyles.textMain14,
-                                  recognizer: new TapGestureRecognizer()..onTap = () => OtherUtil.launchURL(friendLink.url),
-                                )
-                              ]
-                            )
+                                  TextSpan(
+                                    text: ' ${friendLink.name}',
+                                    style: TextStyles.textMain14,
+                                    recognizer: new TapGestureRecognizer()..onTap = () => OtherUtil.launchURL(friendLink.url),
+                                  )
+                                ]
+                              )
+                            ),
                           );
                         },
                       )
@@ -155,37 +156,36 @@ class _SpotBriefPageState extends State<SpotBriefPage> with BasePageMixin<SpotBr
               ),
 
               Container(
-                margin: const EdgeInsets.fromLTRB(12, 9, 12, 18),
-                decoration: BoxDecoration(
-                  color: Colours.white,
-                  borderRadius: BorderRadius.all(Radius.circular(14.0)),
-                  boxShadow: BoxShadows.normalBoxShadow,
-                ),
                 child: Column(
                   children: [
                     Container(
                         margin: const EdgeInsets.fromLTRB(15, 18, 16, 9),
-                        height: 20,
+                        height: 24,
                         child: InkWell(
                           onTap: () => Routers.navigateTo(context, Routers.milestonePage),
                           child: Row(
                             children: [
-                              Container(
-                                alignment: Alignment.centerLeft,
-                                child: Text(S.of(context).blockMileStone,
-                                  style: TextStyles.textGray800_w400_14,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
                               Expanded(
-                                child: Container(),
-                              ),
+                                  child: Container(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      S.of(context).blockMileStone,
+                                      style: TextStyles.textGray800_w400_18,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  )),
                               Container(
-                                alignment: Alignment.centerLeft,
-                                child: Text(S.of(context).all, style: TextStyles.textGray400_w400_12),
+                                  alignment: Alignment.bottomLeft,
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(S.of(context).all, style: TextStyles.textGray400_w400_12),
+                                      Gaps.hGap3,
+                                      Icon(Icons.keyboard_arrow_right, color: Colours.gray_400, size: 15),
+                                    ],
+                                  )
                               ),
-                              Icon(Icons.keyboard_arrow_right, color: Colours.gray_400, size: 16),
                             ],
                           ),
                         )

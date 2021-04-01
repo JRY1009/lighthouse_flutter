@@ -66,9 +66,11 @@ class Routers {
     PageBuilder inappWebviewPageBuilder = PageBuilder(Routers.inappWebviewPage, (params) {
       String title = params?.getString('title');
       String url = params?.getString('url');
+      String title_share = params?.getString('title_share');
+      String summary_share = params?.getString('summary_share');
       String url_share = params?.getString('url_share');
       String thumb_share = params?.getString('thumb_share');
-      return InappWebviewPage(url, title, url_share: url_share, thumb_share: thumb_share);
+      return InappWebviewPage(url, title, title_share: title_share, summary_share: summary_share, url_share: url_share, thumb_share: thumb_share);
     });
 
     router.define(Routers.webviewPage, handler: webviewPageBuilder.handler);

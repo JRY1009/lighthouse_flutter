@@ -46,6 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "close" : MessageLookupByLibrary.simpleMessage("关闭"),
     "confirm" : MessageLookupByLibrary.simpleMessage("确定"),
     "confirmNotify" : MessageLookupByLibrary.simpleMessage("确定修改"),
+    "copySuccess" : MessageLookupByLibrary.simpleMessage("复制成功"),
     "countryArea" : MessageLookupByLibrary.simpleMessage("国家/地区"),
     "data" : MessageLookupByLibrary.simpleMessage("数据"),
     "dengtaSchool" : MessageLookupByLibrary.simpleMessage("灯塔学院"),
@@ -57,6 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "globalQuote" : MessageLookupByLibrary.simpleMessage("全球行情"),
     "home" : MessageLookupByLibrary.simpleMessage("首页"),
     "info" : MessageLookupByLibrary.simpleMessage("资讯"),
+    "infoDetail" : MessageLookupByLibrary.simpleMessage("资讯·详情"),
     "inputPassword" : MessageLookupByLibrary.simpleMessage("输入密码"),
     "kline1h" : MessageLookupByLibrary.simpleMessage("1H"),
     "kline1month" : MessageLookupByLibrary.simpleMessage("1月"),
@@ -123,6 +125,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "proNumOfLoss" : MessageLookupByLibrary.simpleMessage("亏损次数"),
     "proNumOfTrade" : MessageLookupByLibrary.simpleMessage("交易次数"),
     "proProportion" : MessageLookupByLibrary.simpleMessage("占比"),
+    "proPublishDate" : MessageLookupByLibrary.simpleMessage("发行日期"),
     "proRate" : MessageLookupByLibrary.simpleMessage("涨幅"),
     "proTodayProfit" : MessageLookupByLibrary.simpleMessage("今日盈亏"),
     "proTodayProfitRate" : MessageLookupByLibrary.simpleMessage("今日盈亏率"),
@@ -152,6 +155,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "setSuccess" : MessageLookupByLibrary.simpleMessage("设置成功"),
     "settings" : MessageLookupByLibrary.simpleMessage("设置"),
     "share" : MessageLookupByLibrary.simpleMessage("分享"),
+    "shareCopyLink" : MessageLookupByLibrary.simpleMessage("复制链接"),
     "shareFriend" : MessageLookupByLibrary.simpleMessage("朋友圈"),
     "shareMore" : MessageLookupByLibrary.simpleMessage("更多"),
     "shareQRDownload" : MessageLookupByLibrary.simpleMessage("长按二维码识别下载"),
@@ -164,6 +168,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "smsLoginTips" : MessageLookupByLibrary.simpleMessage("验证即登录，新手机号自动注册"),
     "supportExchanges" : MessageLookupByLibrary.simpleMessage("支持交易所"),
     "thirdLogin" : MessageLookupByLibrary.simpleMessage("更多方式登录"),
+    "today" : MessageLookupByLibrary.simpleMessage("今天"),
     "totalAssets" : MessageLookupByLibrary.simpleMessage("总资产"),
     "treemap" : MessageLookupByLibrary.simpleMessage("热力图"),
     "updateTime" : MessageLookupByLibrary.simpleMessage("更新时间"),
@@ -180,6 +185,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "vsMsgNetworkError" : MessageLookupByLibrary.simpleMessage("网络连接异常,请检查网络或稍后重试"),
     "welcomeLogin" : MessageLookupByLibrary.simpleMessage("欢迎登录"),
     "welcomeRegist" : MessageLookupByLibrary.simpleMessage("欢迎注册"),
-    "x724" : MessageLookupByLibrary.simpleMessage("7x24")
+    "x724" : MessageLookupByLibrary.simpleMessage("7x24"),
+    "yesterday" : MessageLookupByLibrary.simpleMessage("昨天")
   };
 }

@@ -7,12 +7,10 @@ import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:library_base/res/colors.dart';
-import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/utils/num_util.dart';
 import 'package:library_base/widget/button/sort_button.dart';
 import 'package:library_base/widget/common_scroll_view.dart';
-import 'package:library_base/widget/easyrefresh/first_refresh.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh_top.dart';
 import 'package:library_base/widget/shot_view.dart';
 import 'package:module_home/item/spot_exchange_quote_item.dart';
@@ -99,8 +97,8 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
                               header: Container(
                                 alignment: Alignment.centerLeft,
                                 width: double.infinity,
-                                color: Colours.normal_bg,
-                                height: 188.0,
+                                color: Colours.white,
+                                height: 55.0,
                                 child: _buildHeader(),
                               ),
                               content: _buildItem(),
@@ -113,30 +111,6 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
 
               ]
           );
-//          EasyRefresh(
-//            topBouncing: false,
-//            bottomBouncing: false,
-//            emptyWidget: (model.isEmpty || model.isError) ? LoadingEmpty() : null,
-//            child: ListView.builder(
-//              padding: EdgeInsets.all(0.0),
-//              itemBuilder: (context, index) {
-//                return StickyHeader(
-//                  header: Container(
-//                    alignment: Alignment.centerLeft,
-//                    width: double.infinity,
-//                    color: Colours.normal_bg,
-//                    height: 188.0,
-//                    child: _buildHeader(),
-//                  ),
-//                  content: _buildItem(),
-//                );
-//              },
-//              itemCount: 1,
-//            ),
-//
-//            onRefresh: null,
-//            onLoad: null,
-//          );
         }
     );
   }
@@ -157,98 +131,92 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
 
     return Column(
       children: [
-        Container(
-          height: 115,
-          margin: EdgeInsets.symmetric(horizontal: 12 , vertical: 9),
-          decoration: BoxDecoration(
-            color: Colours.white,
-            borderRadius: BorderRadius.all(Radius.circular(14.0)),
-            boxShadow: BoxShadows.normalBoxShadow,
-          ),
-          child: Column (
-            children: [
-              Container(
-                height: 20,
-                alignment: Alignment.topLeft,
-                margin: const EdgeInsets.only(left: 15, top: 18),
-                child: Text(S.of(context).proTradePlatformData,
-                  style: TextStyles.textGray800_w400_15,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              Gaps.vGap12,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Container(
-                      height: 30,
-                      margin: EdgeInsets.only(left: 15),
-                      alignment: Alignment.bottomLeft,
-                      child: Text.rich(TextSpan(
-                          children: [
-                            TextSpan(text: '\$', style: rate >= 0 ? TextStyles.textGreen_w400_12 : TextStyles.textRed_w400_12),
-                            TextSpan(text: priceStr, style: rate >= 0 ? TextStyles.textGreen_w400_22 : TextStyles.textRed_w400_22),
-//                            WidgetSpan(
-//                              child: Icon(rate >= 0 ? Icons.arrow_upward : Icons.arrow_downward,
-//                                  color: rate >= 0 ? Colours.text_green : Colours.text_red,
-//                                  size: 14),)
-                          ]
-                      ))
-                  ),
-                  Container(
-                      height: 15,
-                      margin: EdgeInsets.only(right: 15),
-                      alignment: Alignment.bottomRight,
-                      child: Text(rateStr + '  ' + changeAmountStr,
-                        style: rate >= 0 ? TextStyles.textGreen_w400_12 : TextStyles.textRed_w400_12,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      )
-                  ),
-                ],
-              ),
-
-              Gaps.vGap5,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                      height: 15,
-                      margin: EdgeInsets.only(left: 15),
-                      alignment: Alignment.centerLeft,
-                      child: Text('≈￥' + cnyStr,
-                        style: TextStyles.textGray500_w400_12,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      )
-                  ),
-
-                  Container(
-                      height: 15,
-                      margin: EdgeInsets.only(right: 15),
-                      alignment: Alignment.centerLeft,
-                      child: Text(groupStr,
-                        style: TextStyles.textGray500_w400_12,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      )
-                  ),
-                ],
-              ),
-              Gaps.vGap15,
-            ],
-          ),
-        ),
+//        Container(
+//          height: 115,
+//          margin: EdgeInsets.symmetric(horizontal: 12 , vertical: 9),
+//          decoration: BoxDecoration(
+//            color: Colours.white,
+//            borderRadius: BorderRadius.all(Radius.circular(14.0)),
+//            boxShadow: BoxShadows.normalBoxShadow,
+//          ),
+//          child: Column (
+//            children: [
+//              Container(
+//                height: 20,
+//                alignment: Alignment.topLeft,
+//                margin: const EdgeInsets.only(left: 15, top: 18),
+//                child: Text(S.of(context).proTradePlatformData,
+//                  style: TextStyles.textGray800_w400_15,
+//                  maxLines: 1,
+//                  overflow: TextOverflow.ellipsis,
+//                ),
+//              ),
+//              Gaps.vGap12,
+//              Row(
+//                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                crossAxisAlignment: CrossAxisAlignment.end,
+//                children: [
+//                  Container(
+//                      height: 30,
+//                      margin: EdgeInsets.only(left: 15),
+//                      alignment: Alignment.bottomLeft,
+//                      child: Text.rich(TextSpan(
+//                          children: [
+//                            TextSpan(text: '\$', style: rate >= 0 ? TextStyles.textGreen_w400_12 : TextStyles.textRed_w400_12),
+//                            TextSpan(text: priceStr, style: rate >= 0 ? TextStyles.textGreen_w400_22 : TextStyles.textRed_w400_22),
+//                          ]
+//                      ))
+//                  ),
+//                  Container(
+//                      height: 15,
+//                      margin: EdgeInsets.only(right: 15),
+//                      alignment: Alignment.bottomRight,
+//                      child: Text(rateStr + '  ' + changeAmountStr,
+//                        style: rate >= 0 ? TextStyles.textGreen_w400_12 : TextStyles.textRed_w400_12,
+//                        maxLines: 1,
+//                        overflow: TextOverflow.ellipsis,
+//                      )
+//                  ),
+//                ],
+//              ),
+//
+//              Gaps.vGap5,
+//              Row(
+//                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                children: [
+//                  Container(
+//                      height: 15,
+//                      margin: EdgeInsets.only(left: 15),
+//                      alignment: Alignment.centerLeft,
+//                      child: Text('≈￥' + cnyStr,
+//                        style: TextStyles.textGray500_w400_12,
+//                        maxLines: 1,
+//                        overflow: TextOverflow.ellipsis,
+//                      )
+//                  ),
+//
+//                  Container(
+//                      height: 15,
+//                      margin: EdgeInsets.only(right: 15),
+//                      alignment: Alignment.centerLeft,
+//                      child: Text(groupStr,
+//                        style: TextStyles.textGray500_w400_12,
+//                        maxLines: 1,
+//                        overflow: TextOverflow.ellipsis,
+//                      )
+//                  ),
+//                ],
+//              ),
+//              Gaps.vGap15,
+//            ],
+//          ),
+//        ),
         Container(
           height: 46.0,
           width: double.infinity,
-          margin: const EdgeInsets.only(left: 12, top: 9, right: 12),
-          padding: const EdgeInsets.only(left: 15, right: 15),
+          margin: const EdgeInsets.only(top: 9, left: 15, right: 15),
           decoration: BoxDecoration(
-            color: Colours.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(14.0)),
+              border: Border(bottom: BorderSide(width: 0.6, color: Colours.default_line))
           ),
           child: Row (
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -318,11 +286,11 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
     });
     return Container(
         width: double.infinity,
-        margin: const EdgeInsets.only(left: 12, bottom: 9, right: 12),
+        margin: const EdgeInsets.only(bottom: 9),
         padding: const EdgeInsets.only(left: 15, right: 15),
         decoration: BoxDecoration(
           color: Colours.white,
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(14.0)),
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(0.0)),
         ),
         child: Column(
             children: list

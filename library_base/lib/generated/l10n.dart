@@ -665,6 +665,16 @@ class S {
     );
   }
 
+  /// `资讯·详情`
+  String get infoDetail {
+    return Intl.message(
+      '资讯·详情',
+      name: 'infoDetail',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `正在加载中...`
   String get loading {
     return Intl.message(
@@ -850,6 +860,16 @@ class S {
     return Intl.message(
       '保存失败',
       name: 'saveFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `复制成功`
+  String get copySuccess {
+    return Intl.message(
+      '复制成功',
+      name: 'copySuccess',
       desc: '',
       args: [],
     );
@@ -1070,6 +1090,16 @@ class S {
     return Intl.message(
       '更新时间',
       name: 'updateTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `发行日期`
+  String get proPublishDate {
+    return Intl.message(
+      '发行日期',
+      name: 'proPublishDate',
       desc: '',
       args: [],
     );
@@ -1300,6 +1330,16 @@ class S {
     return Intl.message(
       '保存',
       name: 'shareSave',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `复制链接`
+  String get shareCopyLink {
+    return Intl.message(
+      '复制链接',
+      name: 'shareCopyLink',
       desc: '',
       args: [],
     );
@@ -1610,6 +1650,26 @@ class S {
     return Intl.message(
       '全部',
       name: 'klineAll',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `今天`
+  String get today {
+    return Intl.message(
+      '今天',
+      name: 'today',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `昨天`
+  String get yesterday {
+    return Intl.message(
+      '昨天',
+      name: 'yesterday',
       desc: '',
       args: [],
     );

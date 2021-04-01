@@ -111,7 +111,7 @@ class SpotQuoteModel extends ViewStateModel {
         quoteBasic.quote = quoteWs.quote;
         quoteBasic.change_percent = quoteWs.change_percent_24hr;
 
-        notifyListeners();
+        //notifyListeners();
       }
     });
   }

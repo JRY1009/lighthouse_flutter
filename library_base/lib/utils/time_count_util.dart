@@ -17,8 +17,12 @@ class TimeCountUtil {
   static String ONE_MONTH_AGO = "月前";
   static String ONE_YEAR_AGO = "年前";
 
+  static String formatDateStr(String dateStr, {DateFormat format = DateFormat.NORMAL}) {
+    return DateUtil.getDateStrByDateTime(DateUtil.getDateTime(dateStr, isUtc: false), format: format);
+  }
+
   static String formatStr(String dateStr) {
-    return format(DateUtil.getDateTime(dateStr));
+    return format(DateUtil.getDateTime(dateStr, isUtc: false));
   }
 
   //时间转换

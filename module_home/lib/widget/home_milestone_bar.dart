@@ -158,10 +158,11 @@ class _HomeMileStoneBarState extends State<HomeMileStoneBar>
                 Container(
                     alignment: Alignment.bottomLeft,
                     child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(S.of(context).all, style: TextStyles.textGray400_w400_12),
                         Gaps.hGap3,
-                        Icon(Icons.keyboard_arrow_right, color: Colours.gray_400, size: 16),
+                        Icon(Icons.keyboard_arrow_right, color: Colours.gray_400, size: 15),
                       ],
                     )
                 ),

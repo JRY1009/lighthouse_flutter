@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:library_base/utils/toast_util.dart';
+import 'package:library_base/widget/common_scroll_view.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh_top.dart';
 import 'package:library_base/widget/easyrefresh/loading_empty.dart';
@@ -113,30 +114,34 @@ class _ArticleListPageState extends State<ArticleListPage> with BasePageMixin<Ar
           Widget emptyWidget = widget.isSupportPull ? LoadingEmpty() : LoadingEmptyTop();
 
           return model.isFirst ? refreshWidget : model.isEmpty ? emptyWidget :
-          SmartRefresher(
-              controller: _easyController,
-              enablePullDown: widget.isSupportPull,
-              enablePullUp: !model.noMore,
-              onRefresh: widget.isSupportPull ? model.refresh : null,
-              onLoading: model.noMore ? null : model.loadMore,
-              child: CustomScrollView(
-                slivers: [
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate((context, index) {
-                      Article article = model.articleList[index];
-                      return widget.isSingleCard ? ArticleCardItem(
-                        index: index,
-                        aritcle: article,
-                      ) : ArticleItem(
-                        index: index,
-                        aritcle: article,
-                      );
-                    },
-                      childCount: model.articleList.length,
+
+          ScrollConfiguration(
+            behavior: OverScrollBehavior(),
+            child: SmartRefresher(
+                controller: _easyController,
+                enablePullDown: widget.isSupportPull,
+                enablePullUp: !model.noMore,
+                onRefresh: widget.isSupportPull ? model.refresh : null,
+                onLoading: model.noMore ? null : model.loadMore,
+                child: CustomScrollView(
+                  slivers: [
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        Article article = model.articleList[index];
+                        return widget.isSingleCard ? ArticleCardItem(
+                          index: index,
+                          aritcle: article,
+                        ) : ArticleItem(
+                          index: index,
+                          aritcle: article,
+                        );
+                      },
+                        childCount: model.articleList.length,
+                      ),
                     ),
-                  ),
-                ],
-              )
+                  ],
+                )
+            ),
           );
         }
     );

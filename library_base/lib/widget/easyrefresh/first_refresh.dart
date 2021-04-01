@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:library_base/generated/l10n.dart';
+import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/styles.dart';
 
 class FirstRefresh extends StatelessWidget {
@@ -31,7 +32,14 @@ class FirstRefresh extends StatelessWidget {
               size: 30.0,
             ),
           ),
-          Text(S.of(context).loading, style: TextStyles.textGray400_w400_14),
+          Text(S.of(context).loading,
+              style: TextStyle(
+                  color: Colours.gray_400,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14,
+                  height: 1.0,
+                  decoration: TextDecoration.none
+          )),
           Expanded(
             child: SizedBox(),
             flex: 3,

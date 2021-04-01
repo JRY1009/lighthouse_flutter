@@ -12,6 +12,7 @@ import 'package:library_base/widget/chart/inapp_echart.dart';
 import 'package:library_base/widget/dialog/dialog_util.dart';
 import 'package:library_base/widget/dialog/share_widget.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh.dart';
+import 'package:library_base/widget/easyrefresh/loading_empty.dart';
 import 'package:library_base/widget/image/local_image.dart';
 import 'package:library_base/widget/shot_view.dart';
 import 'package:flutter/material.dart';
@@ -75,30 +76,12 @@ class _TreemapPageState extends State<TreemapPage> {
     return ProviderWidget<TreemapModel>(
         model: _treemapModel,
         builder: (context, model, child) {
-          return Scaffold(
-              appBar: AppBar(
-                leading: BackButtonEx(),
-                elevation: 1,
-                brightness: Brightness.light,
-                backgroundColor: Colours.white,
-                actions: <Widget>[
-                  IconButton(
-                    icon: LocalImage('icon_share', package: Constant.baseLib, width: 20, height: 20),
-                    onPressed: _share,
-                  )
-                ],
-                centerTitle: true,
-                title: Text(S.of(context).treemap, style: TextStyles.textBlack16),
-              ),
-              body: ShotView(
-                  controller: _shotController,
-                  child: Column(
-                    children: [
-                      Expanded (
-                        child: Container(
-                          child: _treemapModel.isFirst ? FirstRefresh() : InappEcharts(
-                            key: _echartKey,
-                            option: '''
+          Widget echart = InappEcharts(
+            key: _echartKey,
+            onLoad: () {
+              _treemapModel.setSuccess();
+            },
+            option: '''
             {
             series: [{
                 type: 'treemap',
@@ -179,8 +162,34 @@ class _TreemapPageState extends State<TreemapPage> {
             }]
             }
             ''',
-                          ),
-                        ),
+          );
+
+          return Scaffold(
+              appBar: AppBar(
+                leading: BackButtonEx(),
+                elevation: 1,
+                brightness: Brightness.light,
+                backgroundColor: Colours.white,
+                actions: <Widget>[
+                  IconButton(
+                    icon: LocalImage('icon_share', package: Constant.baseLib, width: 20, height: 20),
+                    onPressed: _share,
+                  )
+                ],
+                centerTitle: true,
+                title: Text(S.of(context).treemap, style: TextStyles.textBlack16),
+              ),
+              body: ShotView(
+                  controller: _shotController,
+                  child: Column(
+                    children: [
+                      Expanded (
+                        child: Stack(
+                          children: [
+                            echart,
+                            (_treemapModel.isFirst || _treemapModel.isIdle) ? FirstRefresh() :
+                            (_treemapModel.isEmpty || _treemapModel.isError) ? LoadingEmpty() : Gaps.empty
+                          ])
                       ),
                       Gaps.vGap10,
                       Container(

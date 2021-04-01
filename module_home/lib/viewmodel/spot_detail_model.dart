@@ -21,6 +21,7 @@ class SpotDetailModel extends ViewStateModel {
 
   SpotKLineHandleModel spotKLineHandleModel;
   SpotHeaderModel spotHeaderModel;
+  SpotHeaderModel spotAppbarModel;
 
   QuoteCoin quoteCoin;
   QuoteCoin lastQuoteCoin;
@@ -37,6 +38,7 @@ class SpotDetailModel extends ViewStateModel {
 
     spotKLineHandleModel = SpotKLineHandleModel();
     spotHeaderModel = SpotHeaderModel();
+    spotAppbarModel = SpotHeaderModel();
 
     if (ObjectUtil.isNotEmpty(titles)) {
       titles.forEach((element) {
@@ -60,7 +62,7 @@ class SpotDetailModel extends ViewStateModel {
           quoteCoin.quote = quoteWs.quote;
           quoteCoin.change_percent = quoteWs.change_percent_24hr;
         }
-        
+
         if (lastQuoteCoin != null) {
           lastQuoteCoin.quote = quoteWs.quote;
           lastQuoteCoin.change_percent = quoteWs.change_percent_24hr;
@@ -69,6 +71,7 @@ class SpotDetailModel extends ViewStateModel {
         if (!_handleKLine) {
           quoteSlideController.number = NumUtil.formatNum(quoteWs.quote, point: 2);
           spotHeaderModel.notifyListeners();
+          spotAppbarModel.notifyListeners();
         }
       }
     });

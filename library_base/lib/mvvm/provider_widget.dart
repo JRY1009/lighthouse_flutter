@@ -69,7 +69,7 @@ class ProviderWidget2<A extends ChangeNotifier, B extends ChangeNotifier>
     @required this.model2,
     this.child,
     this.onModelReady,
-    this.autoDispose,
+    this.autoDispose: true,
   }) : super(key: key);
 
   _ProviderWidgetState2<A, B> createState() => _ProviderWidgetState2<A, B>();

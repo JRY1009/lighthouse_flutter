@@ -497,6 +497,9 @@ class DateUtil {
     return dateTime.year == locDateTime.year;
   }
 
+  static bool dayIsEqual(DateTime dateTime, DateTime locDateTime) {
+    return dateTime.year == locDateTime.year && dateTime.month == locDateTime.month && dateTime.day == locDateTime.day;
+  }
   /// is today.
   /// 是否是当天.
   static bool isToday(int milliseconds, {bool isUtc = false}) {

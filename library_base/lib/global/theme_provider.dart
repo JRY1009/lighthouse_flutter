@@ -37,6 +37,7 @@ class ThemeProvider extends ChangeNotifier {
 
   ThemeData getThemeData({bool isDarkMode = false}) {
     return ThemeData(
+      fontFamily: 'HYQiHei',
       brightness: isDarkMode ? Brightness.dark : Brightness.light,
       primaryColor: isDarkMode ? Colours.dark_app_main : Colours.app_main,
     );

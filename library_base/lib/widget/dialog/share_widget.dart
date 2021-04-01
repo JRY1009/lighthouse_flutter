@@ -130,9 +130,9 @@ class ShareNewsHeader extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Container(
-      height: 92,
+      height: 116,
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      padding: EdgeInsets.symmetric(horizontal: 21, vertical: 10),
       decoration: BoxDecoration(
         color: Colours.gray_100,
         image: DecorationImage(
@@ -142,28 +142,43 @@ class ShareNewsHeader extends StatelessWidget {
         //borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          LocalImage('logo', width: 48, height: 48, package: Constant.baseLib),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 5),
+            height: 53,
+            width: 53,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: Colours.white,
+              borderRadius: BorderRadius.all(Radius.circular(13.0)),
+              boxShadow: BoxShadows.normalBoxShadow,
+            ),
+            child: LocalImage('logo', width: 53, height: 53, package: Constant.baseLib),
+          ),
+          Gaps.hGap10,
+          Container(
             alignment: Alignment.centerLeft,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(S.of(context).appName,
-                  style: TextStyles.textGray800_w400_16,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                Container(
+                  height: 26,
+                  alignment: Alignment.bottomLeft,
+                  child: Text(S.of(context).appName + '·' + S.of(context).x724,
+                    style: TextStyles.textWhite20,
+                  ),
                 ),
-                Gaps.vGap5,
-                Text(S.of(context).info + '·' + S.of(context).x724,
-                  style: TextStyles.textGray400_w400_12,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
+                Container(
+                  height: 26,
+                  padding: EdgeInsets.only(left: 2),
+                  alignment: Alignment.centerLeft,
+                  child: Text(Apis.URL_DISPLAY_WEBSITE,
+                    style: TextStyles.textWhite12,
+                  ),
+                )
+
               ],
             ),
           )

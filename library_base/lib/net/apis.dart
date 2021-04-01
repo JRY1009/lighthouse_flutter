@@ -52,4 +52,5 @@ class Apis {
 
 
   static const String URL_OFFICIAL_WEBSITE = 'https://www.blockdt.com';
+  static const String URL_DISPLAY_WEBSITE = 'idengta.com';
 }

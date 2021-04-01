@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/res/colors.dart';
+import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/router/parameters.dart';
 import 'package:library_base/router/routers.dart';
+import 'package:library_base/utils/object_util.dart';
 import 'package:library_base/utils/time_count_util.dart';
 import 'package:library_base/widget/image/round_image.dart';
 import 'package:module_info/model/article.dart';
@@ -25,8 +28,10 @@ class ArticleItem extends StatelessWidget {
     return FlatButton(
       onPressed: () {
         Parameters params = Parameters()
-          ..putString('title', aritcle.title ?? '')
+          ..putString('title', S.of(context).infoDetail)
           ..putString('url', aritcle.url_app ?? '')
+          ..putString('title_share', aritcle.title ?? '')
+          ..putString('summary_share', aritcle.summary ?? '')
           ..putString('url_share', aritcle.url ?? '')
           ..putString('thumb_share', aritcle.snapshot_url ?? '');
 
@@ -34,66 +39,75 @@ class ArticleItem extends StatelessWidget {
       },
       padding: EdgeInsets.all(0.0),
       child: Container(
-        height: 100.0,
         width: double.infinity,
-        decoration: BoxDecoration(
-            border: Border(bottom: BorderSide(width: 0.6, color: Colours.default_line))
-        ),
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              flex: 1,
-              child: Container(
-                  padding: EdgeInsets.fromLTRB(17, 18, 10, 17),
-                  child: Column(
-                    children: <Widget>[
+        child: Container(
+            padding: EdgeInsets.fromLTRB(18, 18, 17, 12),
+            decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(width: 0.6, color: Colours.default_line))
+            ),
+            child: Column(
+              children: <Widget>[
+                Container(
+                    margin: EdgeInsets.only(top: 10),
+                    alignment: Alignment.centerLeft,
+                    child: Text(aritcle?.title ?? '',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
+                        style: TextStyles.textGray800_w400_17
+                    )
+                ),
+                Gaps.vGap12,
+                IntrinsicHeight(
+                  child: Row(
+                    children: [
+                      Container(color: Colours.gray_100, width: 3),
                       Expanded(
                         child: Container(
+                          margin: EdgeInsets.only(left: 10),
                           alignment: Alignment.topLeft,
-                          child: Text(aritcle?.title ?? '',
-                              maxLines: 2,
+                          child: Text(aritcle?.summary ?? '',
+                              maxLines: 3,
                               overflow: TextOverflow.ellipsis,
                               strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
-                              style: TextStyles.textGray800_w400_15
-                          ),
-                        ),
+                              style: TextStyles.textGray500_w400_15
+                          )),
                       ),
+                      ObjectUtil.isEmpty(aritcle?.snapshot_url) ? Gaps.empty :
                       Container(
-                        child: Row(
-                          children: [
-                            Icon(Icons.web, color: Colours.app_main, size: 16),
-                            Container(
-                              margin: EdgeInsets.only(left: 5),
-                              alignment: Alignment.centerLeft,
-                              child: Text(aritcle?.author, style: TextStyles.textGray400_w400_12),
-                            ),
-                            Expanded(
-                                child: Container(
-                                  margin: EdgeInsets.only(right: 5),
-                                  alignment: Alignment.centerRight,
-                                  child: Text(TimeCountUtil.formatStr(aritcle?.publish_time) ?? '',
-                                    style: TextStyles.textGray500_w400_12,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                )
-                            ),
-                          ],
+                        margin: EdgeInsets.only(left: 10),
+                        child: RoundImage(aritcle?.snapshot_url ?? '',
+                          width: 88,
+                          height: 66,
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
                         ),
                       ),
                     ],
-                  )),
-            ),
-            Container(
-              margin: EdgeInsets.only(right: 18),
-              child: RoundImage(aritcle?.snapshot_url ?? '',
-                width: 88,
-                height: 66,
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-              ),
-            ),
-          ],
-        ),
+                  ),
+                ),
+
+                Gaps.vGap12,
+                Container(
+                  child: Row(
+                    children: [
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child: Text(aritcle?.publisher, style: TextStyles.textGray400_w400_12),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: 10),
+                        alignment: Alignment.centerRight,
+                        child: Text(TimeCountUtil.formatStr(aritcle?.publish_time) ?? '',
+                          style: TextStyles.textGray400_w400_12,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            )),
       ),
     );
   }

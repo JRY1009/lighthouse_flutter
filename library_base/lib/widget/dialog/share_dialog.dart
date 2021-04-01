@@ -216,6 +216,7 @@ class ShareDialog extends StatelessWidget {
 
     return children == null ? bottom : CommonScrollView(
       padding: EdgeInsets.fromLTRB(20, 40, 20, 0),
+      borderRadius: BorderRadius.circular(12.0),
       shotController: _shotController,
       children: children,
       bottomButton: bottom,

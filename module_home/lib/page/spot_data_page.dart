@@ -5,6 +5,7 @@ import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:library_base/res/colors.dart';
+import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/router/routers.dart';
 import 'package:library_base/widget/common_scroll_view.dart';
@@ -78,33 +79,32 @@ class _SpotDataPageState extends State<SpotDataPage> with WidgetsBindingObserver
               GestureDetector(
                 onTap: () => Routers.navigateTo(context, Routers.treemapPage),
                 child: Container(
-                  margin: const EdgeInsets.fromLTRB(12, 9, 12, 9),
-                  decoration: BoxDecoration(
-                    color: Colours.white,
-                    borderRadius: BorderRadius.all(Radius.circular(14.0)),
-                    boxShadow: BoxShadows.normalBoxShadow,
-                  ),
                   child: Column(
                     children: [
                       Container(
                           margin: const EdgeInsets.fromLTRB(15, 18, 16, 9),
-                          height: 20,
+                          height: 24,
                           child: Row(
                             children: [
-                              Container(
-                                alignment: Alignment.centerLeft,
-                                child: Text(S.of(context).proAssetsCompare,
-                                  style: TextStyles.textGray800_w400_15,
+                              Expanded(
+                                child: Container(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(S.of(context).proAssetsCompare,
+                                    style: TextStyles.textGray800_w400_18,
+                                  ),
                                 ),
                               ),
-                              Expanded(
-                                child: Container(),
-                              ),
                               Container(
-                                alignment: Alignment.centerLeft,
-                                child: Text(S.of(context).all, style: TextStyles.textGray400_w400_12),
+                                  alignment: Alignment.bottomLeft,
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(S.of(context).all, style: TextStyles.textGray400_w400_12),
+                                      Gaps.hGap3,
+                                      Icon(Icons.keyboard_arrow_right, color: Colours.gray_400, size: 15),
+                                    ],
+                                  )
                               ),
-                              Icon(Icons.keyboard_arrow_right, color: Colours.gray_400, size: 16),
                             ],
                           )
                       ),

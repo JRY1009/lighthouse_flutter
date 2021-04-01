@@ -15,12 +15,15 @@ class Colours {
   static const Color toast_shadow_dark = Color(0x1028293D);
   static const Color toast_shadow_light = Color(0x20606170);
 
-  static const Color gray_100 = Color(0xffF3F6FF);
+  static const Color gray_50 = Color(0xffF0F4FA);
+  static const Color gray_100 = Color(0xffF4F5FB);
+  static const Color gray_150 = Color(0xffE8EFF7);
   static const Color gray_200 = Color(0xffD6DCE4);
   static const Color gray_300 = Color(0xffC0C9DF);
-  static const Color gray_350 = Color(0xff8598CD);
-  static const Color gray_400 = Color(0xff93A2B4);
-  static const Color gray_500 = Color(0xff72859D);
+  static const Color gray_350 = Color(0xffB2B9CD);
+  static const Color gray_400 = Color(0xff8797AB);
+  static const Color gray_500 = Color(0xff6C7F99);
+  static const Color gray_600 = Color(0xff677587);
   static const Color gray_800 = Color(0xff333A50);
 
   static const Color normal_border_shadow = Color(0x10001132);

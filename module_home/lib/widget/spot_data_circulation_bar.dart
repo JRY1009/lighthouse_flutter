@@ -51,12 +51,6 @@ class _SpotDataCirculationBarState extends State<SpotDataCirculationBar> {
     String rpStr = NumUtil.getNumByValueDouble(rp, 2).toString() + "%";
 
     return percent == 0 ? Gaps.empty: Container(
-        margin: EdgeInsets.symmetric(horizontal: 12 , vertical: 9),
-        decoration: BoxDecoration(
-          color: Colours.white,
-          borderRadius: BorderRadius.all(Radius.circular(14.0)),
-          boxShadow: BoxShadows.normalBoxShadow,
-        ),
         child: Column(
           children: [
 
@@ -64,7 +58,7 @@ class _SpotDataCirculationBarState extends State<SpotDataCirculationBar> {
               alignment: Alignment.topLeft,
               margin: const EdgeInsets.only(left: 15, top: 18),
               child: Text(S.of(context).proCirculationRatio,
-                style: TextStyles.textGray800_w400_15,
+                style: TextStyles.textGray800_w400_18,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),

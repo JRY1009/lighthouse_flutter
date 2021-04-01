@@ -24,6 +24,7 @@ class CommonScrollView extends StatelessWidget {
     this.keyboardConfig,
     this.tapOutsideToDismiss = false,
     this.overScroll = 16.0,
+    this.borderRadius,
     this.shotController
   }): super(key: key);
 
@@ -38,21 +39,30 @@ class CommonScrollView extends StatelessWidget {
   /// 默认弹起位置在TextField的文字下面，可以添加此属性继续向上滑动一段距离。用来露出完整的TextField。
   final double overScroll;
 
+  final BorderRadius borderRadius;
   final ShotController shotController;
 
   @override
   Widget build(BuildContext context) {
 
-    Widget contents = shotController != null ? ShotView(
-      controller: shotController,
-      child: Column(
-        crossAxisAlignment: crossAxisAlignment,
-        children: children,
-      ),
-    ): Column(
+    Widget contents = shotController != null ?
+    ShotView(
+        controller: shotController,
+        child: Column(
+          crossAxisAlignment: crossAxisAlignment,
+          children: children,
+        ),
+    ) : Column(
       crossAxisAlignment: crossAxisAlignment,
       children: children,
     );
+
+    if (borderRadius != null) {
+      contents = ClipRRect(
+          borderRadius: borderRadius,
+          child: contents
+      );
+    }
 
     if (DeviceUtil.isIOS && keyboardConfig != null) {
       /// iOS 键盘处理
@@ -128,7 +138,7 @@ class OverScrollBehavior extends ScrollBehavior{
           color: Theme.of(context).accentColor,
         );
     }
-    return null;
+    return child;
   }
 
 }

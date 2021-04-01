@@ -86,29 +86,22 @@ class _SpotDataAddressAssetsDistributionBarState extends State<SpotDataAddressAs
     String pair = widget.spotDataBasic != null ? widget.spotDataBasic.pair : '';
 
     return Container(
-        margin: EdgeInsets.symmetric(horizontal: 12 , vertical: 9),
-        decoration: BoxDecoration(
-          color: Colours.white,
-          borderRadius: BorderRadius.all(Radius.circular(14.0)),
-          boxShadow: BoxShadows.normalBoxShadow,
-        ),
         child: ShotView(
             controller: _shotController,
             child: Column(
               children: [
                 Container(
                     margin: const EdgeInsets.fromLTRB(15, 18, 16, 9),
-                    height: 20,
+                    height: 24,
                     child: Row(
                       children: [
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text(S.of(context).proAddressAssetsDistribution,
-                            style: TextStyles.textGray800_w400_15,
-                          ),
-                        ),
                         Expanded(
-                          child: Container(),
+                          child: Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text(S.of(context).proAddressAssetsDistribution,
+                              style: TextStyles.textGray800_w400_18,
+                            ),
+                          ),
                         ),
                         GestureDetector(
                             child: LocalImage('icon_share', package: Constant.baseLib, width: 20, height: 20),
@@ -129,34 +122,46 @@ class _SpotDataAddressAssetsDistributionBarState extends State<SpotDataAddressAs
                 ),
 
                 Container(
-                  margin: const EdgeInsets.only(left: 15, top: 18, right: 15, ),
-                  child: Row (
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  margin: const EdgeInsets.only(left: 15, top: 18, right: 15),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                      border: Border.all(width: 0.6, color: Colours.default_line)
+                  ),
+                  child: Column(
                     children: [
-                      Text(S.of(context).proAddressTotalAmount,
-                        style: TextStyles.textGray500_w400_12,
+                      Container(
+                        margin: const EdgeInsets.only(left: 13, top: 12, right: 13),
+                        child: Row (
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(S.of(context).proAddressTotalAmount,
+                              style: TextStyles.textGray500_w400_12,
+                            ),
+                            Text(S.of(context).proTotalVolum,
+                              style: TextStyles.textGray500_w400_12,
+                            ),
+                          ],
+                        ),
                       ),
-                      Text(S.of(context).proTotalVolum,
-                        style: TextStyles.textGray500_w400_12,
+
+                      Container(
+                        margin: const EdgeInsets.only(left: 15, top: 8, right: 15, bottom: 10),
+                        child: Row (
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(total_count.toString(),
+                              style: TextStyles.textGray800_w400_14,
+                            ),
+                            Text(turnover.toString() + pair,
+                              style: TextStyles.textGray800_w400_14,
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
                 ),
 
-                Container(
-                  margin: const EdgeInsets.only(left: 15, top: 8, right: 15, ),
-                  child: Row (
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(total_count.toString(),
-                        style: TextStyles.textGray800_w400_12,
-                      ),
-                      Text(turnover.toString() + pair,
-                        style: TextStyles.textGray800_w400_12,
-                      ),
-                    ],
-                  ),
-                ),
 
                 Container(
                   alignment: Alignment.center,
