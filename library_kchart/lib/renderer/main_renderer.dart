@@ -78,7 +78,7 @@ class MainRenderer extends BaseChartRenderer<CandleEntity> {
 
   Shader mLineFillShader;
   Path mLinePath, mLineFillPath;
-  final double mLineStrokeWidth = 1.5;
+  final double mLineStrokeWidth = 1.0;
   final Paint mLinePaint = Paint()
     ..isAntiAlias = true
     ..style = PaintingStyle.stroke

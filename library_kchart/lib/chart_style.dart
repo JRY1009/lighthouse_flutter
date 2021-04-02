@@ -8,7 +8,7 @@ class ChartColors {
   static const Color kLineColor = Color(0xff2872FC);
   static const Color pointBlinkColor = Color(0xffffffff);
   static const Color gridColor = Color(0xffE2ECFF);
-  static const Color crossLineColor = Color(0xffC9D5E9);
+  static const Color crossLineColor = Color(0xff333A50);
   static const Color crossLineTransColor = Color(0xffC9D5E9);
   static const List<Color> kLineShadowColor = [Color(0x302872FC), Color(0x002872FC)]; //k线阴影渐变
   static const Color ma5Color = Color(0xffC9B885);

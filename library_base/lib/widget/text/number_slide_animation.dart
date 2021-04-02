@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-///A controller for updating the single digit displayed by [DigitTicker]
+///A controller for updating the single digit displayed by [_DigitSlide]
 class _DigitSlideController extends ValueNotifier {
   String _number;
 
@@ -18,25 +18,19 @@ class _DigitSlideController extends ValueNotifier {
 
 ///A widget for displaying a single digit.
 class _DigitSlide extends StatelessWidget {
-  ///The color of background.
+
   final Color backgroundColor;
 
-  ///The curve of scrolling animation.
   final Curve curve;
 
-  ///The duration of animation.
   final Duration duration;
 
-  ///The initial number to be displayed.
   final String initialNumber;
 
-  ///The scrollController.
   ScrollController scrollController;
 
-  ///The textStyle of number displayed.
   final TextStyle textStyle;
 
-  ///The controller of this widget.
   final _DigitSlideController controller;
 
   _DigitSlide(
@@ -138,24 +132,13 @@ class NumberSlideController extends ValueNotifier {
   }
 }
 
-///A widget for displaying the realtime change of a number.
 class NumberSlide extends StatefulWidget {
-  ///The color of background.
+
   final Color backgroundColor;
-
-  ///The curve of scrolling animation.
   final Curve curve;
-
-  ///The initial number to be displayed, default is 0.
   final String initialNumber;
-
-  ///The duration of animation.
   final Duration duration;
-
-  ///The controller of this widget.
   final NumberSlideController controller;
-
-  ///The text style of the number.
   final TextStyle textStyle;
 
   NumberSlide(
@@ -176,25 +159,20 @@ class NumberSlide extends StatefulWidget {
   _NumberSlideState createState() => _NumberSlideState();
 }
 
-///The state of [NumberSlide].
 class _NumberSlideState extends State<NumberSlide>
     with SingleTickerProviderStateMixin {
-  ///The animation controller for animating the removed or added [DigitTicker].
+
   AnimationController animationController;
 
-  ///The string representation of the [currentNum].
   String currentNumString;
 
-  ///The indicator of whether the new number is longer or shorter than the current one.
   bool shorter = false, longer = false;
 
-  ///The list of [_DigitSlideController].
   List<_DigitSlideController> digitControllers = [];
 
   @override
   void initState() {
-    animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
 
     var numString = widget.initialNumber;
 

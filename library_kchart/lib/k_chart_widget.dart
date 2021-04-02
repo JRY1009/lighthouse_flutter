@@ -133,16 +133,16 @@ class _KChartWidgetState extends State<KChartWidget> with TickerProviderStateMix
       mScaleX = 1.0;
     }
     return GestureDetector(
-      onHorizontalDragDown: (details) {
+      onHorizontalDragDown: widget.isAutoScaled ? null : (details) {
         _stopAnimation();
         isDrag = true;
       },
-      onHorizontalDragUpdate: (details) {
+      onHorizontalDragUpdate: widget.isAutoScaled ? null : (details) {
         if (isScale || isLongPress) return;
         mScrollX = (details.primaryDelta / mScaleX + mScrollX).clamp(0.0, ChartPainter.maxScrollX);
         notifyChanged();
       },
-      onHorizontalDragEnd: (DragEndDetails details) {
+      onHorizontalDragEnd: widget.isAutoScaled ? null : (DragEndDetails details) {
         // isDrag = false;
         final Tolerance tolerance = Tolerance(
           velocity:
@@ -157,7 +157,7 @@ class _KChartWidgetState extends State<KChartWidget> with TickerProviderStateMix
         );
         _scrollXController.animateWith(simulation);
       },
-      onHorizontalDragCancel: () => isDrag = false,
+      onHorizontalDragCancel: widget.isAutoScaled ? null : () => isDrag = false,
       onScaleStart: (_) {
         isScale = true;
       },

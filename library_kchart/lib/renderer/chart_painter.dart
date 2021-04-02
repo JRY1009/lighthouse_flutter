@@ -89,7 +89,9 @@ class ChartPainter extends BaseChartPainter {
 
   @override
   void drawGrid(canvas) {
-    mMainRenderer?.drawGrid(canvas, gridRows, gridColumns, showRows: isAutoScaled == false, showColumns: isAutoScaled == false);
+    mMainRenderer?.drawGrid(canvas, gridRows, gridColumns,
+        showRows: outsink != null || isAutoScaled == false,
+        showColumns: isAutoScaled == false);
     mVolRenderer?.drawGrid(canvas, gridRows, gridColumns);
     mSecondaryRenderer?.drawGrid(canvas, gridRows, gridColumns);
   }
@@ -280,7 +282,7 @@ class ChartPainter extends BaseChartPainter {
         x = mWidth - 1 - textWidth / 2 - w1;
       }
 
-      dateTp.paint(canvas, Offset(x - textWidth / 2, outsink == null ? y + w2 : ChartStyle.topPadding - textHeight));
+      dateTp.paint(canvas, Offset(x - textWidth / 2, ChartStyle.topPadding - textHeight));
       //长按显示这条数据详情
       sink?.add(InfoWindowEntity(point, isLeft));
       outsink?.add(InfoWindowEntity(point, isLeft));
@@ -345,16 +347,27 @@ class ChartPainter extends BaseChartPainter {
     canvas.drawLine(
         Offset(x, ChartStyle.topPadding), Offset(x, size.height - ChartStyle.bottomDateHigh), paintY);
 
-    if (!isAutoScaled || outsink == null) {
-      Paint paintX = Paint()
-        ..color = ChartColors.crossLineColor
-        ..strokeWidth = ChartStyle.hCrossWidth
-        ..isAntiAlias = true;
-      // k线图横线
-      canvas.drawLine(Offset(-mTranslateX, y), Offset(-mTranslateX + mWidth / scaleX, y), paintX);
-//    canvas.drawCircle(Offset(x, y), 2.0, paintX);
-      canvas.drawOval(Rect.fromCenter(center: Offset(x, y), height: 2.0, width: 2.0), paintX);
+    Paint paintX = Paint()
+      ..color = ChartColors.crossLineColor
+      ..strokeWidth = ChartStyle.hCrossWidth
+      ..isAntiAlias = true;
+    // k线图横线
+    //canvas.drawLine(Offset(-mTranslateX, y), Offset(-mTranslateX + mWidth / scaleX, y), paintX);
+
+    // k线图横线虚线
+    var max = -mTranslateX + mWidth / scaleX;
+    var dashWidth = 5;
+    var dashSpace = 3;
+    double startX = -mTranslateX;
+    final space = (dashSpace + dashWidth);
+    while (startX < max) {
+      canvas.drawLine(Offset(startX, y), Offset(startX + dashWidth, y),
+          realTimePaint..color = ChartColors.realTimeLineColor);
+      startX += space;
     }
+
+//  canvas.drawCircle(Offset(x, y), 2.0, paintX);
+    canvas.drawOval(Rect.fromCenter(center: Offset(x, y), height: 2.0, width: 2.0), paintX);
   }
 
   final Paint realTimePaint = Paint()
