@@ -154,11 +154,13 @@ class _NewsListPageState extends State<NewsListPage> with BasePageMixin<NewsList
     DateTime dt = DateUtil.getDateTime(newsList.first.publish_time, isUtc: false);
     if (DateUtil.isToday(dt.millisecondsSinceEpoch)) {
       dateFormat = S.of(context).today;
-    } else if (DateUtil.isYesterdayByMillis(dt.millisecondsSinceEpoch, DateTime.now().microsecondsSinceEpoch)) {
+    } else if (DateUtil.isYesterdayByMillis(dt.millisecondsSinceEpoch, DateTime.now().millisecondsSinceEpoch)) {
       dateFormat = S.of(context).yesterday;
     } else {
       dateFormat = DateUtil.getDateStrByDateTime(dt, format: DateFormat.ZH_MONTH_DAY);
     }
+
+    dateFormat += '  ${DateUtil.getZHWeekDay(dt)}';
 
     return Container(
       height: 34.0,

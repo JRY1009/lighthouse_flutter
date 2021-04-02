@@ -8,8 +8,8 @@ class ChartColors {
   static const Color kLineColor = Color(0xff2872FC);
   static const Color pointBlinkColor = Color(0xffffffff);
   static const Color gridColor = Color(0xffE2ECFF);
-  static const Color crossLineColor = Color(0xff333A50);
-  static const Color crossLineTransColor = Color(0xffC9D5E9);
+  static const Color crossLineColor = Color(0xffA6B8D4);
+  static const Color crossLineTransColor = Color(0xffA6B8D4);
   static const List<Color> kLineShadowColor = [Color(0x302872FC), Color(0x002872FC)]; //k线阴影渐变
   static const Color ma5Color = Color(0xffC9B885);
   static const Color ma10Color = Color(0xff6CB0A6);
@@ -37,17 +37,17 @@ class ChartColors {
   static const Color depthSellColor = Color(0xffC15866);
 
   //选中后显示值边框颜色
-  static const Color markerBorderColor = Color(0xff6C7A86);
+  static const Color markerBorderColor = Color(0xFF308BE6);
 
   //选中后显示值背景的填充颜色
-  static const Color markerBgColor = Color(0xff6C7A86);
+  static const Color markerBgColor = Color(0xFF308BE6);
 
   //实时线颜色等
   static const Color realTimeBgColor = Color(0xff6C7A86);
   static const Color rightRealTimeTextColor = Color(0xffffffff);
   static const Color realTimeTextBorderColor = Color(0xffffffff);
-  static const Color realTimeTextColor = Color(0xffffffff);
-  static const Color realTextColor = Color(0xff8A99AA); //下方时间刻度
+  static const Color realTimeTextColor = Color(0xff8A99AA);
+  static const Color realTextColor = Color(0xffffffff); //下方时间刻度
 
   //实时线
   static const Color realTimeLineColor = Color(0xff6CB0A6);

@@ -149,7 +149,7 @@ class NewsItem extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyles.textGray500_w400_12
                             ),
-                            Text(news?.publisher ?? '',
+                            Text(/*news?.publisher ??*/ '',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyles.textGray500_w400_12

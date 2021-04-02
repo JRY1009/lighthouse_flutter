@@ -41,73 +41,61 @@ class ArticleItem extends StatelessWidget {
       child: Container(
         width: double.infinity,
         child: Container(
-            padding: EdgeInsets.fromLTRB(18, 18, 17, 12),
+            padding: EdgeInsets.fromLTRB(18, 18, 17, 18),
             decoration: BoxDecoration(
                 border: Border(bottom: BorderSide(width: 0.6, color: Colours.default_line))
             ),
-            child: Column(
-              children: <Widget>[
-                Container(
-                    margin: EdgeInsets.only(top: 10),
-                    alignment: Alignment.centerLeft,
-                    child: Text(aritcle?.title ?? '',
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
-                        style: TextStyles.textGray800_w400_17
-                    )
-                ),
-                Gaps.vGap12,
-                IntrinsicHeight(
-                  child: Row(
-                    children: [
-                      Container(color: Colours.gray_100, width: 3),
-                      Expanded(
-                        child: Container(
-                          margin: EdgeInsets.only(left: 10),
-                          alignment: Alignment.topLeft,
-                          child: Text(aritcle?.summary ?? '',
-                              maxLines: 3,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                          margin: EdgeInsets.only(top: 4),
+                          alignment: Alignment.centerLeft,
+                          child: Text(aritcle?.title ?? '',
+                              maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
-                              style: TextStyles.textGray500_w400_15
-                          )),
+                              style: TextStyles.textGray800_w400_17
+                          )
                       ),
-                      ObjectUtil.isEmpty(aritcle?.snapshot_url) ? Gaps.empty :
+                      Gaps.vGap12,
                       Container(
-                        margin: EdgeInsets.only(left: 10),
-                        child: RoundImage(aritcle?.snapshot_url ?? '',
-                          width: 88,
-                          height: 66,
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                        child: Row(
+                          children: [
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: Text(aritcle?.publisher, style: TextStyles.textGray400_w400_12),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(left: 10),
+                              alignment: Alignment.centerRight,
+                              child: Text(TimeCountUtil.formatStr(aritcle?.publish_time) ?? '',
+                                style: TextStyles.textGray400_w400_12,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            )
+                          ],
                         ),
                       ),
                     ],
-                  ),
+                  )
                 ),
-
-                Gaps.vGap12,
+                ObjectUtil.isEmpty(aritcle?.snapshot_url) ? Gaps.empty :
                 Container(
-                  child: Row(
-                    children: [
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        child: Text(aritcle?.publisher, style: TextStyles.textGray400_w400_12),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(left: 10),
-                        alignment: Alignment.centerRight,
-                        child: Text(TimeCountUtil.formatStr(aritcle?.publish_time) ?? '',
-                          style: TextStyles.textGray400_w400_12,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      )
-                    ],
+                  margin: EdgeInsets.only(left: 10),
+                  child: RoundImage(aritcle?.snapshot_url ?? '',
+                    width: 105,
+                    height: 80,
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
                   ),
                 ),
               ],
-            )),
+            ),
+
+            ),
       ),
     );
   }
