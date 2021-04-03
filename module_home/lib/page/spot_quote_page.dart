@@ -16,7 +16,6 @@ import 'package:library_base/widget/shot_view.dart';
 import 'package:module_home/item/spot_exchange_quote_item.dart';
 import 'package:module_home/model/spot_exchange_quote.dart';
 import 'package:module_home/viewmodel/spot_quote_model.dart';
-import 'package:sticky_headers/sticky_headers.dart';
 
 class SpotQuotePage extends StatefulWidget {
 
@@ -80,6 +79,9 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
     return ProviderWidget<SpotQuoteModel>(
         model: _quoteModel,
         builder: (context, model, child) {
+
+          List<SpotExchangeQuote> sortedList = _quoteModel.getSortedList();
+
           return model.isFirst ? FirstRefreshTop() :
           CommonScrollView(
               shotController: _shotController,
@@ -88,23 +90,28 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
                 Container(
                   child: Column(
                       children: [
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          width: double.infinity,
+                          color: Colours.white,
+                          height: 55.0,
+                          child: _buildHeader(),
+                        ),
                         ListView.builder(
                           shrinkWrap: true,
                           primary: false, //不滚动
-                          padding: EdgeInsets.all(0.0),
-                          itemBuilder: (context, index) {
-                            return StickyHeader(
-                              header: Container(
-                                alignment: Alignment.centerLeft,
-                                width: double.infinity,
-                                color: Colours.white,
-                                height: 55.0,
-                                child: _buildHeader(),
-                              ),
-                              content: _buildItem(),
+                          padding: const EdgeInsets.only(left: 15, right: 15),
+                          itemBuilder: (context, i) {
+                            return SpotExchangeQuoteItem(
+                              index: i,
+                              tradePlatform: sortedList[i].name,
+                              price: sortedList[i].quote,
+                              rate: sortedList[i].change_percent,
+                              cny: sortedList[i].cny,
+                              ico: sortedList[i].ico,
                             );
                           },
-                          itemCount: 1,
+                          itemCount: sortedList.length,
                         )]
                   ),
                 ),
@@ -271,30 +278,4 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
     );
   }
 
-  Widget _buildItem() {
-    List<SpotExchangeQuote> sortedList = _quoteModel.getSortedList();
-    
-    final list = List.generate(sortedList.length, (i) {
-      return SpotExchangeQuoteItem(
-        index: i,
-        tradePlatform: sortedList[i].name,
-        price: sortedList[i].quote,
-        rate: sortedList[i].change_percent,
-        cny: sortedList[i].cny,
-        ico: sortedList[i].ico,
-      );
-    });
-    return Container(
-        width: double.infinity,
-        margin: const EdgeInsets.only(bottom: 9),
-        padding: const EdgeInsets.only(left: 15, right: 15),
-        decoration: BoxDecoration(
-          color: Colours.white,
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(0.0)),
-        ),
-        child: Column(
-            children: list
-        )
-    );
-  }
 }

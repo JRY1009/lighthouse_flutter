@@ -41,11 +41,8 @@ class TimeCountUtil {
     if (delta < 24 * ONE_HOUR) {
       int hours = toHours(delta);
       return (hours <= 0 ? 1 : hours).toString() + ONE_HOUR_AGO;
-    }
-    if (delta < 48 * ONE_HOUR) {
-      return "昨天";
     } else {
-      return DateUtil.getDateStrByDateTime(date);
+      return DateUtil.getDateStrByDateTime(date, format: DateFormat.MONTH_DAY_HOUR_MINUTE);
     }
 //        if (delta < 30L * ONE_DAY) {
 //            long days = toDays(delta);

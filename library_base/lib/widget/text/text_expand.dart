@@ -64,6 +64,8 @@ class TextExpand extends StatefulWidget {
 
   final StrutStyle strutStyle;
 
+  final bool isEnableTextClick;
+
   const TextExpand({
     Key key,
     this.text = '',
@@ -78,7 +80,8 @@ class TextExpand extends StatefulWidget {
     this.isAlwaysDisplay = false,
     this.expandIcon,
     this.shrinkIcon,
-    this.strutStyle
+    this.strutStyle,
+    this.isEnableTextClick = false
   }) : super(key: key);
 
   @override
@@ -314,6 +317,7 @@ class _TextExpandState extends State<TextExpand> {
         Text.rich(
           TextSpan(
             text: _showText,
+            recognizer: widget.isEnableTextClick ? (TapGestureRecognizer()..onTap = _tapRecognizer) : null,
             children: [
               if (_isOver || widget.isAlwaysDisplay) _trailingBtn(),
             ],

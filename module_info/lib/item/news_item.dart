@@ -15,6 +15,7 @@ import 'package:library_base/widget/dash_line.dart';
 import 'package:library_base/widget/dialog/dialog_util.dart';
 import 'package:library_base/widget/dialog/share_widget.dart';
 import 'package:library_base/widget/image/local_image.dart';
+import 'package:library_base/widget/text/text_expand.dart';
 import 'package:module_info/model/news.dart';
 
 class NewsItem extends StatelessWidget {
@@ -89,8 +90,9 @@ class NewsItem extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: () {
+        return;
         Parameters params = Parameters()
           ..putString('title', S.of(context).infoDetail)
           ..putString('url', news.url_app ?? '')
@@ -172,20 +174,21 @@ class NewsItem extends StatelessWidget {
                       Container(
                           margin: EdgeInsets.only(top: 10),
                           alignment: Alignment.centerLeft,
-                          child: Text(news?.summary ?? '',
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                              strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
-                              style: TextStyles.textGray800_w400_15
-                          )
+                          child: TextExpand(
+                              text: news?.summary ?? '',
+                              minLines: 4,
+                              isEnableTextClick: true,
+                              textStyle: TextStyles.textGray800_w400_15,
+                              strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5)
+                          ),
                       ),
 
-                      InkWell(
-                        onTap: () => _share(context),
-                        child: Container(
-                          height: 20,
-                          margin: EdgeInsets.only(top: 10),
-                          alignment: Alignment.centerRight,
+                      Container(
+                        height: 20,
+                        margin: EdgeInsets.only(top: 10),
+                        alignment: Alignment.centerRight,
+                        child: InkWell(
+                          onTap: () => _share(context),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -202,7 +205,7 @@ class NewsItem extends StatelessWidget {
                               )
                             ],
                           ),
-                        )
+                        ),
                       )
                       
                     ],

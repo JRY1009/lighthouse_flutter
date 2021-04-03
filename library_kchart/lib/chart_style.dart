@@ -50,7 +50,7 @@ class ChartColors {
   static const Color realTextColor = Color(0xffffffff); //下方时间刻度
 
   //实时线
-  static const Color realTimeLineColor = Color(0xff6CB0A6);
+  static const Color realTimeLineColor = Color(0xff333A50);
   static const Color realTimeLongLineColor = Color(0xff4C86CD);
 
   static const Color simpleLineUpColor = Color(0xff6CB0A6);

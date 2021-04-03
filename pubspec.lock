@@ -242,6 +242,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "5.0.0"
+  flutter_sticky_header:
+    dependency: transitive
+    description:
+      name: flutter_sticky_header
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.5.0"
   flutter_swiper:
     dependency: transitive
     description:
@@ -684,13 +691,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.10.0"
-  sticky_headers:
-    dependency: transitive
-    description:
-      name: sticky_headers
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.2.0"
   stream_channel:
     dependency: transitive
     description:
@@ -803,6 +803,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.2.2"
+  value_layout_builder:
+    dependency: transitive
+    description:
+      name: value_layout_builder
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.2.0"
   vector_math:
     dependency: transitive
     description:

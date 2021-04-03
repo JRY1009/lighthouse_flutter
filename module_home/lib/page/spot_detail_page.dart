@@ -23,7 +23,6 @@ import 'package:library_base/widget/nestedscroll/nested_refresh_indicator.dart';
 import 'package:library_base/widget/nestedscroll/nested_scroll_view_inner_scroll_position_key_widget.dart' as extended;
 import 'package:library_base/widget/nestedscroll/old_extended_nested_scroll_view.dart' as extended;
 import 'package:library_base/widget/shot_view.dart';
-import 'package:library_base/widget/tab/bubble_indicator.dart';
 import 'package:library_base/widget/tab/round_indicator.dart';
 import 'package:module_home/page/spot_brief_page.dart';
 import 'package:module_home/page/spot_data_page.dart';

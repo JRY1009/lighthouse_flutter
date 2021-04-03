@@ -54,13 +54,10 @@ class SpotBriefItem extends StatelessWidget {
               child: TextExpand(
                 text: subTitle ?? '',
                 minLines: 4,
+                isEnableTextClick: true,
                 textStyle: TextStyles.textGray400_w400_14,
                 strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5)
               )
-//              Text(subTitle ?? '',
-//                style: TextStyles.textGray400_w400_14,
-//                strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
-//              ),
             )
           ],
         )
