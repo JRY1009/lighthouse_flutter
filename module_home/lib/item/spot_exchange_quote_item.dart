@@ -15,11 +15,11 @@ class SpotExchangeQuoteItem extends StatelessWidget {
 
   final String tradePlatform;
 
-  final double price;
+  final num price;
 
-  final double cny;
+  final num cny;
 
-  final double rate;
+  final num rate;
 
 
   const SpotExchangeQuoteItem(
@@ -36,7 +36,7 @@ class SpotExchangeQuoteItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate, 2).toString() + '%';
+    String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate.toDouble(), 2).toString() + '%';
 
     String priceStr = NumUtil.formatNum(price, point: 2);
     String cnyStr = NumUtil.formatNum(cny, point: 2);

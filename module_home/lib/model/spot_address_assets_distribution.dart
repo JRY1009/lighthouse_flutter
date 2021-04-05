@@ -5,7 +5,7 @@ import 'package:library_base/utils/object_util.dart';
 class SpotAddressAssetsDistribution {
 
   String range;
-  int address_count;
+  num address_count;
   String compare_yesterday_ratio ;
 
   Color getColor(int index) {
@@ -34,9 +34,9 @@ class SpotAddressAssetsDistribution {
   });
 
   SpotAddressAssetsDistribution.fromJson(Map<String, dynamic> jsonMap) {
-    range = jsonMap['range'];
-    address_count = jsonMap['address_count'];
-    compare_yesterday_ratio = jsonMap['compare_yesterday_ratio'];
+    range = jsonMap['range'] ?? '';
+    address_count = jsonMap['address_count'] ?? 0;
+    compare_yesterday_ratio = jsonMap['compare_yesterday_ratio'] ?? '';
   }
 
   Map<String, dynamic> toJson() {

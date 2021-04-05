@@ -49,10 +49,10 @@ class _KLineChartState extends State<KLineChart> {
       length = widget.quoteList.length;
       for (int i=0; i<length; i++) {
         KLineEntity entity = KLineEntity(
-          open: widget.quoteList[i].quote,
-          close: widget.quoteList[i].quote,
-          high: widget.quoteList[i].quote,
-          low: widget.quoteList[i].quote,
+          open: widget.quoteList[i].quote.toDouble(),
+          close: widget.quoteList[i].quote.toDouble(),
+          high: widget.quoteList[i].quote.toDouble(),
+          low: widget.quoteList[i].quote.toDouble(),
           vol: 0,
           amount: 0,
           count: 0,

@@ -6,7 +6,7 @@ class TreeNode {
   String code;
   String zh_name;
   int market_val;    //市值
-  double change_percent;//涨幅
+  num change_percent;//涨幅
 
   int get color_index => _getColorIndex();
 
@@ -47,7 +47,7 @@ class TreeNode {
     jsonMap['code'] = this.code;
     jsonMap['zh_name'] = this.zh_name;
     jsonMap['market_val'] = this.market_val;
-    jsonMap['change_percent'] = this.change_percent;
+    jsonMap['change_percent'] = this.change_percent ?? 0;
 
     return jsonMap;
   }

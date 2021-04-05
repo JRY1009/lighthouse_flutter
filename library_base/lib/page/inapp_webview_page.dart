@@ -3,6 +3,7 @@ import 'dart:core';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:fluwx/fluwx.dart';
 import 'package:library_base/constant/constant.dart';
@@ -69,6 +70,24 @@ class _InappWebviewPageState extends State<InappWebviewPage> {
     );
   }
 
+  String getFontUri(ByteData data, String mime) {
+    final buffer = data.buffer;
+    return Uri.dataFromBytes(
+        buffer.asUint8List(data.offsetInBytes, data.lengthInBytes),
+        mimeType: mime)
+        .toString();
+  }
+
+  void init() async {
+
+    final fontData = await rootBundle.load('assets/fonts/HYQiHei-55S.otf');
+    final fontUri = getFontUri(fontData, 'font/opentype').toString();
+    final fontCss =
+        '@font-face { font-family: customFont; src: url($fontUri); } * { font-family: customFont; }';
+
+    await webviewController?.injectCSSCode(source: fontCss);
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -112,7 +131,7 @@ class _InappWebviewPageState extends State<InappWebviewPage> {
                             javaScriptEnabled: true,
                             incognito: true,
                             mediaPlaybackRequiresUserGesture: false,
-                            clearCache: true,
+                            clearCache: false,
                             javaScriptCanOpenWindowsAutomatically: false,
                           ),
                           android: AndroidInAppWebViewOptions(
@@ -137,8 +156,12 @@ class _InappWebviewPageState extends State<InappWebviewPage> {
                         onLoadStop: (InAppWebViewController controller, String url) async {
                           loaded = true;
                           if (DeviceUtil.isAndroid) {
-                            setState(() { _opacity = 1.0; });
+                            _opacity = 1.0;;
                           }
+
+                          setState(() { _opacity = 1.0; });
+
+                          //init();
                         },
                         gestureRecognizers: widget.captureAllGestures
                             ? (Set()

@@ -5,12 +5,12 @@ import 'package:module_home/model/quote.dart';
 class QuotePair {
   String pair;
   String coin_code;
-  double market_val;
-  double change_percent;
-  double change_amount;
-  double quote;
-  double vol_24h;
-  double amount_24h;
+  num market_val;
+  num change_percent;
+  num change_amount;
+  num quote;
+  num vol_24h;
+  num amount_24h;
   String hashrate;
   List<Quote> quote_24h;
 
@@ -25,8 +25,8 @@ class QuotePair {
   });
 
   QuotePair.fromJson(Map<String, dynamic> jsonMap) {
-    pair = jsonMap['pair'];
-    coin_code = jsonMap['coin_code'];
+    pair = jsonMap['pair'] ?? '';
+    coin_code = jsonMap['coin_code'] ?? '';
     market_val = jsonMap['market_val'] ?? 0;
     change_percent = jsonMap['change_percent'] ?? 0;
     change_amount = jsonMap['change_amount'] ?? 0;

@@ -103,14 +103,13 @@ class _MileStoneListPageState extends State<MileStoneListPage> with BasePageMixi
           Widget refreshWidget = widget.isSupportPull ? FirstRefresh() : FirstRefreshTop();
           Widget emptyWidget = widget.isSupportPull ? LoadingEmpty() : LoadingEmptyTop();
 
-          return model.isFirst ? refreshWidget : model.isEmpty ? emptyWidget :
-          SmartRefresher(
+          return SmartRefresher(
               controller: _easyController,
               enablePullDown: widget.isSupportPull,
               enablePullUp: !model.noMore,
               onRefresh: widget.isSupportPull ? model.refresh : null,
               onLoading: model.noMore ? null : model.loadMore,
-              child: CustomScrollView(
+              child: model.isFirst ? refreshWidget : model.isEmpty ? emptyWidget : CustomScrollView(
                 slivers: [
                   SliverList(
                     delegate: SliverChildBuilderDelegate((context, index) {

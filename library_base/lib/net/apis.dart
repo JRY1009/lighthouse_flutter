@@ -1,8 +1,8 @@
 class Apis {
 
-  static const String ERRNO = 'errno';
+  static const String ERRNO = 'err_code';
   static const String MESSAGE = 'msg';
-  static const String ERRNO_OK = "10000";
+  static const String ERRNO_OK = "0";
   static const String ERRNO_DIO_ERROR = "DIOERROR";
   static const String ERRNO_UNKNOWN = "UNKNOWN";
   static const String ERRNO_UNKNOWN_MESSAGE = "UNKNOWN MESSAGE";

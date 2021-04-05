@@ -14,9 +14,9 @@ class FriendLink {
   });
 
   FriendLink.fromJson(Map<String, dynamic> jsonMap) {
-    name = jsonMap['name'];
-    url = jsonMap['url'];
-    ico = jsonMap['ico'];
+    name = jsonMap['name'] ?? '';
+    url = jsonMap['url'] ?? '';
+    ico = jsonMap['ico'] ?? '';
   }
 
   Map<String, dynamic> toJson() {

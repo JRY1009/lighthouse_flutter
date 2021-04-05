@@ -2,12 +2,12 @@
 class QuoteCoin {
   String coin_code;
   String pair;
-  double change_percent;
-  double change_amount;
-  double quote;
-  double vol_24h;
-  double amount_24h;
-  double cny;
+  num change_percent;
+  num change_amount;
+  num quote;
+  num vol_24h;
+  num amount_24h;
+  num cny;
 
   QuoteCoin({
     this.coin_code,
@@ -21,7 +21,7 @@ class QuoteCoin {
   });
 
   QuoteCoin.fromJson(Map<String, dynamic> jsonMap) {
-    coin_code = jsonMap['coin_code'];
+    coin_code = jsonMap['coin_code'] ?? '';
     pair = jsonMap['pair'] ?? '';
     change_percent = jsonMap['change_percent'] ?? 0;
     change_amount = jsonMap['change_amount'] ?? 0;

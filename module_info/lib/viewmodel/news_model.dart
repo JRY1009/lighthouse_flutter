@@ -38,7 +38,7 @@ class NewsModel extends ViewStateModel {
   Future getNews(int page, int pageSize) {
     Map<String, dynamic> params = {
       'tag': tag,
-      'start': page,
+      'start': page * pageSize,
       'count': pageSize,
     };
 
@@ -71,6 +71,7 @@ class NewsModel extends ViewStateModel {
   }
 
   void generateList() {
+    newsList = newsList.toSet().toList();
     newsList.sort((a, b) {
       DateTime aD = DateUtil.getDateTime(a.publish_time);
       DateTime bD = DateUtil.getDateTime(b.publish_time);
@@ -79,6 +80,7 @@ class NewsModel extends ViewStateModel {
 
     int length = newsList.length;
     if (length > 0) {
+
 
       dateNewsList.clear();
       dateNewsList.add([]);

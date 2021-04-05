@@ -58,9 +58,10 @@ class WebSocketUtil {
 
   WebSocketChannel _channel; // WebSocket
   bool _isConnect = false;
+  bool _handleClose = false;
 
   num _heartTimes = 10000; // 心跳间隔(毫秒)
-  num _rcMaxCount = 60; // 重连次数，默认60次
+  num _rcMaxCount = 600; // 重连次数，默认60次
   num _rcTimes = 0; // 重连计数器
   Timer _rcTimer; // 重连定时器
 
@@ -82,7 +83,9 @@ class WebSocketUtil {
   /// 开启WebSocket连接
   void openSocket() {
 
+    _handleClose = false;
     closed();
+
     if (DeviceUtil.isWeb) {
       _channel = WebSocketChannel.connect(Uri.parse(Apis.WEB_SOCKET_URL));
     } else {
@@ -118,8 +121,10 @@ class WebSocketUtil {
   }
 
   _onDone() {
-    LogUtil.v('websocket done isconnect: $_isConnect', tag: _TAG);
-    reconnect();
+    LogUtil.v('websocket done isconnect: $_isConnect _handleClose: $_handleClose', tag: _TAG);
+    if (!_handleClose) {
+      reconnect();
+    }
   }
 
   /// WebSocket连接错误回调
@@ -129,6 +134,11 @@ class WebSocketUtil {
     if (errorCallback != null) {
       errorCallback(e);
     }
+    closed();
+  }
+
+  void closeSocket() {
+    _handleClose = true;
     closed();
   }
 

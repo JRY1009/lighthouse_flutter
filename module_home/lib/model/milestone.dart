@@ -12,8 +12,8 @@ class MileStone {
   });
 
   MileStone.fromJson(Map<String, dynamic> jsonMap) {
-    content = jsonMap['content'];
-    date = jsonMap['date'];
+    content = jsonMap['content'] ?? '';
+    date = jsonMap['date'] ?? '';
   }
 
   Map<String, dynamic> toJson() {

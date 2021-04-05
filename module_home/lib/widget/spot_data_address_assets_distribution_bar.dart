@@ -76,12 +76,12 @@ class _SpotDataAddressAssetsDistributionBarState extends State<SpotDataAddressAs
   @override
   Widget build(BuildContext context) {
 
-    int total_count = 0;
+    num total_count = 0;
     for (int i=0; i<widget.dataList.length; i++) {
       total_count += widget.dataList[i].address_count;
     }
 
-    int turnover = widget.spotDataBasic != null ? widget.spotDataBasic.turnover : 0;
+    num turnover = widget.spotDataBasic != null ? widget.spotDataBasic.turnover : 0;
     String update_time = widget.spotDataBasic != null ? widget.spotDataBasic.update_time : '';
     String pair = widget.spotDataBasic != null ? widget.spotDataBasic.pair : '';
 

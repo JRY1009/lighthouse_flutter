@@ -113,9 +113,7 @@ class _ArticleListPageState extends State<ArticleListPage> with BasePageMixin<Ar
           Widget refreshWidget = widget.isSupportPull ? FirstRefresh() : FirstRefreshTop();
           Widget emptyWidget = widget.isSupportPull ? LoadingEmpty() : LoadingEmptyTop();
 
-          return model.isFirst ? refreshWidget : model.isEmpty ? emptyWidget :
-
-          ScrollConfiguration(
+          return ScrollConfiguration(
             behavior: OverScrollBehavior(),
             child: SmartRefresher(
                 controller: _easyController,
@@ -123,7 +121,7 @@ class _ArticleListPageState extends State<ArticleListPage> with BasePageMixin<Ar
                 enablePullUp: !model.noMore,
                 onRefresh: widget.isSupportPull ? model.refresh : null,
                 onLoading: model.noMore ? null : model.loadMore,
-                child: CustomScrollView(
+                child: model.isFirst ? refreshWidget : model.isEmpty ? emptyWidget : CustomScrollView(
                   slivers: [
                     SliverList(
                       delegate: SliverChildBuilderDelegate((context, index) {

@@ -4,11 +4,11 @@ import 'package:library_base/utils/object_util.dart';
 class GlobalQuote {
   String code;
   String zh_name;
-  double quote ;
-  double change_amount;
-  double change_percent;
-  double posX;
-  double posY;
+  num quote ;
+  num change_amount;
+  num change_percent;
+  num posX;
+  num posY;
 
   GlobalQuote({
     this.code,

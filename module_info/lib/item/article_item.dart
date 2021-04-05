@@ -29,7 +29,7 @@ class ArticleItem extends StatelessWidget {
       onPressed: () {
         Parameters params = Parameters()
           ..putString('title', S.of(context).infoDetail)
-          ..putString('url', aritcle.url_app ?? '')
+          ..putString('url', aritcle.url_app ?? 'http://8.131.70.73/bdt/article/')
           ..putString('title_share', aritcle.title ?? '')
           ..putString('summary_share', aritcle.summary ?? '')
           ..putString('url_share', aritcle.url ?? '')

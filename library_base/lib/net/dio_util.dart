@@ -151,24 +151,20 @@ class DioUtil {
       cancelToken: cancelToken,
 
     ).then<void>((BaseEntity<T> result) {
-      if (onSuccess != null) {
-        onSuccess(result.data);
-      }
+      if (result.errno == Apis.ERRNO_OK) {
+        if (onSuccess != null) {
+          onSuccess(result.data);
+        }
+      } else {
+        if (result.errno == Apis.ERRNO_FORBIDDEN) {
+          ToastUtil.error(result.msg);
+          RTAccount.instance().logout();
+        }
 
-//      if (result.errno == Apis.ERRNO_OK) {
-//        if (onSuccess != null) {
-//          onSuccess(result.data);
-//        }
-//      } else {
-//        if (result.errno == Apis.ERRNO_FORBIDDEN) {
-//          ToastUtil.error(result.msg);
-//          RTAccount.instance().logout();
-//        }
-//
-//        if (onError != null) {
-//          onError(result.errno, result.msg);
-//        }
-//      }
+        if (onError != null) {
+          onError(result.errno, result.msg);
+        }
+      }
     });
   }
 

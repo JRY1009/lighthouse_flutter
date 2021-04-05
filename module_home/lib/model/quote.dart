@@ -7,7 +7,7 @@ class Quote {
   int hour;
   int minute;
   int second;
-  double quote;
+  num quote;
   String date;
 
   int _id = 0;
@@ -52,8 +52,8 @@ class Quote {
     hour = jsonMap['hour'] ?? 0;
     minute = jsonMap['minute'] ?? 0;
     second = jsonMap['second'] ?? 0;
-    quote = jsonMap['quote'];
-    date = jsonMap['date'];
+    quote = jsonMap['quote'] ?? 0;
+    date = jsonMap['date'] ?? '';
   }
 
   Map<String, dynamic> toJson() {

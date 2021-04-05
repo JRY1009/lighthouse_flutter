@@ -60,12 +60,14 @@ class SpotDetailModel extends ViewStateModel {
 
         if (!_handleKLine) {
           quoteCoin.quote = quoteWs.quote;
-          quoteCoin.change_percent = quoteWs.change_percent_24hr;
+          quoteCoin.change_amount = quoteWs.change_amount;
+          quoteCoin.change_percent = quoteWs.change_percent;
         }
 
         if (lastQuoteCoin != null) {
           lastQuoteCoin.quote = quoteWs.quote;
-          lastQuoteCoin.change_percent = quoteWs.change_percent_24hr;
+          lastQuoteCoin.change_amount = quoteWs.change_amount;
+          lastQuoteCoin.change_percent = quoteWs.change_percent;
         }
 
         if (!_handleKLine) {
@@ -86,6 +88,7 @@ class SpotDetailModel extends ViewStateModel {
       _handleKLine = false;
       if (lastQuoteCoin != null) {
         quoteCoin.quote = lastQuoteCoin.quote;
+        quoteCoin.change_amount = lastQuoteCoin.change_amount;
         quoteCoin.change_percent = lastQuoteCoin.change_percent;
       }
     } else {

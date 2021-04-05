@@ -46,7 +46,7 @@ class SpotDetailPage extends StatefulWidget {
   _SpotDetailPageState createState() => _SpotDetailPageState();
 }
 
-class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObserver, BasePageMixin<SpotDetailPage>, SingleTickerProviderStateMixin {
+class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<SpotDetailPage>, SingleTickerProviderStateMixin {
 
   SpotDetailModel _spotDetailModel;
 
@@ -67,7 +67,6 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addObserver(this);
     _tabController = TabController(length: 4, vsync: this);
 
     initViewModel();
@@ -78,7 +77,6 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
     super.dispose();
 
     _tabController.dispose();
-    WidgetsBinding.instance.removeObserver(this);
   }
 
   void initViewModel() {
@@ -86,19 +84,6 @@ class _SpotDetailPageState extends State<SpotDetailPage> with WidgetsBindingObse
     _spotDetailModel = SpotDetailModel(_tabTitles);
     _spotDetailModel.listenEvent();
     _spotDetailModel.getSpotDetail(widget.coinCode);
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      LogUtil.v('SpotDetailPage: resumed', tag: 'SpotDetailPage');
-    } else if (state == AppLifecycleState.paused) {
-      LogUtil.v('SpotDetailPage: paused', tag: 'SpotDetailPage');
-    } else if (state == AppLifecycleState.inactive) {
-      LogUtil.v('SpotDetailPage: inactive', tag: 'SpotDetailPage');
-    } else if (state == AppLifecycleState.detached) {
-      LogUtil.v('SpotDetailPage: detached', tag: 'SpotDetailPage');
-    }
   }
 
   @override

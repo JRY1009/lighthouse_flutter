@@ -36,11 +36,13 @@ class GlobalQuoteModel extends ViewStateModel {
 
       if (quoteWs.coin_code == 'btc' && btcUsdPair != null) {
         btcUsdPair.quote = quoteWs.quote;
-        btcUsdPair.change_percent = quoteWs.change_percent_24hr;
+        btcUsdPair.change_amount = quoteWs.change_amount;
+        btcUsdPair.change_percent = quoteWs.change_percent;
 
       } else if (quoteWs.coin_code == 'eth' && ethUsdPair != null) {
         ethUsdPair.quote = quoteWs.quote;
-        ethUsdPair.change_percent = quoteWs.change_percent_24hr;
+        ethUsdPair.change_amount = quoteWs.change_amount;
+        ethUsdPair.change_percent = quoteWs.change_percent;
       }
 
       notifyListeners();

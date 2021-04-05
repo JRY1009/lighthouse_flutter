@@ -37,6 +37,8 @@ PODS:
     - Flutter
     - UMengAnalytics-NO-IDFA
   - UMengAnalytics-NO-IDFA (4.2.5)
+  - uni_links (0.0.1):
+    - Flutter
   - url_launcher (0.0.1):
     - Flutter
   - webview_flutter (0.0.1):
@@ -58,6 +60,7 @@ DEPENDENCIES:
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - umeng_analytics_plugin (from `.symlinks/plugins/umeng_analytics_plugin/ios`)
+  - uni_links (from `.symlinks/plugins/uni_links/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
   - webview_flutter (from `.symlinks/plugins/webview_flutter/ios`)
 
@@ -98,6 +101,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/sqflite/ios"
   umeng_analytics_plugin:
     :path: ".symlinks/plugins/umeng_analytics_plugin/ios"
+  uni_links:
+    :path: ".symlinks/plugins/uni_links/ios"
   url_launcher:
     :path: ".symlinks/plugins/url_launcher/ios"
   webview_flutter:
@@ -122,6 +127,7 @@ SPEC CHECKSUMS:
   TOCropViewController: da59f531f8ac8a94ef6d6c0fc34009350f9e8bfe
   umeng_analytics_plugin: 7035dfb8c5636e50429ab935125e5a3f0d23e72e
   UMengAnalytics-NO-IDFA: 16666e32edce5be44ae5b14aaaa7f3582e09d6ab
+  uni_links: d97da20c7701486ba192624d99bffaaffcfc298a
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
   webview_flutter: d2b4d6c66968ad042ad94cbb791f5b72b4678a96
   WechatOpenSDK: 6a4d1436c15b3b5fe2a0bd383f3046010186da44

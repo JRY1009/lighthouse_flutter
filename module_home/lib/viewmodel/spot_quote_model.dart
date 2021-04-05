@@ -101,19 +101,19 @@ class SpotQuoteModel extends ViewStateModel {
   void listenEvent() {
     quoteSubscription?.cancel();
 
-    quoteSubscription = Event.eventBus.on<WsEvent>().listen((event) {
-      QuoteWs quoteWs = event.quoteWs;
-      if (quoteWs == null) {
-        return;
-      }
-
-      if (quoteBasic != null && quoteWs.coin_code.toLowerCase() == quoteBasic.coin_code.toLowerCase()) {
-        quoteBasic.quote = quoteWs.quote;
-        quoteBasic.change_percent = quoteWs.change_percent_24hr;
-
-        //notifyListeners();
-      }
-    });
+//    quoteSubscription = Event.eventBus.on<WsEvent>().listen((event) {
+//      QuoteWs quoteWs = event.quoteWs;
+//      if (quoteWs == null) {
+//        return;
+//      }
+//
+//      if (quoteBasic != null && quoteWs.coin_code.toLowerCase() == quoteBasic.coin_code.toLowerCase()) {
+//        quoteBasic.quote = quoteWs.quote;
+//        quoteBasic.change_percent = quoteWs.change_percent_24hr;
+//
+//        notifyListeners();
+//      }
+//    });
   }
 
   Future getQuote(String chain) {

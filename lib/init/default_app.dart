@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -16,17 +15,17 @@ import 'package:library_base/router/app_analysis.dart';
 import 'package:library_base/router/routers.dart';
 import 'package:library_base/utils/channel_util.dart';
 import 'package:library_base/utils/device_util.dart';
-import 'package:library_base/utils/jpush_util.dart';
 import 'package:library_base/utils/log_util.dart';
+import 'package:library_base/utils/refresh_util.dart';
 import 'package:library_base/utils/sp_util.dart';
 import 'package:library_base/utils/toast_util.dart';
-import 'package:library_base/utils/refresh_util.dart';
 import 'package:lighthouse/main_router.dart';
 import 'package:lighthouse/page/splash_page.dart';
 import 'package:module_home/home_router.dart';
 import 'package:module_info/info_router.dart';
-import 'package:module_money/money_router.dart';
 import 'package:module_mine/mine_router.dart';
+import 'package:module_money/money_router.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:umeng_analytics_plugin/umeng_analytics_plugin.dart';
 import 'package:uni_links/uni_links.dart';
 
@@ -95,7 +94,7 @@ class DefaultApp {
           appId: "wxfdba5c8a01643f82",
           doOnAndroid: true,
           doOnIOS: true,
-          universalLink: "https://your.univerallink.com/link/");
+          universalLink: "https://blockdt.com/app/lighthouse/");
     }
 
     await SPUtil.init();
@@ -173,6 +172,7 @@ class _MyAppState extends State<MyApp> {
             locale: localeModel.getLocale(),
             localizationsDelegates: const [
               S.delegate,
+              RefreshLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate

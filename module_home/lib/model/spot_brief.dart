@@ -18,11 +18,11 @@ class SpotBrief {
   });
 
   SpotBrief.fromJson(Map<String, dynamic> jsonMap) {
-    key = jsonMap['key'];
-    title = jsonMap['title'];
-    value = jsonMap['value'];
-    detail = jsonMap['detail'];
-    type = jsonMap['type'];
+    key = jsonMap['key'] ?? '';
+    title = jsonMap['title'] ?? '';
+    value = jsonMap['value'] ?? '';
+    detail = jsonMap['detail'] ?? '';
+    type = jsonMap['type'] ?? 0;
   }
 
   Map<String, dynamic> toJson() {

@@ -35,7 +35,7 @@ class ArticleModel extends ViewStateModel {
   Future getArticles(int page, int pageSize) {
     Map<String, dynamic> params = {
       'tag': tag,
-      'start': page,
+      'start': page * pageSize,
       'count': pageSize,
     };
 
@@ -52,6 +52,7 @@ class ArticleModel extends ViewStateModel {
             articleList.addAll(newsList);
           }
 
+          articleList = articleList.toSet().toList();
           noMore = newsList?.length < pageSize;
 
           if (ObjectUtil.isEmptyList(articleList)) {

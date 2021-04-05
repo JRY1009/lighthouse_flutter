@@ -11,6 +11,8 @@ import 'package:library_base/router/parameters.dart';
 import 'package:library_base/router/routers.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh.dart';
 import 'package:library_base/widget/nestedscroll/nested_refresh_indicator.dart';
+import 'package:library_base/widget/nestedscroll/nested_scroll_view_inner_scroll_position_key_widget.dart' as extended;
+import 'package:library_base/widget/nestedscroll/old_extended_nested_scroll_view.dart' as extended;
 import 'package:module_home/viewmodel/home_model.dart';
 import 'package:module_home/widget/home_flexible_appbar.dart';
 import 'package:module_home/widget/home_milestone_bar.dart';
@@ -95,15 +97,22 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
                     }
                     return false;
                   },
-                  child: NestedScrollView(
+                  child: extended.NestedScrollView(
                     controller: _nestedController,
                     physics: const ClampingScrollPhysics(),
+                    pinnedHeaderSliverHeightBuilder: () {
+                      return _toolbarHeight;
+                    },
+                    innerScrollPositionKeyBuilder: () {
+                      return Key('Tab0');
+                    },
                     headerSliverBuilder: (context, innerBoxIsScrolled) => _headerSliverBuilder(context),
-                    body: Routers.generatePage(context, Routers.articleListPage,
+                    body: extended.NestedScrollViewInnerScrollPositionKeyWidget(Key('Tab0'),
+                        Routers.generatePage(context, Routers.articleListPage,
                           parameters: Parameters()
                             ..putObj('key', model.articlePageKey)
                             ..putBool('isSupportPull', false)
-                            ..putBool('isSingleCard', true))
+                            ..putBool('isSingleCard', true)))
                   ),
                 ),
               );

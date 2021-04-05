@@ -46,20 +46,20 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar>{
 
     SpotDetailModel spotDetailModel = Provider.of<SpotDetailModel>(context);
 
-    double rate = widget.quoteCoin != null ? widget.quoteCoin.change_percent : 0;
-    double price = widget.quoteCoin != null ? widget.quoteCoin.quote : 0;
-    double priceCny = NumUtil.multiply(price, 6.5);
-    double change_amount = widget.quoteCoin != null ? widget.quoteCoin.change_amount : 0;
-    double amount_24h = widget.quoteCoin != null ? widget.quoteCoin.amount_24h : 0;
-    double vol_24h = widget.quoteCoin != null ? widget.quoteCoin.vol_24h : 0;
+    num rate = widget.quoteCoin != null ? widget.quoteCoin.change_percent : 0;
+    num price = widget.quoteCoin != null ? widget.quoteCoin.quote : 0;
+    num priceCny = NumUtil.multiply(price, 6.5);
+    num change_amount = widget.quoteCoin != null ? widget.quoteCoin.change_amount : 0;
+    num amount_24h = widget.quoteCoin != null ? widget.quoteCoin.amount_24h : 0;
+    num vol_24h = widget.quoteCoin != null ? widget.quoteCoin.vol_24h : 0;
 
     String coin_code = widget.quoteCoin != null ? widget.quoteCoin.coin_code : '';
     String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate, 2).toString() + '%';
     String priceStr = NumUtil.formatNum(price, point: 2);
     String priceCnyStr = NumUtil.formatNum(priceCny, point: 2);
     String changeAmountStr = (change_amount >= 0 ? '+' : '') + NumUtil.formatNum(change_amount, point: 2);
-    String amount24Str = NumUtil.getBigVolumFormat(amount_24h, fractionDigits: 2).toString();
-    String vol24Str = NumUtil.getBigVolumFormat(vol_24h, fractionDigits: 2).toString();
+    String amount24Str = NumUtil.getBigVolumFormat(amount_24h.toDouble(), fractionDigits: 2).toString();
+    String vol24Str = NumUtil.getBigVolumFormat(vol_24h.toDouble(), fractionDigits: 2).toString();
 
     return Container(
       height: 64,
@@ -257,12 +257,12 @@ class SpotDetailBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double amount_24h = quoteCoin != null ? quoteCoin.amount_24h : 0;
-    double vol_24h = quoteCoin != null ? quoteCoin.vol_24h : 0;
+    num amount_24h = quoteCoin != null ? quoteCoin.amount_24h : 0;
+    num vol_24h = quoteCoin != null ? quoteCoin.vol_24h : 0;
 
     String coin_code = quoteCoin != null ? quoteCoin.coin_code : '';
-    String amount24Str = NumUtil.getBigVolumFormat(amount_24h, fractionDigits: 2).toString();
-    String vol24Str = NumUtil.getBigVolumFormat(vol_24h, fractionDigits: 2).toString();
+    String amount24Str = NumUtil.getBigVolumFormat(amount_24h.toDouble(), fractionDigits: 2).toString();
+    String vol24Str = NumUtil.getBigVolumFormat(vol_24h.toDouble(), fractionDigits: 2).toString();
 
     return Container(
       height: 115,

@@ -4,11 +4,11 @@ import 'package:library_base/utils/object_util.dart';
 class SpotExchangeQuote {
 
   String name;
-  double quote;
+  num quote;
   String ico ;
   String url;
-  double cny;
-  double change_percent;
+  num cny;
+  num change_percent;
 
   SpotExchangeQuote({
     this.name,
@@ -20,12 +20,12 @@ class SpotExchangeQuote {
   });
 
   SpotExchangeQuote.fromJson(Map<String, dynamic> jsonMap) {
-    name = jsonMap['name'];
-    quote = jsonMap['quote'];
-    ico = jsonMap['ico'];
-    url = jsonMap['url'];
-    cny = jsonMap['cny'];
-    change_percent = jsonMap['change_percent'];
+    name = jsonMap['name'] ?? '';
+    quote = jsonMap['quote'] ?? 0;
+    ico = jsonMap['ico'] ?? '';
+    url = jsonMap['url'] ?? '';
+    cny = jsonMap['cny'] ?? 0;
+    change_percent = jsonMap['change_percent'] ?? 0;
   }
 
   Map<String, dynamic> toJson() {

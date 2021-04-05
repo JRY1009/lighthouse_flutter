@@ -23,12 +23,12 @@ class SpotExchangeQuoteBasic {
   });
 
   SpotExchangeQuoteBasic.fromJson(Map<String, dynamic> jsonMap) {
-    coin_code = jsonMap['coin_code'];
-    data_src = jsonMap['data_src'];
-    change_percent = jsonMap['change_percent'];
-    change_amount = jsonMap['change_amount'];
-    quote = jsonMap['quote'];
-    cny = jsonMap['cny'];
+    coin_code = jsonMap['coin_code'] ?? '';
+    data_src = jsonMap['data_src'] ?? '';
+    change_percent = jsonMap['change_percent'] ?? 0;
+    change_amount = jsonMap['change_amount'] ?? 0;
+    quote = jsonMap['quote'] ?? 0;
+    cny = jsonMap['cny'] ?? 0;
     exchange_quote_list = SpotExchangeQuote.fromJsonList(jsonMap['exchange_quote_list']);
   }
 

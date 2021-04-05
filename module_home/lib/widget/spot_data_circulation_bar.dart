@@ -38,17 +38,17 @@ class _SpotDataCirculationBarState extends State<SpotDataCirculationBar> {
 
   @override
   Widget build(BuildContext context) {
-    int total_supply = widget.spotDataBasic != null ? widget.spotDataBasic.total_supply : 0;
-    int total_supply_market_vol = widget.spotDataBasic != null ? widget.spotDataBasic.total_supply_market_vol : 0;
+    num total_supply = widget.spotDataBasic != null ? widget.spotDataBasic.total_supply : 0;
+    num total_supply_market_vol = widget.spotDataBasic != null ? widget.spotDataBasic.total_supply_market_vol : 0;
 
-    int turnover = widget.spotDataBasic != null ? widget.spotDataBasic.turnover : 0;
-    int turnover_market_vol = total_supply == 0 ? 0 : NumUtil.getNumByValueDouble(NumUtil.multiply(NumUtil.divide(total_supply_market_vol, total_supply), turnover), 0);
+    num turnover = widget.spotDataBasic != null ? widget.spotDataBasic.turnover : 0;
+    num turnover_market_vol = total_supply == 0 ? 0 : NumUtil.getNumByValueDouble(NumUtil.multiply(NumUtil.divide(total_supply_market_vol, total_supply), turnover), 0);
 
-    double percent = total_supply == 0 ? 0 : NumUtil.getNumByValueDouble(NumUtil.divideDec(turnover, total_supply).toDouble(), 2).clamp(0.0, 1.0);
-    double lp = total_supply == 0 ? 0 : NumUtil.divideDec(turnover, total_supply).toDouble().clamp(0.0, 1.0) * 100;
-    double rp = total_supply == 0 ? 0 : NumUtil.divideDec(total_supply - turnover, total_supply).toDouble().clamp(0.0, 1.0) * 100;
-    String lpStr = NumUtil.getNumByValueDouble(lp, 2).toString() + "%";
-    String rpStr = NumUtil.getNumByValueDouble(rp, 2).toString() + "%";
+    num percent = total_supply == 0 ? 0 : NumUtil.getNumByValueDouble(NumUtil.divideDec(turnover, total_supply).toDouble(), 2).clamp(0.0, 1.0);
+    num lp = total_supply == 0 ? 0 : NumUtil.divideDec(turnover, total_supply).toDouble().clamp(0.0, 1.0) * 100;
+    num rp = total_supply == 0 ? 0 : NumUtil.divideDec(total_supply - turnover, total_supply).toDouble().clamp(0.0, 1.0) * 100;
+    String lpStr = NumUtil.getNumByValueDouble(lp.toDouble(), 2).toString() + "%";
+    String rpStr = NumUtil.getNumByValueDouble(rp.toDouble(), 2).toString() + "%";
 
     return percent == 0 ? Gaps.empty: Container(
         child: Column(

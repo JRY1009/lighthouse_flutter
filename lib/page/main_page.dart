@@ -4,6 +4,7 @@ import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
+import 'package:library_base/utils/log_util.dart';
 import 'package:library_base/widget/double_tap_back_exit_app.dart';
 import 'package:library_base/net/websocket_util.dart';
 import 'package:library_base/res/colors.dart';
@@ -19,7 +20,7 @@ class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
+class _MainPageState extends State<MainPage> with WidgetsBindingObserver, BasePageMixin<MainPage> {
 
   static const double _imageSize = 25.0;
 
@@ -35,14 +36,32 @@ class _MainPageState extends State<MainPage> with BasePageMixin<MainPage> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+
     initView();
     initViewModel();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      LogUtil.v('应用进入前台 resumed');
+      WebSocketUtil.instance().openSocket();
+    } else if (state == AppLifecycleState.paused) {
+      LogUtil.v('应用进入后台 paused');
+      WebSocketUtil.instance().closeSocket();
+    } else if (state == AppLifecycleState.inactive) {
+      LogUtil.v('应用进入非活动状态 inactive');
+    } else if (state == AppLifecycleState.detached) {
+      LogUtil.v('应用进入 detached 状态 detached');
+    }
   }
 
   @override
   void dispose() {
     _pageController.dispose();
     imageCache.clear();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 

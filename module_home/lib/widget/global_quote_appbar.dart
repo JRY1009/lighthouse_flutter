@@ -40,14 +40,14 @@ class _GlobalQuoteAppBarState extends State<GlobalQuoteAppBar> {
   Widget build(BuildContext context) {
     GlobalQuoteModel homeModel = Provider.of<GlobalQuoteModel>(context);
 
-    double btcRate = homeModel.btcUsdPair != null ? homeModel.btcUsdPair.change_percent : 0;
-    double btcPrice = homeModel.btcUsdPair != null ? homeModel.btcUsdPair.quote : 0;
-    String btcRateStr = (btcRate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(btcRate, 2).toString() + '%';
+    num btcRate = homeModel.btcUsdPair != null ? homeModel.btcUsdPair.change_percent : 0;
+    num btcPrice = homeModel.btcUsdPair != null ? homeModel.btcUsdPair.quote : 0;
+    String btcRateStr = (btcRate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(btcRate.toDouble(), 2).toString() + '%';
     String btcPriceStr = '\$' + NumUtil.formatNum(btcPrice, point: 2);
 
-    double ethRate = homeModel.ethUsdPair != null ? homeModel.ethUsdPair.change_percent : 0;
-    double ethPrice = homeModel.ethUsdPair != null ? homeModel.ethUsdPair.quote : 0;
-    String ethRateStr = (ethRate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(ethRate, 2).toString() + '%';
+    num ethRate = homeModel.ethUsdPair != null ? homeModel.ethUsdPair.change_percent : 0;
+    num ethPrice = homeModel.ethUsdPair != null ? homeModel.ethUsdPair.quote : 0;
+    String ethRateStr = (ethRate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(ethRate.toDouble(), 2).toString() + '%';
     String ethPriceStr = '\$' + NumUtil.formatNum(ethPrice, point: 2);
 
     return Container(

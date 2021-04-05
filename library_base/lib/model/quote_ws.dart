@@ -5,7 +5,8 @@ class QuoteWs {
 
   String coin_code;
   double quote;
-  double change_percent_24hr;
+  double change_percent;
+  double change_amount;
   String time;
 
   int get id => _getIdTs();
@@ -24,7 +25,8 @@ class QuoteWs {
   QuoteWs.fromJson(Map<String, dynamic> jsonMap) {
     coin_code = jsonMap['coin_code'];
     quote = jsonMap['quote'] ?? 0;
-    change_percent_24hr = jsonMap['change_percent_24hr'] ?? 0;
+    change_amount = jsonMap['change_amount'] ?? 0;
+    change_percent = jsonMap['change_percent'] ?? 0;
     time = jsonMap['time'];
   }
 

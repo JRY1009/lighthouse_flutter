@@ -4,11 +4,11 @@ import 'package:module_home/model/spot_address_assets_distribution.dart';
 
 class SpotDataBasic {
 
-  int turnover;
-  int turnover_market_vol;
-  int total_supply;
-  int total_supply_market_vol;
-  int address_count;
+  num turnover;
+  num turnover_market_vol;
+  num total_supply;
+  num total_supply_market_vol;
+  num address_count;
   String update_time;
   String pair;
   List<SpotAddressAssetsDistribution> address_balance_list;
