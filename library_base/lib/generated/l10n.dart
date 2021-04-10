@@ -565,31 +565,41 @@ class S {
     );
   }
 
-  /// `点击登录即代表您已同意`
+  /// `点击注册、登录即代表您已同意`
   String get loginPolicy {
     return Intl.message(
-      '点击登录即代表您已同意',
+      '点击注册、登录即代表您已同意',
       name: 'loginPolicy',
       desc: '',
       args: [],
     );
   }
 
-  /// `《用户注册协议》`
+  /// `《用户服务协议》`
   String get registAgreement {
     return Intl.message(
-      '《用户注册协议》',
+      '《用户服务协议》',
       name: 'registAgreement',
       desc: '',
       args: [],
     );
   }
 
-  /// `《隐私政策》`
+  /// `《隐私协议》`
   String get privatePolicy {
     return Intl.message(
-      '《隐私政策》',
+      '《隐私协议》',
       name: 'privatePolicy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `《免责申明》`
+  String get discaimer {
+    return Intl.message(
+      '《免责申明》',
+      name: 'discaimer',
       desc: '',
       args: [],
     );

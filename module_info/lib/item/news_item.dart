@@ -10,6 +10,7 @@ import 'package:library_base/res/styles.dart';
 import 'package:library_base/router/parameters.dart';
 import 'package:library_base/router/routers.dart';
 import 'package:library_base/utils/date_util.dart';
+import 'package:library_base/utils/object_util.dart';
 import 'package:library_base/utils/time_count_util.dart';
 import 'package:library_base/widget/dash_line.dart';
 import 'package:library_base/widget/dialog/dialog_util.dart';
@@ -18,19 +19,26 @@ import 'package:library_base/widget/image/local_image.dart';
 import 'package:library_base/widget/text/text_expand.dart';
 import 'package:module_info/model/news.dart';
 
-class NewsItem extends StatelessWidget {
+class NewsItem extends StatefulWidget {
 
   final int index;
   final News news;
   final bool isLast;
 
-  const NewsItem(
-      {Key key,
-        this.index,
-        this.news,
-        this.isLast = false,
-      })
+  NewsItem({Key key,
+    this.index,
+    this.news,
+    this.isLast = false,
+  })
       : super(key: key);
+
+  @override
+  _NewsItemState createState() => _NewsItemState();
+}
+
+class _NewsItemState extends State<NewsItem> {
+
+  TextExpandController controller = TextExpandController();
 
   Future<void> _share(BuildContext context) async {
 
@@ -42,12 +50,11 @@ class NewsItem extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(16, 20, 18, 20),
             child: Column(
               children: [
+                ObjectUtil.isEmpty(widget.news?.title) ? Gaps.empty :
                 Container(
                     margin: EdgeInsets.only(top: 10),
                     alignment: Alignment.centerLeft,
-                    child: Text(news?.title ?? '',
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
+                    child: Text(widget.news?.title ?? '',
                         strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
                         style: TextStyles.textGray800_w400_20
                     )
@@ -58,12 +65,12 @@ class NewsItem extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(TimeCountUtil.formatDateStr(news?.publish_time, format: DateFormat.NORMAL) ?? '',
+                      Text(TimeCountUtil.formatDateStr(widget.news?.publish_time, format: DateFormat.NORMAL) ?? '',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyles.textGray500_w400_12
                       ),
-                      Text(news?.publisher ?? '',
+                      Text(widget.news?.publisher ?? '',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyles.textGray500_w400_12
@@ -74,7 +81,7 @@ class NewsItem extends StatelessWidget {
                 Container(
                     margin: EdgeInsets.only(top: 10),
                     alignment: Alignment.centerLeft,
-                    child: Text(news?.summary ?? '',
+                    child: Text(widget.news?.summary ?? '',
                         strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
                         style: TextStyles.textGray800_w400_15
                     )
@@ -90,105 +97,98 @@ class NewsItem extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        return;
-        Parameters params = Parameters()
-          ..putString('title', S.of(context).infoDetail)
-          ..putString('url', news.url_app ?? '')
-          ..putString('title_share', news.title ?? '')
-          ..putString('summary_share', news.summary ?? '')
-          ..putString('url_share', news.url ?? '')
-          ..putString('thumb_share', news.snapshot_url ?? '');
-
-        Routers.navigateTo(context, Routers.inappWebviewPage, parameters: params);
-      },
-      child: Container(
-        width: double.infinity,
-        child: IntrinsicHeight(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                height: double.infinity,
-                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      Container(
-                        width: 0.6,
-                        height: 26,
-                        child: index == 0 ? null : DashLine(strokeWidth: 0.6, color: Colours.gray_200, gap: 3),
+    return Container(
+      width: double.infinity,
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              height: double.infinity,
+              padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+              child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    Container(
+                      width: 0.6,
+                      height: 26,
+                      child: widget.index == 0 ? null : DashLine(strokeWidth: 0.6, color: Colours.gray_200, gap: 3),
+                    ),
+                    Container(
+                      width: 6,
+                      height: 6,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(3)),
+                        color: Colours.app_main,
                       ),
-                      Container(
-                        width: 6,
-                        height: 6,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(3)),
-                          color: Colours.app_main,
-                        ),
-                      ),
-                      Expanded(
-                        child: DashLine(strokeWidth: 0.6, color: Colours.gray_200, gap: 3),
-                      ),
-                    ]
-                ),
+                    ),
+                    Expanded(
+                      child: DashLine(strokeWidth: 0.6, color: Colours.gray_200, gap: 3),
+                    ),
+                  ]
               ),
+            ),
 
-              Expanded(
-                flex: 1,
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(0, 20, 18, isLast ? 20 : 6),
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 20,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(TimeCountUtil.formatDateStr(news?.publish_time, format: DateFormat.HOUR_MINUTE) ?? '',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyles.textGray500_w400_12
-                            ),
-                            Text(/*news?.publisher ??*/ '',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyles.textGray500_w400_12
-                            )
-                          ],
-                        ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                padding: EdgeInsets.fromLTRB(0, 20, 18, widget.isLast ? 10 : 0),
+                child: Column(
+                  children: [
+                    Container(
+                      height: 20,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(TimeCountUtil.formatDateStr(widget.news?.publish_time, format: DateFormat.HOUR_MINUTE) ?? '',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyles.textGray500_w400_12
+                          ),
+                          Text(/*news?.publisher ??*/ '',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyles.textGray500_w400_12
+                          )
+                        ],
                       ),
+                    ),
 
-                      Container(
+                    ObjectUtil.isEmpty(widget.news?.title) ? Gaps.empty :
+                    GestureDetector(
+                      onTap: () {
+                        controller.trigger = !controller.trigger;
+                      },
+                      child: Container(
                         margin: EdgeInsets.only(top: 10),
                         alignment: Alignment.centerLeft,
-                        child: Text(news?.title ?? '',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
+                        child: Text(widget.news?.title ?? '',
                             strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
                             style: TextStyles.textGray800_w400_17
                         )
                       ),
+                    ),
 
-                      Container(
-                          margin: EdgeInsets.only(top: 10),
-                          alignment: Alignment.centerLeft,
-                          child: TextExpand(
-                              text: news?.summary ?? '',
-                              minLines: 4,
-                              isEnableTextClick: true,
-                              textStyle: TextStyles.textGray800_w400_15,
-                              strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5)
-                          ),
-                      ),
-
-                      Container(
-                        height: 20,
+                    Container(
                         margin: EdgeInsets.only(top: 10),
-                        alignment: Alignment.centerRight,
-                        child: InkWell(
-                          onTap: () => _share(context),
+                        alignment: Alignment.centerLeft,
+                        child: TextExpand(
+                            controller: controller,
+                            text: widget.news?.summary ?? '',
+                            expandText: '',
+                            minLines: 4,
+                            isEnableTextClick: true,
+                            textStyle: TextStyles.textGray500_w400_15,
+                            strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5)
+                        ),
+                    ),
+
+                    Container(
+                      alignment: Alignment.centerRight,
+                      child: InkWell(
+                        onTap: () => _share(context),
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -206,14 +206,14 @@ class NewsItem extends StatelessWidget {
                             ],
                           ),
                         ),
-                      )
-                      
-                    ],
-                  ),
+                      ),
+                    )
+
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

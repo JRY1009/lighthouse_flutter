@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/mvvm/base_page.dart';
+import 'package:library_base/net/apis.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
@@ -35,12 +36,31 @@ class _AboutPageState extends State<AboutPage> with BasePageMixin<AboutPage> {
 
   }
 
-  void _jump2Register() {
+  void _jump2Disclaimer() {
     Parameters params = Parameters()
-      ..putString('title', 'xxx')
-      ..putString('url', 'https://www.baidu.com');
+      ..putString('title', S.current.discaimer)
+      ..putString('url', Apis.URL_DISCAIMER)
+      ..putBool('show_share', false);
 
-    Routers.navigateTo(context, Routers.webviewPage, parameters: params);
+    Routers.navigateTo(context, Routers.inappWebviewPage, parameters: params);
+  }
+
+  void _jump2Agreement() {
+    Parameters params = Parameters()
+      ..putString('title', S.current.registAgreement)
+      ..putString('url', Apis.URL_REGIST_AGREEMENT)
+      ..putBool('show_share', false);
+
+    Routers.navigateTo(context, Routers.inappWebviewPage, parameters: params);
+  }
+
+  void _jump2Privacy() {
+    Parameters params = Parameters()
+      ..putString('title', S.current.privatePolicy)
+      ..putString('url', Apis.URL_PRIVATE_POLICY)
+      ..putBool('show_share', false);
+
+    Routers.navigateTo(context, Routers.inappWebviewPage, parameters: params);
   }
 
   @override
@@ -108,10 +128,13 @@ class _AboutPageState extends State<AboutPage> with BasePageMixin<AboutPage> {
                 child: Text.rich(TextSpan(
                     children: [
                       TextSpan(text: S.of(context).registAgreement, style: TextStyles.textMain14,
-                          recognizer: new TapGestureRecognizer()..onTap = _jump2Register),
+                          recognizer: new TapGestureRecognizer()..onTap = _jump2Agreement),
                       TextSpan(text: '、', style: TextStyles.textGray400_w400_14),
                       TextSpan(text: S.of(context).privatePolicy, style: TextStyles.textMain14,
-                          recognizer: new TapGestureRecognizer()..onTap = _jump2Register),
+                          recognizer: new TapGestureRecognizer()..onTap = _jump2Privacy),
+                      TextSpan(text: '、', style: TextStyles.textGray400_w400_14),
+                      TextSpan(text: S.of(context).discaimer, style: TextStyles.textMain14,
+                          recognizer: new TapGestureRecognizer()..onTap = _jump2Disclaimer),
                     ]
                 ))
             ),

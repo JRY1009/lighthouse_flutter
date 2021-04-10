@@ -3,9 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_xupdate/flutter_xupdate.dart';
 import 'package:fluwx/fluwx.dart';
-import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/global/locale_provider.dart';
 import 'package:library_base/global/theme_provider.dart';
@@ -61,23 +59,6 @@ class DefaultApp {
         systemNavigationBarColor: Colors.white,
       );
       SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
-
-      FlutterXUpdate.init(
-        ///是否输出日志
-          debug: !Constant.isReleaseMode,
-          ///是否使用post请求
-          isPost: false,
-          ///post请求是否是上传json
-          isPostJson: false,
-          ///是否开启自动模式
-          isWifiOnly: false,
-          ///是否开启自动模式
-          isAutoMode: false,
-          ///需要设置的公共参数
-          supportSilentInstall: false,
-          ///在下载过程中，如果点击了取消的话，是否弹出切换下载方式的重试提示弹窗
-          enableRetry: false
-      );
     }
 
     if (DeviceUtil.isMobile) {

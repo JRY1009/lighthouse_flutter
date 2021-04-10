@@ -4,6 +4,21 @@ import 'dart:ui' show LineMetrics;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+class TextExpandController extends ValueNotifier {
+  bool _trigger;
+
+  TextExpandController({bool trigger = false}) : super(trigger) {
+    this._trigger = trigger;
+  }
+
+  bool get trigger => _trigger;
+
+  set trigger(bool trigger) {
+    this._trigger = trigger;
+    super.value = trigger;
+  }
+}
+
 /// 在文本超出指定行数之后，会显示 展开/收起 按钮的文本展示组件
 ///
 /// 用例1: 常规使用
@@ -66,6 +81,8 @@ class TextExpand extends StatefulWidget {
 
   final bool isEnableTextClick;
 
+  final TextExpandController controller;
+
   const TextExpand({
     Key key,
     this.text = '',
@@ -81,7 +98,8 @@ class TextExpand extends StatefulWidget {
     this.expandIcon,
     this.shrinkIcon,
     this.strutStyle,
-    this.isEnableTextClick = false
+    this.isEnableTextClick = false,
+    this.controller
   }) : super(key: key);
 
   @override
@@ -101,8 +119,10 @@ class _TextExpandState extends State<TextExpand> {
 
   @override
   void initState() {
-    init();
     super.initState();
+    init();
+
+    widget.controller?.addListener(onExpandChanged);
   }
 
   @override
@@ -173,6 +193,10 @@ class _TextExpandState extends State<TextExpand> {
         }
       });
     });
+  }
+
+  onExpandChanged() {
+    _tapRecognizer();
   }
 
   List<LineMetrics> _paintText(String text, {double maxWidth}) {

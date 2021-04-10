@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bugly/flutter_bugly.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/global/locale_provider.dart';
 import 'package:library_base/global/rt_account.dart';
@@ -12,6 +13,7 @@ import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/router/fade_route.dart';
 import 'package:library_base/router/routers.dart';
+import 'package:library_base/utils/device_util.dart';
 import 'package:library_base/utils/toast_util.dart';
 import 'package:library_base/widget/button/back_button.dart';
 import 'package:library_base/widget/clickbar/setting_avatar_clickbar.dart';
@@ -152,7 +154,11 @@ class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPag
                       subTitle: localeModel?.localeName,
                       onPressed: () => Routers.loginGuardNavigateTo(context, Routers.languagePage),
                     ),
-
+                    DeviceUtil.isAndroid ?
+                    SettingClickBar(
+                      title: S.of(context).checkUpdate,
+                      onPressed: () => FlutterBugly.checkUpgrade()
+                    ) : Gaps.empty,
                     Gaps.vGap18,
 
                     FlatButton(

@@ -70,7 +70,8 @@ class Routers {
       String summary_share = params?.getString('summary_share');
       String url_share = params?.getString('url_share');
       String thumb_share = params?.getString('thumb_share');
-      return InappWebviewPage(url, title, title_share: title_share, summary_share: summary_share, url_share: url_share, thumb_share: thumb_share);
+      bool show_share = params?.getBool('show_share') ?? true;
+      return InappWebviewPage(url, title, title_share: title_share, summary_share: summary_share, url_share: url_share, thumb_share: thumb_share, show_share: show_share);
     });
 
     router.define(Routers.webviewPage, handler: webviewPageBuilder.handler);

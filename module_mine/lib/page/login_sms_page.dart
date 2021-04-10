@@ -7,6 +7,7 @@ import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/model/account.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/global/rt_account.dart';
+import 'package:library_base/net/apis.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
@@ -142,12 +143,31 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
     Routers.navigateTo(context, Routers.loginPage, clearStack: true);
   }
 
-  void _jump2Register() {
+  void _jump2Agreement() {
     Parameters params = Parameters()
-      ..putString('title', 'xxx')
-      ..putString('url', 'https://www.baidu.com');
+      ..putString('title', S.current.registAgreement)
+      ..putString('url', Apis.URL_REGIST_AGREEMENT)
+      ..putBool('show_share', false);
 
-    Routers.navigateTo(context, Routers.webviewPage, parameters: params);
+    Routers.navigateTo(context, Routers.inappWebviewPage, parameters: params);
+  }
+
+  void _jump2Privacy() {
+    Parameters params = Parameters()
+      ..putString('title', S.current.privatePolicy)
+      ..putString('url', Apis.URL_PRIVATE_POLICY)
+      ..putBool('show_share', false);
+
+    Routers.navigateTo(context, Routers.inappWebviewPage, parameters: params);
+  }
+
+  void _jump2Disclaimer() {
+    Parameters params = Parameters()
+      ..putString('title', S.current.discaimer)
+      ..putString('url', Apis.URL_DISCAIMER)
+      ..putBool('show_share', false);
+
+    Routers.navigateTo(context, Routers.inappWebviewPage, parameters: params);
   }
 
   Future<bool> _getVCode() async {
@@ -275,13 +295,18 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
               margin: EdgeInsets.only(bottom: 20.0),
               child: Text.rich(TextSpan(
                   children: [
-                    TextSpan(text: S.of(context).loginPolicy, style: TextStyles.textGray400_w400_14),
+                    TextSpan(text: S.of(context).loginPolicy + '\n', style: TextStyles.textGray400_w400_14),
                     TextSpan(text: S.of(context).registAgreement, style: TextStyles.textMain14,
-                        recognizer: new TapGestureRecognizer()..onTap = _jump2Register),
+                        recognizer: new TapGestureRecognizer()..onTap = _jump2Agreement),
                     TextSpan(text: S.of(context).privatePolicy, style: TextStyles.textMain14,
-                        recognizer: new TapGestureRecognizer()..onTap = _jump2Register),
+                        recognizer: new TapGestureRecognizer()..onTap = _jump2Privacy),
+                    TextSpan(text: S.of(context).discaimer, style: TextStyles.textMain14,
+                        recognizer: new TapGestureRecognizer()..onTap = _jump2Disclaimer),
                   ]
-              ))
+              ),
+              strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
+              textAlign: TextAlign.center,
+              )
           ),
         )
     );

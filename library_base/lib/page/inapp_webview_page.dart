@@ -27,6 +27,7 @@ class InappWebviewPage extends StatefulWidget {
   final String summary_share;
   final String url_share;
   final String thumb_share;
+  final bool show_share;
   final bool captureAllGestures;
 
   InappWebviewPage(this.url, this.title, {
@@ -34,6 +35,7 @@ class InappWebviewPage extends StatefulWidget {
     this.url_share,
     this.summary_share,
     this.thumb_share,
+    this.show_share = true,
     this.captureAllGestures = false,
   });
   _InappWebviewPageState createState() => _InappWebviewPageState();
@@ -108,12 +110,12 @@ class _InappWebviewPageState extends State<InappWebviewPage> {
                 elevation: 1,
                 brightness: Brightness.light,
                 backgroundColor: Colours.white,
-                actions: <Widget>[
+                actions: widget.show_share ? <Widget>[
                   IconButton(
                     icon: LocalImage('icon_share', package: Constant.baseLib, width: 20, height: 20),
                     onPressed: _share,
                   )
-                ],
+                ] : null,
                 centerTitle: true,
                 title: Text(widget.title, style: TextStyles.textBlack18),
               ),

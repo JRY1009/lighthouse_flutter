@@ -52,9 +52,7 @@ dependencies:
   # 基于echart的图表库 https://github.com/entronad/flutter_echarts
   flutter_echarts: ^1.5.0
   # bugly https://github.com/crazecoder/flutter_bugly
-  flutter_bugly: ^0.3.0+2
-  # app更新 https://github.com/xuexiangjys/flutter_xupdate
-  flutter_xupdate: ^1.0.2
+  flutter_bugly: ^0.3.1
   # 二维码 https://github.com/theyakka/qr.flutter
   qr_flutter: ^3.2.0
   # 分享 https://github.com/flutter/plugins/tree/master/packages/share

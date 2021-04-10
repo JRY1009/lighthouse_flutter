@@ -194,7 +194,7 @@ packages:
       name: flutter_bugly
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.3.0+2"
+    version: "0.3.1"
   flutter_cache_manager:
     dependency: transitive
     description:
@@ -266,13 +266,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_xupdate:
-    dependency: transitive
-    description:
-      name: flutter_xupdate
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.0.2"
   fluwx:
     dependency: transitive
     description:

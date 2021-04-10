@@ -53,4 +53,8 @@ class Apis {
 
   static const String URL_OFFICIAL_WEBSITE = 'https://www.blockdt.com';
   static const String URL_DISPLAY_WEBSITE = 'idengta.com';
+  static const String URL_registAgreement = 'https://www.blockdt.com';
+  static const String URL_REGIST_AGREEMENT = 'https://www.blockdt.com/agreements/user.html';
+  static const String URL_PRIVATE_POLICY = 'https://www.blockdt.com/agreements/privacy.html';
+  static const String URL_DISCAIMER = 'https://www.blockdt.com/agreements/disclaimer.html';
 }
