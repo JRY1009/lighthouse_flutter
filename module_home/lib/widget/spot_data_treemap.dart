@@ -60,9 +60,9 @@ class _SpotTreemapState extends State<SpotTreemap> {
                 },
                 levels: [
                     {
-                        color: ['#B4DAB5', '#69BA88', '#58A975', '#F8F8F8', '#ECA5A9', '#D95867', '#C2404C'],
+                        color: ['#651A21', '#8E242E', '#B72E3B', '#CC3341', '#8797AB', '#4E9768', '#45875D', '#3A794D', '#2B553A'],
                         visualMin: 0,
-                        visualMax: 6,
+                        visualMax: 8,
                         colorMappingBy: 'value', 
                         visualDimension: 2,
                         

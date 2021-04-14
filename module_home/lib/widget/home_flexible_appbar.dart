@@ -52,7 +52,6 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
   @override
   Widget build(BuildContext context) {
     HomeModel homeModel = Provider.of<HomeModel>(context);
-    String package = HomeRouter.isRunModule ? null : Constant.moduleHome;
 
     num btcRate = homeModel.btcUsdPair != null ? homeModel.btcUsdPair.change_percent : 0;
     num btcPrice = homeModel.btcUsdPair != null ? homeModel.btcUsdPair.quote : 0;
@@ -73,7 +72,7 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
           decoration: BoxDecoration(
             color: Colours.transparent,
             image: DecorationImage(
-              image: AssetImage(ImageUtil.getImgPath('bg_home'), package: package),
+              image: AssetImage(ImageUtil.getImgPath('bg_home'), package: Constant.baseLib),
               fit: BoxFit.fill,
             ),
           ),
@@ -87,7 +86,7 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
           decoration: BoxDecoration(
             color: Colours.transparent,
             image: DecorationImage(
-              image: AssetImage(ImageUtil.getImgPath('bg_home2'), package: package),
+              image: AssetImage(ImageUtil.getImgPath('bg_home2'), package: Constant.baseLib),
               fit: BoxFit.fill,
             ),
           ),

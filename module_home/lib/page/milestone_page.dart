@@ -60,12 +60,12 @@ class _MileStonePageState extends State<MileStonePage> with BasePageMixin<MileSt
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colours.normal_bg,
+      backgroundColor: Color(0xFFF5FAFE),
       appBar: AppBar(
           leading: BackButtonEx(),
           elevation: 0,
           brightness: Brightness.light,
-          backgroundColor: Colours.white,
+          backgroundColor: Color(0xFFF5FAFE),
           centerTitle: true,
           title: Text(S.of(context).dengtaSchool, style: TextStyles.textBlack16)
       ),
@@ -74,13 +74,14 @@ class _MileStonePageState extends State<MileStonePage> with BasePageMixin<MileSt
           Column(
             children: <Widget>[
               Container(
-                  padding: EdgeInsets.only(top: 18.0, bottom: 5),
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(left: 16, top: 18.0, bottom: 5),
                   child: Text(S.of(context).blockMileStone, style: TextStyles.textBlack18)
               ),
               Container(
                 height: 50.0,
                 padding: EdgeInsets.symmetric(horizontal: 8.0),
-                alignment: Alignment.center,
+                alignment: Alignment.centerLeft,
                 child: TabBar(
                   controller: _tabController,
                   labelPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 8.0),

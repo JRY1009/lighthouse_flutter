@@ -11,20 +11,24 @@ class TreeNode {
   int get color_index => _getColorIndex();
 
   int _getColorIndex() {
-    if (change_percent > 0 && change_percent < 1.0) {
+    if (change_percent < -6.0) {
       return 0;
-    } else if (change_percent >= 1.0 && change_percent < 3.0) {
+    } else if (change_percent >= -6.0 && change_percent < -4.0) {
       return 1;
-    } else if (change_percent >= 3.0) {
+    } else if (change_percent >= -4.0 && change_percent < -2.0) {
       return 2;
+    } else if (change_percent >= -2.0 && change_percent < 0.0) {
+      return 3;
     } else if (change_percent == 0) {
       return 4;
-    } else if (change_percent < 0 && change_percent >= -1.0) {
-      return 4;
-    } else if (change_percent < -1.0 && change_percent >= -3.0) {
+    } if (change_percent > 0 && change_percent <= 2.0) {
       return 5;
-    } else if (change_percent < -3.0) {
+    } else if (change_percent > 2.0 && change_percent <= 4.0) {
       return 6;
+    } else if (change_percent > 4.0 && change_percent <= 6.0) {
+      return 7;
+    } else if (change_percent > 6.0) {
+      return 8;
     }
   }
 

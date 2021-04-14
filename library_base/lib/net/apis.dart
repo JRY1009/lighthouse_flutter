@@ -51,7 +51,7 @@ class Apis {
   static const String URL_GET_ARTICLES = '/v1/c/channels/';
 
 
-  static const String URL_OFFICIAL_WEBSITE = 'https://www.blockdt.com';
+  static const String URL_OFFICIAL_WEBSITE = 'https://www.idengta.com';
   static const String URL_DISPLAY_WEBSITE = 'idengta.com';
   static const String URL_registAgreement = 'https://www.blockdt.com';
   static const String URL_REGIST_AGREEMENT = 'https://www.blockdt.com/agreements/user.html';

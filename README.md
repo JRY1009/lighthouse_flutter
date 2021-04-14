@@ -36,7 +36,7 @@
 | [package_info](https://github.com/flutter/plugins/tree/master/packages/package_info)     | **package信息**       |
 | [permission_handler](https://github.com/Baseflow/flutter-permission-handler)      | **权限管理**       |
 | [encrypt](https://github.com/leocavalcante/encrypt)                            | **加密库**       |
-| [flutter_easyrefresh](https://github.com/xuelongqy/flutter_easyrefresh)  | **下拉刷新上拉加载**       |
+| [pull_to_refresh](https://github.com/peng8350/flutter_pulltorefresh)  | **下拉刷新上拉加载**       |
 | [extended_nested_scroll_view](https://github.com/fluttercandies/extended_nested_scroll_view)    | **扩展NestedScrollView**       |
 | [flutter_spinkit](https://github.com/jogboms/flutter_spinkit)                            | **loading动画**       |
 | [decimal](https://github.com/a14n/dart-decimal)                            | **小数计算**       |
@@ -55,7 +55,7 @@
 | [flutter_inappwebview](https://github.com/pichillilorenzo/flutter_inappwebview)    | **更强大的webview插件**       |
 | [webview_flutter](https://github.com/flutter/plugins/tree/master/packages/webview_flutter)    | **WebView插件**       |
 | [keyboard_actions](https://github.com/diegoveloper/flutter_keyboard_actions)                  | **处理键盘事件**       |
-| [sticky_headers](https://github.com/fluttercommunity/flutter_sticky_headers)   | **列表悬浮头**       |
+| [sticky_headers](https://github.com/letsar/flutter_sticky_header)   | **列表悬浮头**       |
 | [lpinyin](https://github.com/flutterchina/lpinyin)              | **汉字转拼音**   |
 | [fl_chart](https://github.com/imaNNeoFighT/fl_chart)               | **图表库**       |
 | [flutter_echarts](https://github.com/entronad/flutter_echarts)                   | **基于echart的图表库**   |
@@ -67,6 +67,7 @@
 | [fluwx](https://github.com/OpenFlutter/fluwx)     | **微信SDK插件** |
 | [flutter_xupdate](https://github.com/xuexiangjys/flutter_xupdate)     | **app更新** |
 | [jpush_flutter](https://github.com/jpush/jpush-flutter-plugin)     | **极光推送** |
+| [uni_links](https://github.com/avioli/uni_links/tree/master/uni_links)     | **uni_links** |
 
 ## 项目运行环境
 

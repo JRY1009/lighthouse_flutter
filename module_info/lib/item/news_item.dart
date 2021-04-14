@@ -10,6 +10,7 @@ import 'package:library_base/res/styles.dart';
 import 'package:library_base/router/parameters.dart';
 import 'package:library_base/router/routers.dart';
 import 'package:library_base/utils/date_util.dart';
+import 'package:library_base/utils/image_util.dart';
 import 'package:library_base/utils/object_util.dart';
 import 'package:library_base/utils/time_count_util.dart';
 import 'package:library_base/widget/dash_line.dart';
@@ -47,46 +48,69 @@ class _NewsItemState extends State<NewsItem> {
           ShareNewsHeader(),
           Container(
             color: Colours.white,
-            padding: EdgeInsets.fromLTRB(16, 20, 18, 20),
-            child: Column(
+            child: Stack(
               children: [
-                ObjectUtil.isEmpty(widget.news?.title) ? Gaps.empty :
                 Container(
-                    margin: EdgeInsets.only(top: 10),
-                    alignment: Alignment.centerLeft,
-                    child: Text(widget.news?.title ?? '',
-                        strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
-                        style: TextStyles.textGray800_w400_20
-                    )
-                ),
-                Container(
-                  height: 20,
-                  margin: EdgeInsets.only(top: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(TimeCountUtil.formatDateStr(widget.news?.publish_time, format: DateFormat.NORMAL) ?? '',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyles.textGray500_w400_12
-                      ),
-                      Text(widget.news?.publisher ?? '',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyles.textGray500_w400_12
-                      )
-                    ],
+                  height: 165.6,
+                  decoration: BoxDecoration(
+                    color: Colours.white,
+                    image: DecorationImage(
+                      image: AssetImage(ImageUtil.getImgPath('bg_home2'), package: Constant.baseLib),
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
                 Container(
-                    margin: EdgeInsets.only(top: 10),
-                    alignment: Alignment.centerLeft,
-                    child: Text(widget.news?.summary ?? '',
-                        strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
-                        style: TextStyles.textGray800_w400_15
-                    )
-                ),
+                  constraints: BoxConstraints(minHeight: 165.6),
+                  padding: EdgeInsets.fromLTRB(16, 20, 18, 20),
+                  child: Column(
+                    children: [
+                      ObjectUtil.isEmpty(widget.news?.title) ? Gaps.empty :
+                      Container(
+                          margin: EdgeInsets.only(top: 20),
+                          alignment: Alignment.centerLeft,
+                          child: Text(widget.news?.title ?? '',
+                              strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
+                              style: TextStyles.textGray800_w400_20
+                          )
+                      ),
+                      Container(
+                        height: 20,
+                        margin: EdgeInsets.only(top: 10),
+                        child: Row(
+                          children: [
+                            LocalImage('icon_time', width: 12, height: 12, package: Constant.baseLib),
+                            Gaps.hGap5,
+                            Text(TimeCountUtil.formatDateStr(widget.news?.publish_time, format: DateFormat.NORMAL) ?? '',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyles.textGray500_w400_12
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                          margin: EdgeInsets.only(top: 10),
+                          alignment: Alignment.centerLeft,
+                          child: Text(widget.news?.summary ?? '',
+                              strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
+                              style: TextStyles.textGray800_w400_15
+                          )
+                      ),
 
+                      Container(
+                        height: 20,
+                        alignment: Alignment.centerLeft,
+                        margin: EdgeInsets.only(top: 10),
+                        child: Text(S.of(context).origin + (widget.news?.publisher ?? ''),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyles.textGray300_w400_12
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

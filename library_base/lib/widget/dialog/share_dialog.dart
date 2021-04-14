@@ -107,7 +107,7 @@ class ShareDialog extends StatelessWidget {
       Navigator.pop(context);
 
     } else {
-      
+
       Uint8List pngBytes = await _shotController.makeImageUint8List();
 
       shareToWeChat(WeChatShareImageModel(WeChatImage.binary(pngBytes), scene: scene));
@@ -192,25 +192,51 @@ class ShareDialog extends StatelessWidget {
     );
 
     Widget bottom = Container(
-        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
         decoration: BoxDecoration(
           color: Colours.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
         ),
-        child: IntrinsicHeight(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: children == null ? [
-                shareWechat,
-                shareFriend,
-                shareMore
-              ] : [
-                shareWechat,
-                shareFriend,
-                shareSave,
-                shareMore
-              ],
-            )
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: EdgeInsets.only(left: 40, right: 40, top: 20, bottom: 10),
+              child:
+              IntrinsicHeight(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: children == null ? [
+                      shareWechat,
+                      shareFriend,
+                      shareMore
+                    ] : [
+                      shareWechat,
+                      shareFriend,
+                      shareSave,
+                      shareMore
+                    ],
+                  )
+              ),
+            ),
+            TextButton(
+                onPressed: () => Navigator.pop(context),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colours.white),
+                  padding: MaterialStateProperty.all(EdgeInsets.all(0)),
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(0)))),
+                ),
+                child: Container(
+                    alignment: Alignment.center,
+                    height: 56.0,
+                    width: double.infinity,
+                    child: Text(S.of(context).cancel,
+                      style: TextStyles.textGray800_w400_16,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    )
+                )
+            ),
+          ],
         )
     );
 
@@ -218,6 +244,7 @@ class ShareDialog extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(20, 40, 20, 0),
       borderRadius: BorderRadius.circular(12.0),
       shotController: _shotController,
+      contentAlignment: Alignment.center,
       children: children,
       bottomButton: bottom,
     );

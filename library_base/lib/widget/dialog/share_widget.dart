@@ -29,10 +29,10 @@ class ShareQRHeader extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          LocalImage('logo', width: 48, height: 48, package: Constant.baseLib),
+          LocalImage('logo', width: 38, height: 38, package: Constant.baseLib),
           Expanded(
               child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 5),
+                margin: EdgeInsets.symmetric(horizontal: 8),
                 alignment: Alignment.centerLeft,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -75,34 +75,41 @@ class ShareQRFoooter extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Container(
-      height: 72,
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      decoration: BoxDecoration(
-        color: Colours.white,
-        //borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
-      ),
+      height: 100,
+      color: Colours.white,
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
+          LocalImage('logo', width: 38, height: 38, package: Constant.baseLib),
           Expanded(
               child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 5),
-                alignment: Alignment.centerLeft,
+                margin: EdgeInsets.only(left: 8),
+                alignment: Alignment.bottomLeft,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(S.of(context).appName + '·' + S.of(context).slogan,
-                      style: TextStyles.textGray400_w400_12,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                    Container(
+                      height: 22,
+                      alignment: Alignment.bottomLeft,
+                      child: Text(S.of(context).appName + '·' + S.of(context).slogan,
+                        style: TextStyles.textGray400_w400_12,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                    Gaps.vGap5,
-                    Text(S.of(context).shareQRDownload,
-                      style: TextStyles.textGray400_w400_12,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+
+                    Container(
+                      height: 22,
+                      alignment: Alignment.bottomLeft,
+                      child: Text(S.of(context).shareQRDownload,
+                        style: TextStyles.textGray400_w400_12,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    )
                   ],
                 ),
               )
@@ -111,7 +118,7 @@ class ShareQRFoooter extends StatelessWidget {
             data: Apis.URL_OFFICIAL_WEBSITE,
             version: QrVersions.auto,
             padding: EdgeInsets.all(0),
-            size: 44.0,
+            size: 72.0,
           ),
         ],
       ),
@@ -130,38 +137,26 @@ class ShareNewsHeader extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Container(
-      height: 116,
+      height: 104,
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 21, vertical: 10),
       decoration: BoxDecoration(
         color: Colours.gray_100,
         image: DecorationImage(
-          image: AssetImage(ImageUtil.getImgPath('bg_share_news'), package: Constant.baseLib),
+          image: AssetImage(ImageUtil.getImgPath('bg_home'), package: Constant.baseLib),
           fit: BoxFit.fill,
         ),
         //borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            height: 53,
-            width: 53,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: Colours.white,
-              borderRadius: BorderRadius.all(Radius.circular(13.0)),
-              boxShadow: BoxShadows.normalBoxShadow,
-            ),
-            child: LocalImage('logo', width: 53, height: 53, package: Constant.baseLib),
-          ),
-          Gaps.hGap10,
           Container(
             alignment: Alignment.centerLeft,
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
                   height: 26,
@@ -173,7 +168,7 @@ class ShareNewsHeader extends StatelessWidget {
                 Container(
                   height: 26,
                   padding: EdgeInsets.only(left: 2),
-                  alignment: Alignment.centerLeft,
+                  alignment: Alignment.center,
                   child: Text(Apis.URL_DISPLAY_WEBSITE,
                     style: TextStyles.textWhite12,
                   ),

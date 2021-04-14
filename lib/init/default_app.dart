@@ -66,8 +66,8 @@ class DefaultApp {
       String channel = await ChannelUtil.getChannel();
 
       await UmengAnalyticsPlugin.init(
-          androidKey: '5fa62c2745b2b751a925bf49',
-          iosKey: '5fa62c921c520d3073a2536f',
+          androidKey: '607552ba5844f15425d14f03',
+          iosKey: '6075530a5844f15425d151b2',
           channel: channel
       );
 

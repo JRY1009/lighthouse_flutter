@@ -139,21 +139,47 @@ class ShareLinkDialog extends StatelessWidget {
     );
 
     Widget bottom = Container(
-        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
         decoration: BoxDecoration(
           color: Colours.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
         ),
-        child: IntrinsicHeight(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                shareWechat,
-                shareFriend,
-                shareSave,
-                shareMore
-              ],
-            )
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: EdgeInsets.only(left: 40, right: 40, top: 20, bottom: 10),
+              child:
+              IntrinsicHeight(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      shareWechat,
+                      shareFriend,
+                      shareSave,
+                      shareMore
+                    ],
+                  )
+              ),
+            ),
+            TextButton(
+                onPressed: () => Navigator.pop(context),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colours.white),
+                  padding: MaterialStateProperty.all(EdgeInsets.all(0)),
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(0)))),
+                ),
+                child: Container(
+                    alignment: Alignment.center,
+                    height: 56.0,
+                    width: double.infinity,
+                    child: Text(S.of(context).cancel,
+                      style: TextStyles.textGray800_w400_16,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    )
+                )
+            ),
+          ],
         )
     );
 

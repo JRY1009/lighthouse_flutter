@@ -24,6 +24,16 @@ class Article {
     this.url,
   });
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Article &&
+          runtimeType == other.runtimeType &&
+          article_id == other.article_id;
+
+  @override
+  int get hashCode => article_id.hashCode;
+
   Article.fromJson(Map<String, dynamic> jsonMap) {
     article_id = jsonMap['article_id'] ?? 0;
     publish_time = jsonMap['publish_time'] ?? '';

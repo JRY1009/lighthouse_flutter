@@ -19,7 +19,9 @@ class CommonScrollView extends StatelessWidget {
     @required this.children,
     this.padding,
     this.physics = const BouncingScrollPhysics(),
+    this.mainAxisSize = MainAxisSize.max,
     this.crossAxisAlignment = CrossAxisAlignment.start,
+    this.contentAlignment = Alignment.topLeft,
     this.bottomButton,
     this.keyboardConfig,
     this.tapOutsideToDismiss = false,
@@ -31,7 +33,9 @@ class CommonScrollView extends StatelessWidget {
   final List<Widget> children;
   final EdgeInsetsGeometry padding;
   final ScrollPhysics physics;
+  final MainAxisSize mainAxisSize;
   final CrossAxisAlignment crossAxisAlignment;
+  final AlignmentGeometry contentAlignment;
   final Widget bottomButton;
   final KeyboardActionsConfig keyboardConfig;
   /// 键盘外部按下将其关闭
@@ -49,10 +53,12 @@ class CommonScrollView extends StatelessWidget {
     ShotView(
         controller: shotController,
         child: Column(
+          mainAxisSize: mainAxisSize,
           crossAxisAlignment: crossAxisAlignment,
           children: children,
         ),
     ) : Column(
+      mainAxisSize: mainAxisSize,
       crossAxisAlignment: crossAxisAlignment,
       children: children,
     );
@@ -106,7 +112,10 @@ class CommonScrollView extends StatelessWidget {
       contents = Column(
         children: <Widget>[
           Expanded(
-              child: contents
+              child: Align(
+                alignment: contentAlignment,
+                child: contents,
+              )
           ),
           SafeArea(
               child: bottomButton

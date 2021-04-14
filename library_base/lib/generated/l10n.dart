@@ -705,6 +705,16 @@ class S {
     );
   }
 
+  /// `登录成功`
+  String get logingSuccess {
+    return Intl.message(
+      '登录成功',
+      name: 'logingSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `正在获取验证码...`
   String get verifyin {
     return Intl.message(
@@ -1680,6 +1690,16 @@ class S {
     return Intl.message(
       '昨天',
       name: 'yesterday',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `来源：`
+  String get origin {
+    return Intl.message(
+      '来源：',
+      name: 'origin',
       desc: '',
       args: [],
     );

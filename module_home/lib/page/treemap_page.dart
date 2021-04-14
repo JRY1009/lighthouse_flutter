@@ -7,6 +7,8 @@ import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:library_base/res/gaps.dart';
+import 'package:library_base/utils/date_util.dart';
+import 'package:library_base/utils/time_count_util.dart';
 import 'package:library_base/widget/button/back_button.dart';
 import 'package:library_base/widget/chart/inapp_echart.dart';
 import 'package:library_base/widget/dialog/dialog_util.dart';
@@ -54,19 +56,32 @@ class _TreemapPageState extends State<TreemapPage> {
     Uint8List webBytes = await _echartKey?.currentState.webviewController.takeScreenshot();
     DialogUtil.showShareDialog(context,
         children: [
+          Container(
+            height: 46,
+            color: Colours.white,
+            padding: EdgeInsets.only(left: 15, top: 16, right: 16, bottom: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(S.of(context).treemap,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyles.textGray800_w400_16
+                ),
+                Text(DateUtil.getDateStrByDateTime(DateTime.now(), format: DateFormat.NORMAL),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyles.textGray500_w400_12
+                )
+              ],
+            ),
+          ),
+
+          Container(
+            color: Colours.white,
+            child: Image.memory(webBytes),
+          ),
           ShareQRHeader(),
-          Stack(
-            children: [
-              Container(
-                color: Colours.white,
-                child: Image.memory(pngBytes),
-              ),
-              Container(
-                color: Colours.white,
-                child: Image.memory(webBytes),
-              )
-            ],
-          )
         ]
     );
   }
@@ -98,9 +113,9 @@ class _TreemapPageState extends State<TreemapPage> {
                 },
                 levels: [
                     {
-                        color: ['#B4DAB5', '#69BA88', '#58A975', '#F8F8F8', '#ECA5A9', '#D95867', '#C2404C'],
+                        color: ['#651A21', '#8E242E', '#B72E3B', '#CC3341', '#8797AB', '#4E9768', '#45875D', '#3A794D', '#2B553A'],
                         visualMin: 0,
-                        visualMax: 6,
+                        visualMax: 8,
                         colorMappingBy: 'value', 
                         visualDimension: 2,
                         
@@ -197,12 +212,15 @@ class _TreemapPageState extends State<TreemapPage> {
                         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
                         child: Row(
                           children: [
-                            Expanded(child: Container(alignment: Alignment.center, child: Text('<-3%', style: TextStyles.textGray500_w400_10)), flex: 1),
-                            Expanded(child: Container(alignment: Alignment.center, child: Text('<-1%', style: TextStyles.textGray500_w400_10)), flex: 1),
-                            Expanded(child: Container(alignment: Alignment.center, child: Text('<0%', style: TextStyles.textGray500_w400_10)), flex: 1),
-                            Expanded(child: Container(alignment: Alignment.center, child: Text('>0%', style: TextStyles.textGray500_w400_10)), flex: 1),
-                            Expanded(child: Container(alignment: Alignment.center, child: Text('>+1%', style: TextStyles.textGray500_w400_10)), flex: 1),
-                            Expanded(child: Container(alignment: Alignment.center, child: Text('>+3%', style: TextStyles.textGray500_w400_10)), flex: 1),
+                            Expanded(child: Container(alignment: Alignment.center, child: Text('-8.0%', style: TextStyles.textGray500_w400_10)), flex: 1),
+                            Expanded(child: Container(alignment: Alignment.center, child: Text('-6.0%', style: TextStyles.textGray500_w400_10)), flex: 1),
+                            Expanded(child: Container(alignment: Alignment.center, child: Text('-4.0%', style: TextStyles.textGray500_w400_10)), flex: 1),
+                            Expanded(child: Container(alignment: Alignment.center, child: Text('-2.0%', style: TextStyles.textGray500_w400_10)), flex: 1),
+                            Expanded(child: Container(alignment: Alignment.center, child: Text('0%', style: TextStyles.textGray500_w400_10)), flex: 1),
+                            Expanded(child: Container(alignment: Alignment.center, child: Text('+2.0%', style: TextStyles.textGray500_w400_10)), flex: 1),
+                            Expanded(child: Container(alignment: Alignment.center, child: Text('+4.0%', style: TextStyles.textGray500_w400_10)), flex: 1),
+                            Expanded(child: Container(alignment: Alignment.center, child: Text('+6.0%', style: TextStyles.textGray500_w400_10)), flex: 1),
+                            Expanded(child: Container(alignment: Alignment.center, child: Text('+8.0%', style: TextStyles.textGray500_w400_10)), flex: 1),
                           ],
                         ),
                       ),
@@ -211,12 +229,15 @@ class _TreemapPageState extends State<TreemapPage> {
                         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 5),
                         child: Row(
                           children: [
-                            Expanded(child: Container(color: Color(0xFFC2404C)), flex: 1),
-                            Expanded(child: Container(color: Color(0xFFD95867)), flex: 1),
-                            Expanded(child: Container(color: Color(0xFFECA5A9)), flex: 1),
-                            Expanded(child: Container(color: Color(0xFFB4DAB5)), flex: 1),
-                            Expanded(child: Container(color: Color(0xFF69BA88)), flex: 1),
-                            Expanded(child: Container(color: Color(0xFF58A975)), flex: 1),
+                            Expanded(child: Container(color: Color(0xFF651A21)), flex: 1),
+                            Expanded(child: Container(color: Color(0xFF8E242E)), flex: 1),
+                            Expanded(child: Container(color: Color(0xFFB72E3B)), flex: 1),
+                            Expanded(child: Container(color: Color(0xFFCC3341)), flex: 1),
+                            Expanded(child: Container(color: Color(0xFF8797AB)), flex: 1),
+                            Expanded(child: Container(color: Color(0xFF4E9768)), flex: 1),
+                            Expanded(child: Container(color: Color(0xFF45875D)), flex: 1),
+                            Expanded(child: Container(color: Color(0xFF3A794D)), flex: 1),
+                            Expanded(child: Container(color: Color(0xFF2B553A)), flex: 1),
                           ],
                         ),
                       ),
