@@ -75,7 +75,7 @@ class DefaultApp {
           appId: "wxfdba5c8a01643f82",
           doOnAndroid: true,
           doOnIOS: true,
-          universalLink: "https://blockdt.com/app/lighthouse/");
+          universalLink: "https://www.idengta.com/app/lighthouse/");
     }
 
     await SPUtil.init();

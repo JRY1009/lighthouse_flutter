@@ -92,106 +92,93 @@ class _InappWebviewPageState extends State<InappWebviewPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-            onWillPop: () async {
-              if (webviewController != null) {
-                final bool canGoBack = await webviewController.canGoBack();
-                if (canGoBack) {
-                  // 网页可以返回时，优先返回上一页
-                  await webviewController.goBack();
-                  return Future.value(false);
-                }
-              }
-              return Future.value(true);
-            },
-            child: Scaffold(
-              appBar: AppBar(
-                leading: BackButtonEx(),
-                elevation: 1,
-                brightness: Brightness.light,
-                backgroundColor: Colours.white,
-                actions: widget.show_share ? <Widget>[
-                  IconButton(
-                    icon: LocalImage('icon_share', package: Constant.baseLib, width: 20, height: 20),
-                    onPressed: _share,
-                  )
-                ] : null,
-                centerTitle: true,
-                title: Text(widget.title, style: TextStyles.textBlack18),
-              ),
-              body: Stack(
-                children: [
-                  Opacity(
-                      opacity: _opacity,
-                      // --- FIX_BLINK ---
-                      child: InAppWebView(
-                        initialUrl: widget.url,
-                        initialOptions: InAppWebViewGroupOptions(
-                          crossPlatform: InAppWebViewOptions(
-                            useShouldOverrideUrlLoading: true,
-                            useOnLoadResource: true,
-                            javaScriptEnabled: true,
-                            incognito: true,
-                            mediaPlaybackRequiresUserGesture: false,
-                            clearCache: false,
-                            javaScriptCanOpenWindowsAutomatically: false,
-                          ),
-                          android: AndroidInAppWebViewOptions(
-                              hardwareAcceleration: true
-                          ),
-                          ios: IOSInAppWebViewOptions(
-                              allowsAirPlayForMediaPlayback: false,
-                              allowsInlineMediaPlayback: true),
-                        ),
-
-                        onWebViewCreated: (InAppWebViewController controller) {
-                          webviewController = controller;
-                          webviewController.addJavaScriptHandler(handlerName: 'share', callback: (args) {
-                            WeChatScene scene = args[0] == 1 ? WeChatScene.SESSION : args[0] == 2 ? WeChatScene.TIMELINE : WeChatScene.SESSION;
-                            _shareWechat(context, scene);
-                          });
-                        },
-                        onLoadStart: (InAppWebViewController controller, String url) {
-                          setState(() {
-                          });
-                        },
-                        onLoadStop: (InAppWebViewController controller, String url) async {
-                          loaded = true;
-                          if (DeviceUtil.isAndroid) {
-                            _opacity = 1.0;;
-                          }
-
-                          setState(() { _opacity = 1.0; });
-
-                          //init();
-                        },
-                        gestureRecognizers: widget.captureAllGestures
-                            ? (Set()
-                          ..add(Factory<VerticalDragGestureRecognizer>(() {
-                            return VerticalDragGestureRecognizer()
-                              ..onStart = (DragStartDetails details) {}
-                              ..onUpdate = (DragUpdateDetails details) {}
-                              ..onDown = (DragDownDetails details) {}
-                              ..onCancel = () {}
-                              ..onEnd = (DragEndDetails details) {};
-                          }))
-                          ..add(Factory<HorizontalDragGestureRecognizer>(() {
-                            return HorizontalDragGestureRecognizer()
-                              ..onStart = (DragStartDetails details) {}
-                              ..onUpdate = (DragUpdateDetails details) {}
-                              ..onDown = (DragDownDetails details) {}
-                              ..onCancel = () {}
-                              ..onEnd = (DragEndDetails details) {};
-                          })))
-                            : null,
-                      )
+    return Scaffold(
+      appBar: AppBar(
+        leading: BackButtonEx(),
+        elevation: 1,
+        brightness: Brightness.light,
+        backgroundColor: Colours.white,
+        actions: widget.show_share ? <Widget>[
+          IconButton(
+            icon: LocalImage('icon_share', package: Constant.baseLib, width: 20, height: 20),
+            onPressed: _share,
+          )
+        ] : null,
+        centerTitle: true,
+        title: Text(widget.title, style: TextStyles.textBlack18),
+      ),
+      body: Stack(
+        children: [
+          Opacity(
+              opacity: _opacity,
+              // --- FIX_BLINK ---
+              child: InAppWebView(
+                initialUrl: widget.url,
+                initialOptions: InAppWebViewGroupOptions(
+                  crossPlatform: InAppWebViewOptions(
+                    useShouldOverrideUrlLoading: true,
+                    useOnLoadResource: true,
+                    javaScriptEnabled: true,
+                    incognito: true,
+                    mediaPlaybackRequiresUserGesture: false,
+                    clearCache: false,
+                    javaScriptCanOpenWindowsAutomatically: false,
                   ),
+                  android: AndroidInAppWebViewOptions(
+                      hardwareAcceleration: true
+                  ),
+                  ios: IOSInAppWebViewOptions(
+                      allowsAirPlayForMediaPlayback: false,
+                      allowsInlineMediaPlayback: true),
+                ),
 
-                  !loaded ? FirstRefresh() : Gaps.empty
-                ]
+                onWebViewCreated: (InAppWebViewController controller) {
+                  webviewController = controller;
+                  webviewController.addJavaScriptHandler(handlerName: 'share', callback: (args) {
+                    WeChatScene scene = args[0] == 1 ? WeChatScene.SESSION : args[0] == 2 ? WeChatScene.TIMELINE : WeChatScene.SESSION;
+                    _shareWechat(context, scene);
+                  });
+                },
+                onLoadStart: (InAppWebViewController controller, String url) {
+                  setState(() {
+                  });
+                },
+                onLoadStop: (InAppWebViewController controller, String url) async {
+                  loaded = true;
+                  if (DeviceUtil.isAndroid) {
+                    _opacity = 1.0;;
+                  }
+
+                  setState(() { _opacity = 1.0; });
+
+                  //init();
+                },
+                gestureRecognizers: widget.captureAllGestures
+                    ? (Set()
+                  ..add(Factory<VerticalDragGestureRecognizer>(() {
+                    return VerticalDragGestureRecognizer()
+                      ..onStart = (DragStartDetails details) {}
+                      ..onUpdate = (DragUpdateDetails details) {}
+                      ..onDown = (DragDownDetails details) {}
+                      ..onCancel = () {}
+                      ..onEnd = (DragEndDetails details) {};
+                  }))
+                  ..add(Factory<HorizontalDragGestureRecognizer>(() {
+                    return HorizontalDragGestureRecognizer()
+                      ..onStart = (DragStartDetails details) {}
+                      ..onUpdate = (DragUpdateDetails details) {}
+                      ..onDown = (DragDownDetails details) {}
+                      ..onCancel = () {}
+                      ..onEnd = (DragEndDetails details) {};
+                  })))
+                    : null,
               )
-            ),
-          );
+          ),
+
+          !loaded ? FirstRefresh() : Gaps.empty
+        ]
+      )
+    );
   }
 }
 
