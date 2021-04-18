@@ -18,12 +18,17 @@ class Apis {
   static const String KEY_USER_U_ID = "lh-Uid";
   static const String KEY_USER_SIGN = "lh-Sign";
 
-  static const String PRIVATE_KEY = "5ffF03b858D5Fd16";       //测试环境
-  static const String BASE_URL_YAPI = 'http://81.70.145.64/api';  //测试环境
-  static const String BASE_URL_ARITCLE = 'http://test-news.blockbase.info/api';  //测试环境
-  static const String WEB_SOCKET_URL = 'ws://81.70.145.64:8083/api/ws';
+  //测试环境
+  static const String PRIVATE_KEY = "5ffF03b858D5Fd16";
+  static const String BASE_URL_TEST = 'http://81.70.145.64/api';
+  static const String BASE_URL_ARITCLE_TEST = 'https://test-news.idengta.com/api';
+  static const String WEB_SOCKET_URL_TEST = 'ws://81.70.145.64:8083/api/ws';
 
-  static bool get isTestEnvironment => (BASE_URL_YAPI == 'http://81.70.145.64/api');
+  //正式环境
+  static const String BASE_URL_PROD = 'http://81.70.145.64/api';
+  static const String BASE_URL_ARITCLE_PROD = 'https://news.idengta.com/api';
+  static const String WEB_SOCKET_URL_PROD = 'ws://81.70.145.64:8083/api/ws';
+
 
   static const String URL_LOGIN = '/login';
   static const String URL_REGISTER = '/reg';
@@ -53,8 +58,7 @@ class Apis {
 
   static const String URL_OFFICIAL_WEBSITE = 'https://www.idengta.com';
   static const String URL_DISPLAY_WEBSITE = 'idengta.com';
-  static const String URL_registAgreement = 'https://www.blockdt.com';
-  static const String URL_REGIST_AGREEMENT = 'https://www.blockdt.com/agreements/user.html';
-  static const String URL_PRIVATE_POLICY = 'https://www.blockdt.com/agreements/privacy.html';
-  static const String URL_DISCAIMER = 'https://www.blockdt.com/agreements/disclaimer.html';
+  static const String URL_REGIST_AGREEMENT = 'https://www.idengta.com/agreements/user.html';
+  static const String URL_PRIVATE_POLICY = 'https://www.idengta.com/agreements/privacy.html';
+  static const String URL_DISCAIMER = 'https://www.idengta.com/agreements/disclaimer.html';
 }

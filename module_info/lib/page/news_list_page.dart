@@ -125,7 +125,7 @@ class _NewsListPageState extends State<NewsListPage> with BasePageMixin<NewsList
                 enablePullUp: !model.noMore,
                 onRefresh: widget.isSupportPull ? model.refresh : null,
                 onLoading: model.noMore ? null : model.loadMore,
-                child: model.isFirst ? refreshWidget : model.isEmpty ? emptyWidget : CustomScrollView(
+                child: model.isFirst ? refreshWidget : (model.isEmpty || model.isError) ? emptyWidget : CustomScrollView(
                   slivers: _buildList(),
                 )
             ),

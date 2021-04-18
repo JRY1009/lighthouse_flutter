@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:library_base/constant/app_config.dart';
 import 'package:library_base/generated/l10n.dart';
-import 'package:library_base/net/apis.dart';
 import 'package:library_base/router/routers.dart';
 import 'package:library_base/utils/device_util.dart';
 import 'package:library_base/utils/log_util.dart';
+import 'package:library_base/utils/refresh_util.dart';
 import 'package:library_base/utils/sp_util.dart';
 import 'package:library_base/utils/toast_util.dart';
-import 'package:library_base/utils/refresh_util.dart';
 
-import 'page/money_page.dart';
 import 'money_router.dart';
+import 'page/money_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -31,7 +31,7 @@ class DefaultApp {
   //程序初始化操作
   static void initApp() {
 
-    LogUtil.init(isDebug: Apis.isTestEnvironment);
+    LogUtil.init(isDebug: AppConfig.isTestEnvironment);
     if (DeviceUtil.isAndroid) {
       // 透明状态栏
       const SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(

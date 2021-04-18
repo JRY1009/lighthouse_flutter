@@ -85,6 +85,8 @@
 
 * 热更新开启时，使用 assembleReleaseChannels 命令也会打出基准包，文件生成在build\app\bakApk目录
 
+* 测试环境包采用默认参数 -Ptarget=lib/main.dart，生产环境包设置参数 -Ptarget=lib/main_prod.dart
+
 ##  热更新注意事项
 
 * tinker-support.gradle 中设置 enable = true，tinkerEnable = true

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:library_base/constant/app_config.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/net/apis.dart';
 import 'package:library_base/router/routers.dart';
@@ -30,7 +31,7 @@ class DefaultApp {
   //程序初始化操作
   static void initApp() {
 
-    LogUtil.init(isDebug: Apis.isTestEnvironment);
+    LogUtil.init(isDebug: AppConfig.isTestEnvironment);
     if (DeviceUtil.isAndroid) {
       // 透明状态栏
       const SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(

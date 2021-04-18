@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fluwx/fluwx.dart';
+import 'package:library_base/constant/app_config.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/global/locale_provider.dart';
 import 'package:library_base/global/theme_provider.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
-import 'package:library_base/net/apis.dart';
 import 'package:library_base/router/app_analysis.dart';
 import 'package:library_base/router/routers.dart';
 import 'package:library_base/utils/channel_util.dart';
@@ -49,7 +49,7 @@ class DefaultApp {
   //程序初始化操作
   static Future<void> initApp() async {
 
-    LogUtil.init(isDebug: Apis.isTestEnvironment);
+    LogUtil.init(isDebug: AppConfig.isTestEnvironment);
     //JPushUtil.initPlatformState();
 
     if (DeviceUtil.isAndroid) {

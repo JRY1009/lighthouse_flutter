@@ -121,7 +121,7 @@ class _ArticleListPageState extends State<ArticleListPage> with BasePageMixin<Ar
                 enablePullUp: !model.noMore,
                 onRefresh: widget.isSupportPull ? model.refresh : null,
                 onLoading: model.noMore ? null : model.loadMore,
-                child: model.isFirst ? refreshWidget : model.isEmpty ? emptyWidget : CustomScrollView(
+                child: model.isFirst ? refreshWidget : (model.isEmpty || model.isError) ? emptyWidget : CustomScrollView(
                   slivers: [
                     SliverList(
                       delegate: SliverChildBuilderDelegate((context, index) {

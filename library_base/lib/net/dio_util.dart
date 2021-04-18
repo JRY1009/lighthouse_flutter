@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:library_base/constant/app_config.dart';
 import 'package:library_base/constant/constant.dart';
 import 'package:library_base/global/rt_account.dart';
 import 'package:library_base/net/base/base_entity.dart';
@@ -30,7 +31,7 @@ class DioUtil {
   Dio dio = new Dio();
 
   DioUtil() {
-    dio.options.baseUrl = Apis.BASE_URL_YAPI;
+    dio.options.baseUrl = AppConfig.env.apiUrl;
     dio.options.contentType = ContentType.parse("application/json;charset=UTF-8").toString();
     dio.options.connectTimeout = 10000;
     dio.options.receiveTimeout = 5000;
@@ -109,7 +110,7 @@ class DioUtil {
     Function(String errno, String msg) onError,
     CancelToken cancelToken
   }) {
-    dio.options.baseUrl = Apis.BASE_URL_YAPI;
+    dio.options.baseUrl = AppConfig.env.apiUrl;
 
     return _request<T>(url, method,
       params: params,
@@ -143,7 +144,7 @@ class DioUtil {
     Function(String errno, String msg) onError,
     CancelToken cancelToken
   }) {
-    dio.options.baseUrl = Apis.BASE_URL_ARITCLE;
+    dio.options.baseUrl = AppConfig.env.articleApiUrl;
 
     return _request<T>(url, method,
       params: params,

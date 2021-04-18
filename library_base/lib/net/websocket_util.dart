@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:library_base/constant/app_config.dart';
 import 'package:library_base/event/event.dart';
 import 'package:library_base/event/ws_event.dart';
 import 'package:library_base/model/quote_ws.dart';
-import 'package:library_base/net/apis.dart';
 import 'package:library_base/utils/device_util.dart';
 import 'package:library_base/utils/log_util.dart';
 import 'package:web_socket_channel/io.dart';
@@ -87,12 +87,12 @@ class WebSocketUtil {
     closed();
 
     if (DeviceUtil.isWeb) {
-      _channel = WebSocketChannel.connect(Uri.parse(Apis.WEB_SOCKET_URL));
+      _channel = WebSocketChannel.connect(Uri.parse(AppConfig.env.wsUrl));
     } else {
-      _channel = IOWebSocketChannel.connect(Apis.WEB_SOCKET_URL, pingInterval: Duration(milliseconds: _heartTimes));
+      _channel = IOWebSocketChannel.connect(AppConfig.env.wsUrl, pingInterval: Duration(milliseconds: _heartTimes));
     }
 
-    LogUtil.v('websocket connect:  ${Apis.WEB_SOCKET_URL}', tag: _TAG);
+    LogUtil.v('websocket connect:  ${AppConfig.env.wsUrl}', tag: _TAG);
 
     _channel.stream.listen((data) => _onMessage(data),
         onError: _onError,
@@ -172,12 +172,12 @@ class WebSocketUtil {
       if (_rcTimer == null) {
         _rcTimer = new Timer.periodic(Duration(milliseconds: _heartTimes), (timer) {
 
-          LogUtil.v('websocket reconnect:  ${Apis.WEB_SOCKET_URL}', tag: _TAG);
+          LogUtil.v('websocket reconnect:  ${AppConfig.env.wsUrl}', tag: _TAG);
 
           if (DeviceUtil.isWeb) {
-            _channel = WebSocketChannel.connect(Uri.parse(Apis.WEB_SOCKET_URL));
+            _channel = WebSocketChannel.connect(Uri.parse(AppConfig.env.wsUrl));
           } else {
-            _channel = IOWebSocketChannel.connect(Apis.WEB_SOCKET_URL, pingInterval: Duration(milliseconds: _heartTimes));
+            _channel = IOWebSocketChannel.connect(AppConfig.env.wsUrl, pingInterval: Duration(milliseconds: _heartTimes));
           }
 
           _channel.stream.listen((data) => _onMessage(data),

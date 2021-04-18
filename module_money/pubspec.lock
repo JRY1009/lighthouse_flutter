@@ -194,7 +194,7 @@ packages:
       name: flutter_bugly
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.3.0+2"
+    version: "0.3.2+1"
   flutter_cache_manager:
     dependency: transitive
     description:
@@ -202,13 +202,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.1"
-  flutter_easyrefresh:
-    dependency: transitive
-    description:
-      name: flutter_easyrefresh
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.1.8"
   flutter_echarts:
     dependency: transitive
     description:
@@ -249,6 +242,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "5.0.0"
+  flutter_sticky_header:
+    dependency: transitive
+    description:
+      name: flutter_sticky_header
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.5.0"
   flutter_swiper:
     dependency: transitive
     description:
@@ -266,13 +266,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_xupdate:
-    dependency: transitive
-    description:
-      name: flutter_xupdate
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.0.2"
   fluwx:
     dependency: transitive
     description:
@@ -539,6 +532,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "5.0.0"
+  pull_to_refresh:
+    dependency: transitive
+    description:
+      name: pull_to_refresh
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.6.5"
   qr:
     dependency: transitive
     description:
@@ -649,13 +649,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.10.0"
-  sticky_headers:
-    dependency: transitive
-    description:
-      name: sticky_headers
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.1.8+1"
   stream_channel:
     dependency: transitive
     description:
@@ -712,6 +705,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.3"
+  uni_links:
+    dependency: transitive
+    description:
+      name: uni_links
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.4.0"
   url_launcher:
     dependency: transitive
     description:
@@ -761,6 +761,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.2.2"
+  value_layout_builder:
+    dependency: transitive
+    description:
+      name: value_layout_builder
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.2.0"
   vector_math:
     dependency: transitive
     description:

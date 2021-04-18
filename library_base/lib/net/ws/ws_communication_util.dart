@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:library_base/net/apis.dart';
+import 'package:library_base/constant/app_config.dart';
 import 'package:library_base/net/ws/websocket_util.dart';
 import 'package:library_base/utils/timer_util.dart';
 
@@ -13,7 +13,7 @@ class WsCommunicationUtil {
 
   ///  初始化时启动webSocket连接
   WsCommunicationUtil._internal() {
-    sockets.initWebSocket(Apis.WEB_SOCKET_URL);
+    sockets.initWebSocket(AppConfig.env.wsUrl);
     sockets.addListener(_onGameDataReceived);
   }
 
@@ -35,7 +35,7 @@ class WsCommunicationUtil {
       if (_count > 3) {
         // 三次没有接收到pong，需要重连并订阅
         sockets.removeAllListener();
-        sockets.initWebSocket(Apis.WEB_SOCKET_URL);
+        sockets.initWebSocket(AppConfig.env.wsUrl);
         sockets.addListener(_onGameDataReceived);
       }
     });
