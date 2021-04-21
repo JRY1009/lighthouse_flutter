@@ -4,6 +4,7 @@ import 'package:library_base/router/i_router.dart';
 import 'package:library_base/router/page_builder.dart';
 import 'package:library_base/router/routers.dart';
 import 'package:module_info/page/article_list_page.dart';
+import 'package:module_info/page/article_recommend_page.dart';
 import 'package:module_info/page/info_page.dart';
 import 'package:module_info/page/news_list_page.dart';
 
@@ -17,6 +18,12 @@ class InfoRouter implements IRouter{
       PageBuilder(Routers.infoPage, (params) {
         Key key = params?.getObj('key');
         return InfoPage(key: key);
+      }),
+
+      PageBuilder(Routers.articleRecommendPage, (params) {
+        Key key = params?.getObj('key');
+        String tag = params?.getString('tag') ?? '';
+        return ArticleRecommendPage(key: key, tag: tag);
       }),
 
       PageBuilder(Routers.articleListPage, (params) {

@@ -67,8 +67,11 @@ class ShareQRHeader extends StatelessWidget {
 
 class ShareQRFoooter extends StatelessWidget {
 
+  final Color backgroundColor;
+
   ShareQRFoooter({
     Key key,
+    this.backgroundColor
   }) : super(key: key);
 
   @override
@@ -76,7 +79,7 @@ class ShareQRFoooter extends StatelessWidget {
 
     return Container(
       height: 100,
-      color: Colours.white,
+      color: backgroundColor ?? Colours.white,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -161,9 +164,12 @@ class ShareNewsHeader extends StatelessWidget {
                 Container(
                   height: 26,
                   alignment: Alignment.bottomLeft,
-                  child: Text(S.of(context).appName + '·' + S.of(context).x724,
-                    style: TextStyles.textWhite20,
-                  ),
+                  child: Text.rich(TextSpan(
+                      children: [
+                        TextSpan(text: S.of(context).appName, style: TextStyles.textWhite20_w700),
+                        TextSpan(text: ' · ' + S.of(context).x724, style: TextStyles.textWhite20),
+                      ]
+                  )),
                 ),
                 Container(
                   height: 26,

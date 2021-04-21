@@ -5,7 +5,7 @@ class Colours {
   static const Color app_main_500 = Color(0xFF308BE6);
   static const Color dark_app_main = Color(0xFF3842Ff);
 
-  static const Color normal_bg = Color(0xFFF3F6FF);
+  static const Color normal_bg = Color(0xFFF5FAFE);
   static const Color bubble_bg = Color(0xFFE6EDFF);
 
   static const Color toast_bg = Color(0xffffffff);
@@ -31,6 +31,7 @@ class Colours {
   static const Color transparent = Color(0x00000000);
   static const Color white = Color(0xFFFFFFFF);
   static const Color white80 = Color(0x80FFFFFF);
+  static const Color whitea0 = Color(0xa0FFFFFF);
   static const Color black = Color(0xff333A50);
   static const Color red = Color(0xFFEB5757);
 

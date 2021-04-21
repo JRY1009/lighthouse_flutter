@@ -48,7 +48,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
       onTap: () => Routers.navigateTo(
           context,
           Routers.spotDetailPage,
-          parameters: Parameters()..putString('coinCode', widget.quotePair != null ? widget.quotePair.coin_code : '')),
+          parameters: Parameters()..putString('coinCode', widget.quotePair != null ? widget.quotePair.chain : '')),
       child: Container(
         height: 270,
         padding: EdgeInsets.symmetric(horizontal: 12),

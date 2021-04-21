@@ -91,11 +91,13 @@ class GlobalQuoteModel extends ViewStateModel {
         onSuccess: (data) {
           if (chain == HomeModel.COIN_BITCOIN) {
             btcUsdPair = QuotePair.fromJson(data);
-            btcUsdPair.coin_code = HomeModel.COIN_BITCOIN;
+            btcUsdPair.coin_code = 'BTC';
+            btcUsdPair.chain = HomeModel.COIN_BITCOIN;
 
           } else if (chain == HomeModel.COIN_ETHEREUM) {
             ethUsdPair = QuotePair.fromJson(data);
-            ethUsdPair.coin_code = HomeModel.COIN_ETHEREUM;
+            ethUsdPair.coin_code = 'ETH';
+            ethUsdPair.chain = HomeModel.COIN_ETHEREUM;
           }
         },
         onError: (errno, msg) {

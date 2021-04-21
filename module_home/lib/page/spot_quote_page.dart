@@ -7,6 +7,7 @@ import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:library_base/res/colors.dart';
+import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/utils/num_util.dart';
 import 'package:library_base/widget/button/sort_button.dart';
@@ -105,6 +106,7 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
                             return SpotExchangeQuoteItem(
                               index: i,
                               tradePlatform: sortedList[i].name,
+                              pair: sortedList[i].pair,
                               price: sortedList[i].quote,
                               rate: sortedList[i].change_percent,
                               cny: sortedList[i].cny,
@@ -115,7 +117,7 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
                         )]
                   ),
                 ),
-
+                Gaps.vGap10
               ]
           );
         }
@@ -222,9 +224,9 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
           height: 46.0,
           width: double.infinity,
           margin: const EdgeInsets.only(top: 9, left: 15, right: 15),
-          decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(width: 0.6, color: Colours.default_line))
-          ),
+//          decoration: BoxDecoration(
+//              border: Border(bottom: BorderSide(width: 0.6, color: Colours.default_line))
+//          ),
           child: Row (
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

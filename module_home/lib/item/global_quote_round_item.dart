@@ -34,10 +34,10 @@ class GlobalQuoteRoundItem extends StatelessWidget {
       left: posX,
       top: posY,
       child: Container(
-        height: 50.0,
-        width: 50.0,
+        height: 55.0,
+        width: 55.0,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50.0),   //圆角
+            borderRadius: BorderRadius.circular(55.0),   //圆角
             color: rate >= 0 ? Colours.text_green : Colours.text_red
         ),
         child: Column (
@@ -48,7 +48,7 @@ class GlobalQuoteRoundItem extends StatelessWidget {
                 height: 14,
                 alignment: Alignment.center,
                 child: Text(name ?? '',
-                  style: TextStyles.textWhite11,
+                  style: TextStyles.textWhite11_w700,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 )

@@ -99,7 +99,7 @@ class _SpotDataAddressAssetsDistributionBarState extends State<SpotDataAddressAs
                           child: Container(
                             alignment: Alignment.centerLeft,
                             child: Text(S.of(context).proAddressAssetsDistribution,
-                              style: TextStyles.textGray800_w400_18,
+                              style: TextStyles.textGray800_w700_18,
                             ),
                           ),
                         ),

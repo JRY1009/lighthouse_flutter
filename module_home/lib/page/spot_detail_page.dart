@@ -61,6 +61,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
   ValueNotifier<bool> _topBarExtentNofifier = ValueNotifier<bool>(false);
   ValueNotifier<bool> _scrollExtentNofifier = ValueNotifier<bool>(false);
 
+  double _toolbarHeight = 105.0;
   double _tabBarHeight = 58.0;
 
   @override
@@ -137,13 +138,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
       Uint8List tabBarPngBytes = await _tabBarSC.makeImageUint8List();
       DialogUtil.showShareDialog(context,
           children: [
-            Container(
-                height: 56,
-                width: double.infinity,
-                alignment: Alignment.center,
-                color: Colours.white,
-                child: Text(title, style: TextStyles.textBlack16)
-            ),
+            ShareQRHeader(),
             Container(
               color: Colours.white,
               child: Column(
@@ -156,7 +151,6 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
                 ],
               ),
             ),
-            ShareQRFoooter(),
           ]
       );
     });
@@ -184,7 +178,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
                     ),
                   ],
                   centerTitle: true,
-                  title: _titleBuilder()
+                  //title: _titleBuilder()
               ),
               body: NestedRefreshIndicator(
                 key: _nestedRefreshKey,
@@ -199,7 +193,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
                   child: extended.NestedScrollView(
                       physics: const ClampingScrollPhysics(),
                       pinnedHeaderSliverHeightBuilder: () {
-                        return 0;
+                        return _toolbarHeight;
                       },
                       innerScrollPositionKeyBuilder: () {
                         return Key(_tabTitles[_tabController.index]);
@@ -250,13 +244,32 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
       ProviderWidget<SpotKLineHandleModel>(
           model: _spotDetailModel.spotKLineHandleModel,
           builder: (context, model, child) {
-            return SliverToBoxAdapter(
-              child: SpotDetailAppbar(
+            return SliverAppBar(
+                toolbarHeight: _toolbarHeight,
+                titleSpacing: 0,
+                elevation: 0.0,
+                primary: false,
+                actions: null,
+                automaticallyImplyLeading : false,
+                backgroundColor: Colours.white,
+                title: SpotDetailAppbar(
                   showShadow: false,
                   quoteCoin: _spotDetailModel.quoteCoin,
                   numberSlideController: _spotDetailModel.quoteSlideController
-              ),
+                ),
+                centerTitle: true,
+                expandedHeight: 0,
+                floating: true, // 不随着滑动隐藏标题
+                pinned: true, // 固定在顶部
             );
+
+//            return SliverToBoxAdapter(
+//              child: SpotDetailAppbar(
+//                  showShadow: false,
+//                  quoteCoin: _spotDetailModel.quoteCoin,
+//                  numberSlideController: _spotDetailModel.quoteSlideController
+//              ),
+//            );
           }
       ),
 
@@ -266,7 +279,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
 
       SliverToBoxAdapter(
         child: SpotDetailBottomBar(quoteCoin: _spotDetailModel.quoteCoin),
-      )
+      ),
 
 //      SliverPersistentHeader(
 //        pinned: true,
@@ -322,12 +335,12 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
             child: TabBar(
               controller: _tabController,
               labelColor: Colours.text_black,
-              labelStyle: TextStyles.textBlack18,
+              labelStyle: TextStyles.textGray800_w700_18,
               unselectedLabelColor: Colours.gray_400,
               unselectedLabelStyle: TextStyles.textGray400_w400_14,
               indicatorSize: TabBarIndicatorSize.label,
               indicator: RoundTabIndicator(
-                  borderSide: BorderSide(color: Colours.text_black, width: 3),
+                  borderSide: BorderSide(color: Colours.gray_800, width: 3),
                   isRound: true,
                   insets: EdgeInsets.only(left: 8, right: 8)),
               isScrollable: true,

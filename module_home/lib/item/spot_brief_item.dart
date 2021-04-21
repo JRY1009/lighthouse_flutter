@@ -43,7 +43,7 @@ class SpotBriefItem extends StatelessWidget {
               alignment: Alignment.topLeft,
               margin: EdgeInsets.only(top: 18),
               child: Text(title,
-                style: TextStyles.textGray800_w400_18,
+                style: TextStyles.textGray800_w700_18,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),

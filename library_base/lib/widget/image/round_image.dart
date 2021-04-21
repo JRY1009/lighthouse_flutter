@@ -10,7 +10,9 @@ class RoundImage extends StatelessWidget {
     this.width, 
     this.height,
     this.fit = BoxFit.cover,
-    this.borderRadius
+    this.borderRadius,
+    this.placeholderImage,
+    this.fadeInDuration = const Duration(milliseconds: 500),
   }) : assert(imageUrl != null, 'The [imageUrl] argument must not be null.'),
        super(key: key);
   
@@ -19,11 +21,14 @@ class RoundImage extends StatelessWidget {
   final double height;
   final BoxFit fit;
   final BorderRadiusGeometry borderRadius;
-  
+  final DecorationImage placeholderImage;
+  final Duration fadeInDuration;
+
   @override
   Widget build(BuildContext context) {
 
     return CachedNetworkImage(
+      fadeInDuration: fadeInDuration,
       imageUrl: imageUrl ?? '',
       fit: fit,
       imageBuilder: (context, imageProvider) => Container(
@@ -38,10 +43,17 @@ class RoundImage extends StatelessWidget {
         ),
       ),
       placeholder: (context, url) => Container(
-        color: Colours.gray_200,
+        decoration: BoxDecoration(
+          borderRadius: borderRadius,
+          color: Colours.gray_200,
+        ),
       ),
       errorWidget: (_, __, dynamic error) => Container(
-        color: Colours.gray_200,
+        decoration: BoxDecoration(
+          borderRadius: borderRadius,
+          color: Colours.gray_200,
+          image: placeholderImage,
+        ),
       ),
 
     );

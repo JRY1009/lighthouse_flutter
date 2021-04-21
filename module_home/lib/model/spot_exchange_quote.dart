@@ -4,6 +4,7 @@ import 'package:library_base/utils/object_util.dart';
 class SpotExchangeQuote {
 
   String name;
+  String pair;
   num quote;
   String ico ;
   String url;
@@ -12,6 +13,7 @@ class SpotExchangeQuote {
 
   SpotExchangeQuote({
     this.name,
+    this.pair,
     this.quote,
     this.ico,
     this.url,
@@ -21,6 +23,7 @@ class SpotExchangeQuote {
 
   SpotExchangeQuote.fromJson(Map<String, dynamic> jsonMap) {
     name = jsonMap['name'] ?? '';
+    pair = jsonMap['pair'] ?? '';
     quote = jsonMap['quote'] ?? 0;
     ico = jsonMap['ico'] ?? '';
     url = jsonMap['url'] ?? '';
@@ -31,6 +34,7 @@ class SpotExchangeQuote {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> jsonMap = new Map<String, dynamic>();
     jsonMap['name'] = this.name;
+    jsonMap['pair'] = this.pair;
     jsonMap['quote'] = this.quote;
     jsonMap['ico'] = this.ico;
     jsonMap['url'] = this.url;
@@ -40,14 +44,14 @@ class SpotExchangeQuote {
     return jsonMap;
   }
 
-  static List<SpotExchangeQuote> fromJsonList(List<dynamic> mapList) {
+  static List<SpotExchangeQuote> fromJsonList(List<dynamic> mapList, String pair) {
     if (ObjectUtil.isEmptyList(mapList)) {
       return null;
     }
 
     List<SpotExchangeQuote> items = new List<SpotExchangeQuote>();
     for(Map<String, dynamic> map in mapList) {
-      items.add(SpotExchangeQuote.fromJson(map));
+      items.add(SpotExchangeQuote.fromJson(map)..pair = pair);
     }
     return items;
   }

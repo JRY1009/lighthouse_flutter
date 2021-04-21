@@ -28,8 +28,8 @@ class ArticleItem extends StatelessWidget {
     return FlatButton(
       onPressed: () {
         Parameters params = Parameters()
-          ..putString('title', S.of(context).infoDetail)
-          ..putString('url', aritcle.url_app ?? 'http://8.131.70.73/bdt/article/')
+          ..putString('title', '')
+          ..putString('url', aritcle.url_app ?? '')
           ..putString('title_share', aritcle.title ?? '')
           ..putString('summary_share', aritcle.summary ?? '')
           ..putString('url_share', aritcle.url ?? '')
@@ -57,7 +57,7 @@ class ArticleItem extends StatelessWidget {
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
-                              style: TextStyles.textGray800_w400_17
+                              style: TextStyles.textGray800_w600_17
                           )
                       ),
                       Gaps.vGap12,

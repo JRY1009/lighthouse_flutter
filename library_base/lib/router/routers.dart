@@ -25,8 +25,12 @@ class Routers {
   static String globalQuotePage = '/globalQuotePage';
   static String treemapPage = '/treemapPage';
   static String milestonePage = '/milestonePage';
+  static String schoolPage = '/schoolPage';
+  static String lessonPage = '/lessonPage';
+  static String communityPage = '/communityPage';
 
   static String infoPage = '/infoPage';
+  static String articleRecommendPage = '/articleRecommendPage';
   static String articleListPage = '/articleListPage';
   static String newsListPage = '/newsListPage';
 

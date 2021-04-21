@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +6,6 @@ import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
-import 'package:library_base/router/parameters.dart';
-import 'package:library_base/router/routers.dart';
 import 'package:library_base/utils/date_util.dart';
 import 'package:library_base/utils/image_util.dart';
 import 'package:library_base/utils/object_util.dart';
@@ -71,7 +68,7 @@ class _NewsItemState extends State<NewsItem> {
                           alignment: Alignment.centerLeft,
                           child: Text(widget.news?.title ?? '',
                               strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
-                              style: TextStyles.textGray800_w400_20
+                              style: TextStyles.textGray800_w700_20
                           )
                       ),
                       Container(
@@ -98,16 +95,16 @@ class _NewsItemState extends State<NewsItem> {
                           )
                       ),
 
-                      Container(
-                        height: 20,
-                        alignment: Alignment.centerLeft,
-                        margin: EdgeInsets.only(top: 10),
-                        child: Text(S.of(context).origin + (widget.news?.publisher ?? ''),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyles.textGray300_w400_12
-                        ),
-                      ),
+//                      Container(
+//                        height: 20,
+//                        alignment: Alignment.centerLeft,
+//                        margin: EdgeInsets.only(top: 10),
+//                        child: Text(S.of(context).origin + (widget.news?.publisher ?? ''),
+//                            maxLines: 1,
+//                            overflow: TextOverflow.ellipsis,
+//                            style: TextStyles.textGray300_w400_12
+//                        ),
+//                      ),
                     ],
                   ),
                 ),
@@ -188,7 +185,7 @@ class _NewsItemState extends State<NewsItem> {
                         alignment: Alignment.centerLeft,
                         child: Text(widget.news?.title ?? '',
                             strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
-                            style: TextStyles.textGray800_w400_17
+                            style: TextStyles.textGray800_w700_17
                         )
                       ),
                     ),

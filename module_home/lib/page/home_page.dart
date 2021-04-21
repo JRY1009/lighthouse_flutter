@@ -9,11 +9,13 @@ import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/router/parameters.dart';
 import 'package:library_base/router/routers.dart';
+import 'package:library_base/utils/device_util.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh.dart';
 import 'package:library_base/widget/nestedscroll/nested_refresh_indicator.dart';
 import 'package:library_base/widget/nestedscroll/nested_scroll_view_inner_scroll_position_key_widget.dart' as extended;
 import 'package:library_base/widget/nestedscroll/old_extended_nested_scroll_view.dart' as extended;
 import 'package:module_home/viewmodel/home_model.dart';
+import 'package:module_home/widget/home_community_bar.dart';
 import 'package:module_home/widget/home_flexible_appbar.dart';
 import 'package:module_home/widget/home_milestone_bar.dart';
 import 'package:module_home/widget/home_pinned_appbar.dart';
@@ -35,7 +37,7 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
   @override
   bool get wantKeepAlive => true;
 
-  double _toolbarHeight = 90;
+  double _toolbarHeight = DeviceUtil.isIOS ? 105 : 90;
 
   HomeModel _homeModel;
   ValueNotifier<double> _opacityNofifier = ValueNotifier<double>(0);
@@ -108,11 +110,10 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
                     },
                     headerSliverBuilder: (context, innerBoxIsScrolled) => _headerSliverBuilder(context),
                     body: extended.NestedScrollViewInnerScrollPositionKeyWidget(Key('Tab0'),
-                        Routers.generatePage(context, Routers.articleListPage,
+                        Routers.generatePage(context, Routers.articleRecommendPage,
                           parameters: Parameters()
-                            ..putObj('key', model.articlePageKey)
-                            ..putBool('isSupportPull', false)
-                            ..putBool('isSingleCard', true)))
+                            ..putObj('key', model.articlePageKey))
+                    )
                   ),
                 ),
               );
@@ -161,7 +162,10 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
         child: HomeQuoteTreemapBar(),
       ),
       SliverToBoxAdapter(
-        child: HomeMileStoneBar(key: _homeModel.milestonePageKey),
+        child: HomeMileStoneBar(),
+      ),
+      SliverToBoxAdapter(
+        child: HomeCommunityBar(key: _homeModel.communityPageKey),
       ),
     ];
   }

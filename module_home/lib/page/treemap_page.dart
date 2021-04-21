@@ -66,7 +66,7 @@ class _TreemapPageState extends State<TreemapPage> {
                 Text(S.of(context).treemap,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyles.textGray800_w400_16
+                    style: TextStyles.textGray800_w700_16
                 ),
                 Text(DateUtil.getDateStrByDateTime(DateTime.now(), format: DateFormat.NORMAL),
                     maxLines: 1,
@@ -180,6 +180,7 @@ class _TreemapPageState extends State<TreemapPage> {
           );
 
           return Scaffold(
+              backgroundColor: Colours.white,
               appBar: AppBar(
                 leading: BackButtonEx(),
                 elevation: 1,

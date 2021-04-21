@@ -89,13 +89,13 @@ class _InfoPageState extends State<InfoPage> with BasePageMixin<InfoPage>, Autom
                 height: 44.0,
                 child: TabBar(
                   controller: _tabController,
-                  labelColor: Colours.app_main,
-                  labelStyle: TextStyles.textMain16,
+                  labelColor: Colours.gray_800,
+                  labelStyle: TextStyles.textGray800_w700_18,
                   unselectedLabelColor: Colours.gray_400,
                   unselectedLabelStyle: TextStyles.textGray400_w400_16,
                   indicatorSize: TabBarIndicatorSize.label,
                   indicator: RoundTabIndicator(
-                      borderSide: BorderSide(color: Colours.app_main, width: 3),
+                      borderSide: BorderSide(color: Colours.gray_800, width: 3),
                       isRound: true,
                       insets: EdgeInsets.only(left: 5, right: 5)),
                   isScrollable: false,

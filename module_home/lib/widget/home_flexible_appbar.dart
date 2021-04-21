@@ -33,6 +33,7 @@ class HomeFlexibleAppBar extends StatefulWidget {
 class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTickerProviderStateMixin{
 
   TabController _tabController;
+  PageController _pageController = PageController();
 
   @override
   void initState() {
@@ -53,15 +54,19 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
   Widget build(BuildContext context) {
     HomeModel homeModel = Provider.of<HomeModel>(context);
 
-    num btcRate = homeModel.btcUsdPair != null ? homeModel.btcUsdPair.change_percent : 0;
-    num btcPrice = homeModel.btcUsdPair != null ? homeModel.btcUsdPair.quote : 0;
+    String btcIco = homeModel?.btcUsdPair?.icon ?? '';
+    String btcIcoUnSelect = homeModel?.btcUsdPair?.icon_grey ?? '';
+    num btcRate = homeModel?.btcUsdPair?.change_percent ?? 0;
+    num btcPrice = homeModel?.btcUsdPair?.quote ?? 0;
     String btcRateStr = (btcRate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(btcRate.toDouble(), 2).toString() + '%';
-    String btcPriceStr = '\$' + NumUtil.formatNum(btcPrice, point: 2);
+    String btcPriceStr = NumUtil.formatNum(btcPrice, point: 2);
 
-    num ethRate = homeModel.ethUsdPair != null ? homeModel.ethUsdPair.change_percent : 0;
-    num ethPrice = homeModel.ethUsdPair != null ? homeModel.ethUsdPair.quote : 0;
+    String ethIco = homeModel?.ethUsdPair?.icon ?? '';
+    String ethIcoUnSelect = homeModel?.ethUsdPair?.icon_grey ?? '';
+    num ethRate = homeModel?.ethUsdPair?.change_percent ?? 0;
+    num ethPrice = homeModel?.ethUsdPair?.quote ?? 0;
     String ethRateStr = (ethRate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(ethRate.toDouble(), 2).toString() + '%';
-    String ethPriceStr = '\$' + NumUtil.formatNum(ethPrice, point: 2);
+    String ethPriceStr = NumUtil.formatNum(ethPrice, point: 2);
 
     bool isVertical = ScreenUtil.getScreenW(context) < ScreenUtil.getScreenH(context);
 
@@ -142,22 +147,37 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
                         isScrollable: false,
                         tabs: <QuotationTab>[
                           QuotationTab(
-                            title: homeModel.btcUsdPair?.pair,
-                            subTitle: btcPriceStr + '  ' + btcRateStr,
-                            subStyle: btcRate >= 0 ? TextStyles.textGreen_w400_12 : TextStyles.textRed_w400_12,
+                            select:_tabController.index  == 0,
+                            icon: btcIco,
+                            iconUnselect: btcIcoUnSelect,
+                            title: homeModel.btcUsdPair?.coin_code,
+                            priceStr: btcPriceStr,
+                            rateStr: btcRateStr,
+                            rate: btcRate,
                           ),
                           QuotationTab(
-                            title: homeModel.ethUsdPair?.pair,
-                            subTitle: ethPriceStr + '  ' + ethRateStr,
-                            subStyle: ethRate >= 0 ? TextStyles.textGreen_w400_12 : TextStyles.textRed_w400_12,
+                            select:_tabController.index  == 1,
+                            icon: ethIco,
+                            iconUnselect: ethIcoUnSelect,
+                            title: homeModel.ethUsdPair?.coin_code,
+                            priceStr: ethPriceStr,
+                            rateStr: ethRateStr,
+                            rate: ethRate,
                           ),
                         ],
+                        onTap: (index) {
+                          _pageController.animateToPage(index,
+                            duration: Duration(milliseconds: 300),
+                            curve: Curves.fastOutSlowIn,);
+                        },
                       ),
                     ),
 
                     Expanded(
-                      child: TabBarView(
-                        controller: _tabController,
+                      child: PageView(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        controller: _pageController,
+                        onPageChanged: (int index) => setState((){ _tabController.index = index; }),
                         children: <Widget>[
                           HomeFlexibleTabView(quotePair: homeModel.btcUsdPair),
                           HomeFlexibleTabView(quotePair: homeModel.ethUsdPair)

@@ -90,7 +90,7 @@ class _SpotDataPageState extends State<SpotDataPage> with WidgetsBindingObserver
                                 child: Container(
                                   alignment: Alignment.centerLeft,
                                   child: Text(S.of(context).proAssetsCompare,
-                                    style: TextStyles.textGray800_w400_18,
+                                    style: TextStyles.textGray800_w700_18,
                                   ),
                                 ),
                               ),

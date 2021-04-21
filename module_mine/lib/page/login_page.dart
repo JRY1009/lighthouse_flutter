@@ -14,6 +14,7 @@ import 'package:library_base/res/styles.dart';
 import 'package:library_base/router/parameters.dart';
 import 'package:library_base/router/routers.dart';
 import 'package:library_base/widget/button/gradient_button.dart';
+import 'package:library_base/widget/button/round_checkbox.dart';
 import 'package:library_base/widget/common_scroll_view.dart';
 import 'package:library_base/widget/image/local_image.dart';
 import 'package:library_base/widget/textfield/account_text_field.dart';
@@ -43,6 +44,7 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
 
   String _area_code;
   bool _loginEnabled = false;
+  bool _agreeChecked = false;
 
   @override
   void initState() {
@@ -87,7 +89,7 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
 
   void _checkInput() {
     setState(() {
-      if (ObjectUtil.isEmpty(_phoneController.text) || ObjectUtil.isEmpty(_pwdController.text)) {
+      if (!_agreeChecked || ObjectUtil.isEmpty(_phoneController.text) || ObjectUtil.isEmpty(_pwdController.text)) {
         _loginEnabled = false;
       } else {
         _loginEnabled = true;
@@ -182,7 +184,7 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
           children: <Widget>[
             Gaps.vGap32,
             Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
                   child: LocalImage('logo', package: Constant.baseLib, width: 60, height: 60,),
@@ -190,32 +192,14 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
                 Expanded(
                   flex: 1,
                   child: Container(
-                      padding: EdgeInsets.only(left: 15, top: 10),
-                      alignment: Alignment.topLeft,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Container(
-                              height: 22,
-                              padding: EdgeInsets.only(bottom: 1),
-                              alignment: Alignment.centerLeft,
-                              child: Text(S.of(context).pwdLogin,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyles.textGray800_w400_17)
-                          ),
-
-                          Container(
-                              height: 22,
-                              alignment: Alignment.centerLeft,
-                              child: Text(S.of(context).pwdLoginTips,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyles.textGray400_w400_12)
-                          ),
-
-                        ],
-                      )),
+                      height: 22,
+                      padding: EdgeInsets.only(left: 15),
+                      alignment: Alignment.centerLeft,
+                      child: Text(S.of(context).pwdLogin,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyles.textGray800_w600_20)
+                  ),
                 ),
               ],
             ),
@@ -234,7 +218,43 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
               controller: _pwdController,
               onTextChanged: _checkInput,
             ),
-            Gaps.vGap46,
+            Gaps.vGap24,
+            Container(
+                alignment: Alignment.topLeft,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    RoundCheckBox(
+                      value: _agreeChecked,
+                      onChanged: (value) {
+                        setState(() {
+                          _agreeChecked = value;
+                          _checkInput();
+                        });
+                      },
+                    ),
+                    Expanded(child: Container(
+                        padding: EdgeInsets.only(top: 7),
+                        child: Text.rich(TextSpan(
+                            children: [
+                              TextSpan(text: S.of(context).loginPolicy, style: TextStyles.textGray400_w400_14),
+                              TextSpan(text: S.of(context).registAgreement, style: TextStyles.textMain14,
+                                  recognizer: new TapGestureRecognizer()..onTap = _jump2Agreement),
+                              TextSpan(text: S.of(context).privatePolicy, style: TextStyles.textMain14,
+                                  recognizer: new TapGestureRecognizer()..onTap = _jump2Privacy),
+                              TextSpan(text: S.of(context).loginPolicyAnd, style: TextStyles.textGray400_w400_14),
+                              TextSpan(text: S.of(context).discaimer, style: TextStyles.textMain14,
+                                  recognizer: new TapGestureRecognizer()..onTap = _jump2Disclaimer),
+                            ]
+                        ),
+                          strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
+                          textAlign: TextAlign.left,
+                        )
+                    ))
+                  ],
+                )
+            ),
+            Gaps.vGap24,
             GradientButton(
               width: double.infinity,
               height: 48,
@@ -270,27 +290,11 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
                 ],
               ),
             ),
-            Gaps.vGap16,
-            ThirdLoginBar(),
           ],
           bottomButton: Container(
-              alignment: Alignment.bottomCenter,
-              margin: EdgeInsets.only(bottom: 20.0),
-              child: Text.rich(TextSpan(
-                  children: [
-                    TextSpan(text: S.of(context).loginPolicy + '\n', style: TextStyles.textGray400_w400_14),
-                    TextSpan(text: S.of(context).registAgreement, style: TextStyles.textMain14,
-                        recognizer: new TapGestureRecognizer()..onTap = _jump2Agreement),
-                    TextSpan(text: S.of(context).privatePolicy, style: TextStyles.textMain14,
-                        recognizer: new TapGestureRecognizer()..onTap = _jump2Privacy),
-                    TextSpan(text: S.of(context).discaimer, style: TextStyles.textMain14,
-                        recognizer: new TapGestureRecognizer()..onTap = _jump2Disclaimer),
-                  ]
-              ),
-                strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
-                textAlign: TextAlign.center,
-              )
-          ),
+            margin: EdgeInsets.only(bottom: 20),
+            child: ThirdLoginBar(),
+          )
         )
     );
   }

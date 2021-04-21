@@ -30,7 +30,7 @@ class ShareLinkDialog extends StatelessWidget {
 
   Future<void> _copyLink(BuildContext context) async {
 
-    String content = '$title_share\n${summary_share ?? ''}\n$url_share';
+    String content = S.of(context).shareArticle + '$title_share\n$url_share';
     Clipboard.setData(ClipboardData(text: content));
 
     ToastUtil.success(S.of(context).copySuccess);
@@ -40,7 +40,7 @@ class ShareLinkDialog extends StatelessWidget {
 
   Future<void> _more(BuildContext context) async {
 
-    String content = '$title_share\n${summary_share ?? ''}\n$url_share';
+    String content = S.of(context).shareArticle + '$title_share\n$url_share';
     Share.share(content);
 
     Navigator.pop(context);
@@ -56,7 +56,7 @@ class ShareLinkDialog extends StatelessWidget {
     shareToWeChat(WeChatShareWebPageModel(url_share,
         title: title_share,
         description: ObjectUtil.isEmpty(summary_share) ? null : summary_share,
-        thumbnail: ObjectUtil.isEmpty(thumb_share) ? WeChatImage.asset('assets/images/logo_white.png?package=library_base', suffix: '.png') : WeChatImage.network(thumb_share),
+        thumbnail: ObjectUtil.isEmpty(thumb_share) ? WeChatImage.asset('assets/images/logo_share_wechat.png?package=library_base', suffix: '.png') : WeChatImage.network(thumb_share),
         scene: scene)
     );
 
@@ -107,7 +107,7 @@ class ShareLinkDialog extends StatelessWidget {
       child: Container(
         child: Column(
           children: [
-            LocalImage('icon_share_save', package: Constant.baseLib, width: 48, height: 48),
+            LocalImage('icon_share_link', package: Constant.baseLib, width: 48, height: 48),
             Gaps.vGap4,
             Text(S.of(context).shareCopyLink,
               style: TextStyles.textGray800_w400_12,

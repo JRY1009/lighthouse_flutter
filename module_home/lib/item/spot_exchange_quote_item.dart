@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/utils/num_util.dart';
@@ -15,6 +14,8 @@ class SpotExchangeQuoteItem extends StatelessWidget {
 
   final String tradePlatform;
 
+  final String pair;
+
   final num price;
 
   final num cny;
@@ -27,6 +28,7 @@ class SpotExchangeQuoteItem extends StatelessWidget {
         this.index,
         this.ico,
         this.tradePlatform,
+        this.pair,
         this.price,
         this.cny,
         this.rate,
@@ -44,9 +46,9 @@ class SpotExchangeQuoteItem extends StatelessWidget {
     return Container(
       height: 55.0,
       width: double.infinity,
-      decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(width: 0.6, color: Colours.default_line))
-      ),
+//      decoration: BoxDecoration(
+//          border: Border(bottom: BorderSide(width: 0.6, color: Colours.default_line))
+//      ),
       child: Row (
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -55,15 +57,27 @@ class SpotExchangeQuoteItem extends StatelessWidget {
             child: Row(
               children: [
                 RoundImage(ico ?? '',
-                  width: 20,
-                  height: 20,
+                  width: 18,
+                  height: 18,
                   borderRadius: BorderRadius.all(Radius.circular(0)),
                 ),
-                Gaps.hGap4,
-                Text(tradePlatform,
-                  style: TextStyles.textGray800_w400_12,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                Gaps.hGap8,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(tradePlatform,
+                      style: TextStyles.textGray800_w600_15,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Gaps.vGap5,
+                    Text(pair,
+                      style: TextStyles.textGray500_w400_11,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
                 )
               ],
             ),
@@ -76,12 +90,12 @@ class SpotExchangeQuoteItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('\$' + priceStr,
-                  style: rate >= 0 ? TextStyles.textGreen_w400_14 : TextStyles.textRed_w400_14,
+                  style: TextStyles.textGray800_w700_15,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                Gaps.vGap3,
-                Text('≈￥' + cnyStr, style: TextStyles.textGray500_w400_10,
+                Gaps.vGap6,
+                Text('≈￥' + cnyStr, style: TextStyles.textGray500_w400_11,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -92,7 +106,7 @@ class SpotExchangeQuoteItem extends StatelessWidget {
             width: 70,
             alignment: Alignment.centerRight,
             child: Text(rateStr,
-              style: rate >= 0 ? TextStyles.textGreen_w400_12 : TextStyles.textRed_w400_12,
+              style: rate >= 0 ? TextStyles.textGreen_w400_14 : TextStyles.textRed_w400_14,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,),
           ),

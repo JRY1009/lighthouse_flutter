@@ -76,7 +76,7 @@ class _MileStonePageState extends State<MileStonePage> with BasePageMixin<MileSt
               Container(
                   alignment: Alignment.centerLeft,
                   padding: EdgeInsets.only(left: 16, top: 18.0, bottom: 5),
-                  child: Text(S.of(context).blockMileStone, style: TextStyles.textBlack18)
+                  child: Text(S.of(context).blockMileStone, style: TextStyles.textGray800_w600_18)
               ),
               Container(
                 height: 50.0,

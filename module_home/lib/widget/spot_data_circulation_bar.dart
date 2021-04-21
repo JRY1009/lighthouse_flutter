@@ -58,7 +58,7 @@ class _SpotDataCirculationBarState extends State<SpotDataCirculationBar> {
               alignment: Alignment.topLeft,
               margin: const EdgeInsets.only(left: 15, top: 18),
               child: Text(S.of(context).proCirculationRatio,
-                style: TextStyles.textGray800_w400_18,
+                style: TextStyles.textGray800_w700_18,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),

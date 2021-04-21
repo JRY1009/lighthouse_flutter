@@ -111,7 +111,7 @@ class _SpotBriefPageState extends State<SpotBriefPage> with BasePageMixin<SpotBr
                       Container(
                         alignment: Alignment.centerLeft,
                         padding: const EdgeInsets.fromLTRB(15, 15, 16, 17),
-                        child: Text(S.of(context).moreLink, style: TextStyles.textGray800_w400_14),
+                        child: Text(S.of(context).moreLink, style: TextStyles.textGray800_w700_14),
                       ),
 
                       GridView.builder(
@@ -127,16 +127,17 @@ class _SpotBriefPageState extends State<SpotBriefPage> with BasePageMixin<SpotBr
                           FriendLink friendLink = model.friendLinkList[index];
                           return Container(
                             alignment: Alignment.centerLeft,
-                            decoration: BoxDecoration(
-                                border: Border.all(width: 0.6, color: Colours.default_line)
-                            ),
+//                            padding: const EdgeInsets.only(left: 10),
+//                            decoration: BoxDecoration(
+//                                border: Border.all(width: 0.6, color: Colours.default_line)
+//                            ),
                             child: Text.rich(
                               TextSpan(
                                 children: [
                                   WidgetSpan(
                                     child: RoundImage(friendLink.ico ?? '',
-                                      width: 14,
-                                      height: 14,
+                                      width: 19,
+                                      height: 19,
                                       borderRadius: BorderRadius.all(Radius.circular(0)),
                                     ),
                                   ),
@@ -170,7 +171,7 @@ class _SpotBriefPageState extends State<SpotBriefPage> with BasePageMixin<SpotBr
                                     alignment: Alignment.centerLeft,
                                     child: Text(
                                       S.of(context).blockMileStone,
-                                      style: TextStyles.textGray800_w400_18,
+                                      style: TextStyles.textGray800_w700_18,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),

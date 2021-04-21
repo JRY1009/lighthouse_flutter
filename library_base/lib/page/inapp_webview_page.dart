@@ -45,7 +45,7 @@ class _InappWebviewPageState extends State<InappWebviewPage> {
 
   InAppWebViewController webviewController;
 
-  double _opacity = DeviceUtil.isAndroid ? 0.0 : 1.0;
+  double _opacity = 0.0;
   bool loaded = false;
 
   Future<void> _share() async {
@@ -67,7 +67,7 @@ class _InappWebviewPageState extends State<InappWebviewPage> {
     shareToWeChat(WeChatShareWebPageModel(widget.url_share,
         title: widget.title_share,
         description: ObjectUtil.isEmpty(widget.summary_share) ? null : widget.summary_share,
-        thumbnail: ObjectUtil.isEmpty(widget.thumb_share) ? WeChatImage.asset('assets/images/logo_white.png?package=library_base', suffix: '.png') : WeChatImage.network(widget.thumb_share),
+        thumbnail: ObjectUtil.isEmpty(widget.thumb_share) ? WeChatImage.asset('assets/images/logo_share_wechat.png?package=library_base', suffix: '.png') : WeChatImage.network(widget.thumb_share),
         scene: scene)
     );
   }
@@ -93,9 +93,10 @@ class _InappWebviewPageState extends State<InappWebviewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colours.white,
       appBar: AppBar(
         leading: BackButtonEx(),
-        elevation: 1,
+        elevation: 0,
         brightness: Brightness.light,
         backgroundColor: Colours.white,
         actions: widget.show_share ? <Widget>[
@@ -145,9 +146,6 @@ class _InappWebviewPageState extends State<InappWebviewPage> {
                 },
                 onLoadStop: (InAppWebViewController controller, String url) async {
                   loaded = true;
-                  if (DeviceUtil.isAndroid) {
-                    _opacity = 1.0;;
-                  }
 
                   setState(() { _opacity = 1.0; });
 

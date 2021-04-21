@@ -95,7 +95,7 @@ class _MineAppBarState extends State<MineAppBar> {
                                     child: Text(title,
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
-                                            style: TextStyles.textGray800_w400_17)
+                                            style: TextStyles.textGray800_w700_17)
                                 ),
 
                                 Container(

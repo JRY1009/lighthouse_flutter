@@ -89,6 +89,8 @@ dependencies:
   # jpush_flutter: 0.6.3
   # https://github.com/avioli/uni_links/tree/master/uni_links
   uni_links: ^0.4.0
+  # https://github.com/serenader2014/flutter_carousel_slider
+  carousel_slider: ^3.0.0
 
 dev_dependencies:
   flutter_test:

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bugly/flutter_bugly.dart';
 import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/global/rt_account.dart';
@@ -135,7 +134,6 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
                         ],
                       ),
                     ),
-
 //                    Gaps.vGap18,
 //
 //                    RTAccount.instance().isLogin() ? Container(

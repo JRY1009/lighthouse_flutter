@@ -247,6 +247,7 @@ class ShareDialog extends StatelessWidget {
       contentAlignment: Alignment.center,
       children: children,
       bottomButton: bottom,
+      bottomSafe: false,
     );
   }
 }

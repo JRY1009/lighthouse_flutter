@@ -52,24 +52,25 @@ class GlobalQuoteItem extends StatelessWidget {
               height: 16,
               alignment: Alignment.centerLeft,
               child: Text(name ?? '',
-                style: TextStyles.textBlack13,
+                style: TextStyles.textGray800_w700_13,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               )
           ),
           Container(
             height: 17,
-            margin: EdgeInsets.only(top: 9),
+            margin: EdgeInsets.only(top: 7),
             alignment: Alignment.centerLeft,
-            child: Text(priceStr, style: rate >= 0 ? TextStyles.textGreen_w400_14 : TextStyles.textRed_w400_14,
+            child: Text(priceStr, style: rate >= 0 ? TextStyles.textGreen_w600_14 : TextStyles.textRed_w600_14,
               maxLines: 1,
-              overflow: TextOverflow.ellipsis,),
+              overflow: TextOverflow.ellipsis
+            ),
           ),
           Expanded(child: Container()),
           Container(
-            height: 13,
+            height: 30,
             alignment: Alignment.centerLeft,
-            child: Row(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -79,7 +80,7 @@ class GlobalQuoteItem extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                Gaps.hGap10,
+                Gaps.vGap5,
                 Expanded(
                   child: Text(rateStr, style: rate >= 0 ? TextStyles.textGreen_w400_10 : TextStyles.textRed_w400_10,
                     maxLines: 1,

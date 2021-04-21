@@ -24,7 +24,7 @@ class ThemeProvider extends ChangeNotifier {
   }
 
   ThemeMode getThemeMode(){
-    final String theme = SPUtil.getString(SPUtil.key_theme);
+    final String theme = SPUtil.getString(SPUtil.key_theme, defValue: 'light');
     switch(theme) {
       case 'dark':
         return ThemeMode.dark;
@@ -37,9 +37,13 @@ class ThemeProvider extends ChangeNotifier {
 
   ThemeData getThemeData({bool isDarkMode = false}) {
     return ThemeData(
-      fontFamily: 'HYQiHei',
+      //fontFamily: 'HYQiHei',
       brightness: isDarkMode ? Brightness.dark : Brightness.light,
       primaryColor: isDarkMode ? Colours.dark_app_main : Colours.app_main,
+      cupertinoOverrideTheme: CupertinoThemeData(
+          brightness: isDarkMode ? Brightness.dark : Brightness.light,
+      ),
+
     );
   }
 

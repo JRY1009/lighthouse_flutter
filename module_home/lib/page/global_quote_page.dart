@@ -10,6 +10,7 @@ import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
+import 'package:library_base/utils/date_util.dart';
 import 'package:library_base/widget/button/back_button.dart';
 import 'package:library_base/widget/common_scroll_view.dart';
 import 'package:library_base/widget/dialog/dialog_util.dart';
@@ -67,15 +68,38 @@ class _GlobalQuotePageState extends State<GlobalQuotePage> with BasePageMixin<Gl
 
     DialogUtil.showShareDialog(context,
         children: [
-          ShareQRHeader(),
-          Container(
-            color: Colours.gray_100,
-            child: RotatedBox(
-              quarterTurns: 1, // 90°的整数倍
-              child: Image.memory(pngBytes),
-            ),
+          Stack(
+            children: [
+              Container(
+                color: Colours.gray_100,
+                child: RotatedBox(
+                  quarterTurns: 1, // 90°的整数倍
+                  child: Image.memory(pngBytes),
+                ),
+              ),
+              Container(
+                child: RotatedBox(
+                  quarterTurns: 1,
+                  child: GlobalQuoteShareBar(btcUsdPair: _globalQuoteModel.btcUsdPair, ethUsdPair: _globalQuoteModel.ethUsdPair),
+                ),
+              ),
+              Positioned(
+                  bottom: 24,
+                  left: 30,
+                  child: Container(
+                    child: RotatedBox(
+                      quarterTurns: 1,
+                      child: Text(DateUtil.getDateStrByDateTime(DateTime.now(), format: DateFormat.NORMAL),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyles.textGray500_w400_12
+                      ),
+                    ),
+                  )
+              )
+            ],
           ),
-
+          ShareQRFoooter(backgroundColor: Colours.gray_100),
 
         ]
     );
@@ -113,71 +137,76 @@ class _GlobalQuotePageState extends State<GlobalQuotePage> with BasePageMixin<Gl
                         children: [
                           Stack(
                             children: [
-                              SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                physics: ClampingScrollPhysics(),
-                                child: ShotView(
-                                  controller: _shotController,
-                                  child: Container(
-                                    height: 428,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: AssetImage(ImageUtil.getImgPath('bg_world_map'), package: package),
-                                        fit: BoxFit.fill,
+                              Container(
+                                margin: EdgeInsets.only(top: 30),
+                                child: SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    physics: ClampingScrollPhysics(),
+                                    child: ShotView(
+                                      controller: _shotController,
+                                      child: Container(
+                                        height: 428,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: AssetImage(ImageUtil.getImgPath('bg_world_map'), package: package),
+                                            fit: BoxFit.fill,
+                                          ),
+                                        ),
+                                        child: AspectRatio (
+                                            aspectRatio: 1.7,
+                                            child: Stack(
+                                              children: _buildItem(),
+                                            )
+                                        ),
                                       ),
-                                    ),
-                                    child: AspectRatio (
-                                        aspectRatio: 1.7,
-                                        child: Stack(
-                                          children: _buildItem(),
-                                        )
-                                    ),
+                                    )
+                                ),
+                              ),
+
+
+                              Container(
+                                  margin: EdgeInsets.fromLTRB(12, 400, 12, 20),
+                                  decoration: BoxDecoration(
+                                    color: Colours.white,
+                                    borderRadius: BorderRadius.all(Radius.circular(14.0)),
+                                    boxShadow: BoxShadows.normalBoxShadow,
                                   ),
-                                )
+                                  child: Column(
+                                    children: [
+
+                                      GridView.builder(
+                                        shrinkWrap: true,
+                                        padding: const EdgeInsets.fromLTRB(15, 18, 15, 12),
+                                        physics: const NeverScrollableScrollPhysics(),
+                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 3,
+                                          crossAxisSpacing: 10,
+                                          mainAxisSpacing: 16,
+                                          childAspectRatio: 0.95,
+                                        ),
+                                        itemCount: model.quoteList.length,
+                                        itemBuilder: (_, index) {
+                                          return GlobalQuoteItem(
+                                            index: index,
+                                            name: model.quoteList[index].zh_name,
+                                            price: model.quoteList[index].quote,
+                                            change: model.quoteList[index].change_amount,
+                                            rate: model.quoteList[index].change_percent,
+                                          );
+                                        },
+                                      ),
+                                      Container(
+                                          alignment: Alignment.centerLeft,
+                                          padding: EdgeInsets.symmetric(horizontal: 15),
+                                          child: Text('*' + S.of(context).quoteDefinition, style: TextStyles.textGray500_w400_12)
+                                      ),
+                                      Gaps.vGap18,
+                                    ],
+                                  )
                               ),
                             ],
                           ),
 
-                          Container(
-                              margin: EdgeInsets.symmetric(horizontal: 12 , vertical: 9),
-                              decoration: BoxDecoration(
-                                color: Colours.white,
-                                borderRadius: BorderRadius.all(Radius.circular(14.0)),
-                                boxShadow: BoxShadows.normalBoxShadow,
-                              ),
-                              child: Column(
-                                children: [
-
-                                  GridView.builder(
-                                    shrinkWrap: true,
-                                    padding: const EdgeInsets.fromLTRB(15, 18, 15, 12),
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 3,
-                                      crossAxisSpacing: 10,
-                                      mainAxisSpacing: 16,
-                                      childAspectRatio: 0.95,
-                                    ),
-                                    itemCount: model.quoteList.length,
-                                    itemBuilder: (_, index) {
-                                      return GlobalQuoteItem(
-                                        index: index,
-                                        name: model.quoteList[index].zh_name,
-                                        price: model.quoteList[index].quote,
-                                        change: model.quoteList[index].change_amount,
-                                        rate: model.quoteList[index].change_percent,
-                                      );
-                                    },
-                                  ),
-                                  Container(
-                                      alignment: Alignment.centerLeft,
-                                      padding: EdgeInsets.symmetric(horizontal: 15),
-                                      child: Text('*' + S.of(context).quoteDefinition, style: TextStyles.textGray500_w400_12)
-                                  ),
-                                  Gaps.vGap18,
-                                ],
-                              )
-                          ),
 
                         ],
                       ),

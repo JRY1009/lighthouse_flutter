@@ -555,20 +555,20 @@ class S {
     );
   }
 
-  /// `点此注册`
-  String get clickRegister {
+  /// `以及`
+  String get loginPolicyAnd {
     return Intl.message(
-      '点此注册',
-      name: 'clickRegister',
+      '以及',
+      name: 'loginPolicyAnd',
       desc: '',
       args: [],
     );
   }
 
-  /// `点击注册、登录即代表您已同意`
+  /// `我已阅读并同意`
   String get loginPolicy {
     return Intl.message(
-      '点击注册、登录即代表您已同意',
+      '我已阅读并同意',
       name: 'loginPolicy',
       desc: '',
       args: [],
@@ -595,10 +595,10 @@ class S {
     );
   }
 
-  /// `《免责申明》`
+  /// `《免责声明》`
   String get discaimer {
     return Intl.message(
-      '《免责申明》',
+      '《免责声明》',
       name: 'discaimer',
       desc: '',
       args: [],
@@ -980,6 +980,16 @@ class S {
     return Intl.message(
       '全部',
       name: 'all',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `更多`
+  String get more {
+    return Intl.message(
+      '更多',
+      name: 'more',
       desc: '',
       args: [],
     );
@@ -1395,6 +1405,16 @@ class S {
     );
   }
 
+  /// `我在区块灯塔发现一篇好文，一起来看：`
+  String get shareArticle {
+    return Intl.message(
+      '我在区块灯塔发现一篇好文，一起来看：',
+      name: 'shareArticle',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `加载失败`
   String get vsMsgError {
     return Intl.message(
@@ -1700,6 +1720,26 @@ class S {
     return Intl.message(
       '来源：',
       name: 'origin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hi，很高兴又和您见面，有什么问题想问我？`
+  String get schoolWelcome {
+    return Intl.message(
+      'Hi，很高兴又和您见面，有什么问题想问我？',
+      name: 'schoolWelcome',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `灯塔社区`
+  String get dtCommunity {
+    return Intl.message(
+      '灯塔社区',
+      name: 'dtCommunity',
       desc: '',
       args: [],
     );

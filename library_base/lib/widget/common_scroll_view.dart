@@ -23,6 +23,7 @@ class CommonScrollView extends StatelessWidget {
     this.crossAxisAlignment = CrossAxisAlignment.start,
     this.contentAlignment = Alignment.topLeft,
     this.bottomButton,
+    this.bottomSafe = true,
     this.keyboardConfig,
     this.tapOutsideToDismiss = false,
     this.overScroll = 16.0,
@@ -37,6 +38,7 @@ class CommonScrollView extends StatelessWidget {
   final CrossAxisAlignment crossAxisAlignment;
   final AlignmentGeometry contentAlignment;
   final Widget bottomButton;
+  final bool bottomSafe;
   final KeyboardActionsConfig keyboardConfig;
   /// 键盘外部按下将其关闭
   final bool tapOutsideToDismiss;
@@ -117,9 +119,11 @@ class CommonScrollView extends StatelessWidget {
                 child: contents,
               )
           ),
+
+          bottomSafe ?
           SafeArea(
               child: bottomButton
-          )
+          ) : bottomButton
         ],
       );
     }

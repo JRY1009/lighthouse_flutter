@@ -22,7 +22,7 @@ class HomeModel extends ViewStateModel {
   QuotePair btcUsdPair;
   QuotePair ethUsdPair;
 
-  GlobalKey<BasePageMixin> milestonePageKey = GlobalKey<BasePageMixin>();
+  GlobalKey<BasePageMixin> communityPageKey = GlobalKey<BasePageMixin>();
   GlobalKey<BasePageMixin> articlePageKey = GlobalKey<BasePageMixin>();
 
   StreamSubscription quoteSubscription;
@@ -103,7 +103,7 @@ class HomeModel extends ViewStateModel {
       getHome(COIN_BITCOIN),
       getHome(COIN_ETHEREUM),
 
-      milestonePageKey.currentState.refresh(slient: true),
+      communityPageKey.currentState.refresh(slient: true),
       articlePageKey.currentState.refresh(slient: true),
     ]);
 
@@ -120,11 +120,13 @@ class HomeModel extends ViewStateModel {
         onSuccess: (data) {
           if (chain == HomeModel.COIN_BITCOIN) {
             btcUsdPair = QuotePair.fromJson(data);
-            btcUsdPair.coin_code = HomeModel.COIN_BITCOIN;
+            btcUsdPair.coin_code = 'BTC';
+            btcUsdPair.chain = HomeModel.COIN_BITCOIN;
 
           } else if (chain == HomeModel.COIN_ETHEREUM) {
             ethUsdPair = QuotePair.fromJson(data);
-            ethUsdPair.coin_code = HomeModel.COIN_ETHEREUM;
+            ethUsdPair.coin_code = 'ETH';
+            ethUsdPair.chain = HomeModel.COIN_ETHEREUM;
           }
         },
         onError: (errno, msg) {

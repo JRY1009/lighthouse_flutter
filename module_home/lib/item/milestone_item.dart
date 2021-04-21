@@ -44,7 +44,7 @@ class MileStoneItem extends StatelessWidget {
                         alignment: Alignment.topLeft,
                         margin: EdgeInsets.only(top: 3.0),
                         child: Text(DateUtil.getDateStrByTimeStr(time, format: DateFormat.MONTH_DAY, dateSeparate: '/'),
-                            style: TextStyles.textGray800_w400_15
+                            style: TextStyles.textGray800_w700_15
                         ),
                       ),
                     ],

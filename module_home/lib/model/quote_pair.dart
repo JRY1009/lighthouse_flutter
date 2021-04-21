@@ -4,7 +4,11 @@ import 'package:module_home/model/quote.dart';
 
 class QuotePair {
   String pair;
+  String chain;
   String coin_code;
+  String coin_name;
+  String icon;
+  String icon_grey;
   num market_val;
   num change_percent;
   num change_amount;
@@ -16,6 +20,9 @@ class QuotePair {
 
   QuotePair({
     this.pair,
+    this.coin_name,
+    this.icon,
+    this.icon_grey,
     this.market_val,
     this.change_percent,
     this.quote,
@@ -26,7 +33,11 @@ class QuotePair {
 
   QuotePair.fromJson(Map<String, dynamic> jsonMap) {
     pair = jsonMap['pair'] ?? '';
+    chain = jsonMap['chain'] ?? '';
     coin_code = jsonMap['coin_code'] ?? '';
+    coin_name = jsonMap['coin_name'] ?? '';
+    icon = jsonMap['icon'] ?? '';
+    icon_grey = jsonMap['icon_grey'] ?? '';
     market_val = jsonMap['market_val'] ?? 0;
     change_percent = jsonMap['change_percent'] ?? 0;
     change_amount = jsonMap['change_amount'] ?? 0;
@@ -40,7 +51,11 @@ class QuotePair {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> jsonMap = new Map<String, dynamic>();
     jsonMap['pair'] = this.pair;
+    jsonMap['chain'] = this.chain;
     jsonMap['coin_code'] = this.coin_code;
+    jsonMap['coin_name'] = this.coin_name;
+    jsonMap['icon'] = this.icon;
+    jsonMap['icon_grey'] = this.icon_grey;
     jsonMap['market_val'] = this.market_val;
     jsonMap['change_percent'] = this.change_percent;
     jsonMap['change_amount'] = this.change_amount;
