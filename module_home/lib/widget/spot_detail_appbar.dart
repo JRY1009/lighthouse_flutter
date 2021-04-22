@@ -377,7 +377,7 @@ class SpotDetailBottomBar extends StatelessWidget {
                 Container(
                     alignment: Alignment.centerLeft,
                     height: 17,
-                    child: Text(market_valStr,
+                    child: Text('\$' + market_valStr,
                       style: TextStyles.textGray600_w700_13,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,

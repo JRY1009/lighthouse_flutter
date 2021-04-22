@@ -75,7 +75,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
                           Container(
                               height: 15,
                               alignment: Alignment.centerLeft,
-                              child: Text(S.of(context).proMarketValue + '（\$）',
+                              child: Text(S.of(context).proMarketValue,
                                 style: TextStyles.textGray400_w400_12,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -85,7 +85,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
                           Container(
                               height: 15,
                               alignment: Alignment.centerLeft,
-                              child: Text(NumUtil.getBigVolumFormat(widget.quotePair?.market_val, fractionDigits: 0).toString(),
+                              child: Text('\$' + NumUtil.getBigVolumFormat(widget.quotePair?.market_val, fractionDigits: 0).toString(),
                                 style: TextStyles.textGray500_w400_12,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -103,7 +103,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
                           Container(
                               height: 15,
                               alignment: Alignment.centerLeft,
-                              child: Text(S.of(context).pro24hTradeVolume + '(${widget.quotePair != null ? widget.quotePair.pair.split('/').first : ''})',
+                              child: Text(S.of(context).pro24hTradeVolume,
                                 style: TextStyles.textGray400_w400_12,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -113,7 +113,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
                           Container(
                               height: 15,
                               alignment: Alignment.centerLeft,
-                              child: Text(NumUtil.getNumByValueDouble(widget.quotePair?.vol_24h, 0).toString(),
+                              child: Text(NumUtil.getNumByValueDouble(widget.quotePair?.vol_24h, 0).toString() + '${widget.quotePair?.pair?.split('/')?.first ?? ''}',
                                 style: TextStyles.textGray500_w400_12,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,

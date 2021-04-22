@@ -4,6 +4,7 @@ import 'package:library_base/res/colors.dart';
 import 'package:library_base/widget/dialog/avatar_select_dialog.dart';
 import 'package:library_base/widget/dialog/cupertino_alert_dialog.dart';
 import 'package:library_base/widget/dialog/share_dialog.dart';
+import 'package:library_base/widget/dialog/share_image_dialog.dart';
 import 'package:library_base/widget/dialog/share_link_dialog.dart';
 import 'package:library_base/utils/object_util.dart';
 
@@ -84,6 +85,19 @@ class DialogUtil {
             summary_share: summary_share,
             url_share: url_share,
             thumb_share: thumb_share,
+          );
+        });
+  }
+
+  static void showShareImageDialog(BuildContext context, {String imgUrl}) {
+
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: false,
+        backgroundColor: Colours.transparent,
+        builder: (context) {
+          return ShareImageDialog(
+            imgUrl: imgUrl,
           );
         });
   }

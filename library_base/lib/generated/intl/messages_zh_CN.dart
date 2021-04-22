@@ -154,6 +154,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "save" : MessageLookupByLibrary.simpleMessage("保存"),
     "saveFailed" : MessageLookupByLibrary.simpleMessage("保存失败"),
     "saveSuccess" : MessageLookupByLibrary.simpleMessage("保存成功"),
+    "saving" : MessageLookupByLibrary.simpleMessage("保存中..."),
     "schoolWelcome" : MessageLookupByLibrary.simpleMessage("Hi，很高兴又和您见面，有什么问题想问我？"),
     "search" : MessageLookupByLibrary.simpleMessage("搜索"),
     "setPassword" : MessageLookupByLibrary.simpleMessage("设置登录密码"),

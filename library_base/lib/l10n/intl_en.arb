@@ -82,6 +82,7 @@
   "about": "关于",
   "checkUpdate": "检查更新",
   "save": "保存",
+  "saving": "保存中...",
   "saveSuccess": "保存成功",
   "saveFailed": "保存失败",
   "copySuccess": "复制成功",

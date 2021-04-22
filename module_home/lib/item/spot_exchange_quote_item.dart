@@ -83,7 +83,7 @@ class SpotExchangeQuoteItem extends StatelessWidget {
             ),
           ),
           Container(
-            width: 90,
+            width: 110,
             alignment: Alignment.centerRight,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

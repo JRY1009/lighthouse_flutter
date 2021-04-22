@@ -9,6 +9,7 @@ import 'package:library_base/global/rt_account.dart';
 import 'package:library_base/model/account.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
+import 'package:library_base/net/apis.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/router/routers.dart';
 import 'package:library_base/utils/path_util.dart';
@@ -124,7 +125,13 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
                           MineClickBar(
                               title: S.of(context).share,
                               icon: LocalImage('icon_share', package: Constant.baseLib, color: Colours.gray_350, width: 20, height: 20),
-                              onPressed: () => DialogUtil.showShareDialog(context)
+                              onPressed: () {
+                                DialogUtil.showShareLinkDialog(context,
+                                  title_share: '标题',
+                                  summary_share: '内容',
+                                  url_share: Apis.URL_OFFICIAL_WEBSITE,
+                                );
+                              }
                           ),
                           MineClickBar(
                               title: S.of(context).about + S.of(context).appName,

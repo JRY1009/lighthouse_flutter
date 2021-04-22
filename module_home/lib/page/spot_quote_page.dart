@@ -239,7 +239,7 @@ class _SpotQuotePageState extends State<SpotQuotePage> with BasePageMixin<SpotQu
               GestureDetector(
                   onTap: () =>_changeSortState(0),
                   child: Container(
-                    width: 90,
+                    width: 110,
                     alignment: Alignment.centerRight,
                     child: Text.rich(TextSpan(
                         children: [

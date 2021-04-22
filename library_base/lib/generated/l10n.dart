@@ -865,6 +865,16 @@ class S {
     );
   }
 
+  /// `保存中...`
+  String get saving {
+    return Intl.message(
+      '保存中...',
+      name: 'saving',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `保存成功`
   String get saveSuccess {
     return Intl.message(

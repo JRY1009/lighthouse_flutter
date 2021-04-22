@@ -38,10 +38,11 @@ class _SpotDataCirculationBarState extends State<SpotDataCirculationBar> {
 
   @override
   Widget build(BuildContext context) {
-    num total_supply = widget.spotDataBasic != null ? widget.spotDataBasic.total_supply : 0;
-    num total_supply_market_vol = widget.spotDataBasic != null ? widget.spotDataBasic.total_supply_market_vol : 0;
+    String pair = widget.spotDataBasic?.pair ?? '';
+    num total_supply = widget.spotDataBasic?.total_supply ?? 0;
+    num total_supply_market_vol = widget.spotDataBasic?.total_supply_market_vol ?? 0;
 
-    num turnover = widget.spotDataBasic != null ? widget.spotDataBasic.turnover : 0;
+    num turnover = widget.spotDataBasic?.turnover ?? 0;
     num turnover_market_vol = total_supply == 0 ? 0 : NumUtil.getNumByValueDouble(NumUtil.multiply(NumUtil.divide(total_supply_market_vol, total_supply), turnover), 0);
 
     num percent = total_supply == 0 ? 0 : NumUtil.getNumByValueDouble(NumUtil.divideDec(turnover, total_supply).toDouble(), 2).clamp(0.0, 1.0);
@@ -118,7 +119,7 @@ class _SpotDataCirculationBarState extends State<SpotDataCirculationBar> {
                     ),
                   ),
                   Container(
-                    child: Text(turnover.toString() + '/\$' + turnover_market_vol.toString(),
+                    child: Text(turnover.toString() + pair + ' / \$' + turnover_market_vol.toString(),
                       style: TextStyles.textGray800_w400_12,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -150,7 +151,7 @@ class _SpotDataCirculationBarState extends State<SpotDataCirculationBar> {
                     ),
                   ),
                   Container(
-                    child: Text(total_supply.toString() + '/\$' + total_supply_market_vol.toString(),
+                    child: Text(total_supply.toString() + pair + ' / \$' + total_supply_market_vol.toString(),
                       style: TextStyles.textGray800_w400_12,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,

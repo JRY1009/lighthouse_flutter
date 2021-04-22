@@ -76,7 +76,7 @@ class _LessonPageState extends State<LessonPage> with BasePageMixin<LessonPage> 
                     borderRadius: BorderRadius.all(Radius.circular(6.0)),
                   ),
                   child: Text(widget.lesson?.title,
-                    style: TextStyles.textGray800_w400_20,
+                    style: TextStyles.textGray800_w700_20,
                     strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
                   ),
                 ),
