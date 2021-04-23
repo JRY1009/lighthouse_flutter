@@ -141,6 +141,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
             ShareQRHeader(),
             Container(
               color: Colours.white,
+              padding: const EdgeInsets.only(top: 10),
               child: Column(
                 children: [
                   SpotDetailShareBar(showShadow: false, quoteCoin: _spotDetailModel.quoteCoin),

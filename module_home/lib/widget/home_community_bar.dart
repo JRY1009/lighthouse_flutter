@@ -10,6 +10,8 @@ import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/router/routers.dart';
+import 'package:library_base/widget/easyrefresh/first_refresh_top.dart';
+import 'package:library_base/widget/easyrefresh/loading_empty_top.dart';
 import 'package:module_home/home_router.dart';
 import 'package:module_home/item/leave_message_item.dart';
 import 'package:module_home/viewmodel/leave_message_model.dart';
@@ -45,6 +47,7 @@ class _HomeCommunityBarState extends State<HomeCommunityBar> with BasePageMixin<
 
   void initViewModel() {
     _leaveMessageModel = LeaveMessageModel();
+    _leaveMessageModel.pageSize = 10;
     _leaveMessageModel.refresh();
   }
 
@@ -59,6 +62,9 @@ class _HomeCommunityBarState extends State<HomeCommunityBar> with BasePageMixin<
     return ProviderWidget<LeaveMessageModel>(
         model: _leaveMessageModel,
         builder: (context, model, child) {
+
+          Widget refreshWidget = FirstRefreshTop();
+          Widget emptyWidget = LoadingEmptyTop();
 
           return Column(
             children: <Widget>[
@@ -95,7 +101,7 @@ class _HomeCommunityBarState extends State<HomeCommunityBar> with BasePageMixin<
                 ),
               ),
               Gaps.vGap5,
-              Container(
+              model.isFirst ? refreshWidget : (model.isEmpty || model.isError) ? emptyWidget : Container(
                   child: CarouselSlider(
                     options: CarouselOptions(
                       aspectRatio: 1.5,

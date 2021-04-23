@@ -150,8 +150,8 @@ class _HomePinnedAppBarState extends State<HomePinnedAppBar> {
                       children: [
                         Text.rich(TextSpan(
                             children: [
-                              TextSpan(text: '\$', style: ethRate >= 0 ? TextStyles.textGreen_w400_10 : TextStyles.textRed_w400_10),
-                              TextSpan(text: ethPriceStr, style: ethRate >= 0 ? TextStyles.textGreen_w400_14 : TextStyles.textRed_w400_14),
+                              TextSpan(text: '\$', style: ethRate >= 0 ? TextStyles.textGreen_w600_10 : TextStyles.textRed_w600_10),
+                              TextSpan(text: ethPriceStr, style: ethRate >= 0 ? TextStyles.textGreen_w600_14 : TextStyles.textRed_w600_14),
                             ]
                         )),
                         Gaps.hGap8,

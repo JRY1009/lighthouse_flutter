@@ -6,7 +6,7 @@ import 'package:library_base/res/styles.dart';
 
 class SpotAddressAssetsDistributionItem extends StatelessWidget {
 
-  final int index;
+  final bool isLast;
 
   final Color color;
 
@@ -20,7 +20,7 @@ class SpotAddressAssetsDistributionItem extends StatelessWidget {
 
   const SpotAddressAssetsDistributionItem(
       {Key key,
-        this.index,
+        this.isLast,
         this.color,
         this.balanceRange,
         this.addressAmount,
@@ -34,7 +34,7 @@ class SpotAddressAssetsDistributionItem extends StatelessWidget {
     return Container(
       height: 35.0,
       width: double.infinity,
-      decoration: BoxDecoration(
+      decoration: isLast ? null : BoxDecoration(
           border: Border(bottom: BorderSide(width: 0.6, color: Colours.default_line))
       ),
       child: Row (

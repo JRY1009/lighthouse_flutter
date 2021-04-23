@@ -174,6 +174,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "slogan" : MessageLookupByLibrary.simpleMessage("照亮数字世界之海"),
     "smsLogin" : MessageLookupByLibrary.simpleMessage("验证码登录"),
     "smsLoginTips" : MessageLookupByLibrary.simpleMessage("验证即登录，新手机号自动注册"),
+    "sourceFromApp" : MessageLookupByLibrary.simpleMessage("来自区块灯塔App"),
+    "sourceFromOfficialAccount" : MessageLookupByLibrary.simpleMessage("来自区块灯塔公众号留言"),
     "supportExchanges" : MessageLookupByLibrary.simpleMessage("支持交易所"),
     "thirdLogin" : MessageLookupByLibrary.simpleMessage("更多方式登录"),
     "today" : MessageLookupByLibrary.simpleMessage("今天"),

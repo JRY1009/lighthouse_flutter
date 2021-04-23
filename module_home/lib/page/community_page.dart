@@ -57,7 +57,7 @@ class _CommunityPageState extends State<CommunityPage> with BasePageMixin<Commun
 
     _leaveMessageModel.addListener(() {
       if (_leaveMessageModel.isError) {
-        if (_leaveMessageModel.page == 0) {
+        if (_leaveMessageModel.page == 1) {
           _easyController.refreshFailed();
         } else {
           _easyController.loadFailed();
@@ -65,7 +65,7 @@ class _CommunityPageState extends State<CommunityPage> with BasePageMixin<Commun
         ToastUtil.error(_leaveMessageModel.viewStateError.message);
 
       } else if (_leaveMessageModel.isSuccess || _leaveMessageModel.isEmpty) {
-        if (_leaveMessageModel.page == 0) {
+        if (_leaveMessageModel.page == 1) {
           _easyController.refreshCompleted(resetFooterState: !_leaveMessageModel.noMore);
         } else {
           if (_leaveMessageModel.noMore) {
@@ -112,9 +112,9 @@ class _CommunityPageState extends State<CommunityPage> with BasePageMixin<Commun
 
               return SmartRefresher(
                   controller: _easyController,
-                  enablePullDown: false,
+                  enablePullDown: true,
                   enablePullUp: !model.noMore,
-                  onRefresh: null,
+                  onRefresh: model.refresh,
                   onLoading: model.noMore ? null : model.loadMore,
                   child: model.isFirst ? refreshWidget : model.isEmpty ? emptyWidget : CustomScrollView(
                     slivers: [

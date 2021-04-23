@@ -12,16 +12,16 @@ class LeaveMessageModel extends ViewStateModel {
 
   List<LeaveMessage> messageList = [];
 
-  int page = 0;
-  int pageSize = 8;
+  int page = 1;
+  int pageSize = 20;
 
   bool noMore = true;
 
   LeaveMessageModel() : super(viewState: ViewState.first);
 
   Future refresh() {
-    page = 0;
-    //noMore = false;
+    page = 1;
+    noMore = false;
     return getMessages(page, pageSize);
   }
 
@@ -32,16 +32,16 @@ class LeaveMessageModel extends ViewStateModel {
 
   Future getMessages(int page, int pageSize) {
     Map<String, dynamic> params = {
-      'start': page * pageSize,
-      'count': pageSize,
+      'page_num': page,
+      'page_size': pageSize,
     };
 
-    return DioUtil.getInstance().requestArticle(Apis.URL_GET_ARTICLES + '1/articles', 'get', params: params,
+    return DioUtil.getInstance().requestNetwork(Apis.URL_GET_COMMUNITY_MESSAGES, 'get', params: params,
         cancelToken: cancelToken,
         onSuccess: (data) {
 
-          List<LeaveMessage> list = LeaveMessage.fromJsonList(data) ?? [];
-          if (page == 0) {
+          List<LeaveMessage> list = LeaveMessage.fromJsonList(data['list']) ?? [];
+          if (page == 1) {
             messageList.clear();
             messageList.addAll(list);
 
@@ -49,7 +49,7 @@ class LeaveMessageModel extends ViewStateModel {
             messageList.addAll(list);
           }
 
-          //noMore = list?.length < pageSize;
+          noMore = list?.length < pageSize;
 
           if (ObjectUtil.isEmptyList(messageList)) {
             setEmpty();

@@ -1,27 +1,39 @@
 
+import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/utils/object_util.dart';
 
 class LeaveMessage {
 
-  num article_id;
-  String publish_time;
-  String author;
-  String publisher;
-  String title;
-  String summary;
-  String snapshot_url;
-  String url;
-  String url_app;
+  static const String SOURCE_APP = 'APP';
+  static const String SOURCE_OFFICIAL_ACCOUNTS = 'OFFICIAL_ACCOUNTS';
+
+  num id;
+  num user_id;
+  String createdAt;
+  String nick_name;
+  String source;
+  String remark;
+  String content;
+  String head_ico;
+
+  String get sourceText => _getSourceText();
+  String _getSourceText() {
+    if (source == SOURCE_APP) {
+      return S.current.sourceFromApp;
+    } else if (source == SOURCE_OFFICIAL_ACCOUNTS) {
+      return S.current.sourceFromOfficialAccount;
+    }
+  }
 
   LeaveMessage({
-    this.article_id,
-    this.publish_time,
-    this.author,
-    this.publisher,
-    this.title,
-    this.summary,
-    this.snapshot_url,
-    this.url,
+    this.id,
+    this.user_id,
+    this.createdAt,
+    this.nick_name,
+    this.source,
+    this.remark,
+    this.content,
+    this.head_ico,
   });
 
   @override
@@ -29,33 +41,32 @@ class LeaveMessage {
       identical(this, other) ||
           other is LeaveMessage &&
               runtimeType == other.runtimeType &&
-              article_id == other.article_id;
+              id == other.id;
 
   @override
-  int get hashCode => article_id.hashCode;
+  int get hashCode => id.hashCode;
 
   LeaveMessage.fromJson(Map<String, dynamic> jsonMap) {
-    article_id = jsonMap['article_id'] ?? 0;
-    publish_time = jsonMap['publish_time'] ?? '';
-    author = jsonMap['author'] ?? '';
-    publisher = jsonMap['publisher'] ?? '';
-    title = jsonMap['title'] ?? '';
-    summary = jsonMap['summary'] ?? '';
-    snapshot_url = jsonMap['snapshot_url'] ?? '';
-    url = jsonMap['url'] ?? '';
-    url_app = url + '?app=1';
+    id = jsonMap['id'] ?? 0;
+    user_id = jsonMap['user_id'] ?? 0;
+    createdAt = jsonMap['createdAt'] ?? '';
+    nick_name = jsonMap['nick_name'] ?? '';
+    source = jsonMap['source'] ?? '';
+    remark = jsonMap['remark'] ?? '';
+    content = jsonMap['content'] ?? '';
+    head_ico = jsonMap['head_ico'] ?? '';
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> jsonMap = new Map<String, dynamic>();
-    jsonMap['article_id'] = this.article_id;
-    jsonMap['publish_time'] = this.publish_time;
-    jsonMap['author'] = this.author;
-    jsonMap['publisher'] = this.publisher;
-    jsonMap['title'] = this.title;
-    jsonMap['summary'] = this.summary;
-    jsonMap['snapshot_url'] = this.snapshot_url;
-    jsonMap['url'] = this.url;
+    jsonMap['id'] = this.id;
+    jsonMap['user_id'] = this.user_id;
+    jsonMap['createdAt'] = this.createdAt;
+    jsonMap['nick_name'] = this.nick_name;
+    jsonMap['source'] = this.source;
+    jsonMap['remark'] = this.remark;
+    jsonMap['content'] = this.content;
+    jsonMap['head_ico'] = this.head_ico;
 
     return jsonMap;
   }

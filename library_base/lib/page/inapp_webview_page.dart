@@ -12,6 +12,7 @@ import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
+import 'package:library_base/utils/device_util.dart';
 import 'package:library_base/utils/object_util.dart';
 import 'package:library_base/utils/toast_util.dart';
 import 'package:library_base/widget/button/back_button.dart';
@@ -44,7 +45,7 @@ class _InappWebviewPageState extends State<InappWebviewPage> {
 
   InAppWebViewController webviewController;
 
-  double _opacity = 0.0;
+  double _opacity = 0.01;
   bool loaded = false;
 
   Future<void> _share() async {

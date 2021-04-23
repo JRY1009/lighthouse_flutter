@@ -51,6 +51,7 @@ class Apis {
   static const String URL_GET_CHAIN_DATA = '/chain/data';
   static const String URL_GET_QUOTE = '/quote';
 
+  static const String URL_GET_COMMUNITY_MESSAGES = '/community/search';
   static const String URL_GET_LESSONS = '/academy/inquiry/search';
 
   static const String URL_GET_ARTICLE_CHANNELS = '/v1/c/channels/';

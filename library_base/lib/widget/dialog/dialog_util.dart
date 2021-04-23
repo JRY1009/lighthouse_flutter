@@ -35,7 +35,10 @@ class DialogUtil {
               title: ObjectUtil.isEmpty(title) ? null : Text(title, style: TextStyle(fontSize: 17, color: Colours.gray_800)),
               content: ObjectUtil.isEmpty(content) ? null : Container(
                 margin: EdgeInsets.only(top: 10, bottom: 5),
-                child: Text(content, style: TextStyle(fontSize: 13, color: Colours.gray_800)),
+                child: Text(content,
+                  style: TextStyle(fontSize: 13, color: Colours.gray_500),
+                  strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
+                ),
               ),
               actions: actions
           );

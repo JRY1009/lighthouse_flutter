@@ -170,5 +170,7 @@
   "yesterday": "昨天",
   "origin": "来源：",
   "schoolWelcome": "Hi，很高兴又和您见面，有什么问题想问我？",
-  "dtCommunity": "灯塔社区"
+  "dtCommunity": "灯塔社区",
+  "sourceFromOfficialAccount": "来自区块灯塔公众号留言",
+  "sourceFromApp": "来自区块灯塔App"
 }

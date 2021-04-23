@@ -48,6 +48,7 @@ class TextStyles {
   static const TextStyle textGray800_w600_15 = TextStyle(color: Colours.gray_800, fontWeight: FontWeight.w600, fontSize: 15, height: 1.0);
   static const TextStyle textGray800_w700_15 = TextStyle(color: Colours.gray_800, fontWeight: FontWeight.w700, fontSize: 15, height: 1.0);
   static const TextStyle textGray800_w400_14 = TextStyle(color: Colours.gray_800, fontWeight: FontWeight.w400, fontSize: 14, height: 1.0);
+  static const TextStyle textGray800_w600_14 = TextStyle(color: Colours.gray_800, fontWeight: FontWeight.w600, fontSize: 14, height: 1.0);
   static const TextStyle textGray800_w700_14 = TextStyle(color: Colours.gray_800, fontWeight: FontWeight.w700, fontSize: 14, height: 1.0);
   static const TextStyle textGray800_w700_13 = TextStyle(color: Colours.gray_800, fontWeight: FontWeight.w700, fontSize: 13, height: 1.0);
   static const TextStyle textGray800_w400_12 = TextStyle(color: Colours.gray_800, fontWeight: FontWeight.w400, fontSize: 12, height: 1.0);

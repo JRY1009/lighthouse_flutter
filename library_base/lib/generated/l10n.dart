@@ -1754,6 +1754,26 @@ class S {
       args: [],
     );
   }
+
+  /// `来自区块灯塔公众号留言`
+  String get sourceFromOfficialAccount {
+    return Intl.message(
+      '来自区块灯塔公众号留言',
+      name: 'sourceFromOfficialAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `来自区块灯塔App`
+  String get sourceFromApp {
+    return Intl.message(
+      '来自区块灯塔App',
+      name: 'sourceFromApp',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
