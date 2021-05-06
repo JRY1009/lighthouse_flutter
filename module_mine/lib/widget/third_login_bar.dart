@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:library_base/constant/constant.dart';
@@ -23,10 +25,11 @@ class ThirdLoginBar extends StatefulWidget {
 
 class _ThirdLoginBarState extends State<ThirdLoginBar> {
 
+  StreamSubscription _sub;
   @override
   void initState() {
     super.initState();
-    fluwx.weChatResponseEventHandler.distinct((a, b) => a == b).listen((res) {
+    _sub = fluwx.weChatResponseEventHandler.distinct((a, b) => a == b).listen((res) {
       if (res is fluwx.WeChatAuthResponse) {
         var _result = "state :${res.state} \n code:${res.code}";
         LogUtil.v("WeChatAuthResponse：$_result");
@@ -36,6 +39,12 @@ class _ThirdLoginBarState extends State<ThirdLoginBar> {
         }
       }
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    if (_sub != null) _sub.cancel();
   }
 
   Future<void> _loginWechat(BuildContext context) async {

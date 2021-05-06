@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:core';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -9,16 +10,22 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:fluwx/fluwx.dart';
 import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
+import 'package:library_base/net/apis.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
-import 'package:library_base/utils/device_util.dart';
+import 'package:library_base/router/fade_route.dart';
+import 'package:library_base/router/parameters.dart';
+import 'package:library_base/router/routers.dart';
+import 'package:library_base/utils/log_util.dart';
 import 'package:library_base/utils/object_util.dart';
 import 'package:library_base/utils/toast_util.dart';
 import 'package:library_base/widget/button/back_button.dart';
 import 'package:library_base/widget/dialog/dialog_util.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh.dart';
+import 'package:library_base/widget/image/gallery_photo.dart';
 import 'package:library_base/widget/image/local_image.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class InappWebviewPage extends StatefulWidget {
   final String url;
@@ -44,9 +51,27 @@ class InappWebviewPage extends StatefulWidget {
 class _InappWebviewPageState extends State<InappWebviewPage> {
 
   InAppWebViewController webviewController;
+  PullToRefreshController pullToRefreshController;
+  ContextMenu contextMenu;
 
   double _opacity = 0.01;
   bool loaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    pullToRefreshController = PullToRefreshController(
+      options: PullToRefreshOptions(
+          enabled: Platform.isIOS,
+          color: Colours.transparent,
+          backgroundColor: Colours.transparent
+      ),
+      onRefresh: () async {
+        pullToRefreshController.endRefreshing();
+      },
+    );
+  }
 
   Future<void> _share() async {
     DialogUtil.showShareLinkDialog(context,
@@ -95,7 +120,18 @@ class _InappWebviewPageState extends State<InappWebviewPage> {
     return Scaffold(
       backgroundColor: Colours.white,
       appBar: AppBar(
-        leading: BackButtonEx(),
+        leading: BackButtonEx(
+          onPressed: () async {
+            if (webviewController != null) {
+              final bool canGoBack = await webviewController.canGoBack();
+              if (canGoBack) {
+                // 网页可以返回时，优先返回上一页
+                await webviewController.goBack();
+              }
+            }
+            Navigator.maybePop(context);
+          },
+        ),
         elevation: 0,
         brightness: Brightness.light,
         backgroundColor: Colours.white,
@@ -114,7 +150,8 @@ class _InappWebviewPageState extends State<InappWebviewPage> {
               opacity: _opacity,
               // --- FIX_BLINK ---
               child: InAppWebView(
-                initialUrl: widget.url,
+                initialUrlRequest: URLRequest(url: Uri.parse(widget.url)),
+                pullToRefreshController: pullToRefreshController,
                 initialOptions: InAppWebViewGroupOptions(
                   crossPlatform: InAppWebViewOptions(
                     useShouldOverrideUrlLoading: true,
@@ -126,50 +163,70 @@ class _InappWebviewPageState extends State<InappWebviewPage> {
                     javaScriptCanOpenWindowsAutomatically: false,
                   ),
                   android: AndroidInAppWebViewOptions(
-                      hardwareAcceleration: true
+                      hardwareAcceleration: true,
+                      useHybridComposition: true,
                   ),
                   ios: IOSInAppWebViewOptions(
                       allowsAirPlayForMediaPlayback: false,
                       allowsInlineMediaPlayback: true),
                 ),
+                shouldOverrideUrlLoading: (InAppWebViewController controller, NavigationAction navigationAction) async {
+                  var uri = navigationAction.request.url;
+                  LogUtil.v('Open Url : ${uri}');
 
+                  if (uri.toString().contains(Apis.URL_DISPLAY_WEBSITE)) {
+                    return NavigationActionPolicy.ALLOW;
+
+                  } else {
+                    if (await canLaunch(uri.toString())) {
+                      await launch(uri.toString());
+                    }
+                    return NavigationActionPolicy.CANCEL;
+                  }
+                },
                 onWebViewCreated: (InAppWebViewController controller) {
                   webviewController = controller;
                   webviewController.addJavaScriptHandler(handlerName: 'share', callback: (args) {
                     WeChatScene scene = args[0] == 1 ? WeChatScene.SESSION : args[0] == 2 ? WeChatScene.TIMELINE : WeChatScene.SESSION;
                     _shareWechat(context, scene);
                   });
+
+                  webviewController.addJavaScriptHandler(handlerName: 'previewPictures', callback: (args) {
+                    LogUtil.v('previewPictures : ${args}');
+
+                    List<Gallery> galleryList = [];
+                    int length = args[0]?.length;
+                    for (int i=0; i<length; i++) {
+                      galleryList.add(Gallery(id: args[0][i], resource: args[0][i]));
+                    }
+
+                    Navigator.push(
+                      context,
+                      FadeRoute(
+                        pageBuilder: (context) => GalleryPhotoViewWrapper(
+                          galleryItems: galleryList,
+                          backgroundDecoration: const BoxDecoration(
+                            color: Colors.black,
+                          ),
+                          initialIndex: args.length >= 2 ? args[1] : 0,
+                          scrollDirection: Axis.horizontal,
+                        ),
+                      ),
+                    );
+                  });
                 },
-                onLoadStart: (InAppWebViewController controller, String url) {
+                onLoadStart: (InAppWebViewController controller, Uri url) {
                   setState(() {
                   });
                 },
-                onLoadStop: (InAppWebViewController controller, String url) async {
-                  loaded = true;
-
-                  setState(() { _opacity = 1.0; });
+                onLoadStop: (InAppWebViewController controller, Uri url) async {
+                  if (!loaded) {
+                    loaded = true;
+                    setState(() { _opacity = 1.0; });
+                  }
 
                   //init();
                 },
-                gestureRecognizers: widget.captureAllGestures
-                    ? (Set()
-                  ..add(Factory<VerticalDragGestureRecognizer>(() {
-                    return VerticalDragGestureRecognizer()
-                      ..onStart = (DragStartDetails details) {}
-                      ..onUpdate = (DragUpdateDetails details) {}
-                      ..onDown = (DragDownDetails details) {}
-                      ..onCancel = () {}
-                      ..onEnd = (DragEndDetails details) {};
-                  }))
-                  ..add(Factory<HorizontalDragGestureRecognizer>(() {
-                    return HorizontalDragGestureRecognizer()
-                      ..onStart = (DragStartDetails details) {}
-                      ..onUpdate = (DragUpdateDetails details) {}
-                      ..onDown = (DragDownDetails details) {}
-                      ..onCancel = () {}
-                      ..onEnd = (DragEndDetails details) {};
-                  })))
-                    : null,
               )
           ),
 

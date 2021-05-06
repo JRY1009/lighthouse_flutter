@@ -53,7 +53,7 @@ class ArticleCardItem extends StatelessWidget {
                     child: Text(aritcle?.title ?? '',
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
+                        strutStyle: StrutStyle(forceStrutHeight: true, height:1.4, leading: 0.5),
                         style: TextStyles.textGray800_w600_17
                     )
                 ),
@@ -76,7 +76,7 @@ class ArticleCardItem extends StatelessWidget {
                             child: Text(aritcle?.summary ?? '',
                                 maxLines: 4,
                                 overflow: TextOverflow.ellipsis,
-                                strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
+                                strutStyle: StrutStyle(forceStrutHeight: true, height:1.2, leading: 0.5),
                                 style: TextStyles.textGray500_w400_14
                             )),
                       ),

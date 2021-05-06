@@ -19,7 +19,7 @@ class ModifyNicknameModel extends ViewStateModel {
     };
 
     setBusy();
-    return DioUtil.getInstance().requestNetwork(Apis.URL_UPDATE_NICK_NAME, "post", params: params,
+    return DioUtil.getInstance().requestNetwork(Apis.URL_UPDATE_NICK_NAME, "post", data: params,
         cancelToken: cancelToken,
         onSuccess: (data) {
 

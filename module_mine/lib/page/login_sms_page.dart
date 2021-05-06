@@ -30,6 +30,14 @@ import 'package:module_mine/viewmodel/verify_model.dart';
 import 'package:module_mine/widget/third_login_bar.dart';
 
 class LoginSmsPage extends StatefulWidget {
+  final String phone;
+  final bool agreeChecked;
+
+  LoginSmsPage({
+    this.phone,
+    this.agreeChecked = false,
+  });
+  
   @override
   _LoginSmsPageState createState() => _LoginSmsPageState();
 }
@@ -59,15 +67,19 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
   }
 
   void initView() {
-    Account account = RTAccount.instance().loadAccount();
-    if (account != null) {
-      // var t = account.phone?.split(' ');
-      // _area_code = t?.first;
-      // _phoneController.text = t?.last;
-      _area_code = '+86';
-      _phoneController.text = account.phone;
+    _area_code = '+86';
+    _agreeChecked = widget.agreeChecked;
+    if (!ObjectUtil.isEmpty(widget.phone)) {
+      _phoneController.text = widget.phone;
+      
     } else {
-      _area_code = '+86';
+      Account account = RTAccount.instance().loadAccount();
+      if (account != null) {
+        // var t = account.phone?.split(' ');
+        // _area_code = t?.first;
+        // _phoneController.text = t?.last;
+        _phoneController.text = account.phone;
+      }
     }
   }
 
@@ -86,18 +98,25 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
       } else if (_loginModel.isSuccess) {
         closeProgress();
 
-        ToastUtil.success(S.current.logingSuccess);
-
         bool firstLogin = SPUtil.getBool(SPUtil.key_first_login, defValue: true);
-        bool had_pwd = _loginModel.loginResult.account_info.had_password;
+        bool had_pwd = _loginModel.loginResult?.account_info?.had_password ?? true;
+        String phone = _loginModel.loginResult?.account_info?.phone;
 
-        if (firstLogin && !had_pwd) {
-          Routers.navigateTo(context, Routers.setPwdPage, clearStack: true);
-          SPUtil.putBool(SPUtil.key_first_login, false);
+        if (ObjectUtil.isEmpty(phone)) {
+          Routers.navigateTo(context, Routers.bindPhonePage);
 
         } else {
-          Routers.navigateTo(context, MineRouter.isRunModule ? Routers.minePage : Routers.mainPage, clearStack: true);
+          ToastUtil.success(S.current.logingSuccess);
+
+          if (firstLogin && !had_pwd) {
+            Routers.navigateTo(context, Routers.setPwdPage, clearStack: true);
+            SPUtil.putBool(SPUtil.key_first_login, false);
+
+          } else {
+            Routers.navigateTo(context, MineRouter.isRunModule ? Routers.minePage : Routers.mainPage, clearStack: true);
+          }
         }
+
       }
     });
 
@@ -144,7 +163,11 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
   }
 
   void _pwdLogin() {
-    Routers.navigateTo(context, Routers.loginPage, clearStack: true);
+    Parameters params = Parameters()
+      ..putString('phone', _phoneController.text)
+      ..putBool('agreeChecked', _agreeChecked);
+
+    Routers.navigateTo(context, Routers.loginPage, parameters: params, clearStack: true);
   }
 
   void _jump2Agreement() {
@@ -313,7 +336,13 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
           ],
           bottomButton: Container(
             margin: EdgeInsets.only(bottom: 20),
-            child: ThirdLoginBar(),
+            child: ThirdLoginBar(
+                onWeChatAuthResponse: (res) {
+                  if (res.code != null) {
+                    _loginModel.loginWechat(res.code);
+                  }
+                }
+            ),
           )
 
         )

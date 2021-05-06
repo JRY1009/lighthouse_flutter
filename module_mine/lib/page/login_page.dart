@@ -16,6 +16,7 @@ import 'package:library_base/router/routers.dart';
 import 'package:library_base/widget/button/gradient_button.dart';
 import 'package:library_base/widget/button/round_checkbox.dart';
 import 'package:library_base/widget/common_scroll_view.dart';
+import 'package:library_base/widget/dialog/dialog_util.dart';
 import 'package:library_base/widget/image/local_image.dart';
 import 'package:library_base/widget/textfield/account_text_field.dart';
 import 'package:library_base/widget/textfield/pwd_text_field.dart';
@@ -29,6 +30,13 @@ import 'package:module_mine/viewmodel/login_model.dart';
 import 'package:module_mine/widget/third_login_bar.dart';
 
 class LoginPage extends StatefulWidget {
+  final String phone;
+  final bool agreeChecked;
+
+  LoginPage({
+    this.phone,
+    this.agreeChecked = false,
+  });
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -57,15 +65,19 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
   }
 
   void initView() {
-    Account account = RTAccount.instance().loadAccount();
-    if (account != null) {
-      // var t = account.phone?.split(' ');
-      // _area_code = t?.first;
-      // _phoneController.text = t?.last;
-      _area_code = '+86';
-      _phoneController.text = account.phone;
+    _area_code = '+86';
+    _agreeChecked = widget.agreeChecked;
+    if (!ObjectUtil.isEmpty(widget.phone)) {
+      _phoneController.text = widget.phone;
+
     } else {
-      _area_code = '+86';
+      Account account = RTAccount.instance().loadAccount();
+      if (account != null) {
+        // var t = account.phone?.split(' ');
+        // _area_code = t?.first;
+        // _phoneController.text = t?.last;
+        _phoneController.text = account.phone;
+      }
     }
   }
 
@@ -76,13 +88,35 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
         showProgress(content: S.current.logingin);
       } else if (_loginModel.isError) {
         closeProgress();
-        ToastUtil.error(_loginModel.viewStateError.message);
+        if (_loginModel.viewStateError?.errno == Apis.ERRNO_NOT_SET_PASSWORD) {
+          DialogUtil.showCupertinoAlertDialog(context,
+              title: S.of(context).notSetPassword,
+              content:  S.of(context).notSetPasswordTips,
+              cancel: S.of(context).cancel,
+              confirm: S.of(context).smsLogin,
+              cancelPressed: () => Navigator.of(context).pop(),
+              confirmPressed: () {
+                Navigator.of(context).pop();
+                _smsLogin();
+              }
+          );
+
+        } else {
+          ToastUtil.error(_loginModel.viewStateError.message);
+        }
 
       } else if (_loginModel.isSuccess) {
         closeProgress();
 
-        ToastUtil.success(S.current.logingSuccess);
-        Routers.navigateTo(context, MineRouter.isRunModule ? Routers.minePage : Routers.mainPage, clearStack: true);
+        String phone = _loginModel.loginResult?.account_info?.phone;
+
+        if (ObjectUtil.isEmpty(phone)) {
+          Routers.navigateTo(context, Routers.bindPhonePage);
+
+        } else {
+          ToastUtil.success(S.current.logingSuccess);
+          Routers.navigateTo(context, MineRouter.isRunModule ? Routers.minePage : Routers.mainPage, clearStack: true);
+        }
       }
     });
   }
@@ -118,7 +152,11 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
   }
 
   void _smsLogin() {
-    Routers.navigateTo(context, Routers.loginSmsPage, clearStack: true);
+    Parameters params = Parameters()
+      ..putString('phone', _phoneController.text)
+      ..putBool('agreeChecked', _agreeChecked);
+
+    Routers.navigateTo(context, Routers.loginSmsPage, parameters: params, clearStack: true);
   }
 
   void _forgetPwd() {
@@ -293,7 +331,13 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
           ],
           bottomButton: Container(
             margin: EdgeInsets.only(bottom: 20),
-            child: ThirdLoginBar(),
+            child: ThirdLoginBar(
+                onWeChatAuthResponse: (res) {
+                  if (res.code != null) {
+                    _loginModel.loginWechat(res.code);
+                  }
+                }
+            ),
           )
         )
     );

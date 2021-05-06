@@ -30,9 +30,6 @@ class _ModifyPwdPageState extends State<ModifyPwdPage> with BasePageMixin<Modify
   final TextEditingController _verifyController = TextEditingController();
   final FocusNode _verifyNode = FocusNode();
 
-  final TextEditingController _oldPwdController = TextEditingController();
-  final FocusNode _oldPwdNode = FocusNode();
-
   final TextEditingController _pwdController = TextEditingController();
   final FocusNode _pwdNode = FocusNode();
 
@@ -90,7 +87,7 @@ class _ModifyPwdPageState extends State<ModifyPwdPage> with BasePageMixin<Modify
 
   void _checkInput() {
     setState(() {
-      String unconfirmed = _had_password ? _oldPwdController.text : _verifyController.text;
+      String unconfirmed = _verifyController.text;
       if (ObjectUtil.isEmpty(unconfirmed) || ObjectUtil.isEmpty(_pwdController.text) || ObjectUtil.isEmpty(_pwdRepeatController.text)) {
         _saveEnabled = false;
       } else {
@@ -101,7 +98,6 @@ class _ModifyPwdPageState extends State<ModifyPwdPage> with BasePageMixin<Modify
 
   void _submit() {
     String verifyCode = _verifyController.text;
-    String oldPwd = _oldPwdController.text;
     String pwd = _pwdController.text;
     String pwdRepeat = _pwdRepeatController.text;
     String pwdMd5 = EncryptUtil.encodeMd5(pwd);
@@ -111,11 +107,7 @@ class _ModifyPwdPageState extends State<ModifyPwdPage> with BasePageMixin<Modify
       return;
     }
 
-    if (_had_password) {
-      _modifyPwdModel.modifyPwd(oldPwd, pwd, pwdRepeat);
-    } else {
-      _modifyPwdModel.resetPwd(pwd, pwdRepeat, verifyCode);
-    }
+    _modifyPwdModel.resetPwd(pwd, pwdRepeat, verifyCode);
   }
 
   Future<bool> _getVCode() {
@@ -147,7 +139,7 @@ class _ModifyPwdPageState extends State<ModifyPwdPage> with BasePageMixin<Modify
             brightness: Brightness.light,
             backgroundColor: Colours.white,
             centerTitle: true,
-            title: Text(S.of(context).modifyPassword, style: TextStyles.textBlack16)
+            title: Text(_had_password ? S.of(context).modifyPassword : S.of(context).setPwd, style: TextStyles.textBlack16)
         ),
         body: CommonScrollView(
           keyboardConfig: OtherUtil.getKeyboardActionsConfig(context, <FocusNode>[_verifyNode, _pwdNode, _pwdRepeatNode]),
@@ -161,15 +153,7 @@ class _ModifyPwdPageState extends State<ModifyPwdPage> with BasePageMixin<Modify
               iconSpace: false,
             ),
 
-            _had_password ? PwdTextField(
-              prefixText: S.of(context).oldPassword,
-              backgroundColor: Colours.white,
-              focusedBorder: BorderStyles.outlineInputR0White,
-              enabledBorder: BorderStyles.outlineInputR0White,
-              focusNode: _oldPwdNode,
-              controller: _oldPwdController,
-              onTextChanged: _checkInput,
-            ) : VerifyTextField(
+            VerifyTextField(
               backgroundColor: Colours.white,
               focusedBorder: BorderStyles.outlineInputR0White,
               enabledBorder: BorderStyles.outlineInputR0White,
@@ -208,7 +192,7 @@ class _ModifyPwdPageState extends State<ModifyPwdPage> with BasePageMixin<Modify
               child: GradientButton(
                 width: double.infinity,
                 height: 48,
-                text: S.of(context).confirmNotify,
+                text: S.of(context).confirm,
                 colors: <Color>[   //背景渐变
                   Colours.app_main,
                   Colours.app_main_500

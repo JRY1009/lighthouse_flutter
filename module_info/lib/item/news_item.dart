@@ -42,58 +42,61 @@ class _NewsItemState extends State<NewsItem> {
 
     DialogUtil.showShareDialog(context,
         children: [
-          ShareNewsHeader(),
-          Container(
-            color: Colours.white,
-            child: Stack(
-              children: [
-                Container(
-                  height: 165.6,
-                  decoration: BoxDecoration(
-                    color: Colours.white,
-                    image: DecorationImage(
-                      image: AssetImage(ImageUtil.getImgPath('bg_home2'), package: Constant.baseLib),
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                ),
-                Container(
-                  constraints: BoxConstraints(minHeight: 165.6),
-                  padding: EdgeInsets.fromLTRB(16, 20, 18, 20),
-                  child: Column(
-                    children: [
-                      ObjectUtil.isEmpty(widget.news?.title) ? Gaps.empty :
-                      Container(
-                          margin: EdgeInsets.only(top: 20),
-                          alignment: Alignment.centerLeft,
-                          child: Text(widget.news?.title ?? '',
-                              strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
-                              style: TextStyles.textGray800_w700_20
-                          )
-                      ),
-                      Container(
-                        height: 20,
-                        margin: EdgeInsets.only(top: 10),
-                        child: Row(
-                          children: [
-                            LocalImage('icon_time', width: 12, height: 12, package: Constant.baseLib),
-                            Gaps.hGap5,
-                            Text(TimeCountUtil.formatDateStr(widget.news?.publish_time, format: DateFormat.NORMAL) ?? '',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyles.textGray500_w400_12
-                            )
-                          ],
+        Container(
+          color: Colours.white,
+          child: Column(
+            children: [
+              ShareNewsHeader(),
+              Container(
+                child: Stack(
+                  children: [
+                    Container(
+                      height: 165.6,
+                      decoration: BoxDecoration(
+                        color: Colours.white,
+                        image: DecorationImage(
+                          image: AssetImage(ImageUtil.getImgPath('bg_home2'), package: Constant.baseLib),
+                          fit: BoxFit.fill,
                         ),
                       ),
-                      Container(
-                          margin: EdgeInsets.only(top: 10),
-                          alignment: Alignment.centerLeft,
-                          child: Text(widget.news?.summary ?? '',
-                              strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
-                              style: TextStyles.textGray800_w400_15
-                          )
-                      ),
+                    ),
+                    Container(
+                      constraints: BoxConstraints(minHeight: 165.6),
+                      padding: EdgeInsets.fromLTRB(16, 20, 18, 20),
+                      child: Column(
+                        children: [
+                          ObjectUtil.isEmpty(widget.news?.title) ? Gaps.empty :
+                          Container(
+                              margin: EdgeInsets.only(top: 20),
+                              alignment: Alignment.centerLeft,
+                              child: Text(widget.news?.title ?? '',
+                                  strutStyle: StrutStyle(forceStrutHeight: true, height:1.4, leading: 0.5),
+                                  style: TextStyles.textGray800_w700_20
+                              )
+                          ),
+                          Container(
+                            height: 20,
+                            margin: EdgeInsets.only(top: 10),
+                            child: Row(
+                              children: [
+                                LocalImage('icon_time', width: 12, height: 12, package: Constant.baseLib),
+                                Gaps.hGap5,
+                                Text(TimeCountUtil.formatDateStr(widget.news?.publish_time, format: DateFormat.NORMAL) ?? '',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyles.textGray500_w400_12
+                                )
+                              ],
+                            ),
+                          ),
+                          Container(
+                              margin: EdgeInsets.only(top: 10),
+                              alignment: Alignment.centerLeft,
+                              child: Text(widget.news?.summary ?? '',
+                                  strutStyle: StrutStyle(forceStrutHeight: true, height:1.2, leading: 0.5),
+                                  style: TextStyles.textGray800_w400_15
+                              )
+                          ),
 
 //                      Container(
 //                        height: 20,
@@ -105,13 +108,17 @@ class _NewsItemState extends State<NewsItem> {
 //                            style: TextStyles.textGray300_w400_12
 //                        ),
 //                      ),
-                    ],
-                  ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              ShareQRFoooter()
+
+            ],
           ),
-          ShareQRFoooter()
+        )
         ]
     );
   }
@@ -184,7 +191,7 @@ class _NewsItemState extends State<NewsItem> {
                         margin: EdgeInsets.only(top: 10),
                         alignment: Alignment.centerLeft,
                         child: Text(widget.news?.title ?? '',
-                            strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
+                            strutStyle: StrutStyle(forceStrutHeight: true, height:1.4, leading: 0.5),
                             style: TextStyles.textGray800_w700_17
                         )
                       ),
@@ -200,7 +207,7 @@ class _NewsItemState extends State<NewsItem> {
                             minLines: 4,
                             isEnableTextClick: true,
                             textStyle: TextStyles.textGray500_w400_15,
-                            strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5)
+                            strutStyle: StrutStyle(forceStrutHeight: true, height:1.2, leading: 0.5)
                         ),
                     ),
 

@@ -7,6 +7,7 @@ class Apis {
   static const String ERRNO_UNKNOWN = "UNKNOWN";
   static const String ERRNO_UNKNOWN_MESSAGE = "UNKNOWN MESSAGE";
   static const String ERRNO_FORBIDDEN = "FORBIDDEN";
+  static const String ERRNO_NOT_SET_PASSWORD = "30021";
 
   static const String KEY_VER = "lh-Ver";
   static const String KEY_DEV = "lh-Dev";
@@ -31,6 +32,10 @@ class Apis {
 
 
   static const String URL_LOGIN = '/login';
+  static const String URL_WECHAT_LOGIN = '/wechat/login';
+  static const String URL_BIND_PHONE = '/account/bingphone';
+  static const String URL_BIND_WECHAT = '/account/bingthrid';
+  static const String URL_UNBIND_WECHAT = '/account/unbundling';
   static const String URL_REGISTER = '/reg';
   static const String URL_VERIFY_CODE = '/sms/send';
   static const String URL_RESET_PASSWORD = '/account/forget_password';

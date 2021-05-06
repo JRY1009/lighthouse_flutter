@@ -122,9 +122,11 @@ class _CommunityPageState extends State<CommunityPage> with BasePageMixin<Commun
                         delegate: SliverChildBuilderDelegate((context, index) {
                           LeaveMessage lvMessage = model.messageList[index];
                           return LeaveMessageItem(
-                              margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-                              lvMessage: lvMessage,
-                              share: true,
+                            height: 232,
+                            margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                            maxLines: 5,
+                            lvMessage: lvMessage,
+                            share: true,
                           );
                         },
                           childCount: model.messageList.length,

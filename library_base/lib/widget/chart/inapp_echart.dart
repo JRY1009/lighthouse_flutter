@@ -7,9 +7,9 @@ import 'dart:io' show Platform;
 import 'package:flutter/widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 import 'package:flutter_echarts/echarts_script.dart' show echartsScript;
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 /// <!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, target-densitydpi=device-dpi" /><style type="text/css">body,html,#chart{height: 100%;width: 100%;margin: 0px;}div {-webkit-tap-highlight-color:rgba(255,255,255,0);}</style></head><body><div id="chart" /></body></html>
 /// 'data:text/html;base64,' + base64Encode(const Utf8Encoder().convert( /* STRING ABOVE */ ))
@@ -114,7 +114,7 @@ class InappEchartsState extends State<InappEcharts> {
         opacity: _opacity,
         // --- FIX_BLINK ---
         child: InAppWebView(
-          initialUrl: htmlBase64,
+          initialUrlRequest: URLRequest(url: Uri.parse(htmlBase64)),
           initialOptions: InAppWebViewGroupOptions(
             crossPlatform: InAppWebViewOptions(
               useShouldOverrideUrlLoading: true,
@@ -136,11 +136,11 @@ class InappEchartsState extends State<InappEcharts> {
           onWebViewCreated: (InAppWebViewController controller) {
             webviewController = controller;
           },
-          onLoadStart: (InAppWebViewController controller, String url) {
+          onLoadStart: (InAppWebViewController controller, Uri url) {
             setState(() {
             });
           },
-          onLoadStop: (InAppWebViewController controller, String url) async {
+          onLoadStop: (InAppWebViewController controller, Uri url) async {
             if (Platform.isAndroid) {
               setState(() { _opacity = 1.0; });
             }

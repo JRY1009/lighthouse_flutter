@@ -95,9 +95,9 @@ class _InfoPageState extends State<InfoPage> with BasePageMixin<InfoPage>, Autom
                   unselectedLabelStyle: TextStyles.textGray400_w400_16,
                   indicatorSize: TabBarIndicatorSize.label,
                   indicator: RoundTabIndicator(
-                      borderSide: BorderSide(color: Colours.gray_800, width: 3),
+                      borderSide: BorderSide(color: Colours.app_main, width: 3),
                       isRound: true,
-                      insets: EdgeInsets.only(left: 5, right: 5)),
+                      insets: EdgeInsets.only(left: 10, right: 10)),
                   isScrollable: false,
                   tabs: <Tab>[
                     Tab(text: _tabTitles[0]),

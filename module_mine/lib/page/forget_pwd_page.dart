@@ -1,23 +1,23 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/mvvm/base_page.dart';
-import 'package:library_base/model/account.dart';
-import 'package:library_base/global/rt_account.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
-import 'package:library_base/widget/button/back_button.dart';
-import 'package:library_base/widget/button/gradient_button.dart';
-import 'package:library_base/widget/clickbar/setting_clickbar.dart';
-import 'package:library_base/widget/common_scroll_view.dart';
-import 'package:library_base/widget/textfield/account_text_field.dart';
-import 'package:library_base/widget/textfield/pwd_text_field.dart';
-import 'package:library_base/widget/textfield/verify_text_field.dart';
+import 'package:library_base/router/parameters.dart';
+import 'package:library_base/router/routers.dart';
 import 'package:library_base/utils/encrypt_util.dart';
 import 'package:library_base/utils/object_util.dart';
 import 'package:library_base/utils/other_util.dart';
 import 'package:library_base/utils/toast_util.dart';
+import 'package:library_base/widget/button/back_button.dart';
+import 'package:library_base/widget/button/gradient_button.dart';
+import 'package:library_base/widget/common_scroll_view.dart';
+import 'package:library_base/widget/textfield/account_text_field.dart';
+import 'package:library_base/widget/textfield/pwd_text_field.dart';
+import 'package:library_base/widget/textfield/verify_text_field.dart';
 import 'package:module_mine/viewmodel/modify_pwd_model.dart';
 import 'package:module_mine/viewmodel/verify_model.dart';
 
@@ -122,6 +122,17 @@ class _ForgetPwdPageState extends State<ForgetPwdPage> with BasePageMixin<Forget
     return _verifyModel.getVCode(phone, VerifyModel.SMS_FORGET_PWD);
   }
 
+  void _selectArea() {
+    Parameters params = Parameters()
+      ..putString('areaCode', _area_code);
+
+    Routers.navigateToResult(context, Routers.areaPage, params, (result) {
+      setState(() {
+        _area_code = result;
+      });
+    }, transition: TransitionType.materialFullScreenDialog);
+  }
+
   @override
   Widget build(BuildContext context) {
     
@@ -147,7 +158,7 @@ class _ForgetPwdPageState extends State<ForgetPwdPage> with BasePageMixin<Forget
               controller: _phoneController,
               onTextChanged: _checkInput,
               areaCode: _area_code,
-              onPrefixPressed: (){},
+              onPrefixPressed: _selectArea,
             ),
 
             VerifyTextField(

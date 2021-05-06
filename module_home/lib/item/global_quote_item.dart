@@ -68,7 +68,7 @@ class GlobalQuoteItem extends StatelessWidget {
           ),
           Expanded(child: Container()),
           Container(
-            height: 30,
+            height: 28,
             alignment: Alignment.centerLeft,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,

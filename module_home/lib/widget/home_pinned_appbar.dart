@@ -106,7 +106,7 @@ class _HomePinnedAppBarState extends State<HomePinnedAppBar> {
                             alignment: Alignment.center,
                             padding: EdgeInsets.symmetric(horizontal: 4),
                             decoration: BoxDecoration(
-                              color: btcRate >= 0 ? Color(0x1aEC3944) : Color(0x1a22C29B),
+                              color: btcRate >= 0 ? Color(0x1a22C29B) : Color(0x1aEC3944),
                               borderRadius: BorderRadius.all(Radius.circular(2.0)),
                             ),
                             child: Text(btcRateStr,
@@ -160,7 +160,7 @@ class _HomePinnedAppBarState extends State<HomePinnedAppBar> {
                           alignment: Alignment.center,
                           padding: EdgeInsets.symmetric(horizontal: 4),
                           decoration: BoxDecoration(
-                            color: ethRate >= 0 ? Color(0x1aEC3944) : Color(0x1a22C29B),
+                            color: ethRate >= 0 ? Color(0x1a22C29B) : Color(0x1aEC3944),
                             borderRadius: BorderRadius.all(Radius.circular(2.0)),
                           ),
                           child: Text(ethRateStr,

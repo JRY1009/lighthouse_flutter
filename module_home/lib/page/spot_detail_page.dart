@@ -341,7 +341,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
               unselectedLabelStyle: TextStyles.textGray400_w400_14,
               indicatorSize: TabBarIndicatorSize.label,
               indicator: RoundTabIndicator(
-                  borderSide: BorderSide(color: Colours.gray_800, width: 3),
+                  borderSide: BorderSide(color: Colours.app_main, width: 3),
                   isRound: true,
                   insets: EdgeInsets.only(left: 8, right: 8)),
               isScrollable: true,

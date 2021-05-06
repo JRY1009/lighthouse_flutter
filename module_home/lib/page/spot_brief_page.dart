@@ -10,6 +10,7 @@ import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
+import 'package:library_base/router/parameters.dart';
 import 'package:library_base/router/routers.dart';
 import 'package:library_base/utils/other_util.dart';
 import 'package:library_base/widget/common_scroll_view.dart';
@@ -21,6 +22,7 @@ import 'package:module_home/item/spot_brief_item.dart';
 import 'package:module_home/model/friend_link.dart';
 import 'package:module_home/model/milestone.dart';
 import 'package:module_home/model/spot_brief.dart';
+import 'package:module_home/viewmodel/home_model.dart';
 import 'package:module_home/viewmodel/spot_brief_model.dart';
 
 class SpotBriefPage extends StatefulWidget {
@@ -143,7 +145,7 @@ class _SpotBriefPageState extends State<SpotBriefPage> with BasePageMixin<SpotBr
                                   ),
                                   TextSpan(
                                     text: ' ${friendLink.name}',
-                                    style: TextStyles.textMain14,
+                                    style: TextStyles.textMain500_14,
                                     recognizer: new TapGestureRecognizer()..onTap = () => OtherUtil.launchURL(friendLink.url),
                                   )
                                 ]
@@ -163,7 +165,12 @@ class _SpotBriefPageState extends State<SpotBriefPage> with BasePageMixin<SpotBr
                         margin: const EdgeInsets.fromLTRB(15, 18, 16, 9),
                         height: 24,
                         child: InkWell(
-                          onTap: () => Routers.navigateTo(context, Routers.milestonePage),
+                          onTap: () {
+                            int index = widget.coinCode == HomeModel.COIN_BITCOIN ? 1 : widget.coinCode == HomeModel.COIN_ETHEREUM ? 2 : 0;
+                            Routers.navigateTo(context, Routers.milestonePage,
+                                parameters: Parameters()..putInt('initialIndex', index)
+                            );
+                          } ,
                           child: Row(
                             children: [
                               Expanded(
@@ -181,9 +188,9 @@ class _SpotBriefPageState extends State<SpotBriefPage> with BasePageMixin<SpotBr
                                   child: Row(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
-                                      Text(S.of(context).all, style: TextStyles.textGray400_w400_12),
+                                      Text(S.of(context).all, style: TextStyles.textMain500_14),
                                       Gaps.hGap3,
-                                      Icon(Icons.keyboard_arrow_right, color: Colours.gray_400, size: 15),
+                                      Icon(Icons.keyboard_arrow_right, color: Colours.app_main_500, size: 15),
                                     ],
                                   )
                               ),

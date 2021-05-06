@@ -44,7 +44,7 @@ class SpotExchangeQuoteItem extends StatelessWidget {
     String cnyStr = NumUtil.formatNum(cny, point: 2);
 
     return Container(
-      height: 55.0,
+      height: 65.0,
       width: double.infinity,
 //      decoration: BoxDecoration(
 //          border: Border(bottom: BorderSide(width: 0.6, color: Colours.default_line))

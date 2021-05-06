@@ -30,9 +30,13 @@ class HomeRouter implements IRouter{
         return SpotDetailPage(coinCode: coinCode);
       }),
 
+      PageBuilder(Routers.milestonePage, (params) {
+        int initialIndex = params?.getInt('initialIndex') ?? 0;
+        return MileStonePage(initialIndex: initialIndex);
+      }),
+
       PageBuilder(Routers.globalQuotePage, (_) => GlobalQuotePage()),
       PageBuilder(Routers.treemapPage, (_) => TreemapPage()),
-      PageBuilder(Routers.milestonePage, (_) => MileStonePage()),
       PageBuilder(Routers.schoolPage, (_) => SchoolPage()),
       PageBuilder(Routers.communityPage, (_) => CommunityPage()),
 

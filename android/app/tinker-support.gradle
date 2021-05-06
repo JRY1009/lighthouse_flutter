@@ -1,6 +1,6 @@
 apply plugin: 'com.tencent.bugly.tinker-support'
 
-def bakPath = file("${buildDir}/bakApk/")
+def bakPath = file("${buildDir}/outputs/channels/")
 
 /**
  * 此处填写每次构建生成的基准包目录
@@ -13,7 +13,7 @@ def baseApkDir = "app-0208-19-16-54"
 tinkerSupport {
 
     // 开启tinker-support插件，默认值true
-    enable = false
+    enable = true
     // 指定归档目录，默认值当前module的子目录tinker
     autoBackupApkDir = "${bakPath}"
     //建议设置true,用户就不用再自己管理tinkerId的命名,插件会为每一次构建的base包自动生成唯一的tinkerId，默认命名规则是versionname.versioncode_时间戳
@@ -54,7 +54,7 @@ tinkerSupport {
  */
 tinkerPatch {
     //oldApk ="${bakPath}/${appName}/app-debug.apk"
-    tinkerEnable = false
+    tinkerEnable = true
     ignoreWarning = false
     useSign = true
     dex {

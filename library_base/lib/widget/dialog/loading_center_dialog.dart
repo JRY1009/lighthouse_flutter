@@ -54,9 +54,9 @@ class LoadingCenterDialog extends Dialog {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                loadingView ?? SpinKitCircle(color: textColor, size: 50.0),
+                loadingView ?? SpinKitCircle(color: textColor, size: 36.0),
                 showContent ? Padding(
-                  padding: const EdgeInsets.only(left: 10, top: 10),
+                  padding: const EdgeInsets.only(left: 10, top: 15),
                   child: Text(content ?? S.current.loading, style: TextStyle(
                       fontSize: 14.0,
                       color: textColor)),

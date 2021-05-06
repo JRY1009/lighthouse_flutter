@@ -39,7 +39,7 @@ class AccountEntity {
 
 class Account {
 
-  int account_id;
+  num account_id;
   String phone;
   String area_code;
   String nick_name;
@@ -51,6 +51,7 @@ class Account {
   String invite_code;
   String remark;
   bool had_password;
+  WechatAccount wechat_account;
 
   String token;
 
@@ -60,8 +61,8 @@ class Account {
     var t = phone?.split(' ');
     String secret = t?.last;
 
-    if (secret.length >= 11) {
-      secret = secret.replaceRange(secret.length - 8, secret.length - 4, '****');
+    if (secret != null && secret?.length >= 11) {
+      secret = secret?.replaceRange(secret?.length - 8, secret?.length - 4, '****');
     }
     return secret;
   }
@@ -79,11 +80,12 @@ class Account {
     this.invite_code,
     this.remark,
     this.had_password,
+    this.wechat_account,
     this.token,
   });
 
   Account.fromJson(Map<String, dynamic> jsonMap) {
-    account_id = jsonMap['account_id'];
+    account_id = jsonMap['id'];
     phone = jsonMap['phone'];
     area_code = jsonMap['area_code'];
     nick_name = jsonMap['nick_name'];
@@ -96,12 +98,12 @@ class Account {
     remark = jsonMap['remark'];
     had_password = jsonMap['had_password'] ?? false;
     token = jsonMap['token'];
-    //photos = Media.fromJsonList(jsonMap['pic']);
+    wechat_account = WechatAccount.fromJson(jsonMap['wechat_account'] ?? {});
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> jsonMap = new Map<String, dynamic>();
-    jsonMap['account_id'] = this.account_id;
+    jsonMap['id'] = this.account_id;
     jsonMap['phone'] = this.phone;
     jsonMap['area_code'] = this.area_code;
     jsonMap['nick_name'] = this.nick_name;
@@ -114,14 +116,14 @@ class Account {
     jsonMap['remark'] = this.remark;
     jsonMap['had_password'] = this.had_password;
     jsonMap['token'] = this.token;
-    //jsonMap['pic'] = this.photos?.map((v) => v.toJson()).toList();
+    jsonMap['wechat_account'] = this.wechat_account.toJson();
 
     return jsonMap;
   }
 
 
   Account.fromLocalJson(Map<String, dynamic> jsonMap) {
-    account_id = jsonMap['account_id'];
+    account_id = jsonMap['id'];
     phone = jsonMap['phone'];
     area_code = jsonMap['area_code'];
     nick_name = jsonMap['nick_name'];
@@ -131,7 +133,7 @@ class Account {
 
   Map<String, dynamic> toLocalJson() {
     final Map<String, dynamic> jsonMap = new Map<String, dynamic>();
-    jsonMap['account_id'] = this.account_id;
+    jsonMap['id'] = this.account_id;
     jsonMap['phone'] = this.phone;
     jsonMap['area_code'] = this.area_code;
     jsonMap['nick_name'] = this.nick_name;
@@ -140,4 +142,25 @@ class Account {
 
     return jsonMap;
   }
+}
+
+class WechatAccount {
+
+  bool binded;
+
+  WechatAccount({
+    this.binded,
+  });
+
+  WechatAccount.fromJson(Map<String, dynamic> jsonMap) {
+    binded = jsonMap['binded'] ?? false;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> jsonMap = new Map<String, dynamic>();
+    jsonMap['binded'] = this.binded;
+
+    return jsonMap;
+  }
+
 }

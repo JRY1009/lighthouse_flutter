@@ -19,7 +19,7 @@ class ModifyPwdModel extends ViewStateModel {
 
     setBusy();
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_UPDATE_PASSWORD, "post", params: params,
+    return DioUtil.getInstance().requestNetwork(Apis.URL_UPDATE_PASSWORD, "post", data: params,
         cancelToken: cancelToken,
         onSuccess: (data) {
           setSuccess();
@@ -39,7 +39,7 @@ class ModifyPwdModel extends ViewStateModel {
 
     setBusy();
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_RESET_PASSWORD, "post", params: params,
+    return DioUtil.getInstance().requestNetwork(Apis.URL_RESET_PASSWORD, "post", data: params,
         cancelToken: cancelToken,
         onSuccess: (data) {
           setSuccess();
@@ -60,7 +60,7 @@ class ModifyPwdModel extends ViewStateModel {
 
     setBusy();
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_FORGET_PASSWORD, "post", params: params,
+    return DioUtil.getInstance().requestNetwork(Apis.URL_FORGET_PASSWORD, "post", data: params,
         cancelToken: cancelToken,
         onSuccess: (data) {
           setSuccess();
@@ -79,7 +79,7 @@ class ModifyPwdModel extends ViewStateModel {
 
     setBusy();
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_SET_PASSWORD, "post", params: params,
+    return DioUtil.getInstance().requestNetwork(Apis.URL_SET_PASSWORD, "post", data: params,
         cancelToken: cancelToken,
         onSuccess: (data) {
           setSuccess();

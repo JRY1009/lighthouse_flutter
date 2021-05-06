@@ -37,7 +37,7 @@ class DialogUtil {
                 margin: EdgeInsets.only(top: 10, bottom: 5),
                 child: Text(content,
                   style: TextStyle(fontSize: 13, color: Colours.gray_500),
-                  strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
+                  strutStyle: StrutStyle(forceStrutHeight: true, height:1.2, leading: 0.5),
                 ),
               ),
               actions: actions

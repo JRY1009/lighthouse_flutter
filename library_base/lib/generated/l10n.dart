@@ -385,6 +385,106 @@ class S {
     );
   }
 
+  /// `绑定`
+  String get bind {
+    return Intl.message(
+      '绑定',
+      name: 'bind',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `绑定手机号`
+  String get bindPhone {
+    return Intl.message(
+      '绑定手机号',
+      name: 'bindPhone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `绑定成功`
+  String get bindSuccess {
+    return Intl.message(
+      '绑定成功',
+      name: 'bindSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `解绑成功`
+  String get unbindSuccess {
+    return Intl.message(
+      '解绑成功',
+      name: 'unbindSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `已绑定`
+  String get binded {
+    return Intl.message(
+      '已绑定',
+      name: 'binded',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `去绑定`
+  String get gobind {
+    return Intl.message(
+      '去绑定',
+      name: 'gobind',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `解除绑定`
+  String get unbind {
+    return Intl.message(
+      '解除绑定',
+      name: 'unbind',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `确定要解除绑定吗？`
+  String get unbindConfirm {
+    return Intl.message(
+      '确定要解除绑定吗？',
+      name: 'unbindConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `微信`
+  String get bindWechat {
+    return Intl.message(
+      '微信',
+      name: 'bindWechat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `设置密码`
+  String get setPwd {
+    return Intl.message(
+      '设置密码',
+      name: 'setPwd',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `设置登录密码`
   String get setPassword {
     return Intl.message(
@@ -400,6 +500,26 @@ class S {
     return Intl.message(
       '首次登录，请设置登录密码',
       name: 'setPasswordTips',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `该账户未设置登录密码\n可使用短信验证码登录`
+  String get notSetPassword {
+    return Intl.message(
+      '该账户未设置登录密码\n可使用短信验证码登录',
+      name: 'notSetPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `（登录后可在账户与安全中设置密码）`
+  String get notSetPasswordTips {
+    return Intl.message(
+      '（登录后可在账户与安全中设置密码）',
+      name: 'notSetPasswordTips',
       desc: '',
       args: [],
     );

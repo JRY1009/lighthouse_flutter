@@ -56,7 +56,7 @@ class ArticleItem extends StatelessWidget {
                           child: Text(aritcle?.title ?? '',
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
-                              strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
+                              strutStyle: StrutStyle(forceStrutHeight: true, height:1.4, leading: 0.5),
                               style: TextStyles.textGray800_w600_17
                           )
                       ),

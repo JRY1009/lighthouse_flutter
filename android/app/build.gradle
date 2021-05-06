@@ -104,10 +104,10 @@ dependencies {
     // 多dex配置
     implementation 'androidx.multidex:multidex:2.0.0'
     // 远程仓库集成方式（推荐）
-    implementation 'com.tencent.bugly:crashreport_upgrade:1.5.0'
+    implementation 'com.tencent.bugly:crashreport_upgrade:1.5.1'
     //1. 指定tinker依赖版本（注：应用升级1.3.5版本起，不再内置tinker）
     //2.为了便于解答问题，这里的tinker版本建议跟随此处demo设置，如果微信更新了tinker版本，bugly会定期同步更新
-    implementation 'com.tencent.tinker:tinker-android-lib:1.9.14.10'
+    implementation 'com.tencent.tinker:tinker-android-lib:1.9.14.15'
     implementation 'com.tencent.bugly:nativecrashreport:latest.release'
 
     compile 'com.meituan.android.walle:library:1.1.7'

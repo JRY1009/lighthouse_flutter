@@ -56,7 +56,7 @@ class SpotBriefItem extends StatelessWidget {
                 minLines: 4,
                 isEnableTextClick: true,
                 textStyle: TextStyles.textGray400_w400_14,
-                strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5)
+                strutStyle: StrutStyle(forceStrutHeight: true, height:1.2, leading: 0.5)
               )
             )
           ],

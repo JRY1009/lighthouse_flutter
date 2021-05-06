@@ -7,6 +7,7 @@ import 'package:library_base/net/apis.dart';
 import 'package:library_base/net/dio_util.dart';
 import 'package:library_base/model/account.dart';
 import 'package:library_base/global/rt_account.dart';
+import 'package:library_base/utils/object_util.dart';
 
 class LoginModel extends ViewStateModel {
 
@@ -24,7 +25,7 @@ class LoginModel extends ViewStateModel {
 
     setBusy();
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_LOGIN, "post", params: params,
+    return DioUtil.getInstance().requestNetwork(Apis.URL_LOGIN, "post", data: params,
         cancelToken: cancelToken,
         onSuccess: (data) {
 
@@ -54,7 +55,7 @@ class LoginModel extends ViewStateModel {
 
     setBusy();
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_LOGIN, "post", params: params,
+    return DioUtil.getInstance().requestNetwork(Apis.URL_LOGIN, "post", data: params,
         cancelToken: cancelToken,
         onSuccess: (data) {
 
@@ -67,6 +68,67 @@ class LoginModel extends ViewStateModel {
 
           setSuccess();
           Event.eventBus.fire(UserEvent(loginResult.account_info, UserEventState.login));
+        },
+        onError: (errno, msg) {
+          loginResult = null;
+          setError(errno, message: msg);
+        });
+  }
+
+  Future loginWechat(code) {
+
+    Map<String, dynamic> params = {
+      'code': code,
+    };
+
+    setBusy();
+
+    return DioUtil.getInstance().requestNetwork(Apis.URL_WECHAT_LOGIN, "post", data: params,
+        cancelToken: cancelToken,
+        onSuccess: (data) {
+
+          loginResult = AccountEntity.fromJson(data);
+          loginResult.account_info.token = loginResult.token;
+
+          //account.token = headers.value(Apis.KEY_USER_TOKEN);
+          RTAccount.instance().setActiveAccount(loginResult.account_info);
+
+          if (!ObjectUtil.isEmpty(loginResult.account_info?.phone)) {
+            RTAccount.instance().saveAccount();
+            Event.eventBus.fire(UserEvent(loginResult.account_info, UserEventState.login));
+          }
+
+          setSuccess();
+        },
+        onError: (errno, msg) {
+          loginResult = null;
+          setError(errno, message: msg);
+        });
+  }
+
+  Future bindPhone(id, phone, verifyCode) {
+
+    Map<String, dynamic> params = {
+      'id': id,
+      'phone': phone,
+      'verificationCode': verifyCode,
+    };
+
+    setBusy();
+
+    return DioUtil.getInstance().requestNetwork(Apis.URL_BIND_PHONE, "post", data: params,
+        cancelToken: cancelToken,
+        onSuccess: (data) {
+
+          loginResult = AccountEntity.fromJson(data);
+          loginResult.account_info.token = loginResult.token;
+
+          RTAccount.instance().setActiveAccount(loginResult.account_info);
+          RTAccount.instance().saveAccount();
+
+          Event.eventBus.fire(UserEvent(loginResult.account_info, UserEventState.login));
+
+          setSuccess();
         },
         onError: (errno, msg) {
           loginResult = null;

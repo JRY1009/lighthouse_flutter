@@ -68,39 +68,44 @@ class _GlobalQuotePageState extends State<GlobalQuotePage> with BasePageMixin<Gl
 
     DialogUtil.showShareDialog(context,
         children: [
-          Stack(
-            children: [
-              Container(
-                color: Colours.gray_100,
-                child: RotatedBox(
-                  quarterTurns: 1, // 90°的整数倍
-                  child: Image.memory(pngBytes),
-                ),
-              ),
-              Container(
-                child: RotatedBox(
-                  quarterTurns: 1,
-                  child: GlobalQuoteShareBar(btcUsdPair: _globalQuoteModel.btcUsdPair, ethUsdPair: _globalQuoteModel.ethUsdPair),
-                ),
-              ),
-              Positioned(
-                  bottom: 24,
-                  left: 30,
-                  child: Container(
-                    child: RotatedBox(
-                      quarterTurns: 1,
-                      child: Text(DateUtil.getDateStrByDateTime(DateTime.now(), format: DateFormat.NORMAL),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyles.textGray500_w400_12
+          Container(
+            color: Colours.gray_100,
+            child: Column(
+              children: [
+                Stack(
+                  children: [
+                    Container(
+                      child: RotatedBox(
+                        quarterTurns: 1, // 90°的整数倍
+                        child: Image.memory(pngBytes),
                       ),
                     ),
-                  )
-              )
-            ],
-          ),
-          ShareQRFoooter(backgroundColor: Colours.gray_100),
-
+                    Container(
+                      child: RotatedBox(
+                        quarterTurns: 1,
+                        child: GlobalQuoteShareBar(btcUsdPair: _globalQuoteModel.btcUsdPair, ethUsdPair: _globalQuoteModel.ethUsdPair),
+                      ),
+                    ),
+                    Positioned(
+                        bottom: 24,
+                        left: 30,
+                        child: Container(
+                          child: RotatedBox(
+                            quarterTurns: 1,
+                            child: Text(DateUtil.getDateStrByDateTime(DateTime.now(), format: DateFormat.NORMAL),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyles.textGray500_w400_12
+                            ),
+                          ),
+                        )
+                    )
+                  ],
+                ),
+                ShareQRFoooter(backgroundColor: Colours.gray_100),
+              ],
+            ),
+          )
         ]
     );
   }

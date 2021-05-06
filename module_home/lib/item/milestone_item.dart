@@ -80,7 +80,7 @@ class MileStoneItem extends StatelessWidget {
                 child: Container(
                     padding: EdgeInsets.fromLTRB(20, 20, 18, isLast ? 20 : 6),
                     child: Text((content ?? ''),
-                        strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
+                        strutStyle: StrutStyle(forceStrutHeight: true, height:1.2, leading: 0.5),
                         style: TextStyles.textGray800_w400_15
                 ),
               ),

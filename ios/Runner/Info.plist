@@ -47,6 +47,8 @@
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>http</string>
+		<string>https</string>
 		<string>weixin</string>
 		<string>weixinULAPI</string>
 		<string>wechat</string>

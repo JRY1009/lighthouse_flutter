@@ -97,7 +97,6 @@ class _SpotDataPageState extends State<SpotDataPage> with WidgetsBindingObserver
                               Container(
                                   alignment: Alignment.bottomLeft,
                                   child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       Text(S.of(context).all, style: TextStyles.textGray400_w400_12),
                                       Gaps.hGap3,

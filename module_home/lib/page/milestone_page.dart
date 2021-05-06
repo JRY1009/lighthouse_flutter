@@ -14,8 +14,11 @@ import 'package:module_home/page/milestone_list_page.dart';
 
 class MileStonePage extends StatefulWidget {
 
+  final int initialIndex;
+
   MileStonePage({
     Key key,
+    this.initialIndex = 0,
   }) : super(key: key);
 
   @override
@@ -34,7 +37,7 @@ class _MileStonePageState extends State<MileStonePage> with BasePageMixin<MileSt
   void initState() {
     super.initState();
 
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 3, initialIndex: widget.initialIndex ?? 0, vsync: this);
 
     _tabTitles = [S.current.all, 'BTC', 'ETH'];
 
@@ -43,6 +46,13 @@ class _MileStonePageState extends State<MileStonePage> with BasePageMixin<MileSt
       GlobalKey<BasePageMixin>(debugLabel: _tabTitles[1]),
       GlobalKey<BasePageMixin>(debugLabel: _tabTitles[2]),
     ];
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _tabController.index = widget.initialIndex ?? 0;
+        _pageController.jumpToPage(widget.initialIndex ?? 0);
+      }
+    });
   }
 
   @override

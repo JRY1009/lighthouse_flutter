@@ -69,6 +69,7 @@ class _LessonPageState extends State<LessonPage> with BasePageMixin<LessonPage> 
                 Gaps.vGap16,
                 LocalImage('school_logo', package: package, width: 112, height: 104),
                 Container(
+                  width: double.infinity,
                   margin: const EdgeInsets.only(left: 16, right: 16, bottom: 20),
                   padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                   decoration: BoxDecoration(
@@ -77,7 +78,7 @@ class _LessonPageState extends State<LessonPage> with BasePageMixin<LessonPage> 
                   ),
                   child: Text(widget.lesson?.title,
                     style: TextStyles.textGray800_w700_20,
-                    strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
+                    strutStyle: StrutStyle(forceStrutHeight: true, height:1.4, leading: 0.5),
                   ),
                 ),
 
@@ -85,7 +86,7 @@ class _LessonPageState extends State<LessonPage> with BasePageMixin<LessonPage> 
                   margin: const EdgeInsets.only(left: 16, right: 16, bottom: 20),
                   child: Text(widget.lesson?.content,
                     style: TextStyles.textGray800_w400_16,
-                    strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
+                    strutStyle: StrutStyle(forceStrutHeight: true, height:1.2, leading: 0.5),
                   ),
                 )
               ],
@@ -131,6 +132,7 @@ class _LessonPageState extends State<LessonPage> with BasePageMixin<LessonPage> 
                       children: [
                         LocalImage('school_logo', package: package, width: 112, height: 104),
                         Container(
+                          width: double.infinity,
                           margin: const EdgeInsets.only(left: 16, right: 16, bottom: 20),
                           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                           decoration: BoxDecoration(
@@ -139,7 +141,7 @@ class _LessonPageState extends State<LessonPage> with BasePageMixin<LessonPage> 
                           ),
                           child: Text(widget.lesson?.title,
                             style: TextStyles.textGray800_w600_20,
-                            strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
+                            strutStyle: StrutStyle(forceStrutHeight: true, height:1.4, leading: 0.5),
                           ),
                         ),
 
@@ -147,7 +149,7 @@ class _LessonPageState extends State<LessonPage> with BasePageMixin<LessonPage> 
                           margin: const EdgeInsets.only(left: 16, right: 16, bottom: 20),
                           child: Text(widget.lesson?.content,
                             style: TextStyles.textGray800_w400_16,
-                            strutStyle: StrutStyle(forceStrutHeight: true, height:1, leading: 0.5),
+                            strutStyle: StrutStyle(forceStrutHeight: true, height:1.2, leading: 0.5),
                           ),
                         )
                       ],

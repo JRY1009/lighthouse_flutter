@@ -10,6 +10,7 @@ class VerifyModel extends ViewStateModel {
   static const int SMS_FORGET_PWD  = 2;
   static const int SMS_CHANGE_PHONE_OLD  = 3;
   static const int SMS_CHANGE_PHONE_NEW  = 4;
+  static const int SMS_BIND_PHONE  = 5;
 
   VerifyModel();
 
@@ -21,7 +22,7 @@ class VerifyModel extends ViewStateModel {
     };
 
     setBusy();
-    await DioUtil.getInstance().requestNetwork(Apis.URL_VERIFY_CODE, "post", params: params,
+    await DioUtil.getInstance().requestNetwork(Apis.URL_VERIFY_CODE, "post", data: params,
         cancelToken: cancelToken,
         onSuccess: (data) {
           setSuccess();

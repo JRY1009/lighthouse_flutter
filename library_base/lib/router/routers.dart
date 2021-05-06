@@ -47,6 +47,7 @@ class Routers {
   static String modifyPwdPage = '/modifyPwdPage';
   static String forgetPwdPage = '/forgetPwdPage';
   static String languagePage = '/languagePage';
+  static String bindPhonePage = '/bindPhonePage';
 
   static void init(List<IRouter> listRouter) {
     router = FluroRouter();

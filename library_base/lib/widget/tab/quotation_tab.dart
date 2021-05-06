@@ -83,7 +83,7 @@ class _QuotationTabState extends State<QuotationTab> {
                 alignment: Alignment.center,
                 padding: EdgeInsets.symmetric(horizontal: 4),
                 decoration: BoxDecoration(
-                  color: widget.select ? (widget.rate >= 0 ? Color(0x1aEC3944) : Color(0x1a22C29B)) : Colours.transparent,
+                  color: widget.select ? (widget.rate >= 0 ? Color(0x1a22C29B) : Color(0x1aEC3944)) : Colours.transparent,
                   borderRadius: BorderRadius.all(Radius.circular(2.0)),
                 ),
                 child: Text(widget.rateStr ?? '',

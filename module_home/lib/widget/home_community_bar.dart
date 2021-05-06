@@ -88,7 +88,6 @@ class _HomeCommunityBarState extends State<HomeCommunityBar> with BasePageMixin<
                       Container(
                           alignment: Alignment.bottomLeft,
                           child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(S.of(context).more, style: TextStyles.textGray400_w400_12),
                               Gaps.hGap3,
@@ -104,7 +103,7 @@ class _HomeCommunityBarState extends State<HomeCommunityBar> with BasePageMixin<
               model.isFirst ? refreshWidget : (model.isEmpty || model.isError) ? emptyWidget : Container(
                   child: CarouselSlider(
                     options: CarouselOptions(
-                      aspectRatio: 1.5,
+                      height: 250,
                       viewportFraction: 0.98,
                       disableCenter: true,
                       enableInfiniteScroll: false,
@@ -112,6 +111,7 @@ class _HomeCommunityBarState extends State<HomeCommunityBar> with BasePageMixin<
                     items: model.messageList.map((item) {
                       return LeaveMessageItem(
                           margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+                          maxLines: 4,
                           lvMessage: item
                       );
                     }).toList(),
@@ -139,7 +139,6 @@ class _HomeCommunityBarState extends State<HomeCommunityBar> with BasePageMixin<
                       Container(
                           alignment: Alignment.bottomLeft,
                           child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(S.of(context).more, style: TextStyles.textGray400_w400_12),
                               Gaps.hGap3,

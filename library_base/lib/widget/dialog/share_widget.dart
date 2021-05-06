@@ -80,22 +80,23 @@ class ShareQRFoooter extends StatelessWidget {
     return Container(
       height: 100,
       color: backgroundColor ?? Colours.white,
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 18),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           LocalImage('logo', width: 44, height: 44, package: Constant.baseLib),
           Expanded(
               child: Container(
+                height: 44,
                 margin: EdgeInsets.only(left: 8),
-                alignment: Alignment.bottomLeft,
+                alignment: Alignment.centerLeft,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      height: 22,
+                      height: 24,
                       alignment: Alignment.centerLeft,
                       child: Text(S.of(context).appName + '·' + S.of(context).slogan,
                         style: TextStyles.textGray800_w600_14,
@@ -103,9 +104,8 @@ class ShareQRFoooter extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-
                     Container(
-                      height: 22,
+                      height: 20,
                       alignment: Alignment.centerLeft,
                       child: Text(S.of(context).shareQRDownload,
                         style: TextStyles.textGray400_w400_12,
@@ -121,7 +121,7 @@ class ShareQRFoooter extends StatelessWidget {
             data: Apis.URL_OFFICIAL_WEBSITE,
             version: QrVersions.auto,
             padding: EdgeInsets.all(0),
-            size: 72.0,
+            size: 64.0,
           ),
         ],
       ),

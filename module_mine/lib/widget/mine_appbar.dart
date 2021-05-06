@@ -100,7 +100,7 @@ class _MineAppBarState extends State<MineAppBar> {
 
                                 Container(
                                   alignment: Alignment.centerLeft,
-                                  child: Text(subTitle,
+                                  child: Text(subTitle ?? '',
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyles.textGray400_w400_14)

@@ -9,10 +9,10 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.0'
+        classpath 'com.android.tools.build:gradle:4.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
-        classpath 'com.tencent.bugly:tinker-support:1.2.0'
+        classpath 'com.tencent.bugly:tinker-support:1.2.3'
         //多渠道插件
         classpath 'com.meituan.android.walle:plugin:1.1.7'
     }

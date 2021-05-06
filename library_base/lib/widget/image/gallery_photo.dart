@@ -99,7 +99,7 @@ class _GalleryPhotoViewWrapperState extends State<GalleryPhotoViewWrapper> with 
             ),
             Container(
               alignment: Alignment.topCenter,
-              padding: const EdgeInsets.all(30.0),
+              padding: const EdgeInsets.only(top: 40.0),
               child: Text(
                 "${currentIndex + 1} / ${widget.galleryItems.length}",
                 style: TextStyles.textWhite16
