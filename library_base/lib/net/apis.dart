@@ -62,6 +62,7 @@ class Apis {
   static const String URL_GET_ARTICLE_CHANNELS = '/v1/c/channels/';
   static const String URL_GET_ARTICLE_SUB_CHANNELS = '/v1/c/channels/';
   static const String URL_GET_ARTICLES = '/v1/c/channels/';
+  static const String URL_GET_ARTICLE = '/v1/c/articles/';
 
 
   static const String URL_OFFICIAL_WEBSITE = 'https://www.idengta.com';

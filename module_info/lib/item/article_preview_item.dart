@@ -35,7 +35,7 @@ class ArticlePreviewItem extends StatelessWidget {
           ..putString('url_share', aritcle.url ?? '')
           ..putString('thumb_share', aritcle.snapshot_url ?? '');
 
-        Routers.navigateTo(context, Routers.inappWebviewPage, parameters: params);
+        Routers.navigateTo(context, Routers.articlePage, parameters: params);
       },
       padding: EdgeInsets.all(0.0),
       child: Container(

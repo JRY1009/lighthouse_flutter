@@ -10,10 +10,12 @@ import 'package:library_base/global/locale_provider.dart';
 import 'package:library_base/global/theme_provider.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:library_base/router/app_analysis.dart';
+import 'package:library_base/router/parameters.dart';
 import 'package:library_base/router/routers.dart';
 import 'package:library_base/utils/channel_util.dart';
 import 'package:library_base/utils/device_util.dart';
 import 'package:library_base/utils/log_util.dart';
+import 'package:library_base/utils/object_util.dart';
 import 'package:library_base/utils/refresh_util.dart';
 import 'package:library_base/utils/sp_util.dart';
 import 'package:library_base/utils/toast_util.dart';
@@ -89,12 +91,9 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-  StreamSubscription _sub;
-
   @override
   void initState() {
     super.initState();
-    initUniLinks();
 
     Routers.init([
       MainRouter(),
@@ -107,31 +106,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void dispose() {
-    if (_sub != null) _sub.cancel();
     super.dispose();
-  }
-
-  Future<void> initUniLinks() async {
-    if (!DeviceUtil.isMobile) {
-      return;
-    }
-
-    try {
-      final initialLink = await getInitialLink();
-      LogUtil.v('initial link: $initialLink');
-      if (!mounted) return;
-
-    } on PlatformException {
-      LogUtil.e('Failed to get initial link.');
-    }
-
-    _sub = getLinksStream().listen((String link) {
-      LogUtil.v('got link: $link');
-      if (!mounted) return;
-
-    }, onError: (err) {
-      LogUtil.e('got err: $err');
-    });
   }
 
   @override

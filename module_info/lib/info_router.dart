@@ -7,6 +7,8 @@ import 'package:module_info/page/article_list_page.dart';
 import 'package:module_info/page/article_recommend_page.dart';
 import 'package:module_info/page/info_page.dart';
 import 'package:module_info/page/news_list_page.dart';
+import 'package:module_info/page/article_page.dart';
+import 'package:module_info/page/article_request_page.dart';
 
 class InfoRouter implements IRouter{
 
@@ -40,6 +42,23 @@ class InfoRouter implements IRouter{
         bool isSupportPull = params?.getBool('isSupportPull');
         return NewsListPage(key: key, tag: tag, isSupportPull: isSupportPull);
       }),
+
+      PageBuilder(Routers.articlePage, (params) {
+        String title = params?.getString('title');
+        String url = params?.getString('url');
+        String title_share = params?.getString('title_share');
+        String summary_share = params?.getString('summary_share');
+        String url_share = params?.getString('url_share');
+        String thumb_share = params?.getString('thumb_share');
+        bool show_share = params?.getBool('show_share') ?? true;
+        return ArticlePage(url, title, title_share: title_share, summary_share: summary_share, url_share: url_share, thumb_share: thumb_share, show_share: show_share);
+      }),
+
+      PageBuilder(Routers.articleRequestPage, (params) {
+        num article_id = params?.getInt('article_id');
+        return ArticleRequestPage(article_id);
+      }),
+
     ];
   }
 }

@@ -35,7 +35,7 @@ class ArticleCardItem extends StatelessWidget {
           ..putString('url_share', aritcle.url ?? '')
           ..putString('thumb_share', aritcle.snapshot_url ?? '');
 
-        Routers.navigateTo(context, Routers.inappWebviewPage, parameters: params);
+        Routers.navigateTo(context, Routers.articlePage, parameters: params);
       },
       padding: EdgeInsets.all(0.0),
       child: Container(
@@ -63,7 +63,7 @@ class ArticleCardItem extends StatelessWidget {
                     children: [
                       ObjectUtil.isEmpty(aritcle?.snapshot_url) ? Gaps.empty :
                       Container(
-                        margin: EdgeInsets.only(left: 10, right: 10),
+                        margin: EdgeInsets.only(right: 10),
                         child: RoundImage(aritcle?.snapshot_url ?? '',
                           width: 84,
                           height: 84,

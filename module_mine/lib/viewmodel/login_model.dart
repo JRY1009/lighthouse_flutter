@@ -111,7 +111,7 @@ class LoginModel extends ViewStateModel {
     Map<String, dynamic> params = {
       'id': id,
       'phone': phone,
-      'verificationCode': verifyCode,
+      'verification_code': verifyCode,
     };
 
     setBusy();

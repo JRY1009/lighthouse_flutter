@@ -1,10 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
+import 'package:library_base/utils/device_util.dart';
 import 'package:library_base/utils/log_util.dart';
+import 'package:library_base/utils/object_util.dart';
 import 'package:library_base/widget/double_tap_back_exit_app.dart';
 import 'package:library_base/net/websocket_util.dart';
 import 'package:library_base/res/colors.dart';
@@ -14,6 +18,7 @@ import 'package:library_base/router/routers.dart';
 import 'package:library_base/widget/image/frame_animation_image.dart';
 import 'package:library_base/widget/image/local_image.dart';
 import 'package:lighthouse/viewmodel/main_model.dart';
+import 'package:uni_links/uni_links.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -21,6 +26,10 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> with WidgetsBindingObserver, BasePageMixin<MainPage> {
+
+  String _latestLink = 'Unknown';
+  Uri _latestUri;
+  StreamSubscription _sub;
 
   static const double _imageSize = 25.0;
 
@@ -40,6 +49,77 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver, BasePa
 
     initView();
     initViewModel();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        initUniLinks();
+      }
+    });
+  }
+
+  Future<void> initUniLinks() async {
+    if (!DeviceUtil.isMobile) {
+      return;
+    }
+
+    try {
+      _latestLink = await getInitialLink();
+      LogUtil.v('initial link: $_latestLink');
+
+      if (!ObjectUtil.isEmpty(_latestLink)) {
+        _latestUri = Uri.parse(_latestLink);
+      }
+
+      if (!mounted) return;
+
+      _parseParams();
+
+    } on PlatformException {
+      LogUtil.e('Failed to get initial link.');
+    }
+
+    _sub = getLinksStream().listen((String link) {
+      _latestLink = link;
+      LogUtil.v('got link: $link');
+
+      if (!ObjectUtil.isEmpty(link)) {
+        _latestUri = Uri.parse(link);
+      }
+
+      if (!mounted) return;
+
+      _parseParams();
+
+    }, onError: (err) {
+      LogUtil.e('got err: $err');
+    });
+
+  }
+
+  void _parseParams() {
+    LogUtil.v('queryParams: $_latestUri');
+
+    final queryParams = _latestUri?.queryParametersAll?.entries?.toList();
+    String pageType;
+    String articleId;
+    LogUtil.v('queryParams: $queryParams');
+    if (queryParams != null) {
+      for (var param in queryParams) {
+        if (param.key == 'page') {
+          pageType = param.value.length > 0 ? param.value[0] : null;
+        } else if (param.key == 'article_id') {
+          articleId = param.value.length > 0 ? param.value[0] : null;
+        }
+      }
+    }
+
+    if (pageType == 'article') {
+
+      Parameters params = Parameters()
+        ..putInt('article_id', num.parse(articleId));
+
+      Routers.navigateTo(context, Routers.articleRequestPage, parameters: params);
+    }
   }
 
   @override
@@ -59,6 +139,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver, BasePa
 
   @override
   void dispose() {
+    if (_sub != null) _sub.cancel();
     _pageController.dispose();
     imageCache.clear();
     WidgetsBinding.instance.removeObserver(this);

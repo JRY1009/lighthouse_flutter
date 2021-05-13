@@ -12,6 +12,7 @@ import 'package:module_info/model/article.dart';
 class ArticleModel extends ViewStateModel {
 
   List<Article> articleList = [];
+  Article article;
 
   final String tag;
   int page = 0;
@@ -60,6 +61,23 @@ class ArticleModel extends ViewStateModel {
           } else {
             setSuccess();
           }
+        },
+        onError: (errno, msg) {
+          setError(errno, message: msg);
+        });
+  }
+
+  Future getArticle(num article_id) {
+    Map<String, dynamic> params = {
+    };
+
+    return DioUtil.getInstance().requestArticle(Apis.URL_GET_ARTICLE + article_id.toString(), 'get', params: params,
+        cancelToken: cancelToken,
+        onSuccess: (data) {
+
+          article = Article.fromJson(data);
+
+          setSuccess();
         },
         onError: (errno, msg) {
           setError(errno, message: msg);

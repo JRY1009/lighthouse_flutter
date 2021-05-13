@@ -61,9 +61,23 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>camera</string>
+	<string>是否允许App访问您的相机</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>photos</string>
+	<string>是否允许App访问您的相册</string>
+	<key>NSContactsUsageDescription</key>
+    <string>是否允许App访问您的联系人</string>
+    <key>NSCalendarsUsageDescription</key>
+    <string>是否允许App访问您的日历</string>
+    <key>NSAppleMusicUsageDescription</key>
+    <string>是否允许App访问您的媒体资料库</string>
+    <key>NSMotionUsageDescription</key>
+    <string>是否允许App访问您的运动健康</string>
+    <key>NSSpeechRecognitionUsageDescription</key>
+    <string>是否允许App访问您的语音识别</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>是否允许App访问访问您的位置</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>是否允许App访问访问您的位置</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

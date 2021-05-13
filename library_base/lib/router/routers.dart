@@ -33,6 +33,8 @@ class Routers {
   static String articleRecommendPage = '/articleRecommendPage';
   static String articleListPage = '/articleListPage';
   static String newsListPage = '/newsListPage';
+  static String articlePage = '/articlePage';
+  static String articleRequestPage = '/articleRequestPage';
 
   static String moneyPage = '/moneyPage';
 
