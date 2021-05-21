@@ -83,7 +83,7 @@
 
 * 单独打某些渠道包，android工程下执行命令行 gradlew clean assembleReleaseChannels -PchannelList=official,google，文件生成在build\app\outputs\channels 目录
 
-* 热更新开启时，使用 assembleReleaseChannels 命令也会打出基准包，文件生成在build\app\bakApk目录
+* 热更新开启时，使用 assembleReleaseChannels 命令也会打出基准包，文件生成在build\app\outputs\channels目录
 
 * 测试环境包采用默认参数 -Ptarget=lib/main.dart，生产环境包设置参数 -Ptarget=lib/main_prod.dart
 
@@ -91,6 +91,6 @@
 
 * tinker-support.gradle 中设置 enable = true，tinkerEnable = true
 
-* 打基准包，android工程下执行gradle->app->Tasks->other->assembleRelease，文件生成在build\app\bakApk目录
+* 打基准包，android工程下执行gradle->app->Tasks->other->assembleRelease，文件生成在build\app\outputs\channels目录
 
-* 打补丁包，将 build\app\bakApk 目录中的文件夹名称拷贝到 tinker-support.gradle 的 baseApkDir 中，执行gradle->app->Tasks->tinker-support->buildTinkerPatchRelease，补丁文件生成在build\app\outputs\patch目录
+* 打补丁包，将 build\app\outputs\channels 目录中的文件夹名称拷贝到 tinker-support.gradle 的 baseApkDir 中，执行gradle->app->Tasks->tinker-support->buildTinkerPatchRelease，补丁文件生成在build\app\outputs\patch目录

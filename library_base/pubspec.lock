@@ -126,7 +126,7 @@ packages:
       name: dokit
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.2.14"
+    version: "0.6.0"
   encrypt:
     dependency: "direct main"
     description:
@@ -280,6 +280,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.6.2"
+  google_fonts:
+    dependency: transitive
+    description:
+      name: google_fonts
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.2"
   http:
     dependency: transitive
     description:
@@ -336,6 +343,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.17.0"
+  isolate:
+    dependency: transitive
+    description:
+      name: isolate
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.3"
   js:
     dependency: transitive
     description:
