@@ -48,27 +48,27 @@ class HttpError {
   HttpError.dioError(DioError error) {
     message = error.message;
     switch (error.type) {
-      case DioErrorType.CONNECT_TIMEOUT:
+      case DioErrorType.connectTimeout:
         code = CONNECT_TIMEOUT;
         message = "网络连接超时，请检查网络设置";
         break;
-      case DioErrorType.RECEIVE_TIMEOUT:
+      case DioErrorType.receiveTimeout:
         code = RECEIVE_TIMEOUT;
         message = "服务器异常，请稍后重试！";
         break;
-      case DioErrorType.SEND_TIMEOUT:
+      case DioErrorType.sendTimeout:
         code = SEND_TIMEOUT;
         message = "网络连接超时，请检查网络设置";
         break;
-      case DioErrorType.RESPONSE:
+      case DioErrorType.response:
         code = HTTP_ERROR;
         message = "服务器异常，请稍后重试！";
         break;
-      case DioErrorType.CANCEL:
+      case DioErrorType.cancel:
         code = CANCEL;
         message = "请求已被取消，请重新请求";
         break;
-      case DioErrorType.DEFAULT:
+      case DioErrorType.other:
         code = UNKNOWN;
         message = "网络异常，请稍后重试！";
         break;

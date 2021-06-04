@@ -88,7 +88,7 @@ class _DigitSlide extends StatelessWidget {
       child: Container(
           color: backgroundColor,
           height: textStyle.fontSize * (9 / 10),
-          width: _isNumber(controller.number) ? textStyle.fontSize * (6 / 10) : textStyle.fontSize * (3 / 10),
+          width: _isNumber(controller.number) ? textStyle.fontSize * (6.5 / 10) : textStyle.fontSize * (3 / 10),
           child: Stack(
             children: [
               _isNumber(controller.number) ?
@@ -261,7 +261,7 @@ class _NumberSlideState extends State<NumberSlide>
 
   @override
   Widget build(BuildContext context) {
-    var width = widget.textStyle.fontSize * (6 / 10);
+    var width = widget.textStyle.fontSize * (6.5 / 10);
     return AnimatedBuilder(
         animation: animationController,
         builder: (_, __) {

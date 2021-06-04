@@ -14,7 +14,7 @@ import 'package:package_info/package_info.dart';
 
 class AuthInterceptor extends Interceptor {
   @override
-  Future onRequest(RequestOptions options) async {
+  Future onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
 
     String timestamp = (DateUtil.getNowDateMs() * 1000).toString();
 
@@ -70,11 +70,11 @@ class AuthInterceptor extends Interceptor {
       options.headers[Apis.KEY_USER_SIGN] = '';
     }
 
-    return super.onRequest(options);
+    super.onRequest(options, handler);
   }
 
   @override
-  Future onResponse(Response response) {
-    return super.onResponse(response);
+  Future onResponse(Response response, ResponseInterceptorHandler handler) {
+    super.onResponse(response, handler);
   }
 }
