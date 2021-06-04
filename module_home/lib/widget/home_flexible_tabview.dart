@@ -1,13 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:library_base/generated/l10n.dart';
+import 'package:library_base/model/quote_pair.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/router/parameters.dart';
 import 'package:library_base/router/routers.dart';
 import 'package:library_base/utils/num_util.dart';
-import 'package:module_home/model/quote_pair.dart';
 import 'package:module_home/widget/kline_chart.dart';
 
 class HomeFlexibleTabView extends StatefulWidget {
@@ -47,7 +47,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
     return GestureDetector(
       onTap: () => Routers.navigateTo(
           context,
-          Routers.spotDetailPage,
+          Routers.indexDetailPage,
           parameters: Parameters()..putString('coinCode', widget.quotePair != null ? widget.quotePair.chain : '')),
       child: Container(
         height: 270,

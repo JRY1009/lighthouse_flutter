@@ -91,6 +91,12 @@ dependencies:
   uni_links: ^0.4.0
   # https://github.com/serenader2014/flutter_carousel_slider
   carousel_slider: ^3.0.0
+  # https://github.com/hnvn/flutter_shimmer
+  shimmer: ^2.0.0
+  # https://github.com/fluttercandies/extended_tabs
+  extended_tabs: ^2.2.0
+  # https://github.com/sososdk/flutter_orientation
+  orientation: ^1.3.0
 
 dev_dependencies:
   flutter_test:

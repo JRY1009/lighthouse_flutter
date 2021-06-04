@@ -30,6 +30,8 @@ class Apis {
   static const String BASE_URL_ARITCLE_PROD = 'https://news.idengta.com/api';
   static const String WEB_SOCKET_URL_PROD = 'ws://81.70.145.64:8083/api/ws';
 
+  static const String COIN_BITCOIN = 'bitcoin';
+  static const String COIN_ETHEREUM = 'ethereum';
 
   static const String URL_LOGIN = '/login';
   static const String URL_WECHAT_LOGIN = '/wechat/login';

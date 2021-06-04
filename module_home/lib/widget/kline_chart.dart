@@ -1,13 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'package:library_base/widget/easyrefresh/first_refresh.dart';
-import 'package:library_base/widget/easyrefresh/first_refresh_top.dart';
+import 'package:library_base/model/quote.dart';
 import 'package:library_base/widget/easyrefresh/loading_empty.dart';
-import 'package:library_base/widget/easyrefresh/loading_empty_top.dart';
 import 'package:library_kchart/entity/k_line_entity.dart';
 import 'package:library_kchart/k_chart_widget.dart';
 import 'package:library_kchart/utils/kchart_data_util.dart';
-import 'package:module_home/model/quote.dart';
 
 class KLineChart extends StatefulWidget {
 

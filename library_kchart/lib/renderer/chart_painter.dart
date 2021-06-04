@@ -1,4 +1,5 @@
 import 'dart:async' show StreamSink;
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:library_kchart/entity/k_line_entity.dart';
@@ -19,6 +20,8 @@ class ChartPainter extends BaseChartPainter {
   AnimationController controller;
   double opacity;
 
+  ui.Image logoImage;
+
   ChartPainter(
       {@required datas,
       @required scaleX,
@@ -35,7 +38,9 @@ class ChartPainter extends BaseChartPainter {
       bool isLine,
       bool isAutoScaled,
       this.controller,
-      this.opacity = 0.0})
+      this.opacity = 0.0,
+      this.logoImage
+      })
       : super(
             datas: datas,
             scaleX: scaleX,
@@ -94,6 +99,14 @@ class ChartPainter extends BaseChartPainter {
         showColumns: isAutoScaled == false);
     mVolRenderer?.drawGrid(canvas, gridRows, gridColumns);
     mSecondaryRenderer?.drawGrid(canvas, gridRows, gridColumns);
+  }
+
+  @override
+  void drawLogo(canvas) {
+
+    if (logoImage != null) {
+      canvas.drawImage(logoImage, Offset(15, mMainRect.bottom - 50), Paint());
+    }
   }
 
   @override
@@ -178,13 +191,23 @@ class ChartPainter extends BaseChartPainter {
     ..style = PaintingStyle.stroke
     ..color = ChartColors.markerBorderColor;
 
+  Paint selectPointPaintScaled = Paint()
+    ..isAntiAlias = true
+    ..strokeWidth = 0.5
+    ..color = ChartColors.markerBgScaledColor;
+  Paint selectorBorderPaintScaled = Paint()
+    ..isAntiAlias = true
+    ..strokeWidth = 0.5
+    ..style = PaintingStyle.stroke
+    ..color = ChartColors.markerBorderScaledColor;
+
   @override
   void drawCrossLineText(Canvas canvas, Size size) {
     var index = calculateSelectedX(selectX);
     KLineEntity point = getItem(index);
 
     if (!isAutoScaled) {
-      TextPainter tp = getTextPainter(format(point.close), color: Colors.white);
+      TextPainter tp = getTextPainter(format(point.close), color: ChartColors.normalTextColor);
       double textHeight = tp.height;
       double textWidth = tp.width;
 
@@ -222,7 +245,7 @@ class ChartPainter extends BaseChartPainter {
         tp.paint(canvas, Offset(x + w1 + w2, y - textHeight / 2));
       }
 
-      TextPainter dateTp = getTextPainter(getDate(point.id), color: Colors.white);
+      TextPainter dateTp = getTextPainter(getDate(point.id), color: ChartColors.normalTextColor);
       textWidth = dateTp.width;
       r = textHeight / 2;
       x = translateXtoX(getX(index));
@@ -267,8 +290,8 @@ class ChartPainter extends BaseChartPainter {
           path.lineTo(mWidth - 2, y - r);
           path.lineTo(x, y - r);
           path.close();
-          canvas.drawPath(path, selectPointPaint);
-          canvas.drawPath(path, selectorBorderPaint);
+          canvas.drawPath(path, selectPointPaintScaled);
+          canvas.drawPath(path, selectorBorderPaintScaled);
           tp.paint(canvas, Offset(x + w1 + w2, y - textHeight / 2));
         } else {
           isLeft = true;
@@ -279,8 +302,8 @@ class ChartPainter extends BaseChartPainter {
           path.lineTo(textWidth + 2 * w2, y + r);
           path.lineTo(textWidth + 2 * w2, y - r);
           path.close();
-          canvas.drawPath(path, selectPointPaint);
-          canvas.drawPath(path, selectorBorderPaint);
+          canvas.drawPath(path, selectPointPaintScaled);
+          canvas.drawPath(path, selectorBorderPaintScaled);
           tp.paint(canvas, Offset(x + w2, y - textHeight / 2));
         }
 
@@ -295,7 +318,7 @@ class ChartPainter extends BaseChartPainter {
 //        }
       }
 
-      TextPainter dateTp = getTextPainter(getDate(point.id), color: ChartColors.realTimeTextColor);
+      TextPainter dateTp = getTextPainter(getDate(point.id), color: ChartColors.normalTextColor);
       double textHeight = dateTp.height;
       double textWidth = dateTp.width;
       double r = textHeight / 2;
@@ -407,7 +430,7 @@ class ChartPainter extends BaseChartPainter {
 
     if (isAutoScaled && outsink != null) {
       KLineEntity point = datas.last;
-      TextPainter tp = getTextPainter(format(point.close), color: ChartColors.rightRealTimeTextColor);
+      TextPainter tp = getTextPainter(format(point.close), color: ChartColors.realTextColor);
 
       double y = getMainY(point.close);
       var max = -mTranslateX + mWidth / scaleX;
@@ -424,7 +447,7 @@ class ChartPainter extends BaseChartPainter {
     } else {
       if (mMarginRight == 0) return;
       KLineEntity point = datas.last;
-      TextPainter tp = getTextPainter(format(point.close), color: ChartColors.rightRealTimeTextColor);
+      TextPainter tp = getTextPainter(format(point.close), color: ChartColors.realTimeTextColor);
       double y = getMainY(point.close);
       //max越往右边滑值越小
       var max = (mTranslateX.abs() + mMarginRight - getMinTranslateX().abs() + mPointWidth) * scaleX;
@@ -471,8 +494,8 @@ class ChartPainter extends BaseChartPainter {
         }
 
         const padding = 3.0;
-        const triangleHeight = 8.0; //三角高度
-        const triangleWidth = 5.0; //三角宽度
+        const triangleHeight = 6.0; //三角高度
+        const triangleWidth = 4.0; //三角宽度
 
         double left = mWidth - mWidth / gridColumns - tp.width / 2 - padding * 2;
         double top = y - tp.height / 2 - padding;

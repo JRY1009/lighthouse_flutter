@@ -7,7 +7,7 @@ import 'package:library_base/mvvm/view_state_model.dart';
 import 'package:library_base/net/apis.dart';
 import 'package:library_base/net/dio_util.dart';
 import 'package:library_base/utils/object_util.dart';
-import 'package:module_home/model/milestone.dart';
+import 'package:library_base/model/milestone.dart';
 
 class MileStoneModel extends ViewStateModel {
 

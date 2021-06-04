@@ -185,7 +185,7 @@ class DepthChartPainter extends CustomPainter {
     var startText = mBuyData.first.price.toStringAsFixed(2);
     TextPainter startTP = getTextPainter(startText);
     startTP.layout();
-    startTP.paint(canvas, Offset(0, getBottomTextY(startTP.height)));
+    startTP.paint(canvas, Offset(5, getBottomTextY(startTP.height)));
 
     var center = ((mBuyData.last.price + mSellData.first.price) / 2).toStringAsFixed(2);
     TextPainter centerTP = getTextPainter(center);
@@ -195,7 +195,7 @@ class DepthChartPainter extends CustomPainter {
     var endText = mSellData.last.price.toStringAsFixed(2);
     TextPainter endTP = getTextPainter(endText);
     endTP.layout();
-    endTP.paint(canvas, Offset(mWidth - endTP.width, getBottomTextY(endTP.height)));
+    endTP.paint(canvas, Offset(mWidth - endTP.width - 5, getBottomTextY(endTP.height)));
 
     if (isLongPress == true) {
       if (pressOffset.dx <= mDrawWidth) {
@@ -299,7 +299,7 @@ class DepthChartPainter extends CustomPainter {
 
   double getSellX(int position) => position * mSellPointWidth + mDrawWidth;
 
-  getTextPainter(String text, [Color color = Colors.white]) => TextPainter(
+  getTextPainter(String text, [Color color = ChartColors.depthTextColor]) => TextPainter(
       text: TextSpan(text: "$text", style: TextStyle(color: color, fontSize: 10)),
       textDirection: TextDirection.ltr);
 

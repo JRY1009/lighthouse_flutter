@@ -39,6 +39,8 @@ class Colours {
   static const Color border_gray = Color(0xffD6DCE4);
   static const Color button_disabled = Color(0xffbfbfbf);
 
+  static const Color trans_red = Color(0x1aEC3944);
+  static const Color trans_green = Color(0x1a22C29B);
   static const Color text_black = Color(0xFF000000);
   static const Color text_red = Color(0xFFEC3944);
   static const Color text_green = Color(0xFF22C29B);

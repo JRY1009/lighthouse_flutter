@@ -1,5 +1,4 @@
 import 'dart:math';
-export 'package:flutter/material.dart' show Color, required, TextStyle, Rect, Canvas, Size, CustomPainter;
 import 'package:flutter/material.dart' show Color, required, TextStyle, Rect, Canvas, Size, CustomPainter;
 import 'package:library_kchart/utils/kchart_date_format_util.dart';
 import 'package:library_kchart/utils/kchart_number_util.dart';
@@ -55,6 +54,7 @@ abstract class BaseChartPainter extends CustomPainter {
     mItemCount = datas?.length ?? 0;
     mDataLen = mItemCount * mPointWidth;
     initFormats();
+
   }
 
   void initFormats() {
@@ -113,6 +113,7 @@ abstract class BaseChartPainter extends CustomPainter {
     drawBg(canvas, size);
     drawGrid(canvas);
     if (datas != null && datas.isNotEmpty) {
+      drawLogo(canvas);
       drawChart(canvas, size);
       drawRightText(canvas);
       drawRealTimePrice(canvas, size);
@@ -131,6 +132,9 @@ abstract class BaseChartPainter extends CustomPainter {
 
   //画网格
   void drawGrid(canvas);
+
+  //画logo
+  void drawLogo(canvas);
 
   //画图表
   void drawChart(Canvas canvas, Size size);

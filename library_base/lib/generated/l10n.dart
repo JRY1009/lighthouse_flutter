@@ -755,6 +755,16 @@ class S {
     );
   }
 
+  /// `行情`
+  String get quote {
+    return Intl.message(
+      '行情',
+      name: 'quote',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `资产`
   String get money {
     return Intl.message(
@@ -770,6 +780,26 @@ class S {
     return Intl.message(
       '我的',
       name: 'mine',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `指数`
+  String get index {
+    return Intl.message(
+      '指数',
+      name: 'index',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `平台`
+  String get platform {
+    return Intl.message(
+      '平台',
+      name: 'platform',
       desc: '',
       args: [],
     );
@@ -1210,16 +1240,6 @@ class S {
     return Intl.message(
       '简况',
       name: 'briefInfo',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `行情`
-  String get quote {
-    return Intl.message(
-      '行情',
-      name: 'quote',
       desc: '',
       args: [],
     );
@@ -1765,6 +1785,36 @@ class S {
     );
   }
 
+  /// `分时`
+  String get timeline {
+    return Intl.message(
+      '分时',
+      name: 'timeline',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `5M`
+  String get kline5m {
+    return Intl.message(
+      '5M',
+      name: 'kline5m',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `15M`
+  String get kline15m {
+    return Intl.message(
+      '15M',
+      name: 'kline15m',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `1H`
   String get kline1h {
     return Intl.message(
@@ -1890,6 +1940,96 @@ class S {
     return Intl.message(
       '来自区块灯塔App',
       name: 'sourceFromApp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `深度`
+  String get proDepth {
+    return Intl.message(
+      '深度',
+      name: 'proDepth',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `买`
+  String get proBid {
+    return Intl.message(
+      '买',
+      name: 'proBid',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `卖`
+  String get proAsk {
+    return Intl.message(
+      '卖',
+      name: 'proAsk',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `最新成交`
+  String get proLaststDeal {
+    return Intl.message(
+      '最新成交',
+      name: 'proLaststDeal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `委托订单`
+  String get proDepthOrder {
+    return Intl.message(
+      '委托订单',
+      name: 'proDepthOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `时间`
+  String get proTime {
+    return Intl.message(
+      '时间',
+      name: 'proTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `方向`
+  String get proWay {
+    return Intl.message(
+      '方向',
+      name: 'proWay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `价格`
+  String get proPrice {
+    return Intl.message(
+      '价格',
+      name: 'proPrice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `数量`
+  String get proAmount {
+    return Intl.message(
+      '数量',
+      name: 'proAmount',
       desc: '',
       args: [],
     );

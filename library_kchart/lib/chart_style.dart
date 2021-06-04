@@ -14,8 +14,8 @@ class ChartColors {
   static const Color ma5Color = Color(0xffC9B885);
   static const Color ma10Color = Color(0xff6CB0A6);
   static const Color ma30Color = Color(0xff9979C6);
-  static const Color upColor = Color(0xff4DAA90);
-  static const Color dnColor = Color(0xffC15466);
+  static const Color upColor = Color(0xFF22C29B);
+  static const Color dnColor = Color(0xFFEC3944);
   static const Color volColor = Color(0xff4729AE);
 
   static const Color macdColor = Color(0xff4729AE);
@@ -27,34 +27,43 @@ class ChartColors {
   static const Color jColor = Color(0xff9979C6);
   static const Color rsiColor = Color(0xffC9B885);
 
-  static const Color yAxisTextColor = Color(0xff72859D); //右边y轴刻度
-  static const Color xAxisTextColor = Color(0xff72859D); //下方时间刻度
+  static const Color blackTextColor = Color(0xff333A50);
+  static const Color normalTextColor = Color(0xff6C7F99);
+
+  static const Color yAxisTextColor = Color(0xff8797AB); //右边y轴刻度
+  static const Color xAxisTextColor = Color(0xff8797AB); //下方时间刻度
 
   static const Color maxMinTextColor = Color(0xff8A99AA); //最大最小值的颜色
 
   //深度颜色
-  static const Color depthBuyColor = Color(0xff60A893);
-  static const Color depthSellColor = Color(0xffC15866);
+  static const Color depthBuyColor = Color(0xFF22C29B);
+  static const Color depthSellColor = Color(0xFFEC3944);
+  static const Color depthTextColor = Color(0xff8797AB);
 
   //选中后显示值边框颜色
-  static const Color markerBorderColor = Color(0xFF308BE6);
+  static const Color markerBorderColor = Color(0xFFD6DCE8);
 
   //选中后显示值背景的填充颜色
-  static const Color markerBgColor = Color(0xFF308BE6);
+  static const Color markerBgColor = Color(0xFFFAFBFD);
+
+  //选中后显示值边框颜色
+  static const Color markerBorderScaledColor = Color(0xFF308BE6);
+
+  //选中后显示值背景的填充颜色
+  static const Color markerBgScaledColor = Color(0xFF308BE6);
 
   //实时线颜色等
-  static const Color realTimeBgColor = Color(0xff6C7A86);
-  static const Color rightRealTimeTextColor = Color(0xffffffff);
-  static const Color realTimeTextBorderColor = Color(0xffffffff);
-  static const Color realTimeTextColor = Color(0xff8A99AA);
+  static const Color realTimeBgColor = Color(0xFFFAFBFD);
+  static const Color realTimeTextBorderColor = Color(0xFFD6DCE8);
+  static const Color realTimeTextColor = Color(0xFF308BE6);
   static const Color realTextColor = Color(0xffffffff); //下方时间刻度
 
   //实时线
   static const Color realTimeLineColor = Color(0xff677587);
   static const Color realTimeLongLineColor = Color(0xff4C86CD);
 
-  static const Color simpleLineUpColor = Color(0xff6CB0A6);
-  static const Color simpleLineDnColor = Color(0xffC15466);
+  static const Color simpleLineUpColor = Color(0xFF22C29B);
+  static const Color simpleLineDnColor = Color(0xFFEC3944);
 
 
 }

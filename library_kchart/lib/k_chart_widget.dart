@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
+
 import 'chart_style.dart';
 import 'entity/info_window_entity.dart';
 import 'entity/k_line_entity.dart';
@@ -23,19 +25,21 @@ class KChartWidget extends StatefulWidget {
   final int gridRows;
   final int gridColumns;
   final Function(KLineEntity entity) onLongPressChanged;
+  final ui.Image logoImage;
 
   KChartWidget(
-    this.datas, {
-    this.mainState = MainState.MA,
-    this.volState = VolState.VOL,
-    this.secondaryState = SecondaryState.MACD,
-    this.isLine,
-    this.isAutoScaled = false,
-    this.gridRows,
-    this.gridColumns,
-    this.onLongPressChanged,
-    int fractionDigits = 2,
-  }) {
+      this.datas, {
+        this.mainState = MainState.MA,
+        this.volState = VolState.VOL,
+        this.secondaryState = SecondaryState.MACD,
+        this.isLine,
+        this.isAutoScaled = false,
+        this.gridRows,
+        this.gridColumns,
+        this.onLongPressChanged,
+        this.logoImage,
+        int fractionDigits = 2,
+      }) {
     KChartNumberUtil.fractionDigits = fractionDigits;
   }
 
@@ -46,7 +50,7 @@ class KChartWidget extends StatefulWidget {
 class _KChartWidgetState extends State<KChartWidget> with TickerProviderStateMixin {
   AnimationController _controller;
   Animation<double> _animation;
-  double mScaleX = 1.0, mScrollX = 0.0, mSelectX = 0.0;
+  double mScaleX = 0.6, mScrollX = 0.0, mSelectX = 0.0;
   StreamController<InfoWindowEntity> mInfoWindowStream;
   StreamController<InfoWindowEntity> mInfoOutStream;
   StreamSubscription _streamSubscription;
@@ -58,12 +62,14 @@ class _KChartWidgetState extends State<KChartWidget> with TickerProviderStateMix
     return mScaleX;
   }
 
-  double _lastScale = 1.0;
+  double _lastScale = 0.6;
   bool isScale = false, isDrag = false, isLongPress = false;
+
 
   @override
   void initState() {
     super.initState();
+
     mInfoWindowStream = StreamController<InfoWindowEntity>();
     mInfoOutStream = StreamController<InfoWindowEntity>();
     _streamSubscription = mInfoOutStream.stream.listen((event) {
@@ -130,7 +136,7 @@ class _KChartWidgetState extends State<KChartWidget> with TickerProviderStateMix
   Widget build(BuildContext context) {
     if (widget.datas == null || widget.datas.isEmpty) {
       mScrollX = mSelectX = 0.0;
-      mScaleX = 1.0;
+      mScaleX = 0.6;
     }
     return GestureDetector(
       onHorizontalDragDown: widget.isAutoScaled ? null : (details) {
@@ -138,7 +144,14 @@ class _KChartWidgetState extends State<KChartWidget> with TickerProviderStateMix
         isDrag = true;
       },
       onHorizontalDragUpdate: widget.isAutoScaled ? null : (details) {
-        if (isScale || isLongPress) return;
+        if (isScale) return;
+
+        if (isLongPress) {
+          isLongPress = false;
+          mInfoWindowStream?.sink?.add(null);
+          mInfoOutStream?.sink.add(null);
+        }
+
         mScrollX = (details.primaryDelta / mScaleX + mScrollX).clamp(0.0, ChartPainter.maxScrollX);
         notifyChanged();
       },
@@ -162,8 +175,15 @@ class _KChartWidgetState extends State<KChartWidget> with TickerProviderStateMix
         isScale = true;
       },
       onScaleUpdate: (details) {
-        if (isDrag || isLongPress) return;
-        mScaleX = (_lastScale * details.scale).clamp(0.5, 2.2);
+        if (isDrag) return;
+
+        if (isLongPress) {
+          isLongPress = false;
+          mInfoWindowStream?.sink?.add(null);
+          mInfoOutStream?.sink.add(null);
+        }
+
+        mScaleX = (_lastScale * details.scale).clamp(0.4, 2.2);
         notifyChanged();
       },
       onScaleEnd: (_) {
@@ -184,10 +204,20 @@ class _KChartWidgetState extends State<KChartWidget> with TickerProviderStateMix
         }
       },
       onLongPressEnd: (details) {
-        isLongPress = false;
-        mInfoWindowStream?.sink?.add(null);
-        mInfoOutStream?.sink.add(null);
-        notifyChanged();
+        if (widget.isAutoScaled) {
+          isLongPress = false;
+          mInfoWindowStream?.sink?.add(null);
+          mInfoOutStream?.sink.add(null);
+          notifyChanged();
+        }
+      },
+      onTap: widget.isAutoScaled ? null : () {
+        if (isLongPress) {
+          isLongPress = false;
+          mInfoWindowStream?.sink?.add(null);
+          mInfoOutStream?.sink.add(null);
+          notifyChanged();
+        }
       },
       child: Stack(
         children: <Widget>[
@@ -209,7 +239,9 @@ class _KChartWidgetState extends State<KChartWidget> with TickerProviderStateMix
                 sink: mInfoWindowStream?.sink,
                 outsink: widget.onLongPressChanged != null ? mInfoOutStream?.sink : null,
                 opacity: _animation.value,
-                controller: _controller),
+                controller: _controller,
+                logoImage: widget.logoImage,
+            ),
           ),
           _buildInfoDialog()
         ],
@@ -256,7 +288,7 @@ class _KChartWidgetState extends State<KChartWidget> with TickerProviderStateMix
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 7),
               decoration: BoxDecoration(
                   color: ChartColors.markerBgColor,
-                  border: Border.all(color: ChartColors.markerBorderColor, width: 0.5)),
+                  border: Border.all(color: ChartColors.markerBorderColor, width: 1)),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children:
@@ -270,11 +302,11 @@ class _KChartWidgetState extends State<KChartWidget> with TickerProviderStateMix
   Widget _buildItem(String info, String infoName) {
     Color color = Colors.white;
     if (info.startsWith("+"))
-      color = Colors.green;
+      color = ChartColors.upColor;
     else if (info.startsWith("-"))
-      color = Colors.red;
+      color = ChartColors.dnColor;
     else
-      color = Colors.white;
+      color = ChartColors.normalTextColor;
     return Container(
       constraints: BoxConstraints(minWidth: 95, maxWidth: 110, maxHeight: 14.0, minHeight: 14.0),
       child: Row(
@@ -282,7 +314,7 @@ class _KChartWidgetState extends State<KChartWidget> with TickerProviderStateMix
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Text("$infoName", style: TextStyle(color: Colors.white, fontSize: ChartStyle.defaultTextSize)),
+          Text("$infoName", style: TextStyle(color: ChartColors.blackTextColor, fontSize: ChartStyle.defaultTextSize)),
           SizedBox(width: 5),
           Text(info, style: TextStyle(color: color, fontSize: ChartStyle.defaultTextSize)),
         ],

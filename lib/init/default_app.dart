@@ -10,12 +10,10 @@ import 'package:library_base/global/locale_provider.dart';
 import 'package:library_base/global/theme_provider.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:library_base/router/app_analysis.dart';
-import 'package:library_base/router/parameters.dart';
 import 'package:library_base/router/routers.dart';
 import 'package:library_base/utils/channel_util.dart';
 import 'package:library_base/utils/device_util.dart';
 import 'package:library_base/utils/log_util.dart';
-import 'package:library_base/utils/object_util.dart';
 import 'package:library_base/utils/refresh_util.dart';
 import 'package:library_base/utils/sp_util.dart';
 import 'package:library_base/utils/toast_util.dart';
@@ -24,10 +22,10 @@ import 'package:lighthouse/page/splash_page.dart';
 import 'package:module_home/home_router.dart';
 import 'package:module_info/info_router.dart';
 import 'package:module_mine/mine_router.dart';
+import 'package:module_quote/quote_router.dart';
 import 'package:module_money/money_router.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:umeng_analytics_plugin/umeng_analytics_plugin.dart';
-import 'package:uni_links/uni_links.dart';
 
 //默认App的启动
 class DefaultApp {
@@ -99,6 +97,7 @@ class _MyAppState extends State<MyApp> {
       MainRouter(),
       HomeRouter(),
       InfoRouter(),
+      QuoteRouter(),
       MoneyRouter(),
       MineRouter()
     ]);

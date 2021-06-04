@@ -11,6 +11,8 @@ class TextStyles {
   static const TextStyle textMain12 = TextStyle(fontSize: 12.0, color: Colours.app_main, height: 1.0);
   static const TextStyle textMain500_14 = TextStyle(fontSize: 14.0, color: Colours.app_main_500, height: 1.0);
   static const TextStyle textMain500_13 = TextStyle(fontSize: 13.0, color: Colours.app_main_500, height: 1.0);
+  static const TextStyle textMain500_12 = TextStyle(fontSize: 12.0, color: Colours.app_main_500, height: 1.0);
+  static const TextStyle textMain500_11 = TextStyle(fontSize: 11.0, color: Colours.app_main_500, height: 1.0);
 
   static const TextStyle textBlackBold26 = TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold, color: Colours.text_black, height: 1.0);
   static const TextStyle textBlack20 = TextStyle(fontSize: 20.0, color: Colours.text_black, height: 1.0);
@@ -43,6 +45,7 @@ class TextStyles {
   static const TextStyle textGray800_w400_17 = TextStyle(color: Colours.gray_800, fontWeight: FontWeight.w400, fontSize: 17, height: 1.0);
   static const TextStyle textGray800_w600_17 = TextStyle(color: Colours.gray_800, fontWeight: FontWeight.w600, fontSize: 17, height: 1.0);
   static const TextStyle textGray800_w700_17 = TextStyle(color: Colours.gray_800, fontWeight: FontWeight.w700, fontSize: 17, height: 1.0);
+  static const TextStyle textGray800_w600_16 = TextStyle(color: Colours.gray_800, fontWeight: FontWeight.w600, fontSize: 16, height: 1.0);
   static const TextStyle textGray800_w400_16 = TextStyle(color: Colours.gray_800, fontWeight: FontWeight.w400, fontSize: 16, height: 1.0);
   static const TextStyle textGray800_w700_16 = TextStyle(color: Colours.gray_800, fontWeight: FontWeight.w700, fontSize: 16, height: 1.0);
   static const TextStyle textGray800_w400_15 = TextStyle(color: Colours.gray_800, fontWeight: FontWeight.w400, fontSize: 15, height: 1.0);
@@ -51,12 +54,16 @@ class TextStyles {
   static const TextStyle textGray800_w400_14 = TextStyle(color: Colours.gray_800, fontWeight: FontWeight.w400, fontSize: 14, height: 1.0);
   static const TextStyle textGray800_w600_14 = TextStyle(color: Colours.gray_800, fontWeight: FontWeight.w600, fontSize: 14);
   static const TextStyle textGray800_w700_14 = TextStyle(color: Colours.gray_800, fontWeight: FontWeight.w700, fontSize: 14, height: 1.0);
+  static const TextStyle textGray800_w400_13 = TextStyle(color: Colours.gray_800, fontWeight: FontWeight.w400, fontSize: 13, height: 1.0);
   static const TextStyle textGray800_w700_13 = TextStyle(color: Colours.gray_800, fontWeight: FontWeight.w700, fontSize: 13, height: 1.0);
   static const TextStyle textGray800_w400_12 = TextStyle(color: Colours.gray_800, fontWeight: FontWeight.w400, fontSize: 12, height: 1.0);
+  static const TextStyle textGray800_w400_10 = TextStyle(color: Colours.gray_800, fontWeight: FontWeight.w400, fontSize: 10, height: 1.0);
+  static const TextStyle textGray800_w400_9 = TextStyle(color: Colours.gray_800, fontWeight: FontWeight.w400, fontSize: 9, height: 1.0);
 
   static const TextStyle textGray600_w400_14 = TextStyle(color: Colours.gray_600, fontWeight: FontWeight.w400, fontSize: 14, height: 1.0);
   static const TextStyle textGray600_w400_13 = TextStyle(color: Colours.gray_600, fontWeight: FontWeight.w400, fontSize: 13, height: 1.0);
   static const TextStyle textGray600_w700_13 = TextStyle(color: Colours.gray_600, fontWeight: FontWeight.w700, fontSize: 13, height: 1.0);
+  static const TextStyle textGray600_w700_10 = TextStyle(color: Colours.gray_600, fontWeight: FontWeight.w700, fontSize: 10, height: 1.0);
 
   static const TextStyle textGray500_w400_16 = TextStyle(color: Colours.gray_500, fontWeight: FontWeight.w400, fontSize: 16, height: 1.0);
   static const TextStyle textGray500_w400_15 = TextStyle(color: Colours.gray_500, fontWeight: FontWeight.w400, fontSize: 15, height: 1.0);
@@ -74,13 +81,16 @@ class TextStyles {
   static const TextStyle textGray400_w400_14 = TextStyle(color: Colours.gray_400, fontWeight: FontWeight.w400, fontSize: 14, height: 1.0);
   static const TextStyle textGray400_w400_13 = TextStyle(color: Colours.gray_400, fontWeight: FontWeight.w400, fontSize: 13, height: 1.0);
   static const TextStyle textGray400_w400_12 = TextStyle(color: Colours.gray_400, fontWeight: FontWeight.w400, fontSize: 12, height: 1.0);
+  static const TextStyle textGray400_w400_11 = TextStyle(color: Colours.gray_400, fontWeight: FontWeight.w400, fontSize: 11, height: 1.0);
   static const TextStyle textGray400_w400_10 = TextStyle(color: Colours.gray_400, fontWeight: FontWeight.w400, fontSize: 10, height: 1.0);
+  static const TextStyle textGray400_w400_9 = TextStyle(color: Colours.gray_400, fontWeight: FontWeight.w400, fontSize: 9, height: 1.0);
 
   static const TextStyle textGray350_w400_14 = TextStyle(color: Colours.gray_350, fontWeight: FontWeight.w400, fontSize: 14, height: 1.0);
   static const TextStyle textGray300_w400_12 = TextStyle(color: Colours.gray_300, fontWeight: FontWeight.w400, fontSize: 12, height: 1.0);
 
   static const TextStyle textRed_w400_30 = TextStyle(color: Colours.text_red, fontWeight: FontWeight.w700, fontSize: 30, height: 1.0);
   static const TextStyle textRed_w400_22 = TextStyle(color: Colours.text_red, fontWeight: FontWeight.w600, fontSize: 22, height: 1.0);
+  static const TextStyle textRed_w400_16 = TextStyle(color: Colours.text_red, fontWeight: FontWeight.w400, fontSize: 16, height: 1.0);
   static const TextStyle textRedOri_w400_15 = TextStyle(color: Colours.red, fontWeight: FontWeight.w400, fontSize: 15, height: 1.0);
   static const TextStyle textRed_w400_15 = TextStyle(color: Colours.text_red, fontWeight: FontWeight.w400, fontSize: 15, height: 1.0);
   static const TextStyle textRed_w400_14 = TextStyle(color: Colours.text_red, fontWeight: FontWeight.w400, fontSize: 14, height: 1.0);
@@ -88,15 +98,18 @@ class TextStyles {
   static const TextStyle textRed_w400_12 = TextStyle(color: Colours.text_red, fontWeight: FontWeight.w400, fontSize: 12, height: 1.0);
   static const TextStyle textRed_w400_10 = TextStyle(color: Colours.text_red, fontWeight: FontWeight.w400, fontSize: 10, height: 1.0);
   static const TextStyle textRed_w600_10 = TextStyle(color: Colours.text_red, fontWeight: FontWeight.w600, fontSize: 10, height: 1.0);
+  static const TextStyle textRed_w400_9 = TextStyle(color: Colours.text_red, fontWeight: FontWeight.w400, fontSize: 9, height: 1.0);
 
   static const TextStyle textGreen_w400_30 = TextStyle(color: Colours.text_green, fontWeight: FontWeight.w700, fontSize: 30, height: 1.0);
   static const TextStyle textGreen_w400_22 = TextStyle(color: Colours.text_green, fontWeight: FontWeight.w600, fontSize: 22, height: 1.0);
+  static const TextStyle textGreen_w400_16 = TextStyle(color: Colours.text_green, fontWeight: FontWeight.w400, fontSize: 16, height: 1.0);
   static const TextStyle textGreen_w400_15 = TextStyle(color: Colours.text_green, fontWeight: FontWeight.w400, fontSize: 15, height: 1.0);
   static const TextStyle textGreen_w400_14 = TextStyle(color: Colours.text_green, fontWeight: FontWeight.w400, fontSize: 14, height: 1.0);
   static const TextStyle textGreen_w600_14 = TextStyle(color: Colours.text_green, fontWeight: FontWeight.w600, fontSize: 14, height: 1.0);
   static const TextStyle textGreen_w400_12 = TextStyle(color: Colours.text_green, fontWeight: FontWeight.w400, fontSize: 12, height: 1.0);
   static const TextStyle textGreen_w400_10 = TextStyle(color: Colours.text_green, fontWeight: FontWeight.w400, fontSize: 10, height: 1.0);
   static const TextStyle textGreen_w600_10 = TextStyle(color: Colours.text_green, fontWeight: FontWeight.w600, fontSize: 10, height: 1.0);
+  static const TextStyle textGreen_w400_9 = TextStyle(color: Colours.text_green, fontWeight: FontWeight.w400, fontSize: 9, height: 1.0);
   static const TextStyle textGreenLight_w400_12 = TextStyle(color: Colours.text_green_light, fontWeight: FontWeight.w400, fontSize: 12, height: 1.0);
 }
 

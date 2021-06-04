@@ -2,15 +2,15 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:library_base/item/milestone_item.dart';
+import 'package:library_base/model/milestone.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
+import 'package:library_base/utils/toast_util.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh_top.dart';
 import 'package:library_base/widget/easyrefresh/loading_empty.dart';
-import 'package:library_base/utils/toast_util.dart';
 import 'package:library_base/widget/easyrefresh/loading_empty_top.dart';
-import 'package:module_home/item/milestone_item.dart';
-import 'package:module_home/model/milestone.dart';
 import 'package:module_home/viewmodel/milestone_model.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 

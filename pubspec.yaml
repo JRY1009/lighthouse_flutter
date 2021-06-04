@@ -36,6 +36,9 @@ dependencies:
   module_info:
     path: module_info
 
+  module_quote:
+    path: module_quote
+
   module_money:
     path: module_money
 

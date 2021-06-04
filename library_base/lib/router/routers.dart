@@ -21,9 +21,6 @@ class Routers {
   static String mainPage = '/mainPage';
 
   static String homePage = '/homePage';
-  static String spotDetailPage = '/spotDetailPage';
-  static String globalQuotePage = '/globalQuotePage';
-  static String treemapPage = '/treemapPage';
   static String milestonePage = '/milestonePage';
   static String schoolPage = '/schoolPage';
   static String lessonPage = '/lessonPage';
@@ -37,6 +34,15 @@ class Routers {
   static String articleRequestPage = '/articleRequestPage';
 
   static String moneyPage = '/moneyPage';
+
+  static String quotePage = '/quotePage';
+  static String indexDetailPage = '/indexDetailPage';
+  static String spotDetailPage = '/spotDetailPage';
+  static String spotDetailHPage = '/spotDetailHPage';
+  static String spotDepthOrderPage = '/spotDepthOrderPage';
+  static String spotLatestDealPage = '/spotLatestDealPage';
+  static String globalQuotePage = '/globalQuotePage';
+  static String treemapPage = '/treemapPage';
 
   static String minePage = '/minePage';
   static String loginPage = '/loginPage';

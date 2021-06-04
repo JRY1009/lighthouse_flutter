@@ -11,13 +11,10 @@ import 'package:library_base/mvvm/view_state.dart';
 import 'package:library_base/mvvm/view_state_model.dart';
 import 'package:library_base/net/apis.dart';
 import 'package:library_base/net/dio_util.dart';
-import 'package:module_home/model/quote.dart';
-import 'package:module_home/model/quote_pair.dart';
+import 'package:library_base/model/quote.dart';
+import 'package:library_base/model/quote_pair.dart';
 
 class HomeModel extends ViewStateModel {
-
-  static const String COIN_BITCOIN = 'bitcoin';
-  static const String COIN_ETHEREUM = 'ethereum';
 
   QuotePair btcUsdPair;
   QuotePair ethUsdPair;
@@ -90,8 +87,8 @@ class HomeModel extends ViewStateModel {
   Future getHomeAll() async {
 
     await Future.wait<dynamic>([
-      getHome(COIN_BITCOIN),
-      getHome(COIN_ETHEREUM),
+      getHome(Apis.COIN_BITCOIN),
+      getHome(Apis.COIN_ETHEREUM),
     ]);
 
     setIdle();
@@ -100,8 +97,8 @@ class HomeModel extends ViewStateModel {
   Future getHomeAllWithChild() async {
 
     await Future.wait<dynamic>([
-      getHome(COIN_BITCOIN),
-      getHome(COIN_ETHEREUM),
+      getHome(Apis.COIN_BITCOIN),
+      getHome(Apis.COIN_ETHEREUM),
 
       communityPageKey.currentState.refresh(slient: true),
       articlePageKey.currentState.refresh(slient: true),
@@ -118,15 +115,15 @@ class HomeModel extends ViewStateModel {
     return DioUtil.getInstance().requestNetwork(Apis.URL_GET_HOME, "get", params: params,
         cancelToken: cancelToken,
         onSuccess: (data) {
-          if (chain == HomeModel.COIN_BITCOIN) {
+          if (chain == Apis.COIN_BITCOIN) {
             btcUsdPair = QuotePair.fromJson(data);
             btcUsdPair.coin_code = 'BTC';
-            btcUsdPair.chain = HomeModel.COIN_BITCOIN;
+            btcUsdPair.chain = Apis.COIN_BITCOIN;
 
-          } else if (chain == HomeModel.COIN_ETHEREUM) {
+          } else if (chain == Apis.COIN_ETHEREUM) {
             ethUsdPair = QuotePair.fromJson(data);
             ethUsdPair.coin_code = 'ETH';
-            ethUsdPair.chain = HomeModel.COIN_ETHEREUM;
+            ethUsdPair.chain = Apis.COIN_ETHEREUM;
           }
         },
         onError: (errno, msg) {
