@@ -11,7 +11,6 @@ import 'package:library_base/res/styles.dart';
 import 'package:library_base/router/parameters.dart';
 import 'package:library_base/router/routers.dart';
 import 'package:library_base/widget/button/back_button.dart';
-import 'package:library_base/widget/common_scroll_view.dart';
 import 'package:library_base/widget/image/local_image.dart';
 import 'package:package_info/package_info.dart';
 
@@ -22,7 +21,7 @@ class AboutPage extends StatefulWidget {
 
 class _AboutPageState extends State<AboutPage> with BasePageMixin<AboutPage> {
 
-  String _version;
+  String? _version;
 
   @override
   void initState() {
@@ -30,7 +29,7 @@ class _AboutPageState extends State<AboutPage> with BasePageMixin<AboutPage> {
 
     PackageInfo.fromPlatform().then((value) {
       setState(() {
-        _version = value?.version;
+        _version = value.version;
       });
     });
 

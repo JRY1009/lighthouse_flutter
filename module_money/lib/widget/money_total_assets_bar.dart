@@ -7,10 +7,10 @@ import 'package:module_money/widget/money_unit_select_dialog.dart';
 
 class MoneyTotalAssetsBar extends StatelessWidget {
 
-  final ValueChanged<String> selectCallback;
+  final ValueChanged<String>? selectCallback;
 
   const MoneyTotalAssetsBar({
-    Key key,
+    Key? key,
     this.selectCallback,
   }) : super(key: key);
 

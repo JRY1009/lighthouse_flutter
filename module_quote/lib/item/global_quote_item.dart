@@ -8,19 +8,19 @@ import 'package:library_base/utils/num_util.dart';
 
 class GlobalQuoteItem extends StatelessWidget {
 
-  final int index;
+  final int? index;
 
-  final String name;
+  final String? name;
 
-  final double price;
+  final double? price;
 
-  final double change;
+  final double? change;
 
-  final double rate;
+  final double? rate;
 
 
   const GlobalQuoteItem(
-      {Key key,
+      {Key? key,
         this.index,
         this.name,
         this.price,
@@ -32,7 +32,7 @@ class GlobalQuoteItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate, 2).toString() + '%';
+    String rateStr = (rate! >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate, 2).toString() + '%';
 
     String priceStr = NumUtil.formatNum(price, point: 2);
     String changeStr = NumUtil.formatNum(change, point: 2);
@@ -61,7 +61,7 @@ class GlobalQuoteItem extends StatelessWidget {
             height: 17,
             margin: EdgeInsets.only(top: 7),
             alignment: Alignment.centerLeft,
-            child: Text(priceStr, style: rate >= 0 ? TextStyles.textGreen_w600_14 : TextStyles.textRed_w600_14,
+            child: Text(priceStr, style: rate! >= 0 ? TextStyles.textGreen_w600_14 : TextStyles.textRed_w600_14,
               maxLines: 1,
               overflow: TextOverflow.ellipsis
             ),
@@ -75,14 +75,14 @@ class GlobalQuoteItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  child: Text((change >= 0 ? '+' : '') + changeStr, style: rate >= 0 ? TextStyles.textGreen_w400_10 : TextStyles.textRed_w400_10,
+                  child: Text((change! >= 0 ? '+' : '') + changeStr, style: rate! >= 0 ? TextStyles.textGreen_w400_10 : TextStyles.textRed_w400_10,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 Gaps.vGap5,
                 Expanded(
-                  child: Text(rateStr, style: rate >= 0 ? TextStyles.textGreen_w400_10 : TextStyles.textRed_w400_10,
+                  child: Text(rateStr, style: rate! >= 0 ? TextStyles.textGreen_w400_10 : TextStyles.textRed_w400_10,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),

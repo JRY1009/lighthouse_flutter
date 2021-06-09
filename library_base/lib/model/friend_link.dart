@@ -3,9 +3,9 @@ import 'package:library_base/utils/object_util.dart';
 
 class FriendLink {
 
-  String name;
-  String url;
-  String ico;
+  String? name;
+  String? url;
+  String? ico;
 
   FriendLink({
     this.name,
@@ -28,12 +28,12 @@ class FriendLink {
     return jsonMap;
   }
 
-  static List<FriendLink> fromJsonList(List<dynamic> mapList) {
+  static List<FriendLink>? fromJsonList(List<dynamic> mapList) {
     if (ObjectUtil.isEmptyList(mapList)) {
       return null;
     }
 
-    List<FriendLink> items = new List<FriendLink>();
+    List<FriendLink> items = [];
     for(Map<String, dynamic> map in mapList) {
       items.add(FriendLink.fromJson(map));
     }

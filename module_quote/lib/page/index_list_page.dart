@@ -22,7 +22,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 class IndexListPage extends StatefulWidget {
 
   const IndexListPage({
-    Key key,
+    Key? key,
   }): super(key: key);
 
 
@@ -37,14 +37,14 @@ class _IndexListPageState extends State<IndexListPage> with BasePageMixin<IndexL
 
   RefreshController _easyController = RefreshController();
 
-  QuoteIndexModel _indexModel;
+  late QuoteIndexModel _indexModel;
 
   @override
   void initState() {
     super.initState();
 
     _indexModel = QuoteIndexModel();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (mounted) {
         initViewModel();
       }
@@ -64,7 +64,7 @@ class _IndexListPageState extends State<IndexListPage> with BasePageMixin<IndexL
     _indexModel.addListener(() {
       if (_indexModel.isError) {
         _easyController.refreshFailed();
-        ToastUtil.error(_indexModel.viewStateError.message);
+        ToastUtil.error(_indexModel.viewStateError!.message!);
 
       } else if (_indexModel.isSuccess || _indexModel.isEmpty) {
         _easyController.refreshCompleted(resetFooterState: false);
@@ -138,12 +138,12 @@ class _IndexListPageState extends State<IndexListPage> with BasePageMixin<IndexL
 
   Widget _buildHeader() {
 
-    double rate = _indexModel.indexBasic != null ? _indexModel.indexBasic.change_percent : 0;
-    double price = _indexModel.indexBasic != null ? _indexModel.indexBasic.quote : 0;
-    double cny = _indexModel.indexBasic != null ? _indexModel.indexBasic.cny : 0;
-    double change_amount = _indexModel.indexBasic != null ? _indexModel.indexBasic.change_amount : 0;
+    double rate = _indexModel.indexBasic?.change_percent ?? 0;
+    double price = _indexModel.indexBasic?.quote ?? 0;
+    double cny = _indexModel.indexBasic?.cny ?? 0;
+    double change_amount = _indexModel.indexBasic?.change_amount ?? 0;
 
-    String groupStr = _indexModel.indexBasic != null ? _indexModel.indexBasic.data_src : '';
+    String groupStr = _indexModel.indexBasic?.data_src ?? '';
     String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate, 2).toString() + '%';
 
     String priceStr = NumUtil.formatNum(price, point: 2);

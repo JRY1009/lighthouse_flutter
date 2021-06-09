@@ -12,7 +12,7 @@ import 'package:module_quote/viewmodel/treemap_model.dart';
 class IndexTreemapBar extends StatefulWidget {
 
   IndexTreemapBar({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   _IndexTreemapBarState createState() => _IndexTreemapBarState();
@@ -20,7 +20,7 @@ class IndexTreemapBar extends StatefulWidget {
 
 class _IndexTreemapBarState extends State<IndexTreemapBar> {
 
-  TreemapModel _treemapModel;
+  late TreemapModel _treemapModel;
 
   @override
   void initState() {

@@ -22,9 +22,9 @@ class OrientationHelper {
   /// [DeviceOrientation.portraitUp] is default.
   static final DeviceOrientation initOrientation = DeviceOrientation.portraitUp;
 
-  static Stream<DeviceOrientation> _onOrientationChange;
+  static Stream<DeviceOrientation>? _onOrientationChange;
 
-  static Stream<DeviceOrientation> get onOrientationChange {
+  static Stream<DeviceOrientation>? get onOrientationChange {
     if (_onOrientationChange == null) {
       _onOrientationChange = OrientationPlugin.onOrientationChange
           .shareValueSeeded(initOrientation)

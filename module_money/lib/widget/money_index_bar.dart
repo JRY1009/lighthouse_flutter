@@ -8,7 +8,7 @@ class MoneyIndexBar extends StatelessWidget {
 
   final String days;
   const MoneyIndexBar({
-    Key key,
+    Key? key,
     this.days = '123',
   }) : super(key: key);
 

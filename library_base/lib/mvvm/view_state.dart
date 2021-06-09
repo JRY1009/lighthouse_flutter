@@ -10,7 +10,7 @@ enum ViewState {
 }
 
 class ViewStateError {
-  String message;
+  String? message;
   String errno;
 
   ViewStateError(this.errno, {this.message}) {}

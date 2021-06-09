@@ -36,9 +36,9 @@ class LeaveMessageModel extends ViewStateModel {
       'page_size': pageSize,
     };
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_GET_COMMUNITY_MESSAGES, 'get', params: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_GET_COMMUNITY_MESSAGES, 'get', params: params,
         cancelToken: cancelToken,
-        onSuccess: (data) {
+        onSuccess: (dynamic data) {
 
           List<LeaveMessage> list = LeaveMessage.fromJsonList(data['list']) ?? [];
           if (page == 1) {
@@ -49,7 +49,7 @@ class LeaveMessageModel extends ViewStateModel {
             messageList.addAll(list);
           }
 
-          noMore = list?.length < pageSize;
+          noMore = list.length < pageSize;
 
           if (ObjectUtil.isEmptyList(messageList)) {
             setEmpty();
@@ -58,7 +58,7 @@ class LeaveMessageModel extends ViewStateModel {
           }
         },
         onError: (errno, msg) {
-          setError(errno, message: msg);
+          setError(errno!, message: msg);
         });
   }
 

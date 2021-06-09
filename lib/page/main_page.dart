@@ -27,30 +27,30 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> with WidgetsBindingObserver, BasePageMixin<MainPage> {
 
-  String _latestLink = 'Unknown';
-  Uri _latestUri;
-  StreamSubscription _sub;
+  String? _latestLink = 'Unknown';
+  Uri? _latestUri;
+  StreamSubscription? _sub;
 
   static const double _imageSize = 25.0;
 
-  List<GlobalKey<BasePageMixin>> _keyList;
-  List<String> _appBarTitles;
-  List<Widget> _pageList;
-  List<BottomNavigationBarItem> _bottomBarItemList;
+  List<GlobalKey<BasePageMixin>>? _keyList;
+  late List<String> _appBarTitles;
+  late List<Widget> _pageList;
+  List<BottomNavigationBarItem>? _bottomBarItemList;
 
-  MainModel _mainModel;
+  late MainModel _mainModel;
 
   PageController _pageController = PageController();
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance!.addObserver(this);
 
     initView();
     initViewModel();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (mounted) {
         initUniLinks();
       }
@@ -67,7 +67,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver, BasePa
       LogUtil.v('initial link: $_latestLink');
 
       if (!ObjectUtil.isEmpty(_latestLink)) {
-        _latestUri = Uri.parse(_latestLink);
+        _latestUri = Uri.parse(_latestLink!);
       }
 
       if (!mounted) return;
@@ -78,12 +78,12 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver, BasePa
       LogUtil.e('Failed to get initial link.');
     }
 
-    _sub = getLinksStream().listen((String link) {
+    _sub = getLinksStream().listen((String? link) {
       _latestLink = link;
       LogUtil.v('got link: $link');
 
       if (!ObjectUtil.isEmpty(link)) {
-        _latestUri = Uri.parse(link);
+        _latestUri = Uri.parse(link!);
       }
 
       if (!mounted) return;
@@ -99,9 +99,9 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver, BasePa
   void _parseParams() {
     LogUtil.v('queryParams: $_latestUri');
 
-    final queryParams = _latestUri?.queryParametersAll?.entries?.toList();
-    String pageType;
-    String articleId;
+    final queryParams = _latestUri?.queryParametersAll.entries.toList();
+    String? pageType;
+    String? articleId;
     LogUtil.v('queryParams: $queryParams');
     if (queryParams != null) {
       for (var param in queryParams) {
@@ -116,7 +116,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver, BasePa
     if (pageType == 'article') {
 
       Parameters params = Parameters()
-        ..putInt('article_id', num.parse(articleId));
+        ..putInt('article_id', num.parse(articleId!) as int);
 
       Routers.navigateTo(context, Routers.articleRequestPage, parameters: params);
     }
@@ -126,10 +126,10 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver, BasePa
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       LogUtil.v('应用进入前台 resumed');
-      WebSocketUtil.instance().openSocket();
+      WebSocketUtil.instance()!.openSocket();
     } else if (state == AppLifecycleState.paused) {
       LogUtil.v('应用进入后台 paused');
-      WebSocketUtil.instance().closeSocket();
+      WebSocketUtil.instance()!.closeSocket();
     } else if (state == AppLifecycleState.inactive) {
       LogUtil.v('应用进入非活动状态 inactive');
     } else if (state == AppLifecycleState.detached) {
@@ -139,10 +139,10 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver, BasePa
 
   @override
   void dispose() {
-    if (_sub != null) _sub.cancel();
+    if (_sub != null) _sub!.cancel();
     _pageController.dispose();
-    imageCache.clear();
-    WidgetsBinding.instance.removeObserver(this);
+    imageCache!.clear();
+    WidgetsBinding.instance!.removeObserver(this);
     super.dispose();
   }
 
@@ -156,10 +156,10 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver, BasePa
       GlobalKey<BasePageMixin>(debugLabel: _appBarTitles[3]),
     ];
     _pageList = [
-      Routers.generatePage(context, Routers.homePage, parameters: Parameters()..putObj('key', _keyList[0])),
-      Routers.generatePage(context, Routers.infoPage, parameters: Parameters()..putObj('key', _keyList[1])),
-      Routers.generatePage(context, Routers.quotePage, parameters: Parameters()..putObj('key', _keyList[2])),
-      Routers.generatePage(context, Routers.minePage, parameters: Parameters()..putObj('key', _keyList[3]))
+      Routers.generatePage(context, Routers.homePage, parameters: Parameters()..putObj('key', _keyList![0]))!,
+      Routers.generatePage(context, Routers.infoPage, parameters: Parameters()..putObj('key', _keyList![1]))!,
+      Routers.generatePage(context, Routers.quotePage, parameters: Parameters()..putObj('key', _keyList![2]))!,
+      Routers.generatePage(context, Routers.minePage, parameters: Parameters()..putObj('key', _keyList![3]))!
     ];
   }
 
@@ -173,7 +173,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver, BasePa
     _mainModel.initBugly();
   }
 
-  List<BottomNavigationBarItem> _buildBottomNavigationBarItem() {
+  List<BottomNavigationBarItem>? _buildBottomNavigationBarItem() {
     if (_bottomBarItemList == null) {
       List<String> anihome = [];
       List<String> aninews = [];
@@ -223,7 +223,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver, BasePa
                   ),
                   child: BottomNavigationBar(
                     backgroundColor: Colours.white,
-                    items: _buildBottomNavigationBarItem(),
+                    items: _buildBottomNavigationBarItem()!,
                     type: BottomNavigationBarType.fixed,
                     currentIndex: model.value,
                     elevation: 5.0,
@@ -234,7 +234,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver, BasePa
                     unselectedItemColor: Colours.unselected_item_color,
                     onTap: (index) {
                       if (model.value == index) {
-                        _keyList[index].currentState?.refresh();
+                        _keyList![index].currentState?.refresh();
                       } else {
                         _pageController.jumpToPage(index);
                       }

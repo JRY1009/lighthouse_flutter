@@ -5,17 +5,17 @@ import 'package:library_base/res/styles.dart';
 
 class BorderButton extends StatefulWidget {
 
-  final Color color;
+  final Color? color;
   final Color borderColor;
-  final String text;
+  final String? text;
   final TextStyle textStyle;
-  final double width;
-  final double height;
-  final Function() onPressed;
+  final double? width;
+  final double? height;
+  final Function()? onPressed;
 
   BorderButton({
-    Key key,
-    @required this.borderColor,
+    Key? key,
+    required this.borderColor,
     this.color,
     this.text,
     this.textStyle = TextStyles.textMain16,
@@ -44,7 +44,7 @@ class _BorderButtonState extends State<BorderButton> {
         color: widget.color,
         disabledColor: Colours.button_disabled,
         child: Text(
-          widget.text,
+          widget.text ?? '',
           style: widget.textStyle,
         ),
         onPressed: widget.onPressed,

@@ -7,16 +7,16 @@ import 'package:library_base/res/styles.dart';
 
 class NormalTextField extends StatefulWidget {
 
-  final String hint;
-  final FocusNode focusNode;
-  final Function() onTextChanged;
+  final String? hint;
+  final FocusNode? focusNode;
+  final Function()? onTextChanged;
   final TextEditingController controller;
 
   NormalTextField({
-    Key key,
-    @required this.controller,
-    this.hint,
+    Key? key,
+    required this.controller,
     this.focusNode,
+    this.hint,
     this.onTextChanged,
   }) : super(key: key);
 
@@ -55,14 +55,18 @@ class _NormalTextFieldState extends State<NormalTextField> {
               onPressed: () {
                 setState(() {
                   widget.controller.text = "";
-                  widget.onTextChanged();
+                  if (widget.onTextChanged != null) {
+                    widget.onTextChanged!();
+                  }
                 });
               },
             ) : Gaps.empty,
           ),
           onChanged: (text) {
             setState(() {
-              widget.onTextChanged();
+              if (widget.onTextChanged != null) {
+                widget.onTextChanged!();
+              }
             });
           },
         )

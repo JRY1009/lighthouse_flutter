@@ -16,10 +16,10 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ArticleRecommendPage extends StatefulWidget {
 
-  final String tag;
+  final String? tag;
 
   ArticleRecommendPage({
-    Key key,
+    Key? key,
     this.tag = ''
   }) : super(key: key);
 
@@ -36,15 +36,15 @@ class _ArticleRecommendPageState extends State<ArticleRecommendPage> with BasePa
 
   RefreshController _easyController = RefreshController();
 
-  ArticleModel _articleModel;
+  late ArticleModel _articleModel;
 
   @override
   void initState() {
     super.initState();
 
-    _articleModel = ArticleModel(widget.tag);
+    _articleModel = ArticleModel(widget.tag ?? '');
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (mounted) {
         initViewModel();
       }
@@ -68,7 +68,7 @@ class _ArticleRecommendPageState extends State<ArticleRecommendPage> with BasePa
         } else {
           _easyController.loadFailed();
         }
-        ToastUtil.error(_articleModel.viewStateError.message);
+        ToastUtil.error(_articleModel.viewStateError!.message!);
 
       } else if (_articleModel.isSuccess || _articleModel.isEmpty) {
         if (_articleModel.page == 0) {

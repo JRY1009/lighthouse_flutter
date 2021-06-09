@@ -14,7 +14,7 @@ import 'package:module_quote/model/latest_deal.dart';
 
 class SpotDealModel extends ViewStateModel {
 
-  StreamSubscription quoteSubscription;
+  StreamSubscription? quoteSubscription;
 
   List<LatestDeal> dealList = [];
 
@@ -35,9 +35,9 @@ class SpotDealModel extends ViewStateModel {
     Map<String, dynamic> params = {
     };
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_GET_GLOBAL_QUOTE, 'get', params: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_GET_GLOBAL_QUOTE, 'get', params: params,
         cancelToken: cancelToken,
-        onSuccess: (data) {
+        onSuccess: (dynamic data) {
 
           dealList = LatestDeal.fromJsonList(data) ?? [];
 
@@ -48,7 +48,7 @@ class SpotDealModel extends ViewStateModel {
           }
         },
         onError: (errno, msg) {
-          setError(errno, message: msg);
+          setError(errno!, message: msg);
         });
   }
 

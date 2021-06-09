@@ -8,25 +8,25 @@ class ProviderWidget<T extends ChangeNotifier, S> extends StatefulWidget {
   final ValueWidgetBuilder<S> builder;
   final S Function(BuildContext, T) selector;
   final T model;
-  final Widget child;
-  final Function(T model) onModelReady;
+  final Widget? child;
+  final Function(T model)? onModelReady;
   final bool autoDispose;
 
   ProviderWidget({
-    Key key,
-    @required this.builder,
-    @required this.model,
-    this.selector,
+    Key? key,
+    required this.builder,
+    required this.model,
+    required this.selector,
     this.child,
     this.onModelReady,
-    this.autoDispose,
+    this.autoDispose: true,
   }) : super(key: key);
 
   _ProviderWidgetState<T> createState() => _ProviderWidgetState<T>();
 }
 
 class _ProviderWidgetState<T extends ChangeNotifier> extends State<ProviderWidget<T, dynamic>> {
-  T model;
+  late T model;
 
   @override
   void initState() {

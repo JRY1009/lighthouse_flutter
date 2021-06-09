@@ -13,13 +13,13 @@ abstract class IBasePage {
   Future<void> refresh({slient = false});
 
   // 跳转
-  Future<void> jump({Map<String, dynamic> params});
+  Future<void> jump({Map<String, dynamic>? params});
 
   // 截图
-  Future<Uint8List> screenShot();
+  Future<Uint8List>? screenShot();
 
   // 显示Progress
-  void showProgress({String content, bool showContent = true});
+  void showProgress({String? content, bool showContent = true});
 
   // 关闭Progress
   void closeProgress();
@@ -36,22 +36,22 @@ mixin BasePageMixin<T extends StatefulWidget> on State<T> implements IBasePage {
   }
 
   @override
-  Future<void> refresh({slient = false}) {
+  Future<void> refresh({slient = false}) async {
     LogUtil.v('$T ==> refresh');
   }
 
   @override
-  Future<void> jump({Map<String, dynamic> params}) {
+  Future<void> jump({Map<String, dynamic>? params}) async {
     LogUtil.v('$T ==> jump $params');
   }
 
   @override
-  Future<Uint8List> screenShot() {
+  Future<Uint8List>? screenShot() {
     LogUtil.v('$T ==> screenShot');
   }
 
   @override
-  void showProgress({String content, bool showContent = true}) {
+  void showProgress({String? content, bool showContent = true}) {
     /// 避免重复弹出
     if (mounted && !_isShowDialog) {
       _isShowDialog = true;
@@ -89,7 +89,7 @@ mixin BasePageMixin<T extends StatefulWidget> on State<T> implements IBasePage {
   }
 
   // 可自定义Progress
-  Widget buildProgress({String content, bool showContent}) {
+  Widget buildProgress({String? content, bool showContent = true}) {
     return LoadingDialog(
         content: content,
         showContent: showContent);

@@ -17,8 +17,8 @@ class GlobalQuoteAppBar extends StatefulWidget {
   final double height;
 
   const GlobalQuoteAppBar({
-    Key key,
-    @required this.height,
+    Key? key,
+    required this.height,
   }): super(key: key);
 
 
@@ -42,13 +42,13 @@ class _GlobalQuoteAppBarState extends State<GlobalQuoteAppBar> {
   Widget build(BuildContext context) {
     GlobalQuoteModel homeModel = Provider.of<GlobalQuoteModel>(context);
 
-    num btcRate = homeModel?.btcUsdPair?.change_percent ?? 0;
-    num btcPrice = homeModel?.btcUsdPair?.quote ?? 0;
+    num btcRate = homeModel.btcUsdPair?.change_percent ?? 0;
+    num btcPrice = homeModel.btcUsdPair?.quote ?? 0;
     String btcRateStr = (btcRate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(btcRate.toDouble(), 2).toString() + '%';
     String btcPriceStr = NumUtil.formatNum(btcPrice, point: 2);
 
-    num ethRate = homeModel?.ethUsdPair?.change_percent ?? 0;
-    num ethPrice = homeModel?.ethUsdPair?.quote ?? 0;
+    num ethRate = homeModel.ethUsdPair?.change_percent ?? 0;
+    num ethPrice = homeModel.ethUsdPair?.quote ?? 0;
     String ethRateStr = (ethRate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(ethRate.toDouble(), 2).toString() + '%';
     String ethPriceStr = NumUtil.formatNum(ethPrice, point: 2);
 
@@ -82,7 +82,7 @@ class _GlobalQuoteAppBarState extends State<GlobalQuoteAppBar> {
                                 Container(
                                     width: 18,
                                     height: 18,
-                                    child:  RoundImage(homeModel?.btcUsdPair?.icon ?? '',
+                                    child:  RoundImage(homeModel.btcUsdPair?.icon ?? '',
                                       width: 18,
                                       height: 18,
                                       borderRadius: BorderRadius.all(Radius.circular(18)),
@@ -90,7 +90,7 @@ class _GlobalQuoteAppBarState extends State<GlobalQuoteAppBar> {
                                     )
                                 ),
                                 Gaps.hGap5,
-                                Text(homeModel?.btcUsdPair?.coin_code ?? '', style: TextStyles.textGray800_w700_15)
+                                Text(homeModel.btcUsdPair?.coin_code ?? '', style: TextStyles.textGray800_w700_15)
                               ],
                             ),
                           ),
@@ -157,7 +157,7 @@ class _GlobalQuoteAppBarState extends State<GlobalQuoteAppBar> {
                                 Container(
                                     width: 18,
                                     height: 18,
-                                    child:  RoundImage(homeModel?.ethUsdPair?.icon ?? '',
+                                    child:  RoundImage(homeModel.ethUsdPair?.icon ?? '',
                                       width: 18,
                                       height: 18,
                                       borderRadius: BorderRadius.all(Radius.circular(18)),
@@ -165,7 +165,7 @@ class _GlobalQuoteAppBarState extends State<GlobalQuoteAppBar> {
                                     )
                                 ),
                                 Gaps.hGap5,
-                                Text(homeModel?.ethUsdPair?.coin_code ?? '', style: TextStyles.textGray800_w700_15)
+                                Text(homeModel.ethUsdPair?.coin_code ?? '', style: TextStyles.textGray800_w700_15)
                               ],
                             ),
                           ),
@@ -211,11 +211,11 @@ class _GlobalQuoteAppBarState extends State<GlobalQuoteAppBar> {
 
 class GlobalQuoteShareBar extends StatelessWidget {
 
-  final QuotePair btcUsdPair;
-  final QuotePair ethUsdPair;
+  final QuotePair? btcUsdPair;
+  final QuotePair? ethUsdPair;
 
   const GlobalQuoteShareBar({
-    Key key,
+    Key? key,
     this.btcUsdPair,
     this.ethUsdPair
   }): super(key: key);

@@ -16,12 +16,12 @@ class ViewStateModel with ChangeNotifier {
   CancelToken _cancelToken;
 
   /// ViewStateError
-  ViewStateError _viewStateError;
+  ViewStateError? _viewStateError;
 
   /// 根据状态构造
   /// 子类可以在构造函数指定需要的页面状态
   /// FooModel():super(viewState:ViewState.busy);
-  ViewStateModel({ViewState viewState, CancelToken cancelToken})
+  ViewStateModel({ViewState? viewState, CancelToken? cancelToken})
       : _viewState = viewState ?? ViewState.first,
         _cancelToken = cancelToken ?? CancelToken() {
     LogUtil.v('ViewStateModel---constructor--->$runtimeType');
@@ -32,7 +32,7 @@ class ViewStateModel with ChangeNotifier {
 
   CancelToken get cancelToken => _cancelToken;
 
-  ViewStateError get viewStateError => _viewStateError;
+  ViewStateError? get viewStateError => _viewStateError;
 
   set viewState(ViewState viewState) {
     if (viewState != ViewState.error) {
@@ -69,7 +69,7 @@ class ViewStateModel with ChangeNotifier {
     viewState = ViewState.empty;
   }
 
-  void setError(String errno, {String message}) {
+  void setError(String errno, {String? message}) {
     _viewStateError = ViewStateError(
       errno,
       message: message,

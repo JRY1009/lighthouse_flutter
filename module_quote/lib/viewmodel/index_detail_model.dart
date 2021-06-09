@@ -19,21 +19,21 @@ import 'package:library_kchart/entity/k_line_entity.dart';
 
 class IndexDetailModel extends ViewStateModel {
 
-  IndexKLineHandleModel indexKLineHandleModel;
-  IndexHeaderModel indexHeaderModel;
-  IndexHeaderModel indexAppbarModel;
+  late IndexKLineHandleModel indexKLineHandleModel;
+  late IndexHeaderModel indexHeaderModel;
+  late IndexHeaderModel indexAppbarModel;
 
-  QuoteCoin quoteCoin;
-  QuoteCoin lastQuoteCoin;
+  QuoteCoin? quoteCoin;
+  QuoteCoin? lastQuoteCoin;
 
   List<GlobalKey<BasePageMixin>> keyList = [];
 
   NumberSlideController quoteSlideController = NumberSlideController();
-  StreamSubscription quoteSubscription;
+  StreamSubscription? quoteSubscription;
 
   bool _handleKLine = false;
 
-  IndexDetailModel(List<String> titles)
+  IndexDetailModel(List<String>? titles)
       : super(viewState: ViewState.first) {
 
     indexKLineHandleModel = IndexKLineHandleModel();
@@ -41,7 +41,7 @@ class IndexDetailModel extends ViewStateModel {
     indexAppbarModel = IndexHeaderModel();
 
     if (ObjectUtil.isNotEmpty(titles)) {
-      titles.forEach((element) {
+      titles!.forEach((element) {
         keyList.add(GlobalKey<BasePageMixin>(debugLabel: element));
       });
     }
@@ -56,18 +56,18 @@ class IndexDetailModel extends ViewStateModel {
         return;
       }
 
-      if (quoteCoin != null && quoteWs.coin_code.toLowerCase() == quoteCoin.coin_code.toLowerCase()) {
+      if (quoteCoin != null && quoteWs.coin_code!.toLowerCase() == quoteCoin!.coin_code!.toLowerCase()) {
 
         if (!_handleKLine) {
-          quoteCoin.quote = quoteWs.quote;
-          quoteCoin.change_amount = quoteWs.change_amount;
-          quoteCoin.change_percent = quoteWs.change_percent;
+          quoteCoin!.quote = quoteWs.quote;
+          quoteCoin!.change_amount = quoteWs.change_amount;
+          quoteCoin!.change_percent = quoteWs.change_percent;
         }
 
         if (lastQuoteCoin != null) {
-          lastQuoteCoin.quote = quoteWs.quote;
-          lastQuoteCoin.change_amount = quoteWs.change_amount;
-          lastQuoteCoin.change_percent = quoteWs.change_percent;
+          lastQuoteCoin!.quote = quoteWs.quote;
+          lastQuoteCoin!.change_amount = quoteWs.change_amount;
+          lastQuoteCoin!.change_percent = quoteWs.change_percent;
         }
 
         if (!_handleKLine) {
@@ -79,7 +79,7 @@ class IndexDetailModel extends ViewStateModel {
     });
   }
 
-  void handleKLineLongPress(KLineEntity entity) {
+  void handleKLineLongPress(KLineEntity? entity) {
     if (quoteCoin == null) {
       return;
     }
@@ -87,13 +87,13 @@ class IndexDetailModel extends ViewStateModel {
     if (entity == null) {
       _handleKLine = false;
       if (lastQuoteCoin != null) {
-        quoteCoin.quote = lastQuoteCoin.quote;
-        quoteCoin.change_amount = lastQuoteCoin.change_amount;
-        quoteCoin.change_percent = lastQuoteCoin.change_percent;
+        quoteCoin!.quote = lastQuoteCoin!.quote;
+        quoteCoin!.change_amount = lastQuoteCoin!.change_amount;
+        quoteCoin!.change_percent = lastQuoteCoin!.change_percent;
       }
     } else {
       _handleKLine = true;
-      quoteCoin.quote = entity.close;
+      quoteCoin!.quote = entity.close;
     }
     indexKLineHandleModel.notifyListeners();
   }
@@ -112,9 +112,7 @@ class IndexDetailModel extends ViewStateModel {
     await Future.wait<dynamic>([
       getCoinQuote(chain),
 
-      keyList[index] != null ?
-      keyList[index]?.currentState.refresh(slient: true) :
-      Future.value(),
+      keyList[index].currentState!.refresh(slient: true)
     ]);
 
     setIdle();
@@ -126,9 +124,9 @@ class IndexDetailModel extends ViewStateModel {
       'chain': chain,
     };
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_GET_COIN_QUOTE, "get", params: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_GET_COIN_QUOTE, "get", params: params,
         cancelToken: cancelToken,
-        onSuccess: (data) {
+        onSuccess: (dynamic data) {
           quoteCoin = QuoteCoin.fromJson(data);
           lastQuoteCoin = QuoteCoin.fromJson(data);
         },
@@ -140,7 +138,7 @@ class IndexDetailModel extends ViewStateModel {
   @override
   void dispose() {
     quoteSubscription?.cancel();
-    quoteSlideController?.dispose();
+    quoteSlideController.dispose();
     super.dispose();
   }
 }

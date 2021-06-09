@@ -16,13 +16,13 @@ import 'package:library_base/model/quote_pair.dart';
 
 class HomeModel extends ViewStateModel {
 
-  QuotePair btcUsdPair;
-  QuotePair ethUsdPair;
+  QuotePair? btcUsdPair;
+  QuotePair? ethUsdPair;
 
   GlobalKey<BasePageMixin> communityPageKey = GlobalKey<BasePageMixin>();
   GlobalKey<BasePageMixin> articlePageKey = GlobalKey<BasePageMixin>();
 
-  StreamSubscription quoteSubscription;
+  StreamSubscription? quoteSubscription;
 
   HomeModel() : super(viewState: ViewState.first);
 
@@ -36,46 +36,46 @@ class HomeModel extends ViewStateModel {
       }
 
       if (quoteWs.coin_code == 'btc' && btcUsdPair != null) {
-        btcUsdPair.quote = quoteWs.quote;
-        btcUsdPair.change_amount = quoteWs.change_amount;
-        btcUsdPair.change_percent = quoteWs.change_percent;
+        btcUsdPair!.quote = quoteWs.quote;
+        btcUsdPair!.change_amount = quoteWs.change_amount;
+        btcUsdPair!.change_percent = quoteWs.change_percent;
 
-        if (btcUsdPair.quote_24h != null || btcUsdPair.quote_24h.length >1) {
-          int nowTime = quoteWs.id ?? 0;
-          int firstTime = btcUsdPair.quote_24h.first?.id ?? 0;
-          int secondTime = btcUsdPair.quote_24h[1]?.id ?? 0;
+        if (btcUsdPair!.quote_24h != null || btcUsdPair!.quote_24h!.length >1) {
+          int nowTime = quoteWs.id;
+          int firstTime = btcUsdPair!.quote_24h!.first.id;
+          int secondTime = btcUsdPair!.quote_24h![1].id;
           int time = firstTime - secondTime;
           int intervalTime = nowTime - firstTime;
 
           if (intervalTime >= time) {
-            Quote quote = Quote(quote: quoteWs.quote);
+            Quote quote = Quote(quote: quoteWs.quote!);
             quote.setTs(firstTime + time);
-            btcUsdPair.quote_24h.insert(0, quote);
+            btcUsdPair!.quote_24h!.insert(0, quote);
 
           } else {
-            btcUsdPair.quote_24h.first?.quote = quoteWs.quote;
+            btcUsdPair!.quote_24h!.first.quote = quoteWs.quote!;
           }
         }
 
       } else if (quoteWs.coin_code == 'eth' && ethUsdPair != null) {
-        ethUsdPair.quote = quoteWs.quote;
-        ethUsdPair.change_amount = quoteWs.change_amount;
-        ethUsdPair.change_percent = quoteWs.change_percent;
+        ethUsdPair!.quote = quoteWs.quote;
+        ethUsdPair!.change_amount = quoteWs.change_amount;
+        ethUsdPair!.change_percent = quoteWs.change_percent;
 
-        if (ethUsdPair.quote_24h != null || ethUsdPair.quote_24h.length >1) {
-          int nowTime = quoteWs.id ?? 0;
-          int firstTime = ethUsdPair.quote_24h.first?.id ?? 0;
-          int secondTime = ethUsdPair.quote_24h[1]?.id ?? 0;
+        if (ethUsdPair!.quote_24h != null || ethUsdPair!.quote_24h!.length >1) {
+          int nowTime = quoteWs.id;
+          int firstTime = ethUsdPair!.quote_24h!.first.id;
+          int secondTime = ethUsdPair!.quote_24h![1].id;
           int time = firstTime - secondTime;
           int intervalTime = nowTime - firstTime;
 
           if (intervalTime >= time) {
-            Quote quote = Quote(quote: quoteWs.quote);
+            Quote quote = Quote(quote: quoteWs.quote!);
             quote.setTs(firstTime + time);
-            ethUsdPair.quote_24h.insert(0, quote);
+            ethUsdPair!.quote_24h!.insert(0, quote);
 
           } else {
-            ethUsdPair.quote_24h.first?.quote = quoteWs.quote;
+            ethUsdPair!.quote_24h!.first.quote = quoteWs.quote!;
           }
         }
       }
@@ -100,8 +100,8 @@ class HomeModel extends ViewStateModel {
       getHome(Apis.COIN_BITCOIN),
       getHome(Apis.COIN_ETHEREUM),
 
-      communityPageKey.currentState.refresh(slient: true),
-      articlePageKey.currentState.refresh(slient: true),
+      communityPageKey.currentState!.refresh(slient: true),
+      articlePageKey.currentState!.refresh(slient: true),
     ]);
 
     setIdle();
@@ -112,18 +112,18 @@ class HomeModel extends ViewStateModel {
       'chain': chain,
     };
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_GET_HOME, "get", params: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_GET_HOME, "get", params: params,
         cancelToken: cancelToken,
-        onSuccess: (data) {
+        onSuccess: (dynamic data) {
           if (chain == Apis.COIN_BITCOIN) {
             btcUsdPair = QuotePair.fromJson(data);
-            btcUsdPair.coin_code = 'BTC';
-            btcUsdPair.chain = Apis.COIN_BITCOIN;
+            btcUsdPair!.coin_code = 'BTC';
+            btcUsdPair!.chain = Apis.COIN_BITCOIN;
 
           } else if (chain == Apis.COIN_ETHEREUM) {
             ethUsdPair = QuotePair.fromJson(data);
-            ethUsdPair.coin_code = 'ETH';
-            ethUsdPair.chain = Apis.COIN_ETHEREUM;
+            ethUsdPair!.coin_code = 'ETH';
+            ethUsdPair!.chain = Apis.COIN_ETHEREUM;
           }
         },
         onError: (errno, msg) {

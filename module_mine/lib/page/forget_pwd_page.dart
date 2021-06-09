@@ -40,8 +40,8 @@ class _ForgetPwdPageState extends State<ForgetPwdPage> with BasePageMixin<Forget
   final TextEditingController _pwdRepeatController = TextEditingController();
   final FocusNode _pwdRepeatNode = FocusNode();
 
-  ModifyPwdModel _modifyPwdModel;
-  VerifyModel _verifyModel;
+  late ModifyPwdModel _modifyPwdModel;
+  late VerifyModel _verifyModel;
 
   String _area_code = '+86';
   bool _saveEnabled = false;
@@ -62,7 +62,7 @@ class _ForgetPwdPageState extends State<ForgetPwdPage> with BasePageMixin<Forget
 
       } else if (_modifyPwdModel.isError) {
         closeProgress();
-        ToastUtil.error(_modifyPwdModel.viewStateError.message);
+        ToastUtil.error(_modifyPwdModel.viewStateError!.message!);
 
       } else if (_modifyPwdModel.isSuccess) {
         closeProgress();
@@ -76,7 +76,7 @@ class _ForgetPwdPageState extends State<ForgetPwdPage> with BasePageMixin<Forget
       if (_verifyModel.isBusy) {
 
       } else if (_verifyModel.isError) {
-        ToastUtil.waring(_verifyModel.viewStateError.message);
+        ToastUtil.waring(_verifyModel.viewStateError!.message!);
 
       } else if (_verifyModel.isSuccess) {
         ToastUtil.normal(S.current.verifySended);
@@ -128,7 +128,7 @@ class _ForgetPwdPageState extends State<ForgetPwdPage> with BasePageMixin<Forget
 
     Routers.navigateToResult(context, Routers.areaPage, params, (result) {
       setState(() {
-        _area_code = result;
+        _area_code = result as String;
       });
     }, transition: TransitionType.materialFullScreenDialog);
   }

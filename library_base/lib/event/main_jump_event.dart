@@ -1,6 +1,6 @@
 class MainJumpEvent {
   MainJumpPage page;
-  Map<String, dynamic> params;
+  Map<String, dynamic>? params;
 
   MainJumpEvent(this.page, {this.params});
 }

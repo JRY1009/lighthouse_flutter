@@ -27,7 +27,7 @@ class _ModifyNicknamePageState extends State<ModifyNicknamePage> with BasePageMi
 
   bool _saveEnabled = false;
 
-  ModifyNicknameModel _nicknameModel;
+  late ModifyNicknameModel _nicknameModel;
 
   @override
   void initState() {
@@ -38,8 +38,8 @@ class _ModifyNicknamePageState extends State<ModifyNicknamePage> with BasePageMi
 
   void initView() {
 
-    Account account = RTAccount.instance().getActiveAccount();
-    _textController.text = account?.nick_name;
+    Account? account = RTAccount.instance()!.getActiveAccount();
+    _textController.text = account?.nick_name ?? '';
 
     _checkInput();
   }
@@ -52,7 +52,7 @@ class _ModifyNicknamePageState extends State<ModifyNicknamePage> with BasePageMi
 
       } else if (_nicknameModel.isError) {
         closeProgress();
-        ToastUtil.error(_nicknameModel.viewStateError.message);
+        ToastUtil.error(_nicknameModel.viewStateError!.message!);
 
       } else if (_nicknameModel.isSuccess) {
         closeProgress();

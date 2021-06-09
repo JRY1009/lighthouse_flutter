@@ -8,11 +8,11 @@ import 'package:library_base/widget/image/local_image.dart';
 class LoadingEmptyTop extends StatelessWidget {
 
   final double top;
-  final String text;
-  final String image;
+  final String? text;
+  final String? image;
 
   const LoadingEmptyTop({
-    Key key,
+    Key? key,
     this.top = 50,
     this.text,
     this.image

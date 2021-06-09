@@ -27,10 +27,10 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 class NewsListPage extends StatefulWidget {
   
   final bool isSupportPull;  //是否支持手动下拉刷新
-  final String tag;
+  final String? tag;
 
   NewsListPage({
-    Key key,
+    Key? key,
     this.tag = '',
     this.isSupportPull = true
   }) : super(key: key);
@@ -48,15 +48,15 @@ class _NewsListPageState extends State<NewsListPage> with BasePageMixin<NewsList
 
   RefreshController _easyController = RefreshController();
   
-  NewsModel _newsModel;
+  late NewsModel _newsModel;
 
   @override
   void initState() {
     super.initState();
 
-    _newsModel = NewsModel(widget.tag);
+    _newsModel = NewsModel(widget.tag ?? '');
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (mounted) {
         initViewModel();
       }
@@ -79,7 +79,7 @@ class _NewsListPageState extends State<NewsListPage> with BasePageMixin<NewsList
         } else {
           _easyController.loadFailed();
         }
-        ToastUtil.error(_newsModel.viewStateError.message);
+        ToastUtil.error(_newsModel.viewStateError!.message!);
 
       } else if (_newsModel.isSuccess || _newsModel.isEmpty) {
         if (_newsModel.page == 0) {
@@ -151,13 +151,13 @@ class _NewsListPageState extends State<NewsListPage> with BasePageMixin<NewsList
     List<News> newsList = _newsModel.dateNewsList[index];
 
     String dateFormat = '';
-    DateTime dt = DateUtil.getDateTime(newsList.first.publish_time, isUtc: false);
+    DateTime dt = DateUtil.getDateTime(newsList.first.publish_time!, isUtc: false)!;
     if (DateUtil.isToday(dt.millisecondsSinceEpoch)) {
       dateFormat = S.of(context).today;
     } else if (DateUtil.isYesterdayByMillis(dt.millisecondsSinceEpoch, DateTime.now().millisecondsSinceEpoch)) {
       dateFormat = S.of(context).yesterday;
     } else {
-      dateFormat = DateUtil.getDateStrByDateTime(dt, format: DateFormat.ZH_MONTH_DAY);
+      dateFormat = DateUtil.getDateStrByDateTime(dt, format: DateFormat.ZH_MONTH_DAY)!;
     }
 
     dateFormat += '  ${DateUtil.getZHWeekDay(dt)}';

@@ -7,7 +7,7 @@ import 'package:library_base/res/styles.dart';
 class FirstRefresh extends StatelessWidget {
 
   const FirstRefresh({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

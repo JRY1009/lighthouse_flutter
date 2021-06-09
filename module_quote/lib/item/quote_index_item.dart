@@ -13,21 +13,21 @@ import 'package:module_quote/model/quote_index.dart';
 
 class QuoteIndexItem extends StatelessWidget {
 
-  final int index;
+  final int? index;
   
   final QuoteIndex quoteIndex;
 
   const QuoteIndexItem(
-      {Key key,
+      {Key? key,
+        required this.quoteIndex,
         this.index,
-        this.quoteIndex
       })
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
-    String rateStr = (quoteIndex.change_percent >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(quoteIndex.change_percent.toDouble(), 2).toString() + '%';
+    String rateStr = (quoteIndex.change_percent! >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(quoteIndex.change_percent!.toDouble(), 2).toString() + '%';
 
     String priceStr = NumUtil.formatNum(quoteIndex.quote, point: 2);
     String cnyStr = NumUtil.formatNum(quoteIndex.cny, point: 2);
@@ -63,13 +63,13 @@ class QuoteIndexItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(quoteIndex.name,
+                      Text(quoteIndex.name ?? '',
                         style: TextStyles.textGray800_w600_15,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                       Gaps.vGap5,
-                      Text(quoteIndex.pair,
+                      Text(quoteIndex.pair ?? '',
                         style: TextStyles.textGray500_w400_11,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -103,7 +103,7 @@ class QuoteIndexItem extends StatelessWidget {
               width: 70,
               alignment: Alignment.centerRight,
               child: Text(rateStr,
-                style: quoteIndex.change_percent >= 0 ? TextStyles.textGreen_w400_14 : TextStyles.textRed_w400_14,
+                style: quoteIndex.change_percent! >= 0 ? TextStyles.textGreen_w400_14 : TextStyles.textRed_w400_14,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis),
             ),

@@ -2,13 +2,13 @@
 import 'package:library_base/utils/object_util.dart';
 
 class GlobalQuote {
-  String code;
-  String zh_name;
-  num quote ;
-  num change_amount;
-  num change_percent;
-  num posX;
-  num posY;
+  String? code;
+  String? zh_name;
+  num? quote ;
+  num? change_amount;
+  num? change_percent;
+  num? posX;
+  num? posY;
 
   GlobalQuote({
     this.code,
@@ -42,12 +42,12 @@ class GlobalQuote {
     return jsonMap;
   }
 
-  static List<GlobalQuote> fromJsonList(List<dynamic> mapList) {
+  static List<GlobalQuote>? fromJsonList(List<dynamic> mapList) {
     if (ObjectUtil.isEmptyList(mapList)) {
       return null;
     }
 
-    List<GlobalQuote> items = new List<GlobalQuote>();
+    List<GlobalQuote> items = [];
     for(Map<String, dynamic> map in mapList) {
       items.add(GlobalQuote.fromJson(map));
     }

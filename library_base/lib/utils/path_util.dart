@@ -24,24 +24,24 @@ class PathUtils {
     return directory.path;
   }
 
-  static Future<String> getExternalFileDirPath() async {
-    Directory directory = await getExternalStorageDirectory();
+  static Future<String?> getExternalFileDirPath() async {
+    Directory? directory = await getExternalStorageDirectory();
     return directory?.path;
   }
 
-  static Future<String> getExternalCacheDirPath() async {
-    List<Directory> directories = await getExternalCacheDirectories();
+  static Future<String?> getExternalCacheDirPath() async {
+    List<Directory>? directories = await getExternalCacheDirectories();
 
     if (ObjectUtil.isEmptyList(directories)) {
       return null;
     }
 
-    return directories.first?.path;
+    return directories!.first.path;
     //return directories.map((e) => e.path).toList();
   }
 
   // 同步创建文件夹
-  static Directory createDirSync(String path) {
+  static Directory? createDirSync(String path) {
     if (ObjectUtil.isEmpty(path)) {
       return null;
     }
@@ -54,7 +54,7 @@ class PathUtils {
   }
 
   // 异步创建文件夹
-  static Future<Directory> createDir(String path) async {
+  static Future<Directory?> createDir(String path) async {
     if (ObjectUtil.isEmpty(path)) {
       return null;
     }
@@ -96,10 +96,7 @@ class PathUtils {
   }
 
   static String renderSize(double value) {
-    if (null == value) {
-      return null;
-    }
-    List<String> unitArr = List()
+    List<String> unitArr = []
       ..add('B')
       ..add('K')
       ..add('M')

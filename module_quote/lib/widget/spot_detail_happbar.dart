@@ -16,12 +16,12 @@ import 'package:provider/provider.dart';
 
 class SpotDetailHAppbar extends StatefulWidget {
 
-  final QuoteCoin quoteCoin;
-  final NumberSlideController numberSlideController;
+  final QuoteCoin? quoteCoin;
+  final NumberSlideController? numberSlideController;
   final bool showShadow;
 
   const SpotDetailHAppbar({
-    Key key,
+    Key? key,
     this.quoteCoin,
     this.numberSlideController,
     this.showShadow = true,
@@ -49,15 +49,15 @@ class _SpotDetailHAppbarState extends State<SpotDetailHAppbar>{
 
     SpotDetailModel spotDetailModel = Provider.of<SpotDetailModel>(context);
 
-    num rate = widget.quoteCoin != null ? widget.quoteCoin.change_percent : 0;
-    num price = widget.quoteCoin != null ? widget.quoteCoin.quote : 0;
+    num rate = widget.quoteCoin?.change_percent ?? 0;
+    num price = widget.quoteCoin?.quote ?? 0;
     num priceCny = NumUtil.multiply(price, 6.5);
-    num change_amount = widget.quoteCoin != null ? widget.quoteCoin.change_amount : 0;
+    num change_amount = widget.quoteCoin?.change_amount ?? 0;
 
-    String coin_code = widget?.quoteCoin?.coin_code ?? '';
-    String coin_name = widget?.quoteCoin?.coin_name ?? '';
-    String pair = widget?.quoteCoin?.pair ?? '';
-    String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate, 2).toString() + '%';
+    String coin_code = widget.quoteCoin?.coin_code ?? '';
+    String coin_name = widget.quoteCoin?.coin_name ?? '';
+    String pair = widget.quoteCoin?.pair ?? '';
+    String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate as double, 2).toString() + '%';
     String priceStr = NumUtil.formatNum(price, point: 2);
     String priceCnyStr = NumUtil.formatNum(priceCny, point: 2);
     String changeAmountStr = (change_amount >= 0 ? '+' : '') + NumUtil.formatNum(change_amount, point: 2);
@@ -101,7 +101,7 @@ class _SpotDetailHAppbarState extends State<SpotDetailHAppbar>{
                       //TextSpan(text: priceStr, style: rate >= 0 ? TextStyles.textGreen_w400_22 : TextStyles.textRed_w400_22),
                       WidgetSpan(
                         child: NumberSlide(
-                            controller: widget.numberSlideController,
+                            controller: widget.numberSlideController!,
                             initialNumber: priceStr,
                             textStyle: rate >= 0 ? TextStyles.textGreen_w400_16 : TextStyles.textRed_w400_16
                         ),
@@ -119,12 +119,12 @@ class _SpotDetailHAppbarState extends State<SpotDetailHAppbar>{
                 model: spotDetailModel.spotHeaderModel,
                 builder: (context, model, child) {
 
-                  double rate = spotDetailModel.quoteCoin != null ? spotDetailModel.quoteCoin.change_percent : 0;
-                  double price = spotDetailModel.quoteCoin != null ? spotDetailModel.quoteCoin.quote : 0;
-                  double priceCny = NumUtil.multiply(price, 6.5);
-                  double change_amount = spotDetailModel.quoteCoin != null ? spotDetailModel.quoteCoin.change_amount : 0;
+                  num rate = spotDetailModel.quoteCoin?.change_percent ?? 0;
+                  num price = spotDetailModel.quoteCoin?.quote ?? 0;
+                  num priceCny = NumUtil.multiply(price, 6.5);
+                  num change_amount = spotDetailModel.quoteCoin?.change_amount ?? 0;
 
-                  String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate, 2).toString() + '%';
+                  String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate as double, 2).toString() + '%';
                   String priceCnyStr = NumUtil.formatNum(priceCny, point: 2);
                   String changeAmountStr = (change_amount >= 0 ? '+' : '') + NumUtil.formatNum(change_amount, point: 2);
 

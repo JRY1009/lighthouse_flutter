@@ -7,8 +7,8 @@ import 'package:library_base/res/colors.dart';
 class CircleImage extends StatelessWidget {
   
   const CircleImage(this.imageUrl, {
-    Key key,
-    this.radius,
+    Key? key,
+    required this.radius,
     this.fit = BoxFit.cover,
     this.borderColor = Colours.white,
     this.borderWidth = 1,
@@ -21,8 +21,8 @@ class CircleImage extends StatelessWidget {
   final BoxFit fit;
   final Color borderColor;
   final double borderWidth;
-  final DecorationImage placeholderImage;
-  final List<BoxShadow> boxShadow;
+  final DecorationImage? placeholderImage;
+  final List<BoxShadow>? boxShadow;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class CircleImage extends StatelessWidget {
     return CachedNetworkImage(
       height: radius * 2,
       width: radius * 2,
-      imageUrl: imageUrl ?? '',
+      imageUrl: imageUrl,
       fit: fit,
       imageBuilder: (context, imageProvider) => Container(
         height: radius * 2,

@@ -30,7 +30,7 @@ import 'package:module_mine/viewmodel/login_model.dart';
 import 'package:module_mine/widget/third_login_bar.dart';
 
 class LoginPage extends StatefulWidget {
-  final String phone;
+  final String? phone;
   final bool agreeChecked;
 
   LoginPage({
@@ -48,9 +48,9 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
   final FocusNode _phoneNode = FocusNode();
   final FocusNode _pwdNode = FocusNode();
 
-  LoginModel _loginModel;
+  late LoginModel _loginModel;
 
-  String _area_code;
+  String? _area_code;
   bool _loginEnabled = false;
   bool _agreeChecked = false;
 
@@ -68,15 +68,15 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
     _area_code = '+86';
     _agreeChecked = widget.agreeChecked;
     if (!ObjectUtil.isEmpty(widget.phone)) {
-      _phoneController.text = widget.phone;
+      _phoneController.text = widget.phone!;
 
     } else {
-      Account account = RTAccount.instance().loadAccount();
+      Account? account = RTAccount.instance()!.loadAccount();
       if (account != null) {
         // var t = account.phone?.split(' ');
         // _area_code = t?.first;
         // _phoneController.text = t?.last;
-        _phoneController.text = account.phone;
+        _phoneController.text = account.phone!;
       }
     }
   }
@@ -102,13 +102,13 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
           );
 
         } else {
-          ToastUtil.error(_loginModel.viewStateError.message);
+          ToastUtil.error(_loginModel.viewStateError!.message!);
         }
 
       } else if (_loginModel.isSuccess) {
         closeProgress();
 
-        String phone = _loginModel.loginResult?.account_info?.phone;
+        String? phone = _loginModel.loginResult?.account_info?.phone;
 
         if (ObjectUtil.isEmpty(phone)) {
           Routers.navigateTo(context, Routers.bindPhonePage);
@@ -142,11 +142,11 @@ class _LoginPageState extends State<LoginPage> with BasePageMixin<LoginPage> {
 
   void _selectArea() {
     Parameters params = Parameters()
-      ..putString('areaCode', _area_code);
+      ..putString('areaCode', _area_code!);
 
     Routers.navigateToResult(context, Routers.areaPage, params, (result) {
       setState(() {
-        _area_code = result;
+        _area_code = result as String?;
       });
     }, transition: TransitionType.materialFullScreenDialog);
   }

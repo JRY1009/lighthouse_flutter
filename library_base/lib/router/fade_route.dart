@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 
 class FadeRoute extends PageRoute {
   FadeRoute({
-    @required this.pageBuilder,
+    required this.pageBuilder,
     this.transitionDuration = const Duration(milliseconds: 300),
     this.opaque = true,
     this.barrierDismissible = false,
@@ -24,10 +24,10 @@ class FadeRoute extends PageRoute {
   final bool barrierDismissible;
 
   @override
-  final Color barrierColor;
+  final Color? barrierColor;
 
   @override
-  final String barrierLabel;
+  final String? barrierLabel;
 
   @override
   final bool maintainState;

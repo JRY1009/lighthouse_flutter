@@ -9,7 +9,7 @@ class WebSocketUtil {
 
   static final WebSocketUtil _webSocketUtil = new WebSocketUtil._internal();
   bool _isConnect = false;
-  IOWebSocketChannel _channel;
+  IOWebSocketChannel? _channel;
   ObserverList<Function> _webSocketListeners = new ObserverList<Function>();
   WebSocketUtil._internal();
 
@@ -22,14 +22,14 @@ class WebSocketUtil {
   void initWebSocket(String wsUrl) {
     closed();
     _channel = IOWebSocketChannel.connect(wsUrl, pingInterval: Duration(milliseconds: 5000));
-    _channel.stream.listen(receptionMessage, onError: _onError, onDone: _onDone);
+    _channel!.stream.listen(receptionMessage, onError: _onError, onDone: _onDone);
   }
 
 //  关闭webSocket
   closed() {
     if (_channel != null) {
-      if (_channel.sink != null) {
-        _channel.sink.close();
+      if (_channel!.sink != null) {
+        _channel!.sink.close();
         _isConnect = false;
       }
     }
@@ -59,8 +59,8 @@ class WebSocketUtil {
 //  发送消息
   sendMessage(msg) {
     if (_channel != null) {
-      if (_channel.sink != null && _isConnect) {
-        _channel.sink.add(msg);
+      if (_channel!.sink != null && _isConnect) {
+        _channel!.sink.add(msg);
       }
     }
   }

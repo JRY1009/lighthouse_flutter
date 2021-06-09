@@ -10,11 +10,11 @@ import 'package:module_quote/model/index_data.dart';
 
 class IndexCirculationBar extends StatefulWidget {
 
-  final IndexData indexData;
-  final VoidCallback onPressed;
+  final IndexData? indexData;
+  final VoidCallback? onPressed;
 
   const IndexCirculationBar({
-    Key key,
+    Key? key,
     this.indexData,
     this.onPressed,
   }): super(key: key);
@@ -43,9 +43,9 @@ class _IndexCirculationBarState extends State<IndexCirculationBar> {
     num total_supply_market_vol = widget.indexData?.total_supply_market_vol ?? 0;
 
     num turnover = widget.indexData?.turnover ?? 0;
-    num turnover_market_vol = total_supply == 0 ? 0 : NumUtil.getNumByValueDouble(NumUtil.multiply(NumUtil.divide(total_supply_market_vol, total_supply), turnover), 0);
+    num turnover_market_vol = total_supply == 0 ? 0 : NumUtil.getNumByValueDouble(NumUtil.multiply(NumUtil.divide(total_supply_market_vol, total_supply), turnover), 0)!;
 
-    num percent = total_supply == 0 ? 0 : NumUtil.getNumByValueDouble(NumUtil.divideDec(turnover, total_supply).toDouble(), 2).clamp(0.0, 1.0);
+    num percent = total_supply == 0 ? 0 : NumUtil.getNumByValueDouble(NumUtil.divideDec(turnover, total_supply).toDouble(), 2)!.clamp(0.0, 1.0);
     num lp = total_supply == 0 ? 0 : NumUtil.divideDec(turnover, total_supply).toDouble().clamp(0.0, 1.0) * 100;
     num rp = total_supply == 0 ? 0 : NumUtil.divideDec(total_supply - turnover, total_supply).toDouble().clamp(0.0, 1.0) * 100;
     String lpStr = NumUtil.getNumByValueDouble(lp.toDouble(), 2).toString() + "%";
@@ -87,7 +87,7 @@ class _IndexCirculationBarState extends State<IndexCirculationBar> {
                 animation: true,
                 lineHeight: 8.0,
                 animationDuration: 1000,
-                percent: percent,
+                percent: percent as double,
                 animateFromLastPercent: true,
                 linearStrokeCap: LinearStrokeCap.roundHalf,
                 progressColor: Colours.app_main,

@@ -12,11 +12,11 @@ import 'package:module_home/widget/kline_chart.dart';
 
 class HomeFlexibleTabView extends StatefulWidget {
 
-  final QuotePair quotePair;
-  final VoidCallback onPressed;
+  final QuotePair? quotePair;
+  final VoidCallback? onPressed;
 
   const HomeFlexibleTabView({
-    Key key,
+    Key? key,
     this.quotePair,
     this.onPressed,
   }): super(key: key);
@@ -48,7 +48,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
       onTap: () => Routers.navigateTo(
           context,
           Routers.indexDetailPage,
-          parameters: Parameters()..putString('coinCode', widget.quotePair != null ? widget.quotePair.chain : '')),
+          parameters: Parameters()..putString('coinCode', widget.quotePair != null ? widget.quotePair!.chain! : '')),
       child: Container(
         height: 270,
         padding: EdgeInsets.symmetric(horizontal: 12),
@@ -85,7 +85,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
                           Container(
                               height: 15,
                               alignment: Alignment.centerLeft,
-                              child: Text('\$' + NumUtil.getBigVolumFormat(widget.quotePair?.market_val, fractionDigits: 0).toString(),
+                              child: Text('\$' + NumUtil.getBigVolumFormat(widget.quotePair?.market_val as double, fractionDigits: 0).toString(),
                                 style: TextStyles.textGray500_w400_12,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -113,7 +113,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
                           Container(
                               height: 15,
                               alignment: Alignment.centerLeft,
-                              child: Text(NumUtil.getNumByValueDouble(widget.quotePair?.vol_24h, 0).toString() + '${widget.quotePair?.pair?.split('/')?.first ?? ''}',
+                              child: Text(NumUtil.getNumByValueDouble(widget.quotePair?.vol_24h as double, 0).toString() + '${widget.quotePair?.pair?.split('/')?.first ?? ''}',
                                 style: TextStyles.textGray500_w400_12,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -143,7 +143,7 @@ class _HomeFlexibleTabViewState extends State<HomeFlexibleTabView> with Automati
                               height: 15,
                               padding: EdgeInsets.only(left: 10),
                               alignment: Alignment.centerLeft,
-                              child: Text(widget.quotePair != null ? widget.quotePair.hashrate : '0',
+                              child: Text(widget.quotePair != null ? widget.quotePair!.hashrate! : '0',
                                 style: TextStyles.textGray500_w400_12,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,

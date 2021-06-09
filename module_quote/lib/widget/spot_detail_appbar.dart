@@ -15,12 +15,12 @@ import 'package:provider/provider.dart';
 
 class SpotDetailAppbar extends StatefulWidget {
 
-  final QuoteCoin quoteCoin;
-  final NumberSlideController numberSlideController;
+  final QuoteCoin? quoteCoin;
+  final NumberSlideController? numberSlideController;
   final bool showShadow;
 
   const SpotDetailAppbar({
-    Key key,
+    Key? key,
     this.quoteCoin,
     this.numberSlideController,
     this.showShadow = true,
@@ -48,24 +48,24 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar>{
 
     SpotDetailModel spotDetailModel = Provider.of<SpotDetailModel>(context);
 
-    num rate = widget.quoteCoin != null ? widget.quoteCoin.change_percent : 0;
-    num price = widget.quoteCoin != null ? widget.quoteCoin.quote : 0;
+    num rate = widget.quoteCoin?.change_percent ?? 0;
+    num price = widget.quoteCoin?.quote ?? 0;
     num priceCny = NumUtil.multiply(price, 6.5);
-    num change_amount = widget.quoteCoin != null ? widget.quoteCoin.change_amount : 0;
+    num change_amount = widget.quoteCoin?.change_amount ?? 0;
 
-    String coin_code = widget?.quoteCoin?.coin_code ?? '';
-    String coin_name = widget?.quoteCoin?.coin_name ?? '';
-    String pair = widget?.quoteCoin?.pair ?? '';
-    String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate, 2).toString() + '%';
+    String coin_code = widget.quoteCoin?.coin_code ?? '';
+    String coin_name = widget.quoteCoin?.coin_name ?? '';
+    String pair = widget.quoteCoin?.pair ?? '';
+    String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate as double, 2).toString() + '%';
     String priceStr = NumUtil.formatNum(price, point: 2);
     String priceCnyStr = NumUtil.formatNum(priceCny, point: 2);
     String changeAmountStr = (change_amount >= 0 ? '+' : '') + NumUtil.formatNum(change_amount, point: 2);
 
-    num amount_24h = widget?.quoteCoin?.amount_24h ?? 0;
-    num vol_24h = widget?.quoteCoin?.vol_24h ?? 0;
-    num market_val = widget?.quoteCoin?.market_val ?? 0;
+    num amount_24h = widget.quoteCoin?.amount_24h ?? 0;
+    num vol_24h = widget.quoteCoin?.vol_24h ?? 0;
+    num market_val = widget.quoteCoin?.market_val ?? 0;
 
-    String hashrate = widget?.quoteCoin?.hashrate ?? '';
+    String hashrate = widget.quoteCoin?.hashrate ?? '';
     String market_valStr = NumUtil.getBigVolumFormat(market_val.toDouble(), fractionDigits: 2).toString();
     String amount24Str = NumUtil.getBigVolumFormat(amount_24h.toDouble(), fractionDigits: 2).toString();
     String vol24Str = NumUtil.getBigVolumFormat(vol_24h.toDouble(), fractionDigits: 2).toString();
@@ -111,7 +111,7 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar>{
                         //TextSpan(text: priceStr, style: rate >= 0 ? TextStyles.textGreen_w400_22 : TextStyles.textRed_w400_22),
                         WidgetSpan(
                           child: NumberSlide(
-                              controller: widget.numberSlideController,
+                              controller: widget.numberSlideController!,
                               initialNumber: priceStr,
                               textStyle: rate >= 0 ? TextStyles.textGreen_w400_22 : TextStyles.textRed_w400_22
                           ),
@@ -130,12 +130,12 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar>{
                   model: spotDetailModel.spotHeaderModel,
                   builder: (context, model, child) {
 
-                    double rate = spotDetailModel.quoteCoin != null ? spotDetailModel.quoteCoin.change_percent : 0;
-                    double price = spotDetailModel.quoteCoin != null ? spotDetailModel.quoteCoin.quote : 0;
-                    double priceCny = NumUtil.multiply(price, 6.5);
-                    double change_amount = spotDetailModel.quoteCoin != null ? spotDetailModel.quoteCoin.change_amount : 0;
+                    num rate = spotDetailModel.quoteCoin?.change_percent ?? 0;
+                    num price = spotDetailModel.quoteCoin?.quote ?? 0;
+                    num priceCny = NumUtil.multiply(price, 6.5);
+                    num change_amount = spotDetailModel.quoteCoin?.change_amount ?? 0;
 
-                    String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate, 2).toString() + '%';
+                    String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate as double, 2).toString() + '%';
                     String priceCnyStr = NumUtil.formatNum(priceCny, point: 2);
                     String changeAmountStr = (change_amount >= 0 ? '+' : '') + NumUtil.formatNum(change_amount, point: 2);
 
@@ -294,12 +294,12 @@ class _SpotDetailAppbarState extends State<SpotDetailAppbar>{
 
 class SpotDetailShareBar extends StatelessWidget {
 
-  final QuoteCoin quoteCoin;
-  final NumberSlideController numberSlideController;
+  final QuoteCoin? quoteCoin;
+  final NumberSlideController? numberSlideController;
   final bool showShadow;
 
   const SpotDetailShareBar({
-    Key key,
+    Key? key,
     this.quoteCoin,
     this.numberSlideController,
     this.showShadow = true,
@@ -309,15 +309,15 @@ class SpotDetailShareBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    num rate = quoteCoin != null ? quoteCoin.change_percent : 0;
-    num price = quoteCoin != null ? quoteCoin.quote : 0;
+    num rate = quoteCoin?.change_percent ?? 0;
+    num price = quoteCoin?.quote ?? 0;
     num priceCny = NumUtil.multiply(price, 6.5);
-    num change_amount = quoteCoin != null ? quoteCoin.change_amount : 0;
+    num change_amount = quoteCoin?.change_amount ?? 0;
 
     String coin_code = quoteCoin?.coin_code ?? '';
     String coin_name = quoteCoin?.coin_name ?? '';
     String pair = quoteCoin?.pair ?? '';
-    String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate, 2).toString() + '%';
+    String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate as double, 2).toString() + '%';
     String priceStr = NumUtil.formatNum(price, point: 2);
     String priceCnyStr = NumUtil.formatNum(priceCny, point: 2);
     String changeAmountStr = (change_amount >= 0 ? '+' : '') + NumUtil.formatNum(change_amount, point: 2);

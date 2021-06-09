@@ -20,8 +20,8 @@ class MileStoneListPage extends StatefulWidget {
   final String tag;
 
   MileStoneListPage({
-    Key key,
-    @required this.tag,
+    Key? key,
+    required this.tag,
     this.isSupportPull = true
   }) : super(key: key);
 
@@ -38,7 +38,7 @@ class _MileStoneListPageState extends State<MileStoneListPage> with BasePageMixi
 
   RefreshController _easyController = RefreshController();
 
-  MileStoneModel _mileStoneModel;
+  late MileStoneModel _mileStoneModel;
 
   @override
   void initState() {
@@ -64,7 +64,7 @@ class _MileStoneListPageState extends State<MileStoneListPage> with BasePageMixi
         } else {
           _easyController.loadFailed();
         }
-        ToastUtil.error(_mileStoneModel.viewStateError.message);
+        ToastUtil.error(_mileStoneModel.viewStateError!.message!);
 
       } else if (_mileStoneModel.isSuccess || _mileStoneModel.isEmpty) {
         if (_mileStoneModel.page == 0) {
@@ -116,8 +116,8 @@ class _MileStoneListPageState extends State<MileStoneListPage> with BasePageMixi
                       MileStone mileStone = model.mileStoneList[index];
                       return MileStoneItem(
                         index: index,
-                        content: mileStone?.content,
-                        time: mileStone?.date,
+                        content: mileStone.content ?? '',
+                        time: mileStone.date ?? '',
                         isLast: index == (model.mileStoneList.length - 1),
                       );
                     },

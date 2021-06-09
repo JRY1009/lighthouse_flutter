@@ -20,9 +20,9 @@ class TreemapModel extends ViewStateModel {
     Map<String, dynamic> params = {
     };
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_GET_TREEMAP, 'get', params: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_GET_TREEMAP, 'get', params: params,
         cancelToken: cancelToken,
-        onSuccess: (data) {
+        onSuccess: (dynamic data) {
 
           List<TreeNode> newsList = TreeNode.fromJsonList(data) ?? [];
           treeNodeList.clear();
@@ -31,7 +31,7 @@ class TreemapModel extends ViewStateModel {
           treeData.clear();
           for (TreeNode treeNode in treeNodeList) {
             Map<String, Object> nodeMap = {
-              'name': treeNode.zh_name,
+              'name': treeNode.zh_name!,
               'value': [treeNode.market_val, treeNode.change_percent, treeNode.color_index]
             };
             treeData.add(nodeMap);
@@ -44,7 +44,7 @@ class TreemapModel extends ViewStateModel {
           }
         },
         onError: (errno, msg) {
-          setError(errno, message: msg);
+          setError(errno!, message: msg);
         });
   }
 

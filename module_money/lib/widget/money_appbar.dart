@@ -8,7 +8,7 @@ class MoneyAppbar extends StatelessWidget {
 
   final String days;
   const MoneyAppbar({
-    Key key,
+    Key? key,
     this.days = '123',
   }) : super(key: key);
 

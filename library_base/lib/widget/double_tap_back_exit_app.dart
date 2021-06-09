@@ -8,8 +8,8 @@ import 'package:library_base/utils/toast_util.dart';
 class DoubleTapBackExitApp extends StatefulWidget {
 
   const DoubleTapBackExitApp({
-    Key key,
-    @required this.child,
+    Key? key,
+    required this.child,
     this.duration = const Duration(milliseconds: 2500),
   }): super(key: key);
 
@@ -23,7 +23,7 @@ class DoubleTapBackExitApp extends StatefulWidget {
 
 class _DoubleTapBackExitAppState extends State<DoubleTapBackExitApp> {
 
-  DateTime  _lastTime;
+  DateTime?  _lastTime;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class _DoubleTapBackExitAppState extends State<DoubleTapBackExitApp> {
   }
 
   Future<bool> _isExit() async {
-    if (_lastTime == null || DateTime.now().difference(_lastTime) > widget.duration) {
+    if (_lastTime == null || DateTime.now().difference(_lastTime!) > widget.duration) {
       _lastTime = DateTime.now();
       ToastUtil.normal(S.current.doubleTapExit);
       return Future.value(false);

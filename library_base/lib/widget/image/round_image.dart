@@ -6,7 +6,7 @@ import 'package:library_base/res/colors.dart';
 class RoundImage extends StatelessWidget {
   
   const RoundImage(this.imageUrl, {
-    Key key,
+    Key? key,
     this.width, 
     this.height,
     this.fit = BoxFit.cover,
@@ -17,11 +17,11 @@ class RoundImage extends StatelessWidget {
        super(key: key);
   
   final String imageUrl;
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
   final BoxFit fit;
-  final BorderRadiusGeometry borderRadius;
-  final DecorationImage placeholderImage;
+  final BorderRadiusGeometry? borderRadius;
+  final DecorationImage? placeholderImage;
   final Duration fadeInDuration;
 
   @override
@@ -29,7 +29,7 @@ class RoundImage extends StatelessWidget {
 
     return CachedNetworkImage(
       fadeInDuration: fadeInDuration,
-      imageUrl: imageUrl ?? '',
+      imageUrl: imageUrl,
       fit: fit,
       imageBuilder: (context, imageProvider) => Container(
         height: height,

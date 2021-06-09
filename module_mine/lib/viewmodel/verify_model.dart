@@ -22,13 +22,13 @@ class VerifyModel extends ViewStateModel {
     };
 
     setBusy();
-    await DioUtil.getInstance().requestNetwork(Apis.URL_VERIFY_CODE, "post", data: params,
+    await DioUtil.getInstance()!.requestNetwork(Apis.URL_VERIFY_CODE, "post", data: params,
         cancelToken: cancelToken,
         onSuccess: (data) {
           setSuccess();
         },
         onError: (error, msg) {
-          setError(error, message: msg);
+          setError(error!, message: msg);
         });
 
     return Future.value(isSuccess);

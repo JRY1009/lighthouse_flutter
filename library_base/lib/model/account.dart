@@ -4,9 +4,9 @@ import 'package:library_base/utils/object_util.dart';
 
 class AccountEntity {
 
-  String token;
-  Account account_info;
-  String expire_time;
+  String? token;
+  Account? account_info;
+  String? expire_time;
 
   AccountEntity({
     this.token,
@@ -29,7 +29,7 @@ class AccountEntity {
     jsonMap['expire_time'] = this.expire_time;
 
     if (this.account_info != null) {
-      jsonMap['account_info'] = this.account_info.toJson();
+      jsonMap['account_info'] = this.account_info?.toJson();
     }
 
     return jsonMap;
@@ -39,30 +39,30 @@ class AccountEntity {
 
 class Account {
 
-  num account_id;
-  String phone;
-  String area_code;
-  String nick_name;
-  String password;
-  String latest_login_at;
-  String created_at;
-  String updated_at;
-  String head_ico;
-  String invite_code;
-  String remark;
-  bool had_password;
-  WechatAccount wechat_account;
+  num? account_id;
+  String? phone;
+  String? area_code;
+  String? nick_name;
+  String? password;
+  String? latest_login_at;
+  String? created_at;
+  String? updated_at;
+  String? head_ico;
+  String? invite_code;
+  String? remark;
+  bool? had_password;
+  WechatAccount? wechat_account;
 
-  String token;
+  String? token;
 
-  String get phoneSecret => _getPhoneSecret();
+  String? get phoneSecret => _getPhoneSecret();
 
-  String _getPhoneSecret() {
+  String? _getPhoneSecret() {
     var t = phone?.split(' ');
-    String secret = t?.last;
+    String? secret = t?.last;
 
-    if (secret != null && secret?.length >= 11) {
-      secret = secret?.replaceRange(secret?.length - 8, secret?.length - 4, '****');
+    if (secret != null && secret.length >= 11) {
+      secret = secret.replaceRange(secret.length - 8, secret.length - 4, '****');
     }
     return secret;
   }
@@ -85,19 +85,19 @@ class Account {
   });
 
   Account.fromJson(Map<String, dynamic> jsonMap) {
-    account_id = jsonMap['id'];
-    phone = jsonMap['phone'];
-    area_code = jsonMap['area_code'];
-    nick_name = jsonMap['nick_name'];
-    password = jsonMap['password'];
-    latest_login_at = jsonMap['latest_login_at'];
-    created_at = jsonMap['created_at'];
-    updated_at = jsonMap['updated_at'];
-    head_ico = jsonMap['head_ico'];
-    invite_code = jsonMap['invite_code'];
-    remark = jsonMap['remark'];
+    account_id = jsonMap['id'] ?? 0;
+    phone = jsonMap['phone'] ?? '';
+    area_code = jsonMap['area_code'] ?? '+86';
+    nick_name = jsonMap['nick_name'] ?? '';
+    password = jsonMap['password'] ?? '';
+    latest_login_at = jsonMap['latest_login_at'] ?? '';
+    created_at = jsonMap['created_at'] ?? '';
+    updated_at = jsonMap['updated_at'] ?? '';
+    head_ico = jsonMap['head_ico'] ?? '';
+    invite_code = jsonMap['invite_code'] ?? '';
+    remark = jsonMap['remark'] ?? '';
     had_password = jsonMap['had_password'] ?? false;
-    token = jsonMap['token'];
+    token = jsonMap['token'] ?? '';
     wechat_account = WechatAccount.fromJson(jsonMap['wechat_account'] ?? {});
   }
 
@@ -116,7 +116,7 @@ class Account {
     jsonMap['remark'] = this.remark;
     jsonMap['had_password'] = this.had_password;
     jsonMap['token'] = this.token;
-    jsonMap['wechat_account'] = this.wechat_account.toJson();
+    jsonMap['wechat_account'] = this.wechat_account?.toJson();
 
     return jsonMap;
   }
@@ -146,7 +146,7 @@ class Account {
 
 class WechatAccount {
 
-  bool binded;
+  bool? binded;
 
   WechatAccount({
     this.binded,

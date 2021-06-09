@@ -25,7 +25,7 @@ import 'package:path_provider/path_provider.dart';
 class MinePage extends StatefulWidget {
 
   const MinePage({
-    Key key,
+    Key? key,
   }) : super(key : key);
 
   @override
@@ -37,7 +37,7 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
   @override
   bool get wantKeepAlive => true;
 
-  SettingModel _settingModel;
+  late SettingModel _settingModel;
 
   @override
   void initState() {
@@ -64,7 +64,7 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
         cancelPressed: () => Navigator.of(context).pop(),
         confirmPressed: () {
           Navigator.of(context).pop();
-          RTAccount.instance().logout();
+          RTAccount.instance()!.logout();
         }
     );
   }
@@ -100,7 +100,7 @@ class _MinePageState extends State<MinePage> with BasePageMixin<MinePage>, Autom
         body: ProviderWidget<SettingModel>(
             model: _settingModel,
             builder: (context, model, child) {
-              Account account = RTAccount.instance().getActiveAccount();
+              Account? account = RTAccount.instance()!.getActiveAccount();
               return CommonScrollView(
                   children: [
                     MineAppBar(

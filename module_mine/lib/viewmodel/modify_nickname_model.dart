@@ -19,21 +19,21 @@ class ModifyNicknameModel extends ViewStateModel {
     };
 
     setBusy();
-    return DioUtil.getInstance().requestNetwork(Apis.URL_UPDATE_NICK_NAME, "post", data: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_UPDATE_NICK_NAME, "post", data: params,
         cancelToken: cancelToken,
         onSuccess: (data) {
 
-          Account account = RTAccount.instance().getActiveAccount();
-          account?.nick_name = nickname;
-          RTAccount.instance().setActiveAccount(account);
-          RTAccount.instance().saveAccount();
+          Account account = RTAccount.instance()!.getActiveAccount()!;
+          account.nick_name = nickname;
+          RTAccount.instance()!.setActiveAccount(account);
+          RTAccount.instance()!.saveAccount();
 
           setSuccess();
 
           Event.eventBus.fire(UserEvent(account, UserEventState.userme));
         },
         onError: (error, msg) {
-          setError(error, message: msg);
+          setError(error!, message: msg);
         });
   }
 }

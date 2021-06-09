@@ -12,9 +12,9 @@ class SpotDepthBar extends StatefulWidget {
   final List<DepthEntity> bids, asks;
 
   const SpotDepthBar({
-    Key key,
-    this.bids,
-    this.asks,
+    Key? key,
+    required this.bids,
+    required this.asks,
   }): super(key: key);
 
 

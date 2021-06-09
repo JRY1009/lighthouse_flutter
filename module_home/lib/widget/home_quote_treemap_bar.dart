@@ -12,13 +12,8 @@ import 'package:module_home/home_router.dart';
 
 class HomeQuoteTreemapBar extends StatefulWidget {
 
-  final double appBarOpacity;
-  final double height;
-
   const HomeQuoteTreemapBar({
-    Key key,
-    @required this.appBarOpacity,
-    @required this.height,
+    Key? key,
   }): super(key: key);
 
 
@@ -41,7 +36,7 @@ class _HomeQuoteTreemapBarState extends State<HomeQuoteTreemapBar> {
   @override
   Widget build(BuildContext context) {
 
-    String package = HomeRouter.isRunModule ? null : Constant.moduleHome;
+    String? package = HomeRouter.isRunModule ? null : Constant.moduleHome;
 
     return Container(
       padding: EdgeInsets.fromLTRB(12, 8, 12, 8),

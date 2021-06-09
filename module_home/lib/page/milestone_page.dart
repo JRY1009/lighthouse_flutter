@@ -17,7 +17,7 @@ class MileStonePage extends StatefulWidget {
   final int initialIndex;
 
   MileStonePage({
-    Key key,
+    Key? key,
     this.initialIndex = 0,
   }) : super(key: key);
 
@@ -27,17 +27,17 @@ class MileStonePage extends StatefulWidget {
 
 class _MileStonePageState extends State<MileStonePage> with BasePageMixin<MileStonePage>, SingleTickerProviderStateMixin {
 
-  List<GlobalKey<BasePageMixin>> _keyList;
-  List<String> _tabTitles ;
+  late List<GlobalKey<BasePageMixin>> _keyList;
+  late List<String> _tabTitles ;
 
-  TabController _tabController;
+  late TabController _tabController;
   PageController _pageController = PageController();
 
   @override
   void initState() {
     super.initState();
 
-    _tabController = TabController(length: 3, initialIndex: widget.initialIndex ?? 0, vsync: this);
+    _tabController = TabController(length: 3, initialIndex: widget.initialIndex, vsync: this);
 
     _tabTitles = [S.current.all, 'BTC', 'ETH'];
 
@@ -47,10 +47,10 @@ class _MileStonePageState extends State<MileStonePage> with BasePageMixin<MileSt
       GlobalKey<BasePageMixin>(debugLabel: _tabTitles[2]),
     ];
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (mounted) {
-        _tabController.index = widget.initialIndex ?? 0;
-        _pageController.jumpToPage(widget.initialIndex ?? 0);
+        _tabController.index = widget.initialIndex;
+        _pageController.jumpToPage(widget.initialIndex);
       }
     });
   }
@@ -65,7 +65,7 @@ class _MileStonePageState extends State<MileStonePage> with BasePageMixin<MileSt
 
   @override
   Future<void> refresh({slient = false}) {
-    return _keyList[_tabController.index]?.currentState.refresh();
+    return _keyList[_tabController.index].currentState!.refresh();
   }
 
   @override

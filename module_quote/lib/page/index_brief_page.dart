@@ -27,10 +27,10 @@ import 'package:module_quote/viewmodel/index_brief_model.dart';
 
 class IndexBriefPage extends StatefulWidget {
 
-  final String coinCode;
+  final String? coinCode;
 
   const IndexBriefPage({
-    Key key,
+    Key? key,
     this.coinCode
   }): super(key: key);
 
@@ -46,14 +46,14 @@ class _IndexBriefPageState extends State<IndexBriefPage> with BasePageMixin<Inde
 
   ShotController _shotController = new ShotController();
 
-  IndexBriefModel _briefModel;
+  late IndexBriefModel _briefModel;
 
   @override
   void initState() {
     super.initState();
 
     _briefModel = IndexBriefModel();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (mounted) {
         initViewModel();
       }
@@ -61,7 +61,7 @@ class _IndexBriefPageState extends State<IndexBriefPage> with BasePageMixin<Inde
   }
 
   void initViewModel() {
-    _briefModel.getBrief(widget.coinCode);
+    _briefModel.getBrief(widget.coinCode ?? '');
   }
 
   @override
@@ -76,7 +76,7 @@ class _IndexBriefPageState extends State<IndexBriefPage> with BasePageMixin<Inde
 
   @override
   Future<void> refresh({slient = false}) {
-    return _briefModel.getBrief(widget.coinCode);
+    return _briefModel.getBrief(widget.coinCode ?? '');
   }
 
   @override
@@ -146,7 +146,7 @@ class _IndexBriefPageState extends State<IndexBriefPage> with BasePageMixin<Inde
                                       TextSpan(
                                         text: ' ${friendLink.name}',
                                         style: TextStyles.textMain500_14,
-                                        recognizer: new TapGestureRecognizer()..onTap = () => OtherUtil.launchURL(friendLink.url),
+                                        recognizer: new TapGestureRecognizer()..onTap = () => OtherUtil.launchURL(friendLink.url ?? ''),
                                       )
                                     ]
                                 )
@@ -207,8 +207,8 @@ class _IndexBriefPageState extends State<IndexBriefPage> with BasePageMixin<Inde
                         MileStone mileStone = model.milestoneList[index];
                         return MileStoneItem(
                           index: index,
-                          content: mileStone.content,
-                          time: mileStone.date,
+                          content: mileStone.content ?? '',
+                          time: mileStone.date ?? '',
                           isLast: index == (min(model.milestoneList.length, 3) - 1),
                         );
                       },

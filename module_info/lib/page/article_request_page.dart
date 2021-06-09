@@ -37,11 +37,11 @@ class ArticleRequestPage extends StatefulWidget {
 
 class _ArticleRequestPageState extends State<ArticleRequestPage> {
 
-  InAppWebViewController webviewController;
-  PullToRefreshController pullToRefreshController;
-  ContextMenu contextMenu;
+  InAppWebViewController? webviewController;
+  PullToRefreshController? pullToRefreshController;
+  ContextMenu? contextMenu;
 
-  ArticleModel _articleModel;
+  late ArticleModel _articleModel;
 
   double _opacity = 0.01;
   bool loaded = false;
@@ -58,13 +58,13 @@ class _ArticleRequestPageState extends State<ArticleRequestPage> {
           backgroundColor: Colours.transparent
       ),
       onRefresh: () async {
-        pullToRefreshController.endRefreshing();
+        pullToRefreshController!.endRefreshing();
       },
     );
 
     _articleModel = ArticleModel('');
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (mounted) {
         initViewModel();
       }
@@ -76,17 +76,17 @@ class _ArticleRequestPageState extends State<ArticleRequestPage> {
 
     _articleModel.addListener(() {
       if (_articleModel.isError) {
-        ToastUtil.error(_articleModel.viewStateError.message);
+        ToastUtil.error(_articleModel.viewStateError!.message!);
       }
     });
   }
 
   Future<void> _share() async {
     DialogUtil.showShareLinkDialog(context,
-      title_share: _articleModel?.article?.title ?? '',
-      summary_share: _articleModel?.article?.summary ?? '',
-      url_share: _articleModel?.article?.url ?? '',
-      thumb_share: _articleModel?.article?.snapshot_url ?? '',
+      title_share: _articleModel.article?.title ?? '',
+      summary_share: _articleModel.article?.summary ?? '',
+      url_share: _articleModel.article?.url ?? '',
+      thumb_share: _articleModel.article?.snapshot_url ?? '',
     );
   }
 
@@ -97,10 +97,10 @@ class _ArticleRequestPageState extends State<ArticleRequestPage> {
       return;
     }
 
-    shareToWeChat(WeChatShareWebPageModel(_articleModel?.article?.url,
-        title: _articleModel?.article?.title,
-        description: ObjectUtil.isEmpty(_articleModel?.article?.summary) ? null : _articleModel?.article?.summary,
-        thumbnail: ObjectUtil.isEmpty(_articleModel?.article?.snapshot_url) ? WeChatImage.asset('assets/images/logo_share_wechat.png?package=library_base', suffix: '.png') : WeChatImage.network(_articleModel?.article?.snapshot_url),
+    shareToWeChat(WeChatShareWebPageModel(_articleModel.article?.url ?? '',
+        title: _articleModel.article?.title ?? '',
+        description: ObjectUtil.isEmpty(_articleModel.article?.summary) ? null : _articleModel.article?.summary,
+        thumbnail: ObjectUtil.isEmpty(_articleModel.article?.snapshot_url) ? WeChatImage.asset('assets/images/logo_share_wechat.png?package=library_base', suffix: '.png') : WeChatImage.network(_articleModel.article?.snapshot_url ?? ''),
         scene: scene)
     );
   }
@@ -121,10 +121,10 @@ class _ArticleRequestPageState extends State<ArticleRequestPage> {
           leading: BackButtonEx(
             onPressed: () async {
               if (webviewController != null) {
-                final bool canGoBack = await webviewController.canGoBack();
+                final bool canGoBack = await webviewController!.canGoBack();
                 if (canGoBack) {
                   // 网页可以返回时，优先返回上一页
-                  await webviewController.goBack();
+                  await webviewController!.goBack();
                 }
               }
               Navigator.maybePop(context);
@@ -151,7 +151,7 @@ class _ArticleRequestPageState extends State<ArticleRequestPage> {
                         opacity: _opacity,
                         // --- FIX_BLINK ---
                         child: InAppWebView(
-                          initialUrlRequest: URLRequest(url: Uri.parse(model?.article?.url_app)),
+                          initialUrlRequest: URLRequest(url: Uri.parse(model.article?.url_app ?? '')),
                           pullToRefreshController: pullToRefreshController,
                           initialOptions: InAppWebViewGroupOptions(
                             crossPlatform: InAppWebViewOptions(
@@ -188,12 +188,12 @@ class _ArticleRequestPageState extends State<ArticleRequestPage> {
                           },
                           onWebViewCreated: (InAppWebViewController controller) {
                             webviewController = controller;
-                            webviewController.addJavaScriptHandler(handlerName: 'share', callback: (args) {
+                            webviewController!.addJavaScriptHandler(handlerName: 'share', callback: (args) {
                               WeChatScene scene = args[0] == 1 ? WeChatScene.SESSION : args[0] == 2 ? WeChatScene.TIMELINE : WeChatScene.SESSION;
                               _shareWechat(context, scene);
                             });
 
-                            webviewController.addJavaScriptHandler(handlerName: 'previewPictures', callback: (args) {
+                            webviewController!.addJavaScriptHandler(handlerName: 'previewPictures', callback: (args) {
                               LogUtil.v('previewPictures : ${args}');
 
                               List<Gallery> galleryList = [];
@@ -217,11 +217,11 @@ class _ArticleRequestPageState extends State<ArticleRequestPage> {
                               );
                             });
                           },
-                          onLoadStart: (InAppWebViewController controller, Uri url) {
+                          onLoadStart: (InAppWebViewController controller, Uri? url) {
                             setState(() {
                             });
                           },
-                          onLoadStop: (InAppWebViewController controller, Uri url) async {
+                          onLoadStop: (InAppWebViewController controller, Uri? url) async {
                             if (!loaded) {
                               loaded = true;
                               setState(() { _opacity = 1.0; });

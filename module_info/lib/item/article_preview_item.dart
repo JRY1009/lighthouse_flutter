@@ -13,13 +13,13 @@ import 'package:module_info/model/article.dart';
 /// 资讯列表详情
 class ArticlePreviewItem extends StatelessWidget {
 
-  final int index;
+  final int? index;
   final Article aritcle;
 
   const ArticlePreviewItem(
-      {Key key,
+      {Key? key,
         this.index,
-        this.aritcle
+        required this.aritcle
       })
       : super(key: key);
 
@@ -66,17 +66,17 @@ class ArticlePreviewItem extends StatelessWidget {
                         child: Container(
                             margin: EdgeInsets.only(left: 10),
                             alignment: Alignment.topLeft,
-                            child: Text(aritcle?.summary ?? '',
+                            child: Text(aritcle.summary ?? '',
                                 maxLines: 3,
                                 overflow: TextOverflow.ellipsis,
                                 strutStyle: StrutStyle(forceStrutHeight: true, height:1.2, leading: 0.5),
                                 style: TextStyles.textGray500_w400_15
                             )),
                       ),
-                      ObjectUtil.isEmpty(aritcle?.snapshot_url) ? Gaps.empty :
+                      ObjectUtil.isEmpty(aritcle.snapshot_url) ? Gaps.empty :
                       Container(
                         margin: EdgeInsets.only(left: 10),
-                        child: RoundImage(aritcle?.snapshot_url ?? '',
+                        child: RoundImage(aritcle.snapshot_url ?? '',
                           width: 88,
                           height: 66,
                           borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -92,12 +92,12 @@ class ArticlePreviewItem extends StatelessWidget {
                     children: [
                       Container(
                         alignment: Alignment.centerLeft,
-                        child: Text(aritcle?.publisher, style: TextStyles.textGray400_w400_12),
+                        child: Text(aritcle.publisher ?? '', style: TextStyles.textGray400_w400_12),
                       ),
                       Container(
                         margin: EdgeInsets.only(left: 10),
                         alignment: Alignment.centerRight,
-                        child: Text(TimeCountUtil.formatStr(aritcle?.publish_time) ?? '',
+                        child: Text(TimeCountUtil.formatStr(aritcle.publish_time ?? '') ?? '',
                           style: TextStyles.textGray400_w400_12,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,

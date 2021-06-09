@@ -7,18 +7,18 @@ import 'package:library_base/router/routers.dart';
 class KlineSelectMenu extends StatefulWidget {
 
   const KlineSelectMenu({
-    Key key,
-    @required this.data,
-    @required this.sortIndex,
-    @required this.height,
-    @required this.onSelected,
-    @required this.onCancel,
+    Key? key,
+    required this.data,
+    this.sortIndex,
+    required this.height,
+    required this.onSelected,
+    required this.onCancel,
     this.crossAxisCount = 4
   }): super(key: key);
 
   final int crossAxisCount;
   final List<String> data;
-  final int sortIndex;
+  final int? sortIndex;
   final double height;
   final Function(int, String) onSelected;
   final Function() onCancel;
@@ -29,9 +29,9 @@ class KlineSelectMenu extends StatefulWidget {
 
 class _KlineSelectMenuState extends State<KlineSelectMenu> with SingleTickerProviderStateMixin {
 
-  AnimationController _controller;
+  late AnimationController _controller;
 
-  Animation<double> _animation;
+  late Animation<double> _animation;
 
   bool cancel = true;
 

@@ -6,14 +6,14 @@ import 'package:library_base/widget/image/local_image.dart';
 class BackButtonEx extends StatelessWidget {
 
   const BackButtonEx({
-    Key key,
+    Key? key,
     this.icon,
     this.onPressed
   }) : super(key: key);
 
-  final Widget icon;
+  final Widget? icon;
 
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class BackButtonEx extends StatelessWidget {
       tooltip: MaterialLocalizations.of(context).backButtonTooltip,
       onPressed: () {
         if (onPressed != null) {
-          onPressed();
+          onPressed!();
         } else {
           Navigator.maybePop(context);
         }

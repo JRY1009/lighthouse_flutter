@@ -12,7 +12,7 @@ import 'package:module_money/widget/trend_line_bar.dart';
 class MoneyAssetsTrendBar extends StatefulWidget {
 
   MoneyAssetsTrendBar({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -21,9 +21,9 @@ class MoneyAssetsTrendBar extends StatefulWidget {
 
 class _MoneyAssetsTrendBarState extends State<MoneyAssetsTrendBar> with BasePageMixin<MoneyAssetsTrendBar>, SingleTickerProviderStateMixin {
 
-  List<GlobalKey<BasePageMixin>> _keyList;
+  late List<GlobalKey<BasePageMixin>> _keyList;
 
-  TabController _tabController;
+  TabController? _tabController;
   PageController _pageController = PageController();
 
   @override
@@ -40,13 +40,13 @@ class _MoneyAssetsTrendBarState extends State<MoneyAssetsTrendBar> with BasePage
 
   @override
   void dispose() {
-    _tabController.dispose();
+    _tabController!.dispose();
     super.dispose();
   }
 
   @override
   Future<void> refresh({slient = false}) {
-    return _keyList[_tabController.index]?.currentState.refresh();
+    return _keyList[_tabController!.index].currentState!.refresh();
   }
 
   @override
@@ -78,8 +78,8 @@ class _MoneyAssetsTrendBarState extends State<MoneyAssetsTrendBar> with BasePage
                       indicator: const BoxDecoration(),
                       isScrollable: true,
                       tabs: <TrendTab>[
-                        TrendTab(text: S.of(context).assetsTrend, select:_tabController.index  == 0, padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2)),
-                        TrendTab(text: S.of(context).profitTrend, select:_tabController.index  == 1, padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2)),
+                        TrendTab(text: S.of(context).assetsTrend, select:_tabController!.index  == 0, padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2)),
+                        TrendTab(text: S.of(context).profitTrend, select:_tabController!.index  == 1, padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2)),
                       ],
                       onTap: (index) {
                         _pageController.animateToPage(index,
@@ -121,7 +121,7 @@ class _MoneyAssetsTrendBarState extends State<MoneyAssetsTrendBar> with BasePage
                     child: PageView(
                       physics: const AlwaysScrollableScrollPhysics(),
                       controller: _pageController,
-                      onPageChanged: (int index) => setState((){ _tabController.index = index; }),
+                      onPageChanged: (int index) => setState((){ _tabController!.index = index; }),
                       children: <Widget>[
                         TrendLineBar(),
                         TrendLineBar()

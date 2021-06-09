@@ -32,10 +32,10 @@ import 'package:module_quote/widget/spot_kline_bar.dart';
 
 class SpotDetailPage extends StatefulWidget {
 
-  final String coinCode;
+  final String? coinCode;
 
   SpotDetailPage({
-    Key key,
+    Key? key,
     this.coinCode = 'bitcoin'
   }) : super(key: key);
 
@@ -45,16 +45,16 @@ class SpotDetailPage extends StatefulWidget {
 
 class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<SpotDetailPage>, SingleTickerProviderStateMixin {
 
-  SpotDetailModel _spotDetailModel;
-  SpotDepthModel _spotDepthModel;
+  late SpotDetailModel _spotDetailModel;
+  late SpotDepthModel _spotDepthModel;
 
-  List<String> _tabTitles ;
+  late List<String> _tabTitles ;
   ShotController _tabBarSC = new ShotController();
 
   ScrollController _nestedController = ScrollController();
   final _nestedRefreshKey = GlobalKey<NestedRefreshIndicatorState>();
 
-  TabController _tabController;
+  late TabController _tabController;
 
   ValueNotifier<bool> _topBarExtentNofifier = ValueNotifier<bool>(false);
   ValueNotifier<bool> _scrollExtentNofifier = ValueNotifier<bool>(false);
@@ -66,6 +66,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
   void initState() {
     super.initState();
 
+    OrientationHelper.setPreferredOrientations([DeviceOrientation.portraitUp]);
     OrientationHelper.forceOrientation(DeviceOrientation.portraitUp);
 
     _tabController = TabController(length: 2, vsync: this);
@@ -84,7 +85,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
     _tabTitles = [S.current.proDepthOrder, S.current.proLaststDeal];
     _spotDetailModel = SpotDetailModel(_tabTitles);
     _spotDetailModel.listenEvent();
-    _spotDetailModel.getSpotDetail(widget.coinCode);
+    _spotDetailModel.getSpotDetail(widget.coinCode ?? '');
 
     _spotDepthModel = SpotDepthModel();
     _spotDepthModel.getDepth('');
@@ -99,7 +100,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
   }
 
   Future<void> _refresh()  {
-    return _spotDetailModel.getSpotDetailWithChild(widget.coinCode, _tabController.index);
+    return _spotDetailModel.getSpotDetailWithChild(widget.coinCode ?? '', _tabController.index);
   }
 
   void _scrollNotify(double scrollY, double maxExtent) {
@@ -135,9 +136,9 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
 
     Future.delayed(new Duration(milliseconds: 100), () async {
 
-      String title = _spotDetailModel.quoteCoin != null ? _spotDetailModel.quoteCoin.pair : '';
+      String title =  _spotDetailModel.quoteCoin?.pair ?? '';
 
-      Uint8List tabViewpngBytes = await _spotDetailModel.keyList[0]?.currentState.screenShot();
+      Uint8List tabViewpngBytes = await _spotDetailModel.keyList[0].currentState!.screenShot()!;
       Uint8List tabBarPngBytes = await _tabBarSC.makeImageUint8List();
       DialogUtil.showShareDialog(context,
           children: [
@@ -148,7 +149,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
               child: Column(
                 children: [
                   SpotDetailShareBar(showShadow: false, quoteCoin: _spotDetailModel.quoteCoin),
-                  SpotKlineBar(coinCode: widget.coinCode, horizontal: false),
+                  SpotKlineBar(coinCode: widget.coinCode ?? '', horizontal: false),
                   Image.memory(tabBarPngBytes),
                   Image.memory(tabViewpngBytes),
                 ],
@@ -209,13 +210,13 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
                             Routers.generatePage(context, Routers.spotDepthOrderPage,
                                 parameters: Parameters()
                                   ..putObj('key', _spotDetailModel.keyList[0])
-                            )
+                            )!
                           ),
                           extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[1]),
                               Routers.generatePage(context, Routers.spotLatestDealPage,
                                   parameters: Parameters()
                                     ..putObj('key', _spotDetailModel.keyList[1])
-                              )
+                              )!
                           ),
                         ],
                       )
@@ -256,14 +257,14 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
       ),
 
       SliverToBoxAdapter(
-        child: SpotKlineBar(coinCode: widget.coinCode, horizontal: false),
+        child: SpotKlineBar(coinCode: widget.coinCode ?? '', horizontal: false),
       ),
 
       ProviderWidget<SpotDepthModel>(
           model: _spotDepthModel,
           builder: (context, model, child) {
             return SliverToBoxAdapter(
-              child: SpotDepthBar(bids: _spotDepthModel.bidsList, asks: _spotDepthModel.asksList),
+              child: SpotDepthBar(bids: _spotDepthModel.bidsList ?? [], asks: _spotDepthModel.asksList ?? []),
             );
           }
       ),

@@ -16,7 +16,7 @@ import 'package:module_money/widget/money_index_bar.dart';
 class MoneyPage extends StatefulWidget {
 
   MoneyPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

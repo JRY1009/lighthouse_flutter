@@ -17,10 +17,10 @@ import 'package:module_quote/widget/index_treemap_bar.dart';
 
 class IndexDataPage extends StatefulWidget {
 
-  final String coinCode;
+  final String? coinCode;
 
   const IndexDataPage({
-    Key key,
+    Key? key,
     this.coinCode,
   }): super(key: key);
 
@@ -34,14 +34,14 @@ class _IndexDataPageState extends State<IndexDataPage> with WidgetsBindingObserv
   @override
   bool get wantKeepAlive => true;
 
-  IndexDataModel _dataModel;
+  late IndexDataModel _dataModel;
 
   @override
   void initState() {
     super.initState();
 
     _dataModel = IndexDataModel();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (mounted) {
         initViewModel();
       }
@@ -49,7 +49,7 @@ class _IndexDataPageState extends State<IndexDataPage> with WidgetsBindingObserv
   }
 
   void initViewModel() {
-    _dataModel.getData(widget.coinCode);
+    _dataModel.getData(widget.coinCode ?? '');
   }
 
   @override
@@ -58,8 +58,8 @@ class _IndexDataPageState extends State<IndexDataPage> with WidgetsBindingObserv
   }
 
   @override
-  Future<void> refresh({slient = false}) {
-    _dataModel.getData(widget.coinCode);
+  Future<void> refresh({slient = false}) async {
+    _dataModel.getData(widget.coinCode ?? '');
   }
 
 

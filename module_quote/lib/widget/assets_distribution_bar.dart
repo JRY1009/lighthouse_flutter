@@ -18,12 +18,12 @@ import 'package:module_quote/model/index_data.dart';
 
 class AssetsDistributionBar extends StatefulWidget {
 
-  final IndexData indexData;
-  final List<AssetsDistribution> dataList;
-  final VoidCallback onPressed;
+  final IndexData? indexData;
+  final List<AssetsDistribution>? dataList;
+  final VoidCallback? onPressed;
 
   const AssetsDistributionBar({
-    Key key,
+    Key? key,
     this.indexData,
     this.dataList,
     this.onPressed,
@@ -37,7 +37,7 @@ class AssetsDistributionBar extends StatefulWidget {
 class _SpotDataAddressAssetsDistributionBarState extends State<AssetsDistributionBar> {
 
   ShotController _shotController = new ShotController();
-  int touchedIndex;
+  int? touchedIndex;
 
   @override
   void initState() {
@@ -92,13 +92,13 @@ class _SpotDataAddressAssetsDistributionBarState extends State<AssetsDistributio
   Widget build(BuildContext context) {
 
     num total_count = 0;
-    for (int i=0; i<widget.dataList.length; i++) {
-      total_count += widget.dataList[i].address_count;
+    for (int i=0; i<widget.dataList!.length; i++) {
+      total_count += widget.dataList![i].address_count!;
     }
 
-    num turnover = widget.indexData != null ? widget.indexData.turnover : 0;
-    String update_time = widget.indexData != null ? widget.indexData.update_time : '';
-    String pair = widget.indexData != null ? widget.indexData.pair : '';
+    num turnover = widget.indexData?.turnover ?? 0;
+    String update_time = widget.indexData?.update_time ?? '';
+    String pair = widget.indexData?.pair ?? '';
 
     return Container(
         child: Column(
@@ -249,19 +249,19 @@ class _SpotDataAddressAssetsDistributionBarState extends State<AssetsDistributio
                       primary: false,
                       padding: const EdgeInsets.only(left: 15, right: 15),
                       itemBuilder: (context, index) {
-                        double proportion = total_count == 0 ? 0 : NumUtil.divide(widget.dataList[index].address_count, total_count).toDouble() * 100;
+                        double proportion = total_count == 0 ? 0 : NumUtil.divide(widget.dataList![index].address_count!, total_count).toDouble() * 100;
                         String proportionStr = NumUtil.getNumByValueDouble(proportion, 2).toString() + "%";
 
                         return AssetsDistributionItem(
-                          isLast: index == widget.dataList.length - 1,
-                          color: widget.dataList[index].getColor(index),
-                          balanceRange: widget.dataList[index].range,
-                          addressAmount: widget.dataList[index].address_count.toString(),
+                          isLast: index == widget.dataList!.length - 1,
+                          color: widget.dataList![index].getColor(index),
+                          balanceRange: widget.dataList![index].range,
+                          addressAmount: widget.dataList![index].address_count.toString(),
                           proportion: proportionStr,
-                          compareYesterday: widget.dataList[index].compare_yesterday_ratio,
+                          compareYesterday: widget.dataList![index].compare_yesterday_ratio,
                         );
                       },
-                      itemCount: widget.dataList.length,
+                      itemCount: widget.dataList!.length,
                     ),
                   ],
                 )
@@ -273,20 +273,20 @@ class _SpotDataAddressAssetsDistributionBarState extends State<AssetsDistributio
 
   List<PieChartSectionData> showingSections() {
     int total_count = 0;
-    for (int i=0; i<widget.dataList.length; i++) {
-      total_count += widget.dataList[i].address_count;
+    for (int i=0; i<widget.dataList!.length; i++) {
+      total_count += widget.dataList![i].address_count as int;
     }
 
-    return List.generate(widget.dataList.length, (i) {
+    return List.generate(widget.dataList!.length, (i) {
 
-      double proportion = total_count == 0 ? 0 : NumUtil.divide(widget.dataList[i].address_count, total_count).toDouble() * 100;
+      double proportion = total_count == 0 ? 0 : NumUtil.divide(widget.dataList![i].address_count!, total_count).toDouble() * 100;
       String proportionStr = NumUtil.getNumByValueDouble(proportion, 2).toString() + "%";
 
       final isTouched = i == touchedIndex;
       final double fontSize = isTouched ? 25 : 16;
       final double radius = isTouched ? 60 : 50;
       return PieChartSectionData(
-        color: widget.dataList[i].getColor(i),
+        color: widget.dataList![i].getColor(i),
         value: proportion,
         title: proportionStr,
         radius: radius,

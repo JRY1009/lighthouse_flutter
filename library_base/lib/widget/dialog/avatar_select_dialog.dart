@@ -13,26 +13,26 @@ import 'package:library_base/utils/object_util.dart';
 class AvatarSelectDialog extends StatelessWidget {
 
   final bool crop;
-  final ValueChanged<String> selectCallback;
-  final Function viewCallback;
+  final ValueChanged<String>? selectCallback;
+  final Function? viewCallback;
 
   final ImagePicker _picker = ImagePicker();
 
   AvatarSelectDialog({
-    Key key,
+    Key? key,
     this.crop = false,
     this.selectCallback,
     this.viewCallback
   }) : super(key: key);
 
-  Future<String> _selectImage(ImageSource source) async {
+  Future<String?> _selectImage(ImageSource source) async {
 
-    PickedFile _pickedFile = await _picker.getImage(source: source);
-    String path = _pickedFile?.path;
+    PickedFile? _pickedFile = await _picker.getImage(source: source);
+    String? path = _pickedFile?.path;
 
     if (crop && _pickedFile != null) {
-      File croppedFile = await ImageCropper.cropImage(
-          sourcePath: _pickedFile?.path,
+      File? croppedFile = await ImageCropper.cropImage(
+          sourcePath: _pickedFile.path,
           aspectRatio: CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
           maxWidth: 720,
           maxHeight: 720,
@@ -61,10 +61,12 @@ class AvatarSelectDialog extends StatelessWidget {
                 children: [
                   FlatButton(
                       onPressed: () {
-                        _selectImage(ImageSource.camera).then((path) {
+                        _selectImage(ImageSource.camera).then((String? path) {
                           if (ObjectUtil.isNotEmpty(path)) {
                             Navigator.pop(context);
-                            selectCallback(path);
+                            if (selectCallback != null) {
+                              selectCallback!(path!);
+                            }
                           }
                         });
                       },
@@ -90,7 +92,9 @@ class AvatarSelectDialog extends StatelessWidget {
                         _selectImage(ImageSource.gallery).then((path) {
                           if (ObjectUtil.isNotEmpty(path)) {
                             Navigator.pop(context);
-                            selectCallback(path);
+                            if (selectCallback != null) {
+                              selectCallback!(path!);
+                            }
                           }
                         });
                       },
@@ -111,7 +115,11 @@ class AvatarSelectDialog extends StatelessWidget {
                   ),
 
                   FlatButton(
-                      onPressed: viewCallback,
+                      onPressed: () {
+                        if (viewCallback != null) {
+                          viewCallback!();
+                        }
+                      },
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(bottom: Radius.circular(14.0))),
                       padding: EdgeInsets.all(0.0),
                       child: Container(

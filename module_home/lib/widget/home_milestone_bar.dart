@@ -13,10 +13,10 @@ import 'package:library_base/utils/image_util.dart';
 import 'package:module_home/home_router.dart';
 
 class HomeMileStoneBar extends StatefulWidget {
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   const HomeMileStoneBar({
-    Key key,
+    Key? key,
     this.onPressed,
   }) : super(key: key);
 
@@ -39,7 +39,7 @@ class _HomeMileStoneBarState extends State<HomeMileStoneBar> with BasePageMixin<
   @override
   Widget build(BuildContext context) {
 
-    String package = HomeRouter.isRunModule ? null : Constant.moduleHome;
+    String? package = HomeRouter.isRunModule ? null : Constant.moduleHome;
 
     return Column(
       children: <Widget>[

@@ -8,19 +8,19 @@ class AssetsDistributionItem extends StatelessWidget {
 
   final bool isLast;
 
-  final Color color;
+  final Color? color;
 
-  final String balanceRange;
+  final String? balanceRange;
 
-  final String addressAmount;
+  final String? addressAmount;
 
-  final String proportion;
+  final String? proportion;
 
-  final String compareYesterday;
+  final String? compareYesterday;
 
   const AssetsDistributionItem(
-      {Key key,
-        this.isLast,
+      {Key? key,
+        this.isLast = false,
         this.color,
         this.balanceRange,
         this.addressAmount,
@@ -50,7 +50,7 @@ class AssetsDistributionItem extends StatelessWidget {
             ),
           ),
           Expanded(
-              child: Text(balanceRange,
+              child: Text(balanceRange ?? '',
                 style: TextStyles.textGray800_w400_12,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -59,21 +59,21 @@ class AssetsDistributionItem extends StatelessWidget {
           Container(
             width: 90,
             alignment: Alignment.centerRight,
-            child: Text(addressAmount, style: TextStyles.textGray800_w400_12,
+            child: Text(addressAmount ?? '', style: TextStyles.textGray800_w400_12,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,),
           ),
           Container(
             width: 70,
             alignment: Alignment.centerRight,
-            child: Text(proportion, style: TextStyles.textGray800_w400_12,
+            child: Text(proportion ?? '', style: TextStyles.textGray800_w400_12,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,),
           ),
           Container(
             width: 70,
             alignment: Alignment.centerRight,
-            child: Text(compareYesterday, style: TextStyles.textGray800_w400_12,
+            child: Text(compareYesterday ?? '', style: TextStyles.textGray800_w400_12,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,),
           ),

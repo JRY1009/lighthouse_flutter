@@ -5,15 +5,15 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class TextExpandController extends ValueNotifier {
-  bool _trigger;
+  bool? _trigger;
 
   TextExpandController({bool trigger = false}) : super(trigger) {
     this._trigger = trigger;
   }
 
-  bool get trigger => _trigger;
+  bool? get trigger => _trigger;
 
-  set trigger(bool trigger) {
+  set trigger(bool? trigger) {
     this._trigger = trigger;
     super.value = trigger;
   }
@@ -44,14 +44,14 @@ class TextExpand extends StatefulWidget {
   final String text;
 
   /// 最少展示几行-在收起的状态下展示几行
-  final int minLines;
+  final int? minLines;
 
   /// 最多展示几行-在展开的状态下展示几行，
   /// 默认最多支持显示99行，要显示更多的行数需要手动传入
-  final int maxLines;
+  final int? maxLines;
 
   /// 文字整体样式
-  final TextStyle textStyle;
+  final TextStyle? textStyle;
 
   /// 收起、展开文字颜色
   final Color keyColor;
@@ -63,28 +63,28 @@ class TextExpand extends StatefulWidget {
   final String expandText;
 
   /// 当点击收起的时候
-  final Function onShrink;
+  final Function? onShrink;
 
   /// 当点击展开的时候
-  final Function onExpand;
+  final Function? onExpand;
 
   /// 结尾按钮是否始终处于显示状态
   final bool isAlwaysDisplay;
 
   /// 展开按钮的widget，会替换文字
-  final Icon expandIcon;
+  final Icon? expandIcon;
 
   /// 收起按钮的widget, 会替换文字
-  final Icon shrinkIcon;
+  final Icon? shrinkIcon;
 
-  final StrutStyle strutStyle;
+  final StrutStyle? strutStyle;
 
   final bool isEnableTextClick;
 
-  final TextExpandController controller;
+  final TextExpandController? controller;
 
   const TextExpand({
-    Key key,
+    Key? key,
     this.text = '',
     this.minLines,
     this.textStyle,
@@ -113,9 +113,9 @@ class _TextExpandState extends State<TextExpand> {
 
   bool _isOver = false;
 
-  String _shrinkText;
+  late String _shrinkText;
 
-  String _expandText;
+  late String _expandText;
 
   @override
   void initState() {
@@ -142,7 +142,7 @@ class _TextExpandState extends State<TextExpand> {
   void init() {
     _shrinkText = widget.text;
     _expandText = widget.text;
-    if (widget.minLines != null && widget.minLines > 0) {
+    if (widget.minLines != null && widget.minLines! > 0) {
       initValue();
     }
   }
@@ -151,7 +151,7 @@ class _TextExpandState extends State<TextExpand> {
 
   String get _showText => _isExpand ? _expandText : _shrinkText;
 
-  int get _minLines => _isExpand ? _maxLines : widget.minLines;
+  int get _minLines => _isExpand ? _maxLines : widget.minLines ?? 3;
 
   int get _maxLines => widget.maxLines ?? 99;
 
@@ -164,7 +164,7 @@ class _TextExpandState extends State<TextExpand> {
   TextStyle get _textStyle =>
       DefaultTextStyle.of(context).style.merge(widget.textStyle);
 
-  Icon _icon(bool isExpand) => isExpand ? widget.shrinkIcon : widget.expandIcon;
+  Icon? _icon(bool isExpand) => isExpand ? widget.shrinkIcon : widget.expandIcon;
 
   void initValue() {
     // TODO: 暂时还剩一个问题是这种延时处理的方式无法保证文本组件一定渲染完成了
@@ -174,16 +174,17 @@ class _TextExpandState extends State<TextExpand> {
       try {
         lineMetrics = _paintText(widget.text);
       } catch (_) {
-        lineMetrics = List.generate(
-          max(99, widget.maxLines ?? 99),
-              (index) => null,
-        );
+        lineMetrics = [];
+        // lineMetrics = List.generate(
+        //   max(99, widget.maxLines ?? 99),
+        //       (index) => null,
+        // );
       }
       setState(() {
-        _isOver = _isOverflow(lineMetrics, widget.minLines);
+        _isOver = _isOverflow(lineMetrics, widget.minLines ?? 3);
         if (_isOver) {
           _shrinkText =
-              _calcShrinkText(lineMetrics, widget.minLines, _shrinkBtnText);
+              _calcShrinkText(lineMetrics, widget.minLines ?? 3, _shrinkBtnText);
           _expandText = _calcShrinkText(
             lineMetrics,
             _maxLines,
@@ -199,7 +200,7 @@ class _TextExpandState extends State<TextExpand> {
     _tapRecognizer();
   }
 
-  List<LineMetrics> _paintText(String text, {double maxWidth}) {
+  List<LineMetrics> _paintText(String text, {double? maxWidth}) {
     final textPainter = TextPainter(
       textDirection: TextDirection.ltr,
       text: TextSpan(text: text, style: _textStyle),
@@ -207,7 +208,7 @@ class _TextExpandState extends State<TextExpand> {
     if (maxWidth != null) {
       textPainter.layout(minWidth: maxWidth, maxWidth: maxWidth);
     } else {
-      final textWidth = _key.currentContext.size.width;
+      final textWidth = _key.currentContext!.size!.width;
       textPainter.layout(minWidth: textWidth, maxWidth: textWidth);
     }
 
@@ -277,7 +278,7 @@ class _TextExpandState extends State<TextExpand> {
 
     if (_icon(isExpand) != null) {
       trailingText =
-      '$spacerText${_getSpeWidthText(_icon(isExpand).size ?? IconTheme.of(context).size)}';
+      '$spacerText${_getSpeWidthText(_icon(isExpand)?.size ?? IconTheme.of(context).size!)}';
     } else {
       trailingText = '$spacerText$trailingBtnText';
     }
@@ -358,7 +359,7 @@ class _TextExpandState extends State<TextExpand> {
   }
 
   Widget _dispatch() {
-    if (widget.minLines != null && widget.minLines > 0) {
+    if (widget.minLines != null && widget.minLines! > 0) {
       return _handleText();
     }
     return Text(

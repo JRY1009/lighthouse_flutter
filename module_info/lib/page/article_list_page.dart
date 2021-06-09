@@ -21,10 +21,10 @@ class ArticleListPage extends StatefulWidget {
   
   final bool isSupportPull;  //是否支持手动下拉刷新
   final bool isSingleCard;  //每个item是否有单独card
-  final String tag;
+  final String? tag;
 
   ArticleListPage({
-    Key key,
+    Key? key,
     this.tag = '',
     this.isSupportPull = true,
     this.isSingleCard = false
@@ -43,15 +43,15 @@ class _ArticleListPageState extends State<ArticleListPage> with BasePageMixin<Ar
 
   RefreshController _easyController = RefreshController();
 
-  ArticleModel _articleModel;
+  late ArticleModel _articleModel;
 
   @override
   void initState() {
     super.initState();
 
-    _articleModel = ArticleModel(widget.tag);
+    _articleModel = ArticleModel(widget.tag ?? '');
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (mounted) {
         initViewModel();
       }
@@ -74,7 +74,7 @@ class _ArticleListPageState extends State<ArticleListPage> with BasePageMixin<Ar
         } else {
           _easyController.loadFailed();
         }
-        ToastUtil.error(_articleModel.viewStateError.message);
+        ToastUtil.error(_articleModel.viewStateError!.message!);
 
       } else if (_articleModel.isSuccess || _articleModel.isEmpty) {
         if (_articleModel.page == 0) {

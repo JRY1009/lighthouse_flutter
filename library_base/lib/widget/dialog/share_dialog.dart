@@ -23,12 +23,12 @@ import 'package:share/share.dart';
 
 class ShareDialog extends StatelessWidget {
 
-  final List<Widget> children;
+  final List<Widget>? children;
 
   ShotController _shotController = new ShotController();
 
   ShareDialog({
-    Key key,
+    Key? key,
     this.children,
   }) : super(key: key);
 
@@ -245,7 +245,7 @@ class ShareDialog extends StatelessWidget {
       borderRadius: BorderRadius.circular(12.0),
       shotController: _shotController,
       contentAlignment: Alignment.center,
-      children: children,
+      children: children!,
       bottomButton: bottom,
       bottomSafe: false,
     );

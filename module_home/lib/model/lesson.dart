@@ -3,10 +3,10 @@ import 'package:library_base/utils/object_util.dart';
 
 class Lesson {
 
-  num id;
-  String title;
-  String content;
-  num yn;
+  num? id;
+  String? title;
+  String? content;
+  num? yn;
 
   Lesson({
     this.id,
@@ -39,12 +39,12 @@ class Lesson {
     return jsonMap;
   }
 
-  static List<Lesson> fromJsonList(List<dynamic> mapList) {
+  static List<Lesson>? fromJsonList(List<dynamic> mapList) {
     if (ObjectUtil.isEmptyList(mapList)) {
       return null;
     }
 
-    List<Lesson> items = new List<Lesson>();
+    List<Lesson> items = [];
     for(Map<String, dynamic> map in mapList) {
       items.add(Lesson.fromJson(map));
     }

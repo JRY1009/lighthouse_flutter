@@ -14,7 +14,7 @@ class BindModel extends ViewStateModel {
 
   Future bindWechat(code) {
 
-    Account account = RTAccount.instance().getActiveAccount();
+    Account? account = RTAccount.instance()!.getActiveAccount();
 
     Map<String, dynamic> params = {
       'id': account?.account_id,
@@ -23,18 +23,18 @@ class BindModel extends ViewStateModel {
 
     setBusy();
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_BIND_WECHAT, "post", data: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_BIND_WECHAT, "post", data: params,
         cancelToken: cancelToken,
-        onSuccess: (data) {
+        onSuccess: (dynamic data) {
 
-          Account account = RTAccount.instance().getActiveAccount();
-          account.wechat_account.binded = true;
+          Account account = RTAccount.instance()!.getActiveAccount()!;
+          account.wechat_account!.binded = true;
 
           Event.eventBus.fire(UserEvent(account, UserEventState.userme));
           setSuccess();
         },
         onError: (errno, msg) {
-          setError(errno, message: msg);
+          setError(errno!, message: msg);
         });
   }
 
@@ -45,18 +45,18 @@ class BindModel extends ViewStateModel {
 
     setBusy();
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_UNBIND_WECHAT, "post", data: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_UNBIND_WECHAT, "post", data: params,
         cancelToken: cancelToken,
-        onSuccess: (data) {
+        onSuccess: (dynamic data) {
 
-          Account account = RTAccount.instance().getActiveAccount();
-          account.wechat_account.binded = false;
+          Account account = RTAccount.instance()!.getActiveAccount()!;
+          account.wechat_account!.binded = false;
 
           Event.eventBus.fire(UserEvent(account, UserEventState.userme));
           setSuccess();
         },
         onError: (errno, msg) {
-          setError(errno, message: msg);
+          setError(errno!, message: msg);
         });
   }
 }

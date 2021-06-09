@@ -7,9 +7,9 @@ import 'package:library_base/utils/timer_util.dart';
 class WsCommunicationUtil {
   static const String _TAG = "WsCommunicationUtil";
 
-  static WsCommunicationUtil _wsCommunication;
+  static WsCommunicationUtil? _wsCommunication;
   int _count = 0;
-  TimerUtil timerUtil;
+  late TimerUtil timerUtil;
 
   ///  初始化时启动webSocket连接
   WsCommunicationUtil._internal() {
@@ -22,13 +22,13 @@ class WsCommunicationUtil {
     if (_wsCommunication == null) {
       _wsCommunication = WsCommunicationUtil._internal();
     }
-    return _wsCommunication;
+    return _wsCommunication!;
   }
 
   initTimer() {
     // 5秒发送一次ping
     timerUtil = new TimerUtil(mInterval: 5000);
-    timerUtil.setOnTimerTickCallback((int value) {
+    timerUtil.setOnTimerTickCallback((int? value) {
       print("-----:>ping");
       sendHandle('ping', '123');
       _count++;

@@ -14,16 +14,16 @@ import 'package:library_base/net/dio_util.dart';
 import 'package:module_quote/widget/kline_chart.dart';
 
 class SpotKlineModel extends ViewStateModel {
-  SpotKlineTabModel spotKlineTabModel;
+  late SpotKlineTabModel spotKlineTabModel;
 
-  String coinCode;
-  List<String> rangeList;
-  List<String> moreList;
+  String? coinCode;
+  late List<String> rangeList;
+  late List<String> moreList;
   Map<String, List<Quote>> quoteMap = {};
 
   final GlobalKey<KLineChartMixin> keyChart;
 
-  StreamSubscription quoteSubscription;
+  StreamSubscription? quoteSubscription;
 
   SpotKlineModel(this.keyChart) :
         super(viewState: ViewState.first) {
@@ -47,21 +47,21 @@ class SpotKlineModel extends ViewStateModel {
         quoteMap.forEach((key, value) {
           List<Quote> quoteList = value;
           if (quoteList != null && quoteList.length > 1) {
-            int nowTime = quoteWs.id ?? 0;
-            int firstTime = quoteList.first?.id ?? 0;
-            int secondTime = quoteList[1]?.id ?? 0;
+            int nowTime = quoteWs.id;
+            int firstTime = quoteList.first.id;
+            int secondTime = quoteList[1].id;
             int time = firstTime - secondTime;
             int intervalTime = nowTime - firstTime;
 
             if (intervalTime >= time) {
-              Quote quote = Quote(quote: quoteWs.quote);
+              Quote quote = Quote(quote: quoteWs.quote!);
               quote.setTs(firstTime + time);
               quoteList.insert(0, quote);
               keyChart.currentState?.addLastData(quote);
 
             } else {
-              quoteList.first?.quote = quoteWs.quote;
-              quoteList.first?.initKlineData();
+              quoteList.first.quote = quoteWs.quote!;
+              quoteList.first.initKlineData();
               keyChart.currentState?.updateLastData(quoteList.first);
             }
 
@@ -74,7 +74,7 @@ class SpotKlineModel extends ViewStateModel {
     });
   }
 
-  List<Quote> getQuoteList(int index) {
+  List<Quote>? getQuoteList(int index) {
     return quoteMap[rangeList[index]];
   }
 
@@ -86,18 +86,18 @@ class SpotKlineModel extends ViewStateModel {
     };
 
     setBusy();
-    return DioUtil.getInstance().requestNetwork(Apis.URL_GET_QUOTE, 'get', params: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_GET_QUOTE, 'get', params: params,
         cancelToken: cancelToken,
-        onSuccess: (data) {
+        onSuccess: (dynamic data) {
 
-          List<Quote> quoteList = Quote.fromJsonList(data) ?? [];
+          List<Quote> quoteList = Quote.fromJsonList(data);
           quoteMap[rangeList[index]] = quoteList;
 
           setIdle();
         },
         onError: (errno, msg) {
           quoteMap[rangeList[index]] = [];
-          setError(errno, message: msg);
+          setError(errno!, message: msg);
         });
   }
 

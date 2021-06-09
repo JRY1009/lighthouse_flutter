@@ -8,14 +8,14 @@ import 'package:library_kchart/utils/kchart_data_util.dart';
 
 class KLineChart extends StatefulWidget {
 
-  final double height;
-  final int gridRows;
-  final int gridColumns;
-  final List<Quote> quoteList;
-  final Function(KLineEntity entity) onLongPressChanged;
+  final double? height;
+  final int? gridRows;
+  final int? gridColumns;
+  final List<Quote>? quoteList;
+  final Function(KLineEntity? entity)? onLongPressChanged;
 
   const KLineChart({
-    Key key,
+    Key? key,
     this.height,
     this.gridRows,
     this.gridColumns,
@@ -43,17 +43,17 @@ class _KLineChartState extends State<KLineChart> {
     if (widget.quoteList != null) {
       List<KLineEntity> entityList = [];
 
-      length = widget.quoteList.length;
+      length = widget.quoteList!.length;
       for (int i=0; i<length; i++) {
         KLineEntity entity = KLineEntity(
-          open: widget.quoteList[i].quote.toDouble(),
-          close: widget.quoteList[i].quote.toDouble(),
-          high: widget.quoteList[i].quote.toDouble(),
-          low: widget.quoteList[i].quote.toDouble(),
+          open: widget.quoteList![i].quote.toDouble(),
+          close: widget.quoteList![i].quote.toDouble(),
+          high: widget.quoteList![i].quote.toDouble(),
+          low: widget.quoteList![i].quote.toDouble(),
           vol: 0,
           amount: 0,
           count: 0,
-          id: widget.quoteList[i].id,
+          id: widget.quoteList![i].id,
         );
         entityList.add(entity);
       }

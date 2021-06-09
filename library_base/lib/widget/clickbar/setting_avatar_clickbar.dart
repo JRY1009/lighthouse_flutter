@@ -10,16 +10,16 @@ class SettingAvatarClickBar extends StatefulWidget {
   // 标题
   final String title;
 
-  final String iconUrl;
+  final String? iconUrl;
 
   // 点击事件
-  final Function() onPressed;
+  final Function()? onPressed;
 
-  final ShapeBorder shape;
+  final ShapeBorder? shape;
   // 构造函数
   SettingAvatarClickBar({
-    Key key,
-    @required this.title,
+    Key? key,
+    required this.title,
     this.iconUrl,
     this.onPressed,
     this.shape,
@@ -60,7 +60,7 @@ class _SettingAvatarClickBarState extends State<SettingAvatarClickBar> {
                 padding: EdgeInsets.only(right: 5),
                 alignment: Alignment.centerRight,
                 child: CircleImage(
-                  widget.iconUrl,
+                  widget.iconUrl ?? '',
                   radius: 23,
                   borderWidth: 0,
                   borderColor: Colours.white,

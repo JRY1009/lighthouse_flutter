@@ -20,7 +20,7 @@ class AuthInterceptor extends Interceptor {
 
     if (DeviceUtil.isWeb) {
       String version = '1.0.0';
-      String language = WidgetsBinding.instance.window.locale.toString();
+      String language = WidgetsBinding.instance!.window.locale.toString();
       String dev = 'Web';
       String channel = 'official';
 
@@ -32,7 +32,7 @@ class AuthInterceptor extends Interceptor {
 
     } else if (DeviceUtil.isDesktop) {
       String version = '1.0.0';
-      String language = WidgetsBinding.instance.window.locale.toString();
+      String language = WidgetsBinding.instance!.window.locale.toString();
       String dev = DeviceUtil.isWindows ? 'windows' : DeviceUtil.isMacOS ? 'macos' : DeviceUtil.isLinux ? 'linux' : 'desktop';
       String channel = 'official';
 
@@ -45,8 +45,8 @@ class AuthInterceptor extends Interceptor {
     } else {
       PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
-      String version = packageInfo?.version;
-      String language = WidgetsBinding.instance.window.locale.toString();
+      String? version = packageInfo.version;
+      String language = WidgetsBinding.instance!.window.locale.toString();
       String dev = DeviceUtil.isAndroid ? 'Android' : (DeviceUtil.isIOS ? 'iOS' : 'Other');
       String channel = await ChannelUtil.getChannel();
 
@@ -57,8 +57,8 @@ class AuthInterceptor extends Interceptor {
       options.headers[Apis.KEY_USER_TS] = timestamp;
     }
 
-    if (RTAccount.instance().isLogin()) {
-      Account account = RTAccount.instance().getActiveAccount();
+    if (RTAccount.instance()!.isLogin()) {
+      Account? account = RTAccount.instance()!.getActiveAccount();
       String sign = EncryptUtil.encodeAes(account?.token, Apis.PRIVATE_KEY, timestamp).substring(0, 64);
       options.headers[Apis.KEY_USER_TOKEN] = account?.token;
       options.headers[Apis.KEY_USER_U_ID] = account?.account_id.toString();
@@ -74,7 +74,7 @@ class AuthInterceptor extends Interceptor {
   }
 
   @override
-  Future onResponse(Response response, ResponseInterceptorHandler handler) {
+  Future onResponse(Response response, ResponseInterceptorHandler handler) async {
     super.onResponse(response, handler);
   }
 }

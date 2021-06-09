@@ -11,7 +11,7 @@ import 'package:module_quote/model/index_data.dart';
 
 class IndexDataModel extends ViewStateModel {
 
-  IndexData dataBasic;
+  IndexData? dataBasic;
   List<AssetsDistribution> dataList = [];
 
   IndexDataModel() : super(viewState: ViewState.first);
@@ -21,9 +21,9 @@ class IndexDataModel extends ViewStateModel {
       'chain': chain,
     };
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_GET_CHAIN_DATA, 'get', params: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_GET_CHAIN_DATA, 'get', params: params,
         cancelToken: cancelToken,
-        onSuccess: (data) {
+        onSuccess: (dynamic data) {
 
           dataBasic = IndexData.fromJson(data);
           dataList = dataBasic?.address_balance_list ?? [];
@@ -35,7 +35,7 @@ class IndexDataModel extends ViewStateModel {
           }
         },
         onError: (errno, msg) {
-          setError(errno, message: msg);
+          setError(errno!, message: msg);
         });
   }
 

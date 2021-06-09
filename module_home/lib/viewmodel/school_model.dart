@@ -36,9 +36,9 @@ class SchoolModel extends ViewStateModel {
       'page_size': pageSize,
     };
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_GET_LESSONS, 'get', params: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_GET_LESSONS, 'get', params: params,
         cancelToken: cancelToken,
-        onSuccess: (data) {
+        onSuccess: (dynamic data) {
 
           List<Lesson> list = Lesson.fromJsonList(data['records']) ?? [];
           if (page == 0) {
@@ -58,7 +58,7 @@ class SchoolModel extends ViewStateModel {
           }
         },
         onError: (errno, msg) {
-          setError(errno, message: msg);
+          setError(errno!, message: msg);
         });
   }
 

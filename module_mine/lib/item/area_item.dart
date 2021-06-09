@@ -5,15 +5,15 @@ import 'package:library_base/res/styles.dart';
 /// 列表项
 class AreaItem extends StatefulWidget {
   // 点击事件
-  final Function() onPressed;
+  final Function()? onPressed;
   // 标题
-  final String title;
+  final String? title;
   // 右侧控件
   final bool check;
 
   // 构造函数
   AreaItem({
-    Key key,
+    Key? key,
     this.onPressed,
     this.title,
     this.check = false,
@@ -41,7 +41,7 @@ class _AreaItemState extends State<AreaItem> {
               Expanded(
                 flex: 1,
                 child: Text(
-                  widget.title,
+                  widget.title ?? '',
                   style: TextStyles.textBlack14,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,

@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
     Widget child = MaterialApp(
       title: 'module_mine',
       home: MinePage(),
-      onGenerateRoute: Routers.router.generator,
+      onGenerateRoute: Routers.router!.generator,
       locale: Locale('zh', 'CN'),
       localizationsDelegates: const [
         S.delegate,

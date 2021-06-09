@@ -36,8 +36,8 @@ class _ModifyPwdPageState extends State<ModifyPwdPage> with BasePageMixin<Modify
   final TextEditingController _pwdRepeatController = TextEditingController();
   final FocusNode _pwdRepeatNode = FocusNode();
 
-  ModifyPwdModel _modifyPwdModel;
-  VerifyModel _verifyModel;
+  late ModifyPwdModel _modifyPwdModel;
+  late VerifyModel _verifyModel;
 
   bool _saveEnabled = false;
   bool _had_password = false;
@@ -45,7 +45,7 @@ class _ModifyPwdPageState extends State<ModifyPwdPage> with BasePageMixin<Modify
   @override
   void initState() {
     super.initState();
-    Account account = RTAccount.instance().getActiveAccount();
+    Account? account = RTAccount.instance()!.getActiveAccount();
     _had_password = account?.had_password ?? false;
     initViewModel();
   }
@@ -60,7 +60,7 @@ class _ModifyPwdPageState extends State<ModifyPwdPage> with BasePageMixin<Modify
 
       } else if (_modifyPwdModel.isError) {
         closeProgress();
-        ToastUtil.error(_modifyPwdModel.viewStateError.message);
+        ToastUtil.error(_modifyPwdModel.viewStateError!.message!);
 
       } else if (_modifyPwdModel.isSuccess) {
         closeProgress();
@@ -76,7 +76,7 @@ class _ModifyPwdPageState extends State<ModifyPwdPage> with BasePageMixin<Modify
 
       } else if (_verifyModel.isError) {
         closeProgress();
-        ToastUtil.waring(_verifyModel.viewStateError.message);
+        ToastUtil.waring(_verifyModel.viewStateError!.message!);
 
       } else if (_verifyModel.isSuccess) {
         closeProgress();
@@ -111,25 +111,25 @@ class _ModifyPwdPageState extends State<ModifyPwdPage> with BasePageMixin<Modify
   }
 
   Future<bool> _getVCode() {
-    Account account = RTAccount.instance().getActiveAccount();
+    Account? account = RTAccount.instance()!.getActiveAccount();
     if (account == null) {
       ToastUtil.normal(S.current.loginGuide);
       return Future.value(false);
     }
 
-    String phone = account.phone;
+    String? phone = account.phone;
     if (ObjectUtil.isEmptyString(phone)) {
       ToastUtil.normal(S.current.loginPhoneError);
       return Future.value(false);
     }
 
-    return _verifyModel.getVCode(phone, VerifyModel.SMS_FORGET_PWD);
+    return _verifyModel.getVCode(phone!, VerifyModel.SMS_FORGET_PWD);
   }
 
   @override
   Widget build(BuildContext context) {
 
-    Account account = RTAccount.instance().getActiveAccount();
+    Account? account = RTAccount.instance()!.getActiveAccount();
     
     return Scaffold(
         backgroundColor: Colours.gray_100,

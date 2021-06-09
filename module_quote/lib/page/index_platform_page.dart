@@ -20,10 +20,10 @@ import 'package:module_quote/item/index_platform_item.dart';
 
 class IndexPlatformPage extends StatefulWidget {
 
-  final String coinCode;
+  final String? coinCode;
 
   const IndexPlatformPage({
-    Key key,
+    Key? key,
     this.coinCode,
   }): super(key: key);
 
@@ -39,14 +39,14 @@ class _IndexPlatformPageState extends State<IndexPlatformPage> with BasePageMixi
 
   ShotController _shotController = new ShotController();
 
-  IndexPlatformModel _quoteModel;
+  late IndexPlatformModel _quoteModel;
 
   @override
   void initState() {
     super.initState();
 
     _quoteModel = IndexPlatformModel();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (mounted) {
         initViewModel();
       }
@@ -54,13 +54,13 @@ class _IndexPlatformPageState extends State<IndexPlatformPage> with BasePageMixi
   }
 
   void initViewModel() {
-    _quoteModel.getQuote(widget.coinCode);
+    _quoteModel.getQuote(widget.coinCode ?? '');
     _quoteModel.listenEvent();
   }
 
   @override
   Future<void> refresh({slient = false}) {
-    return _quoteModel.getQuote(widget.coinCode);
+    return _quoteModel.getQuote(widget.coinCode ?? '');
   }
 
   @override
@@ -121,12 +121,12 @@ class _IndexPlatformPageState extends State<IndexPlatformPage> with BasePageMixi
 
   Widget _buildHeader() {
 
-    double rate = _quoteModel.quoteBasic != null ? _quoteModel.quoteBasic.change_percent : 0;
-    double price = _quoteModel.quoteBasic != null ? _quoteModel.quoteBasic.quote : 0;
-    double cny = _quoteModel.quoteBasic != null ? _quoteModel.quoteBasic.cny : 0;
-    double change_amount = _quoteModel.quoteBasic != null ? _quoteModel.quoteBasic.change_amount : 0;
+    double rate = _quoteModel.quoteBasic?.change_percent ?? 0;
+    double price = _quoteModel.quoteBasic?.quote ?? 0;
+    double cny = _quoteModel.quoteBasic?.cny ?? 0;
+    double change_amount = _quoteModel.quoteBasic?.change_amount ?? 0;
 
-    String groupStr = _quoteModel.quoteBasic != null ? _quoteModel.quoteBasic.data_src : '';
+    String groupStr = _quoteModel.quoteBasic?.data_src ?? '';
     String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate, 2).toString() + '%';
 
     String priceStr = NumUtil.formatNum(price, point: 2);

@@ -6,19 +6,19 @@ import 'package:library_base/res/styles.dart';
 
 class GlobalQuoteRoundItem extends StatelessWidget {
 
-  final int index;
+  final int? index;
 
-  final String name;
+  final String? name;
 
-  final double posX;
+  final double? posX;
 
-  final double posY;
+  final double? posY;
 
-  final double rate;
+  final double? rate;
 
 
   const GlobalQuoteRoundItem(
-      {Key key,
+      {Key? key,
         this.index,
         this.name,
         this.posX,
@@ -37,7 +37,7 @@ class GlobalQuoteRoundItem extends StatelessWidget {
         width: 55.0,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(55.0),   //圆角
-            color: rate >= 0 ? Colours.text_green : Colours.text_red
+            color: rate! >= 0 ? Colours.text_green : Colours.text_red
         ),
         child: Column (
           mainAxisAlignment: MainAxisAlignment.center,
@@ -55,7 +55,7 @@ class GlobalQuoteRoundItem extends StatelessWidget {
             Container(
               height: 10,
               alignment: Alignment.center,
-              child: Text((rate >= 0 ? '+' : '') + rate.toString() + '%', style: TextStyles.textWhite9,
+              child: Text((rate! >= 0 ? '+' : '') + rate.toString() + '%', style: TextStyles.textWhite9,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),

@@ -10,16 +10,16 @@ import 'package:library_kchart/entity/depth_entity.dart';
 
 class DepthOrderItem extends StatelessWidget {
 
-  final DepthEntity bid;
+  final DepthEntity? bid;
 
-  final DepthEntity ask;
+  final DepthEntity? ask;
 
-  final num bidAmountMax;
+  final num? bidAmountMax;
 
-  final num askAmountMax;
+  final num? askAmountMax;
 
   const DepthOrderItem(
-      {Key key,
+      {Key? key,
         this.bid,
         this.ask,
         this.bidAmountMax,
@@ -36,8 +36,8 @@ class DepthOrderItem extends StatelessWidget {
     String askAmountStr = NumUtil.formatNum(ask?.amount, point: 4);
     String askPriceStr = NumUtil.formatNum(ask?.price, point: 2);
 
-    double bidPercent = NumUtil.divide(bid?.amount, bidAmountMax);
-    double askPercent = NumUtil.divide(ask?.amount, askAmountMax);
+    double bidPercent = NumUtil.divide(bid?.amount ?? 0, bidAmountMax ?? 1);
+    double askPercent = NumUtil.divide(ask?.amount ?? 0, askAmountMax ?? 1);
 
     return Container(
       height: 22.0,

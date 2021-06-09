@@ -18,10 +18,10 @@ import 'package:provider/provider.dart';
 
 class HomeFlexibleAppBar extends StatefulWidget {
 
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   const HomeFlexibleAppBar({
-    Key key,
+    Key? key,
     this.onPressed,
   }): super(key: key);
 
@@ -32,7 +32,7 @@ class HomeFlexibleAppBar extends StatefulWidget {
 
 class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTickerProviderStateMixin{
 
-  TabController _tabController;
+  late TabController _tabController;
   PageController _pageController = PageController();
 
   @override
@@ -54,17 +54,17 @@ class _HomeFlexibleAppBarState extends State<HomeFlexibleAppBar> with SingleTick
   Widget build(BuildContext context) {
     HomeModel homeModel = Provider.of<HomeModel>(context);
 
-    String btcIco = homeModel?.btcUsdPair?.icon ?? '';
-    String btcIcoUnSelect = homeModel?.btcUsdPair?.icon_grey ?? '';
-    num btcRate = homeModel?.btcUsdPair?.change_percent ?? 0;
-    num btcPrice = homeModel?.btcUsdPair?.quote ?? 0;
+    String btcIco = homeModel.btcUsdPair?.icon ?? '';
+    String btcIcoUnSelect = homeModel.btcUsdPair?.icon_grey ?? '';
+    num btcRate = homeModel.btcUsdPair?.change_percent ?? 0;
+    num btcPrice = homeModel.btcUsdPair?.quote ?? 0;
     String btcRateStr = (btcRate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(btcRate.toDouble(), 2).toString() + '%';
     String btcPriceStr = NumUtil.formatNum(btcPrice, point: 2);
 
-    String ethIco = homeModel?.ethUsdPair?.icon ?? '';
-    String ethIcoUnSelect = homeModel?.ethUsdPair?.icon_grey ?? '';
-    num ethRate = homeModel?.ethUsdPair?.change_percent ?? 0;
-    num ethPrice = homeModel?.ethUsdPair?.quote ?? 0;
+    String ethIco = homeModel.ethUsdPair?.icon ?? '';
+    String ethIcoUnSelect = homeModel.ethUsdPair?.icon_grey ?? '';
+    num ethRate = homeModel.ethUsdPair?.change_percent ?? 0;
+    num ethPrice = homeModel.ethUsdPair?.quote ?? 0;
     String ethRateStr = (ethRate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(ethRate.toDouble(), 2).toString() + '%';
     String ethPriceStr = NumUtil.formatNum(ethPrice, point: 2);
 

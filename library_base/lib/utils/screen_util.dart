@@ -24,10 +24,10 @@ double _designD = 3.0;
 
 /// 配置设计稿尺寸 屏幕 宽，高，密度。
 /// Configuration design draft size  screen width, height, density.
-void setDesignWHD(double w, double h, {double density = 3.0}) {
+void setDesignWHD(double? w, double? h, {double density = 3.0}) {
   _designW = w ?? _designW;
   _designH = h ?? _designH;
-  _designD = density ?? _designD;
+  _designD = density;
 }
 
 /// Screen Util.
@@ -38,7 +38,7 @@ class ScreenUtil {
   double _statusBarHeight = 0.0;
   double _bottomBarHeight = 0.0;
   double _appBarHeight = 0.0;
-  MediaQueryData _mediaQueryData;
+  MediaQueryData? _mediaQueryData;
 
   static final ScreenUtil _singleton = ScreenUtil();
 
@@ -84,7 +84,7 @@ class ScreenUtil {
   double get bottomBarHeight => _bottomBarHeight;
 
   /// media Query Data
-  MediaQueryData get mediaQueryData => _mediaQueryData;
+  MediaQueryData? get mediaQueryData => _mediaQueryData;
 
   /// screen width
   /// 当前屏幕 宽

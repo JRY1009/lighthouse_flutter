@@ -18,19 +18,19 @@ mixin KLineChartMixin<T extends StatefulWidget> on State<T> {
 
 class KLineChart extends StatefulWidget {
 
-  final double height;
-  final int gridRows;
-  final int gridColumns;
+  final double? height;
+  final int? gridRows;
+  final int? gridColumns;
   final MainState mainState;
   final VolState volState;
   final SecondaryState secondaryState;
   final bool isLine;
   final bool isAutoScaled;
-  final List<Quote> quoteList;
-  final Function(KLineEntity entity) onLongPressChanged;
+  final List<Quote>? quoteList;
+  final Function(KLineEntity? entity)? onLongPressChanged;
 
   const KLineChart({
-    Key key,
+    Key? key,
     this.height,
     this.gridRows,
     this.gridColumns,
@@ -68,11 +68,11 @@ class KLineChartState extends State<KLineChart> with KLineChartMixin<KLineChart>
   void addLastData(Quote quote) {
 
     KLineEntity entity = KLineEntity(
-      open: quote.open.toDouble(),
-      close: quote.close.toDouble(),
-      high: quote.high.toDouble(),
-      low: quote.low.toDouble(),
-      vol: quote.vol.toDouble(),
+      open: quote.open!.toDouble(),
+      close: quote.close!.toDouble(),
+      high: quote.high!.toDouble(),
+      low: quote.low!.toDouble(),
+      vol: quote.vol!.toDouble(),
       amount: 0,
       count: 0,
       id: quote.id,
@@ -85,11 +85,11 @@ class KLineChartState extends State<KLineChart> with KLineChartMixin<KLineChart>
   void updateLastData(Quote quote) {
 
     KLineEntity entity = KLineEntity(
-      open: quote.open.toDouble(),
-      close: quote.close.toDouble(),
-      high: quote.high.toDouble(),
-      low: quote.low.toDouble(),
-      vol: quote.vol.toDouble(),
+      open: quote.open!.toDouble(),
+      close: quote.close!.toDouble(),
+      high: quote.high!.toDouble(),
+      low: quote.low!.toDouble(),
+      vol: quote.vol!.toDouble(),
       amount: 0,
       count: 0,
       id: quote.id,
@@ -106,17 +106,17 @@ class KLineChartState extends State<KLineChart> with KLineChartMixin<KLineChart>
     if (widget.quoteList != null) {
       List<KLineEntity> entityList = [];
 
-      length = widget.quoteList.length;
+      length = widget.quoteList!.length;
       for (int i=0; i<length; i++) {
         KLineEntity entity = KLineEntity(
-          open: widget.quoteList[i].open.toDouble(),
-          close: widget.quoteList[i].close.toDouble(),
-          high: widget.quoteList[i].high.toDouble(),
-          low: widget.quoteList[i].low.toDouble(),
-          vol: widget.quoteList[i].vol.toDouble(),
+          open: widget.quoteList![i].open!.toDouble(),
+          close: widget.quoteList![i].close!.toDouble(),
+          high: widget.quoteList![i].high!.toDouble(),
+          low: widget.quoteList![i].low!.toDouble(),
+          vol: widget.quoteList![i].vol!.toDouble(),
           amount: 0,
           count: 0,
-          id: widget.quoteList[i].id,
+          id: widget.quoteList![i].id,
         );
         entityList.add(entity);
       }

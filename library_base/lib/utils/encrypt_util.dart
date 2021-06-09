@@ -14,8 +14,8 @@ class EncryptUtil {
   }
 
   /// aes加密
-  static String encodeAes(String data, String keyStr, String vector) {
-    final plainText = data;
+  static String encodeAes(String? data, String keyStr, String vector) {
+    final plainText = data ?? '';
     final key = Key.fromUtf8(keyStr);
     final iv = IV.fromUtf8(vector);
     final encrypter = Encrypter(AES(key, mode: AESMode.cbc));

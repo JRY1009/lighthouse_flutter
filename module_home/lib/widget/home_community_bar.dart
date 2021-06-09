@@ -19,10 +19,10 @@ import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class HomeCommunityBar extends StatefulWidget {
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   const HomeCommunityBar({
-    Key key,
+    Key? key,
     this.onPressed,
   }) : super(key: key);
 
@@ -32,7 +32,7 @@ class HomeCommunityBar extends StatefulWidget {
 
 class _HomeCommunityBarState extends State<HomeCommunityBar> with BasePageMixin<HomeCommunityBar> {
 
-  LeaveMessageModel _leaveMessageModel;
+  late LeaveMessageModel _leaveMessageModel;
 
   @override
   void initState() {

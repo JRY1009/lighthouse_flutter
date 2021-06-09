@@ -15,10 +15,10 @@ import 'package:module_quote/model/global_quote.dart';
 
 class GlobalQuoteModel extends ViewStateModel {
 
-  QuotePair btcUsdPair;
-  QuotePair ethUsdPair;
+  QuotePair? btcUsdPair;
+  QuotePair? ethUsdPair;
 
-  StreamSubscription quoteSubscription;
+  StreamSubscription? quoteSubscription;
 
   List<GlobalQuote> quoteList = [];
 
@@ -34,14 +34,14 @@ class GlobalQuoteModel extends ViewStateModel {
       }
 
       if (quoteWs.coin_code == 'btc' && btcUsdPair != null) {
-        btcUsdPair.quote = quoteWs.quote;
-        btcUsdPair.change_amount = quoteWs.change_amount;
-        btcUsdPair.change_percent = quoteWs.change_percent;
+        btcUsdPair!.quote = quoteWs.quote;
+        btcUsdPair!.change_amount = quoteWs.change_amount;
+        btcUsdPair!.change_percent = quoteWs.change_percent;
 
       } else if (quoteWs.coin_code == 'eth' && ethUsdPair != null) {
-        ethUsdPair.quote = quoteWs.quote;
-        ethUsdPair.change_amount = quoteWs.change_amount;
-        ethUsdPair.change_percent = quoteWs.change_percent;
+        ethUsdPair!.quote = quoteWs.quote;
+        ethUsdPair!.change_amount = quoteWs.change_amount;
+        ethUsdPair!.change_percent = quoteWs.change_percent;
       }
 
       notifyListeners();
@@ -63,9 +63,9 @@ class GlobalQuoteModel extends ViewStateModel {
     Map<String, dynamic> params = {
     };
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_GET_GLOBAL_QUOTE, 'get', params: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_GET_GLOBAL_QUOTE, 'get', params: params,
         cancelToken: cancelToken,
-        onSuccess: (data) {
+        onSuccess: (dynamic data) {
 
           quoteList = GlobalQuote.fromJsonList(data) ?? [];
 
@@ -76,7 +76,7 @@ class GlobalQuoteModel extends ViewStateModel {
           }
         },
         onError: (errno, msg) {
-          setError(errno, message: msg);
+          setError(errno!, message: msg);
         });
   }
 
@@ -85,18 +85,18 @@ class GlobalQuoteModel extends ViewStateModel {
       'chain': chain,
     };
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_GET_HOME, "get", params: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_GET_HOME, "get", params: params,
         cancelToken: cancelToken,
-        onSuccess: (data) {
+        onSuccess: (dynamic data) {
           if (chain == Apis.COIN_BITCOIN) {
             btcUsdPair = QuotePair.fromJson(data);
-            btcUsdPair.coin_code = 'BTC';
-            btcUsdPair.chain = Apis.COIN_BITCOIN;
+            btcUsdPair!.coin_code = 'BTC';
+            btcUsdPair!.chain = Apis.COIN_BITCOIN;
 
           } else if (chain == Apis.COIN_ETHEREUM) {
             ethUsdPair = QuotePair.fromJson(data);
-            ethUsdPair.coin_code = 'ETH';
-            ethUsdPair.chain = Apis.COIN_ETHEREUM;
+            ethUsdPair!.coin_code = 'ETH';
+            ethUsdPair!.chain = Apis.COIN_ETHEREUM;
           }
         },
         onError: (errno, msg) {

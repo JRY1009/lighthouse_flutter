@@ -31,7 +31,7 @@ import '../quote_router.dart';
 class GlobalQuotePage extends StatefulWidget {
 
   GlobalQuotePage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -42,7 +42,7 @@ class _GlobalQuotePageState extends State<GlobalQuotePage> with BasePageMixin<Gl
 
   ShotController _shotController = new ShotController();
 
-  GlobalQuoteModel _globalQuoteModel;
+  late GlobalQuoteModel _globalQuoteModel;
 
   @override
   void initState() {
@@ -94,7 +94,7 @@ class _GlobalQuotePageState extends State<GlobalQuotePage> with BasePageMixin<Gl
                         child: Container(
                           child: RotatedBox(
                             quarterTurns: 1,
-                            child: Text(DateUtil.getDateStrByDateTime(DateTime.now(), format: DateFormat.NORMAL),
+                            child: Text(DateUtil.getDateStrByDateTime(DateTime.now(), format: DateFormat.NORMAL) ?? '',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyles.textGray500_w400_12
@@ -133,7 +133,7 @@ class _GlobalQuotePageState extends State<GlobalQuotePage> with BasePageMixin<Gl
         body: ProviderWidget<GlobalQuoteModel>(
             model: _globalQuoteModel,
             builder: (context, model, child) {
-              String package = QuoteRouter.isRunModule ? null : Constant.moduleQuote;
+              String? package = QuoteRouter.isRunModule ? null : Constant.moduleQuote;
               return RefreshIndicator(
                   onRefresh: model.getGlobalAll,
                   child: model.isFirst ? FirstRefresh() :
@@ -196,9 +196,9 @@ class _GlobalQuotePageState extends State<GlobalQuotePage> with BasePageMixin<Gl
                                           return GlobalQuoteItem(
                                             index: index,
                                             name: model.quoteList[index].zh_name,
-                                            price: model.quoteList[index].quote,
-                                            change: model.quoteList[index].change_amount,
-                                            rate: model.quoteList[index].change_percent,
+                                            price: model.quoteList[index].quote as double,
+                                            change: model.quoteList[index].change_amount as double,
+                                            rate: model.quoteList[index].change_percent as double,
                                           );
                                         },
                                       ),
@@ -238,9 +238,9 @@ class _GlobalQuotePageState extends State<GlobalQuotePage> with BasePageMixin<Gl
       return GlobalQuoteRoundItem(
         index: index,
         name: _globalQuoteModel.quoteList[index].zh_name,
-        posX: _globalQuoteModel.quoteList[index].posX,
-        posY: _globalQuoteModel.quoteList[index].posY,
-        rate: _globalQuoteModel.quoteList[index].change_percent,
+        posX: _globalQuoteModel.quoteList[index].posX as double,
+        posY: _globalQuoteModel.quoteList[index].posY as double,
+        rate: _globalQuoteModel.quoteList[index].change_percent as double,
       );
     });
     return list;

@@ -149,7 +149,7 @@ class RegexUtil {
       ];
       if (cityMap.isEmpty) {
         List<String> list = ID_CARD_PROVINCE_DICT;
-        List<MapEntry<String, String>> mapEntryList = new List();
+        List<MapEntry<String, String>> mapEntryList = [];
         for (int i = 0, length = list.length; i < length; i++) {
           List<String> tokens = list[i].trim().split("=");
           MapEntry<String, String> mapEntry =

@@ -9,8 +9,8 @@ import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/styles.dart';
 
 class WebViewPage extends StatefulWidget {
-  final String url;
-  final String title;
+  final String? url;
+  final String? title;
 
   WebViewPage(this.url, this.title);
   _WebViewPageState createState() => _WebViewPageState();
@@ -28,10 +28,10 @@ class _WebViewPageState extends State<WebViewPage> {
           return WillPopScope(
             onWillPop: () async {
               if (snapshot.hasData) {
-                final bool canGoBack = await snapshot.data.canGoBack();
+                final bool canGoBack = await snapshot.data!.canGoBack();
                 if (canGoBack) {
                   // 网页可以返回时，优先返回上一页
-                  await snapshot.data.goBack();
+                  await snapshot.data!.goBack();
                   return Future.value(false);
                 }
               }
@@ -44,7 +44,7 @@ class _WebViewPageState extends State<WebViewPage> {
                 brightness: Brightness.light,
                 backgroundColor: Colours.white,
                 centerTitle: true,
-                title: Text(widget.title, style: TextStyles.textBlack18),
+                title: Text(widget.title ?? '', style: TextStyles.textBlack18),
               ),
               body: WebView(
                 initialUrl: widget.url,

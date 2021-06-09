@@ -15,8 +15,8 @@ class CommonScrollView extends StatelessWidget {
   /// 注意：同时存在底部按钮与keyboardConfig配置时，为保证软键盘弹出高度正常。需要在`Scaffold`使用 `resizeToAvoidBottomInset: defaultTargetPlatform != TargetPlatform.iOS,`
   /// 除非Android与iOS平台均使用keyboard_actions
   const CommonScrollView({
-    Key key,
-    @required this.children,
+    Key? key,
+    required this.children,
     this.padding,
     this.physics = const BouncingScrollPhysics(),
     this.mainAxisSize = MainAxisSize.max,
@@ -32,28 +32,28 @@ class CommonScrollView extends StatelessWidget {
   }): super(key: key);
 
   final List<Widget> children;
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry? padding;
   final ScrollPhysics physics;
   final MainAxisSize mainAxisSize;
   final CrossAxisAlignment crossAxisAlignment;
   final AlignmentGeometry contentAlignment;
-  final Widget bottomButton;
+  final Widget? bottomButton;
   final bool bottomSafe;
-  final KeyboardActionsConfig keyboardConfig;
+  final KeyboardActionsConfig? keyboardConfig;
   /// 键盘外部按下将其关闭
   final bool tapOutsideToDismiss;
   /// 默认弹起位置在TextField的文字下面，可以添加此属性继续向上滑动一段距离。用来露出完整的TextField。
   final double overScroll;
 
-  final BorderRadius borderRadius;
-  final ShotController shotController;
+  final BorderRadius? borderRadius;
+  final ShotController? shotController;
 
   @override
   Widget build(BuildContext context) {
 
     Widget contents = shotController != null ?
     ShotView(
-        controller: shotController,
+        controller: shotController!,
         child: Column(
           mainAxisSize: mainAxisSize,
           crossAxisAlignment: crossAxisAlignment,
@@ -77,7 +77,7 @@ class CommonScrollView extends StatelessWidget {
 
       if (padding != null) {
         contents = Padding(
-          padding: padding,
+          padding: padding!,
           child: contents
         );
       }
@@ -85,7 +85,7 @@ class CommonScrollView extends StatelessWidget {
       contents = KeyboardActions(
         isDialog: bottomButton != null,
         overscroll: overScroll,
-        config: keyboardConfig,
+        config: keyboardConfig!,
         tapOutsideToDismiss: tapOutsideToDismiss,
         child: contents
       );
@@ -122,8 +122,8 @@ class CommonScrollView extends StatelessWidget {
 
           bottomSafe ?
           SafeArea(
-              child: bottomButton
-          ) : bottomButton
+              child: bottomButton!
+          ) : bottomButton!
         ],
       );
     }

@@ -10,20 +10,20 @@ import 'package:library_base/res/styles.dart';
 class AccountTextField extends StatefulWidget {
 
   final FocusNode focusNode;
-  final Function() onTextChanged;
-  final Function() onPrefixPressed;
-  final String areaCode;
+  final Function()? onTextChanged;
+  final Function()? onPrefixPressed;
+  final String? areaCode;
   final TextEditingController controller;
 
-  final Color backgroundColor;
-  final InputBorder focusedBorder;
-  final InputBorder enabledBorder;
+  final Color? backgroundColor;
+  final InputBorder? focusedBorder;
+  final InputBorder? enabledBorder;
 
   AccountTextField({
-    Key key,
-    @required this.controller,
+    Key? key,
+    required this.controller,
+    required this.focusNode,
     this.onTextChanged,
-    this.focusNode,
     this.areaCode,
     this.onPrefixPressed,
     this.backgroundColor,
@@ -68,7 +68,9 @@ class _AccountTextFieldState extends State<AccountTextField> {
                   Future.delayed(Duration(milliseconds: 100), () {
                     widget.focusNode.canRequestFocus = true;
                   });
-                  widget.onPrefixPressed();
+                  if (widget.onPrefixPressed != null) {
+                    widget.onPrefixPressed!();
+                  }
                 },
                 child: Container(
                     padding: EdgeInsets.all(10.0),
@@ -80,7 +82,7 @@ class _AccountTextFieldState extends State<AccountTextField> {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(right: 2),
-                            child: Text(widget.areaCode, style: TextStyles.textBlack14),
+                            child: Text(widget.areaCode ?? '', style: TextStyles.textBlack14),
                           ),
                           Icon(Icons.arrow_drop_down, color: Colours.text_black, size: 18),
                         ]
@@ -93,14 +95,18 @@ class _AccountTextFieldState extends State<AccountTextField> {
               onPressed: () {
                 setState(() {
                   widget.controller.text = "";
-                  widget.onTextChanged();
+                  if (widget.onTextChanged != null) {
+                    widget.onTextChanged!();
+                  }
                 });
               },
             ) : Gaps.empty,
           ),
           onChanged: (text) {
             setState(() {
-              widget.onTextChanged();
+              if (widget.onTextChanged != null) {
+                widget.onTextChanged!();
+              }
             });
           },
         )

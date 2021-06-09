@@ -12,10 +12,10 @@ import 'package:library_base/widget/image/local_image.dart';
 
 class ThirdLoginBar extends StatefulWidget {
 
-  final Function(fluwx.WeChatAuthResponse) onWeChatAuthResponse;
+  final Function(fluwx.WeChatAuthResponse)? onWeChatAuthResponse;
 
   ThirdLoginBar({
-    Key key,
+    Key? key,
     this.onWeChatAuthResponse
   }) : super(key: key);
 
@@ -25,7 +25,7 @@ class ThirdLoginBar extends StatefulWidget {
 
 class _ThirdLoginBarState extends State<ThirdLoginBar> {
 
-  StreamSubscription _sub;
+  StreamSubscription? _sub;
   @override
   void initState() {
     super.initState();
@@ -35,7 +35,7 @@ class _ThirdLoginBarState extends State<ThirdLoginBar> {
         LogUtil.v("WeChatAuthResponse：$_result");
 
         if (widget.onWeChatAuthResponse != null) {
-          widget.onWeChatAuthResponse(res);
+          widget.onWeChatAuthResponse!(res);
         }
       }
     });
@@ -44,7 +44,7 @@ class _ThirdLoginBarState extends State<ThirdLoginBar> {
   @override
   void dispose() {
     super.dispose();
-    if (_sub != null) _sub.cancel();
+    if (_sub != null) _sub!.cancel();
   }
 
   Future<void> _loginWechat(BuildContext context) async {

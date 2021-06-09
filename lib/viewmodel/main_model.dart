@@ -13,16 +13,16 @@ import 'package:library_base/utils/device_util.dart';
 
 class MainModel extends ValueNotifier<int> {
 
-  BuildContext context;
-  PageController pageController;
-  List<GlobalKey<BasePageMixin>> keyList;
+  late BuildContext context;
+  late PageController pageController;
+  List<GlobalKey<BasePageMixin>>? keyList;
 
-  StreamSubscription userSubscription;
-  StreamSubscription mainJumpSubscription;
+  StreamSubscription? userSubscription;
+  StreamSubscription? mainJumpSubscription;
 
   MainModel() : super(0);
 
-  void listenEvent(BuildContext context, PageController pageController, List<GlobalKey<BasePageMixin>> keyList) {
+  void listenEvent(BuildContext context, PageController pageController, List<GlobalKey<BasePageMixin>>? keyList) {
     this.context = context;
     this.pageController = pageController;
     this.keyList = keyList;
@@ -42,8 +42,8 @@ class MainModel extends ValueNotifier<int> {
       if (event.page.value >= 0) {
         this.pageController.jumpToPage(event.page.value);
 
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          this.keyList[event.page.value].currentState?.jump(params: event.params);
+        WidgetsBinding.instance!.addPostFrameCallback((_) {
+          this.keyList![event.page.value].currentState?.jump(params: event.params);
         });
       }
     });

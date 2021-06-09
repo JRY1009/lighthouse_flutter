@@ -2,13 +2,13 @@
 import 'package:library_base/utils/object_util.dart';
 
 class LatestDeal {
-  String code;
-  String zh_name;
-  num quote ;
-  num change_amount;
-  num change_percent;
-  num posX;
-  num posY;
+  String? code;
+  String? zh_name;
+  num? quote ;
+  num? change_amount;
+  num? change_percent;
+  num? posX;
+  num? posY;
 
   LatestDeal({
     this.code,
@@ -42,12 +42,12 @@ class LatestDeal {
     return jsonMap;
   }
 
-  static List<LatestDeal> fromJsonList(List<dynamic> mapList) {
+  static List<LatestDeal>? fromJsonList(List<dynamic> mapList) {
     if (ObjectUtil.isEmptyList(mapList)) {
       return null;
     }
 
-    List<LatestDeal> items = new List<LatestDeal>();
+    List<LatestDeal> items = [];
     for(Map<String, dynamic> map in mapList) {
       items.add(LatestDeal.fromJson(map));
     }

@@ -2,8 +2,6 @@ import 'dart:async';
 import 'dart:core';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -15,8 +13,6 @@ import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/router/fade_route.dart';
-import 'package:library_base/router/parameters.dart';
-import 'package:library_base/router/routers.dart';
 import 'package:library_base/utils/log_util.dart';
 import 'package:library_base/utils/object_util.dart';
 import 'package:library_base/utils/toast_util.dart';
@@ -28,12 +24,12 @@ import 'package:library_base/widget/image/local_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class InappWebviewPage extends StatefulWidget {
-  final String url;
-  final String title;
-  final String title_share;
-  final String summary_share;
-  final String url_share;
-  final String thumb_share;
+  final String? url;
+  final String? title;
+  final String? title_share;
+  final String? summary_share;
+  final String? url_share;
+  final String? thumb_share;
   final bool show_share;
   final bool captureAllGestures;
 
@@ -50,9 +46,9 @@ class InappWebviewPage extends StatefulWidget {
 
 class _InappWebviewPageState extends State<InappWebviewPage> {
 
-  InAppWebViewController webviewController;
-  PullToRefreshController pullToRefreshController;
-  ContextMenu contextMenu;
+  InAppWebViewController? webviewController;
+  PullToRefreshController? pullToRefreshController;
+  ContextMenu? contextMenu;
 
   double _opacity = 0.01;
   bool loaded = false;
@@ -68,16 +64,16 @@ class _InappWebviewPageState extends State<InappWebviewPage> {
           backgroundColor: Colours.transparent
       ),
       onRefresh: () async {
-        pullToRefreshController.endRefreshing();
+        pullToRefreshController!.endRefreshing();
       },
     );
   }
 
   Future<void> _share() async {
     DialogUtil.showShareLinkDialog(context,
+      url_share: widget.url_share!,
       title_share: widget.title_share,
       summary_share: widget.summary_share,
-      url_share: widget.url_share,
       thumb_share: widget.thumb_share,
     );
   }
@@ -89,10 +85,10 @@ class _InappWebviewPageState extends State<InappWebviewPage> {
       return;
     }
 
-    shareToWeChat(WeChatShareWebPageModel(widget.url_share,
-        title: widget.title_share,
+    shareToWeChat(WeChatShareWebPageModel(widget.url_share!,
+        title: widget.title_share!,
         description: ObjectUtil.isEmpty(widget.summary_share) ? null : widget.summary_share,
-        thumbnail: ObjectUtil.isEmpty(widget.thumb_share) ? WeChatImage.asset('assets/images/logo_share_wechat.png?package=library_base', suffix: '.png') : WeChatImage.network(widget.thumb_share),
+        thumbnail: ObjectUtil.isEmpty(widget.thumb_share) ? WeChatImage.asset('assets/images/logo_share_wechat.png?package=library_base', suffix: '.png') : WeChatImage.network(widget.thumb_share!),
         scene: scene)
     );
   }
@@ -123,10 +119,10 @@ class _InappWebviewPageState extends State<InappWebviewPage> {
         leading: BackButtonEx(
           onPressed: () async {
             if (webviewController != null) {
-              final bool canGoBack = await webviewController.canGoBack();
+              final bool canGoBack = await webviewController!.canGoBack();
               if (canGoBack) {
                 // 网页可以返回时，优先返回上一页
-                await webviewController.goBack();
+                await webviewController!.goBack();
               }
             }
             Navigator.maybePop(context);
@@ -142,7 +138,7 @@ class _InappWebviewPageState extends State<InappWebviewPage> {
           )
         ] : null,
         centerTitle: true,
-        title: Text(widget.title, style: TextStyles.textBlack18),
+        title: Text(widget.title ?? '', style: TextStyles.textBlack18),
       ),
       body: Stack(
         children: [
@@ -150,7 +146,7 @@ class _InappWebviewPageState extends State<InappWebviewPage> {
               opacity: _opacity,
               // --- FIX_BLINK ---
               child: InAppWebView(
-                initialUrlRequest: URLRequest(url: Uri.parse(widget.url)),
+                initialUrlRequest: URLRequest(url: Uri.parse(widget.url ?? '')),
                 pullToRefreshController: pullToRefreshController,
                 initialOptions: InAppWebViewGroupOptions(
                   crossPlatform: InAppWebViewOptions(
@@ -186,12 +182,12 @@ class _InappWebviewPageState extends State<InappWebviewPage> {
                 },
                 onWebViewCreated: (InAppWebViewController controller) {
                   webviewController = controller;
-                  webviewController.addJavaScriptHandler(handlerName: 'share', callback: (args) {
+                  webviewController!.addJavaScriptHandler(handlerName: 'share', callback: (args) {
                     WeChatScene scene = args[0] == 1 ? WeChatScene.SESSION : args[0] == 2 ? WeChatScene.TIMELINE : WeChatScene.SESSION;
                     _shareWechat(context, scene);
                   });
 
-                  webviewController.addJavaScriptHandler(handlerName: 'previewPictures', callback: (args) {
+                  webviewController!.addJavaScriptHandler(handlerName: 'previewPictures', callback: (args) {
                     LogUtil.v('previewPictures : ${args}');
 
                     List<Gallery> galleryList = [];
@@ -215,11 +211,11 @@ class _InappWebviewPageState extends State<InappWebviewPage> {
                     );
                   });
                 },
-                onLoadStart: (InAppWebViewController controller, Uri url) {
+                onLoadStart: (InAppWebViewController controller, Uri? url) {
                   setState(() {
                   });
                 },
-                onLoadStop: (InAppWebViewController controller, Uri url) async {
+                onLoadStop: (InAppWebViewController controller, Uri? url) async {
                   if (!loaded) {
                     loaded = true;
                     setState(() { _opacity = 1.0; });

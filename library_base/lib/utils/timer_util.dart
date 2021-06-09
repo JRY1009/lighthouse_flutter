@@ -1,7 +1,7 @@
 import 'dart:async';
 
 ///timer callback.(millisUntilFinished 毫秒).
-typedef void OnTimerTickCallback(int millisUntilFinished);
+typedef void OnTimerTickCallback(int? millisUntilFinished);
 
 /**
  * @Author: Sky24n
@@ -15,7 +15,7 @@ class TimerUtil {
   TimerUtil({this.mInterval = Duration.millisecondsPerSecond, this.mTotalTime});
 
   /// Timer.
-  Timer _mTimer;
+  Timer? _mTimer;
 
   /// Is Timer active.
   /// Timer是否启动.
@@ -27,9 +27,9 @@ class TimerUtil {
 
   /// countdown totalTime.
   /// 倒计时总时间
-  int mTotalTime; //单位毫秒
+  int? mTotalTime; //单位毫秒
 
-  OnTimerTickCallback _onTimerTickCallback;
+  OnTimerTickCallback? _onTimerTickCallback;
 
   /// set Timer interval. (unit millisecond).
   /// 设置Timer间隔.
@@ -60,12 +60,12 @@ class TimerUtil {
   /// start countdown Timer.
   /// 启动倒计时Timer.
   void startCountDown() {
-    if (_isActive || mInterval <= 0 || mTotalTime <= 0) return;
+    if (_isActive || mInterval <= 0 || mTotalTime! <= 0) return;
     _isActive = true;
     Duration duration = Duration(milliseconds: mInterval);
     _doCallback(mTotalTime);
     _mTimer = Timer.periodic(duration, (Timer timer) {
-      int time = mTotalTime - mInterval;
+      int time = mTotalTime! - mInterval;
       mTotalTime = time;
       if (time >= mInterval) {
         _doCallback(time);
@@ -83,9 +83,9 @@ class TimerUtil {
     });
   }
 
-  void _doCallback(int time) {
+  void _doCallback(int? time) {
     if (_onTimerTickCallback != null) {
-      _onTimerTickCallback(time);
+      _onTimerTickCallback!(time);
     }
   }
 
@@ -107,7 +107,7 @@ class TimerUtil {
   /// 取消计时器.
   void cancel() {
     if (_mTimer != null) {
-      _mTimer.cancel();
+      _mTimer!.cancel();
       _mTimer = null;
     }
     _isActive = false;

@@ -15,8 +15,8 @@ class LatestDealItem extends StatelessWidget {
   final LatestDeal latestDeal;
 
   const LatestDealItem(
-      {Key key,
-        this.latestDeal,
+      {Key? key,
+        required this.latestDeal,
       })
       : super(key: key);
 
@@ -26,9 +26,9 @@ class LatestDealItem extends StatelessWidget {
     Random rng = Random();
     bool way = rng.nextBool();
 
-    String priceStr = NumUtil.formatNum(latestDeal?.quote, point: 2);
-    String amountStr = NumUtil.formatNum(latestDeal?.change_amount, point: 2);
-    String timeStr = DateUtil.getDateStrByDateTime(DateTime.now(), format: DateFormat.HOUR_MINUTE_SECOND);
+    String priceStr = NumUtil.formatNum(latestDeal.quote, point: 2);
+    String amountStr = NumUtil.formatNum(latestDeal.change_amount, point: 2);
+    String? timeStr = DateUtil.getDateStrByDateTime(DateTime.now(), format: DateFormat.HOUR_MINUTE_SECOND);
 
     return Container(
       height: 22.0,
@@ -38,7 +38,7 @@ class LatestDealItem extends StatelessWidget {
         children: [
           Expanded(
               flex: 1,
-              child: Text(timeStr,
+              child: Text(timeStr ?? '',
                 style: TextStyles.textGray400_w400_12,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

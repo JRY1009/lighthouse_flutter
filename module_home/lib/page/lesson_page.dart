@@ -18,10 +18,10 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class LessonPage extends StatefulWidget {
 
-  final Lesson lesson;
+  final Lesson? lesson;
 
   LessonPage({
-    Key key,
+    Key? key,
     this.lesson,
   }) : super(key: key);
 
@@ -51,13 +51,13 @@ class _LessonPageState extends State<LessonPage> with BasePageMixin<LessonPage> 
 
 
   @override
-  Future<void> refresh({slient = false}) {
+  Future<void> refresh({slient = false}) async {
 
   }
 
   Future<void> _share(BuildContext context) async {
 
-    String package = HomeRouter.isRunModule ? null : Constant.moduleHome;
+    String? package = HomeRouter.isRunModule ? null : Constant.moduleHome;
 
     DialogUtil.showShareDialog(context,
         children: [
@@ -76,7 +76,7 @@ class _LessonPageState extends State<LessonPage> with BasePageMixin<LessonPage> 
                     color: const Color(0xFFE9F2FB),
                     borderRadius: BorderRadius.all(Radius.circular(6.0)),
                   ),
-                  child: Text(widget.lesson?.title,
+                  child: Text(widget.lesson?.title ?? '',
                     style: TextStyles.textGray800_w700_20,
                     strutStyle: StrutStyle(forceStrutHeight: true, height:1.4, leading: 0.5),
                   ),
@@ -84,7 +84,7 @@ class _LessonPageState extends State<LessonPage> with BasePageMixin<LessonPage> 
 
                 Container(
                   margin: const EdgeInsets.only(left: 16, right: 16, bottom: 20),
-                  child: Text(widget.lesson?.content,
+                  child: Text(widget.lesson?.content ?? '',
                     style: TextStyles.textGray800_w400_16,
                     strutStyle: StrutStyle(forceStrutHeight: true, height:1.2, leading: 0.5),
                   ),
@@ -100,7 +100,7 @@ class _LessonPageState extends State<LessonPage> with BasePageMixin<LessonPage> 
   @override
   Widget build(BuildContext context) {
 
-    String package = HomeRouter.isRunModule ? null : Constant.moduleHome;
+    String? package = HomeRouter.isRunModule ? null : Constant.moduleHome;
 
     return Scaffold(
         backgroundColor: Colours.normal_bg,
@@ -139,7 +139,7 @@ class _LessonPageState extends State<LessonPage> with BasePageMixin<LessonPage> 
                             color: const Color(0xFFE9F2FB),
                             borderRadius: BorderRadius.all(Radius.circular(6.0)),
                           ),
-                          child: Text(widget.lesson?.title,
+                          child: Text(widget.lesson?.title ?? '',
                             style: TextStyles.textGray800_w600_20,
                             strutStyle: StrutStyle(forceStrutHeight: true, height:1.4, leading: 0.5),
                           ),
@@ -147,7 +147,7 @@ class _LessonPageState extends State<LessonPage> with BasePageMixin<LessonPage> 
 
                         Container(
                           margin: const EdgeInsets.only(left: 16, right: 16, bottom: 20),
-                          child: Text(widget.lesson?.content,
+                          child: Text(widget.lesson?.content ?? '',
                             style: TextStyles.textGray800_w400_16,
                             strutStyle: StrutStyle(forceStrutHeight: true, height:1.2, leading: 0.5),
                           ),

@@ -1,18 +1,18 @@
 
 class QuoteCoin {
-  String coin_code;
-  String coin_name;
-  String icon;
-  String pair;
-  num change_percent;
-  num change_amount;
-  num quote;
-  num vol_24h;
-  num amount_24h;
-  num cny;
-  String publish_date;
-  num market_val;
-  String hashrate;
+  String? coin_code;
+  String? coin_name;
+  String? icon;
+  String? pair;
+  num? change_percent;
+  num? change_amount;
+  num? quote;
+  num? vol_24h;
+  num? amount_24h;
+  num? cny;
+  String? publish_date;
+  num? market_val;
+  String? hashrate;
 
   QuoteCoin({
     this.coin_code,

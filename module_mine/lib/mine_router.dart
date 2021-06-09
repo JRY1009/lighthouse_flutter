@@ -24,23 +24,23 @@ class MineRouter implements IRouter{
   List<PageBuilder> getPageBuilders() {
     return [
       PageBuilder(Routers.minePage, (params) {
-        Key key = params?.getObj('key');
+        Key? key = params?.getObj('key');
         return MinePage(key: key);
       }),
 
       PageBuilder(Routers.areaPage, (params) {
-        String areaCode = params?.getString('areaCode');
+        String? areaCode = params?.getString('areaCode');
         return AreaPage(areaCode);
       }),
 
       PageBuilder(Routers.loginPage, (params) {
-        String phone = params?.getString('phone');
+        String? phone = params?.getString('phone');
         bool agreeChecked = params?.getBool('agreeChecked') ?? false;
         return LoginPage(phone: phone, agreeChecked: agreeChecked);
       }),
 
       PageBuilder(Routers.loginSmsPage, (params) {
-        String phone = params?.getString('phone');
+        String? phone = params?.getString('phone');
         bool agreeChecked = params?.getBool('agreeChecked') ?? false;
         return LoginSmsPage(phone: phone, agreeChecked: agreeChecked);
       }),

@@ -12,7 +12,7 @@ import 'package:library_base/global/rt_account.dart';
 
 class SettingModel extends ViewStateModel {
 
-  StreamSubscription userSubscription;
+  StreamSubscription? userSubscription;
 
   SettingModel();
 
@@ -33,20 +33,20 @@ class SettingModel extends ViewStateModel {
 
     setBusy();
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_UPLOAD_HEAD_ICON, "post", data: formData,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_UPLOAD_HEAD_ICON, "post", data: formData,
         cancelToken: cancelToken,
-        onSuccess: (data) {
+        onSuccess: (dynamic data) {
 
-          Account account = RTAccount.instance().getActiveAccount();
-          account?.head_ico = data;
-          RTAccount.instance().setActiveAccount(account);
-          RTAccount.instance().saveAccount();
+          Account account = RTAccount.instance()!.getActiveAccount()!;
+          account.head_ico = data;
+          RTAccount.instance()!.setActiveAccount(account);
+          RTAccount.instance()!.saveAccount();
 
           setSuccess();
           Event.eventBus.fire(UserEvent(account, UserEventState.userme));
         },
         onError: (errno, msg) {
-          setError(errno, message: msg);
+          setError(errno!, message: msg);
         });
   }
 

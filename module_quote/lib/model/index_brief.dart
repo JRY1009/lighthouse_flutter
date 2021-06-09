@@ -3,11 +3,11 @@ import 'package:library_base/utils/object_util.dart';
 
 class IndexBrief {
 
-  String key;
-  String title;
-  String value;
-  String detail;
-  int type;
+  String? key;
+  String? title;
+  String? value;
+  String? detail;
+  int? type;
 
   IndexBrief({
     this.key,
@@ -36,12 +36,12 @@ class IndexBrief {
     return jsonMap;
   }
 
-  static List<IndexBrief> fromJsonList(List<dynamic> mapList) {
+  static List<IndexBrief>? fromJsonList(List<dynamic> mapList) {
     if (ObjectUtil.isEmptyList(mapList)) {
       return null;
     }
 
-    List<IndexBrief> items = new List<IndexBrief>();
+    List<IndexBrief> items = [];
     for(Map<String, dynamic> map in mapList) {
       items.add(IndexBrief.fromJson(map));
     }

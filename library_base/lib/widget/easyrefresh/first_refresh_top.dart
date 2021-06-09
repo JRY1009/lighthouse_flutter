@@ -8,7 +8,7 @@ class FirstRefreshTop extends StatelessWidget {
 
   final double top;
   const FirstRefreshTop({
-    Key key,
+    Key? key,
     this.top = 50,
   }) : super(key: key);
 

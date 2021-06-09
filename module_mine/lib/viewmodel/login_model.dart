@@ -11,7 +11,7 @@ import 'package:library_base/utils/object_util.dart';
 
 class LoginModel extends ViewStateModel {
 
-  AccountEntity loginResult;
+  AccountEntity? loginResult;
 
   LoginModel();
 
@@ -25,23 +25,23 @@ class LoginModel extends ViewStateModel {
 
     setBusy();
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_LOGIN, "post", data: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_LOGIN, "post", data: params,
         cancelToken: cancelToken,
-        onSuccess: (data) {
+        onSuccess: (dynamic data) {
 
           loginResult = AccountEntity.fromJson(data);
-          loginResult.account_info.token = loginResult.token;
+          loginResult!.account_info!.token = loginResult!.token;
 
           //account.token = headers.value(Apis.KEY_USER_TOKEN);
-          RTAccount.instance().setActiveAccount(loginResult.account_info);
-          RTAccount.instance().saveAccount();
+          RTAccount.instance()!.setActiveAccount(loginResult!.account_info);
+          RTAccount.instance()!.saveAccount();
 
           setSuccess();
-          Event.eventBus.fire(UserEvent(loginResult.account_info, UserEventState.login));
+          Event.eventBus.fire(UserEvent(loginResult!.account_info, UserEventState.login));
         },
         onError: (errno, msg) {
           loginResult = null;
-          setError(errno, message: msg);
+          setError(errno!, message: msg);
         });
 
   }
@@ -55,23 +55,23 @@ class LoginModel extends ViewStateModel {
 
     setBusy();
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_LOGIN, "post", data: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_LOGIN, "post", data: params,
         cancelToken: cancelToken,
-        onSuccess: (data) {
+        onSuccess: (dynamic data) {
 
           loginResult = AccountEntity.fromJson(data);
-          loginResult.account_info.token = loginResult.token;
+          loginResult!.account_info!.token = loginResult!.token;
 
           //account.token = headers.value(Apis.KEY_USER_TOKEN);
-          RTAccount.instance().setActiveAccount(loginResult.account_info);
-          RTAccount.instance().saveAccount();
+          RTAccount.instance()!.setActiveAccount(loginResult!.account_info);
+          RTAccount.instance()!.saveAccount();
 
           setSuccess();
-          Event.eventBus.fire(UserEvent(loginResult.account_info, UserEventState.login));
+          Event.eventBus.fire(UserEvent(loginResult!.account_info, UserEventState.login));
         },
         onError: (errno, msg) {
           loginResult = null;
-          setError(errno, message: msg);
+          setError(errno!, message: msg);
         });
   }
 
@@ -83,26 +83,26 @@ class LoginModel extends ViewStateModel {
 
     setBusy();
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_WECHAT_LOGIN, "post", data: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_WECHAT_LOGIN, "post", data: params,
         cancelToken: cancelToken,
-        onSuccess: (data) {
+        onSuccess: (dynamic data) {
 
           loginResult = AccountEntity.fromJson(data);
-          loginResult.account_info.token = loginResult.token;
+          loginResult!.account_info!.token = loginResult!.token;
 
           //account.token = headers.value(Apis.KEY_USER_TOKEN);
-          RTAccount.instance().setActiveAccount(loginResult.account_info);
+          RTAccount.instance()!.setActiveAccount(loginResult!.account_info);
 
-          if (!ObjectUtil.isEmpty(loginResult.account_info?.phone)) {
-            RTAccount.instance().saveAccount();
-            Event.eventBus.fire(UserEvent(loginResult.account_info, UserEventState.login));
+          if (!ObjectUtil.isEmpty(loginResult!.account_info?.phone)) {
+            RTAccount.instance()!.saveAccount();
+            Event.eventBus.fire(UserEvent(loginResult!.account_info, UserEventState.login));
           }
 
           setSuccess();
         },
         onError: (errno, msg) {
           loginResult = null;
-          setError(errno, message: msg);
+          setError(errno!, message: msg);
         });
   }
 
@@ -116,23 +116,23 @@ class LoginModel extends ViewStateModel {
 
     setBusy();
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_BIND_PHONE, "post", data: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_BIND_PHONE, "post", data: params,
         cancelToken: cancelToken,
-        onSuccess: (data) {
+        onSuccess: (dynamic data) {
 
           loginResult = AccountEntity.fromJson(data);
-          loginResult.account_info.token = loginResult.token;
+          loginResult!.account_info!.token = loginResult!.token;
 
-          RTAccount.instance().setActiveAccount(loginResult.account_info);
-          RTAccount.instance().saveAccount();
+          RTAccount.instance()!.setActiveAccount(loginResult!.account_info);
+          RTAccount.instance()!.saveAccount();
 
-          Event.eventBus.fire(UserEvent(loginResult.account_info, UserEventState.login));
+          Event.eventBus.fire(UserEvent(loginResult!.account_info, UserEventState.login));
 
           setSuccess();
         },
         onError: (errno, msg) {
           loginResult = null;
-          setError(errno, message: msg);
+          setError(errno!, message: msg);
         });
   }
 }

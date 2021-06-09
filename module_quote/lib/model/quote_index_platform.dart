@@ -3,12 +3,12 @@ import 'package:library_base/utils/object_util.dart';
 
 class QuoteIndexPlatform {
 
-  String name;
-  String pair;
-  num quote;
-  String ico;
-  num cny;
-  num change_percent;
+  String? name;
+  String? pair;
+  num? quote;
+  String? ico;
+  num? cny;
+  num? change_percent;
 
   QuoteIndexPlatform({
     this.name,
@@ -40,12 +40,12 @@ class QuoteIndexPlatform {
     return jsonMap;
   }
 
-  static List<QuoteIndexPlatform> fromJsonList(List<dynamic> mapList, String pair) {
+  static List<QuoteIndexPlatform>? fromJsonList(List<dynamic> mapList, String pair) {
     if (ObjectUtil.isEmptyList(mapList)) {
       return null;
     }
 
-    List<QuoteIndexPlatform> items = new List<QuoteIndexPlatform>();
+    List<QuoteIndexPlatform> items = [];
     for(Map<String, dynamic> map in mapList) {
       items.add(QuoteIndexPlatform.fromJson(map)..pair = pair);
     }
@@ -55,14 +55,14 @@ class QuoteIndexPlatform {
 
 
 class QuoteIndexPlatformBasic {
-  String coin_code;
-  String pair;
-  String data_src;
-  double change_percent;
-  double change_amount;
-  double quote;
-  double cny;
-  List<QuoteIndexPlatform> exchange_quote_list;
+  String? coin_code;
+  String? pair;
+  String? data_src;
+  double? change_percent;
+  double? change_amount;
+  double? quote;
+  double? cny;
+  List<QuoteIndexPlatform>? exchange_quote_list;
 
 
   QuoteIndexPlatformBasic({
@@ -84,7 +84,7 @@ class QuoteIndexPlatformBasic {
     change_amount = jsonMap['change_amount'] ?? 0;
     quote = jsonMap['quote'] ?? 0;
     cny = jsonMap['cny'] ?? 0;
-    exchange_quote_list = QuoteIndexPlatform.fromJsonList(jsonMap['exchange_quote_list'], pair);
+    exchange_quote_list = QuoteIndexPlatform.fromJsonList(jsonMap['exchange_quote_list'], pair!);
   }
 
   Map<String, dynamic> toJson() {

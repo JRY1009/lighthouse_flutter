@@ -9,20 +9,20 @@ import 'package:library_base/utils/sp_util.dart';
 
 class RTAccount {
 
-  static RTAccount _instance;
+  static RTAccount? _instance;
 
-  static RTAccount instance() {
+  static RTAccount? instance() {
     if (_instance == null) {
       _instance = new RTAccount();
     }
     return _instance;
   }
 
-  Account _activeAccount;
+  Account? _activeAccount;
 
-  Account getActiveAccount() => _activeAccount;
+  Account? getActiveAccount() => _activeAccount;
 
-  setActiveAccount(Account account) {
+  setActiveAccount(Account? account) {
     _activeAccount = account;
   }
 
@@ -33,7 +33,7 @@ class RTAccount {
   void logout() {
     if (_activeAccount != null) {
 
-      _activeAccount.token = '';
+      _activeAccount!.token = '';
       saveAccount();
 
       _activeAccount = null;
@@ -45,10 +45,10 @@ class RTAccount {
   saveAccount() async {
     await SPUtil.putString(
         SPUtil.key_latest_account,
-        json.encode(_activeAccount.toLocalJson()));
+        json.encode(_activeAccount?.toLocalJson()));
   }
 
-  Account loadAccount() {
+  Account? loadAccount() {
     String jsonString = SPUtil.getString(SPUtil.key_latest_account, defValue: '');
 
     if (ObjectUtil.isEmptyString(jsonString)) {

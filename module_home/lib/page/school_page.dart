@@ -23,7 +23,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 class SchoolPage extends StatefulWidget {
 
   SchoolPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -39,7 +39,7 @@ class _SchoolPageState extends State<SchoolPage> with BasePageMixin<SchoolPage> 
 
   RefreshController _easyController = RefreshController();
 
-  SchoolModel _schoolModel;
+  late SchoolModel _schoolModel;
 
   @override
   void initState() {
@@ -65,7 +65,7 @@ class _SchoolPageState extends State<SchoolPage> with BasePageMixin<SchoolPage> 
         } else {
           _easyController.loadFailed();
         }
-        ToastUtil.error(_schoolModel.viewStateError.message);
+        ToastUtil.error(_schoolModel.viewStateError!.message!);
 
       } else if (_schoolModel.isSuccess || _schoolModel.isEmpty) {
         if (_schoolModel.page == 0) {
@@ -96,7 +96,7 @@ class _SchoolPageState extends State<SchoolPage> with BasePageMixin<SchoolPage> 
   @override
   Widget build(BuildContext context) {
 
-    String package = HomeRouter.isRunModule ? null : Constant.moduleHome;
+    String? package = HomeRouter.isRunModule ? null : Constant.moduleHome;
 
     return Scaffold(
       backgroundColor: Colours.normal_bg,

@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 
 class ImageUtil {
 
-  static ui.Image kline_logo;
+  static ui.Image? kline_logo;
 
   static Future loadImage(String path, int width, int height) async {
     var data = await rootBundle.load(path);

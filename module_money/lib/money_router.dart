@@ -13,7 +13,7 @@ class MoneyRouter implements IRouter{
   List<PageBuilder> getPageBuilders() {
     return [
       PageBuilder(Routers.moneyPage, (params) {
-        Key key = params?.getObj('key');
+        Key? key = params?.getObj('key');
         return MoneyPage(key: key);
       }),
 

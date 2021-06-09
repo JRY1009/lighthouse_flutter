@@ -16,12 +16,12 @@ import 'package:provider/provider.dart';
 
 class IndexDetailAppbar extends StatefulWidget {
 
-  final QuoteCoin quoteCoin;
-  final NumberSlideController numberSlideController;
+  final QuoteCoin? quoteCoin;
+  final NumberSlideController? numberSlideController;
   final bool showShadow;
 
   const IndexDetailAppbar({
-    Key key,
+    Key? key,
     this.quoteCoin,
     this.numberSlideController,
     this.showShadow = true,
@@ -49,17 +49,17 @@ class _IndexDetailAppbarState extends State<IndexDetailAppbar>{
 
     IndexDetailModel indexDetailModel = Provider.of<IndexDetailModel>(context);
 
-    num rate = widget.quoteCoin != null ? widget.quoteCoin.change_percent : 0;
-    num price = widget.quoteCoin != null ? widget.quoteCoin.quote : 0;
+    num rate = widget.quoteCoin?.change_percent ?? 0;
+    num price = widget.quoteCoin?.quote ?? 0;
     num priceCny = NumUtil.multiply(price, 6.5);
-    num change_amount = widget.quoteCoin != null ? widget.quoteCoin.change_amount : 0;
-    num amount_24h = widget.quoteCoin != null ? widget.quoteCoin.amount_24h : 0;
-    num vol_24h = widget.quoteCoin != null ? widget.quoteCoin.vol_24h : 0;
+    num change_amount = widget.quoteCoin?.change_amount ?? 0;
+    num amount_24h = widget.quoteCoin?.amount_24h ?? 0;
+    num vol_24h = widget.quoteCoin?.vol_24h ?? 0;
 
-    String coin_code = widget?.quoteCoin?.coin_code ?? '';
-    String coin_name = widget?.quoteCoin?.coin_name ?? '';
-    String icon = widget?.quoteCoin?.icon ?? '';
-    String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate, 2).toString() + '%';
+    String coin_code = widget.quoteCoin?.coin_code ?? '';
+    String coin_name = widget.quoteCoin?.coin_name ?? '';
+    String icon = widget.quoteCoin?.icon ?? '';
+    String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate as double, 2).toString() + '%';
     String priceStr = NumUtil.formatNum(price, point: 2);
     String priceCnyStr = NumUtil.formatNum(priceCny, point: 2);
     String changeAmountStr = (change_amount >= 0 ? '+' : '') + NumUtil.formatNum(change_amount, point: 2);
@@ -123,7 +123,7 @@ class _IndexDetailAppbarState extends State<IndexDetailAppbar>{
                     //TextSpan(text: priceStr, style: rate >= 0 ? TextStyles.textGreen_w400_22 : TextStyles.textRed_w400_22),
                     WidgetSpan(
                       child: NumberSlide(
-                          controller: widget.numberSlideController,
+                          controller: widget.numberSlideController!,
                           initialNumber: priceStr,
                           textStyle: rate >= 0 ? TextStyles.textGreen_w400_30 : TextStyles.textRed_w400_30
                       ),
@@ -142,12 +142,12 @@ class _IndexDetailAppbarState extends State<IndexDetailAppbar>{
               model: indexDetailModel.indexHeaderModel,
               builder: (context, model, child) {
 
-                double rate = indexDetailModel.quoteCoin != null ? indexDetailModel.quoteCoin.change_percent : 0;
-                double price = indexDetailModel.quoteCoin != null ? indexDetailModel.quoteCoin.quote : 0;
-                double priceCny = NumUtil.multiply(price, 6.5);
-                double change_amount = indexDetailModel.quoteCoin != null ? indexDetailModel.quoteCoin.change_amount : 0;
+                num rate = indexDetailModel.quoteCoin?.change_percent ?? 0;
+                num price = indexDetailModel.quoteCoin?.quote ?? 0;
+                num priceCny = NumUtil.multiply(price, 6.5);
+                num change_amount = indexDetailModel.quoteCoin?.change_amount ?? 0;
 
-                String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate, 2).toString() + '%';
+                String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate as double, 2).toString() + '%';
                 String priceCnyStr = NumUtil.formatNum(priceCny, point: 2);
                 String changeAmountStr = (change_amount >= 0 ? '+' : '') + NumUtil.formatNum(change_amount, point: 2);
 
@@ -197,12 +197,12 @@ class _IndexDetailAppbarState extends State<IndexDetailAppbar>{
 
 class IndexDetailShareBar extends StatelessWidget {
 
-  final QuoteCoin quoteCoin;
-  final NumberSlideController numberSlideController;
+  final QuoteCoin? quoteCoin;
+  final NumberSlideController? numberSlideController;
   final bool showShadow;
 
   const IndexDetailShareBar({
-    Key key,
+    Key? key,
     this.quoteCoin,
     this.numberSlideController,
     this.showShadow = true,
@@ -212,15 +212,15 @@ class IndexDetailShareBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double rate = quoteCoin != null ? quoteCoin.change_percent : 0;
-    double price = quoteCoin != null ? quoteCoin.quote : 0;
-    double priceCny = NumUtil.multiply(price, 6.5);
-    double change_amount = quoteCoin != null ? quoteCoin.change_amount : 0;
+    num rate = quoteCoin?.change_percent ?? 0;
+    num price = quoteCoin?.quote ?? 0;
+    num priceCny = NumUtil.multiply(price, 6.5);
+    num change_amount = quoteCoin?.change_amount ?? 0;
 
     String coin_code = quoteCoin?.coin_code ?? '';
     String coin_name = quoteCoin?.coin_name ?? '';
     String icon = quoteCoin?.icon ?? '';
-    String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate, 2).toString() + '%';
+    String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate as double, 2).toString() + '%';
     String priceStr = NumUtil.formatNum(price, point: 2);
     String priceCnyStr = NumUtil.formatNum(priceCny, point: 2);
     String changeAmountStr = (rate >= 0 ? '+' : '') + NumUtil.formatNum(change_amount, point: 2);
@@ -334,10 +334,10 @@ class IndexDetailShareBar extends StatelessWidget {
 
 class IndexDetailBottomBar extends StatelessWidget {
 
-  final QuoteCoin quoteCoin;
+  final QuoteCoin? quoteCoin;
 
   const IndexDetailBottomBar({
-    Key key,
+    Key? key,
     this.quoteCoin,
   }): super(key: key);
 

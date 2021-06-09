@@ -17,7 +17,7 @@ import 'package:module_info/page/news_list_page.dart';
 class InfoPage extends StatefulWidget {
 
   InfoPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -29,10 +29,10 @@ class _InfoPageState extends State<InfoPage> with BasePageMixin<InfoPage>, Autom
   @override
   bool get wantKeepAlive => true;
 
-  List<GlobalKey<BasePageMixin>> _keyList;
-  List<String> _tabTitles ;
+  late List<GlobalKey<BasePageMixin>> _keyList;
+  late List<String> _tabTitles ;
 
-  TabController _tabController;
+  late TabController _tabController;
 
   @override
   void initState() {
@@ -55,9 +55,9 @@ class _InfoPageState extends State<InfoPage> with BasePageMixin<InfoPage>, Autom
   }
 
   @override
-  Future<void> jump({Map<String, dynamic> params}) {
+  Future<void> jump({Map<String, dynamic>? params}) async {
     LogUtil.v('_InfoPageState ==> jump $params');
-    int tabIndex = params['tab'] ?? 0;
+    int tabIndex = params?['tab'] ?? 0;
     setState(() {
       _tabController.index = tabIndex;
     });
@@ -65,7 +65,7 @@ class _InfoPageState extends State<InfoPage> with BasePageMixin<InfoPage>, Autom
 
   @override
   Future<void> refresh({slient = false}) {
-    return _keyList[_tabController.index]?.currentState.refresh();
+    return _keyList[_tabController.index].currentState!.refresh();
   }
 
   @override

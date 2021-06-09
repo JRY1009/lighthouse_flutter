@@ -25,13 +25,13 @@ class ShareImageDialog extends StatelessWidget {
   final String imgUrl;
 
   ShareImageDialog({
-    Key key,
-    this.imgUrl,
+    Key? key,
+    required this.imgUrl,
   }) : super(key: key);
 
   bool _isShowDialog = false;
 
-  void showProgress(BuildContext context, {String content, bool showContent = true}) {
+  void showProgress(BuildContext context, {bool showContent = true}) {
     /// 避免重复弹出
     if (!_isShowDialog) {
       _isShowDialog = true;

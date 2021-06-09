@@ -12,18 +12,18 @@ import 'package:library_base/widget/text/text_expand.dart';
 
 class IndexBriefItem extends StatelessWidget {
 
-  final int index;
+  final int? index;
 
-  final String title;
+  final String? title;
 
-  final String subTitle;
+  final String? subTitle;
 
-  final String detailInfo;
+  final String? detailInfo;
 
-  final int type;
+  final int? type;
 
   const IndexBriefItem(
-      {Key key,
+      {Key? key,
         this.index,
         this.title,
         this.subTitle,
@@ -42,7 +42,7 @@ class IndexBriefItem extends StatelessWidget {
             Container(
               alignment: Alignment.topLeft,
               margin: EdgeInsets.only(top: 18),
-              child: Text(title,
+              child: Text(title ?? '',
                 style: TextStyles.textGray800_w700_18,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -69,7 +69,7 @@ class IndexBriefItem extends StatelessWidget {
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(right: 5),
-              child: Text(title,
+              child: Text(title ?? '',
                 style: TextStyles.textGray400_w400_14,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

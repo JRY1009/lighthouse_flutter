@@ -8,7 +8,7 @@ class MoneySupportExchangeBar extends StatelessWidget {
 
   final String days;
   const MoneySupportExchangeBar({
-    Key key,
+    Key? key,
     this.days = '123',
   }) : super(key: key);
 

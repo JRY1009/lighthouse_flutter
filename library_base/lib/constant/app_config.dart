@@ -25,9 +25,9 @@ class EnvModel {
   String wsUrl;
 
   EnvModel({
-    this.envMode,
-    this.apiUrl,
-    this.articleApiUrl,
-    this.wsUrl,
+    required this.envMode,
+    required this.apiUrl,
+    required this.articleApiUrl,
+    required this.wsUrl,
   });
 }

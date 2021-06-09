@@ -23,9 +23,9 @@ class IndexBriefModel extends ViewStateModel {
       'chain': chain,
     };
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_GET_CHAIN_DETAIL, 'get', params: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_GET_CHAIN_DETAIL, 'get', params: params,
         cancelToken: cancelToken,
-        onSuccess: (data) {
+        onSuccess: (dynamic data) {
 
           briefList = IndexBrief.fromJsonList(data['chain_detail']) ?? [];
           friendLinkList = FriendLink.fromJsonList(data['friend_link']) ?? [];
@@ -34,7 +34,7 @@ class IndexBriefModel extends ViewStateModel {
           setSuccess();
         },
         onError: (errno, msg) {
-          setError(errno, message: msg);
+          setError(errno!, message: msg);
         });
   }
 

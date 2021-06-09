@@ -18,7 +18,7 @@ class HomeRouter implements IRouter{
   List<PageBuilder> getPageBuilders() {
     return [
       PageBuilder(Routers.homePage, (params) {
-        Key key = params?.getObj('key');
+        Key? key = params?.getObj('key');
         return HomePage(key: key);
       }),
 
@@ -32,7 +32,7 @@ class HomeRouter implements IRouter{
 
 
       PageBuilder(Routers.lessonPage, (params) {
-        Lesson lesson = params?.getObj('lesson');
+        Lesson? lesson = params?.getObj('lesson');
         return LessonPage(lesson: lesson);
       }),
     ];

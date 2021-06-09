@@ -25,7 +25,7 @@ import 'package:module_mine/mine_router.dart';
 import 'package:module_quote/quote_router.dart';
 import 'package:module_money/money_router.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:umeng_analytics_plugin/umeng_analytics_plugin.dart';
+import 'package:fl_umeng/fl_umeng.dart';
 
 //默认App的启动
 class DefaultApp {
@@ -65,11 +65,13 @@ class DefaultApp {
 
       String channel = await ChannelUtil.getChannel();
 
-      await UmengAnalyticsPlugin.init(
-          androidKey: '607552ba5844f15425d14f03',
-          iosKey: '6075530a5844f15425d151b2',
+      await initWithUM(
+          androidAppKey: '607552ba5844f15425d14f03',
+          iosAppKey: '6075530a5844f15425d151b2',
           channel: channel
       );
+
+      await setPageCollectionModeManualWithUM();
 
       await registerWxApi(
           appId: "wxfdba5c8a01643f82",
@@ -114,7 +116,7 @@ class _MyAppState extends State<MyApp> {
     return ProviderWidget2(
         model1: ThemeProvider(),
         model2: LocaleProvider(SPUtil.getString(SPUtil.key_locale)),
-        builder: (context, themeProvider, localeModel, _) {
+        builder: (context, dynamic themeProvider, dynamic localeModel, _) {
 
           Widget child = MaterialApp(
             title: 'LightHouse',
@@ -122,7 +124,7 @@ class _MyAppState extends State<MyApp> {
             theme:  themeProvider.getThemeData(),
             darkTheme: themeProvider.getThemeData(isDarkMode: true),
             themeMode: themeProvider.getThemeMode(),
-            onGenerateRoute: Routers.router.generator,
+            onGenerateRoute: Routers.router!.generator,
             navigatorObservers: [AppAnalysis()],
             locale: localeModel.getLocale(),
             localizationsDelegates: const [
@@ -133,12 +135,12 @@ class _MyAppState extends State<MyApp> {
               GlobalWidgetsLocalizations.delegate
             ],
             supportedLocales: S.delegate.supportedLocales,
-            localeResolutionCallback: (Locale _locale, Iterable<Locale> supportedLocales) {
+            localeResolutionCallback: (Locale? _locale, Iterable<Locale> supportedLocales) {
               if (localeModel.getLocale() != null) {  //如果已经选定语言，则不跟随系统
                 return localeModel.getLocale();
 
               } else {  //跟随系统
-                if (S.delegate.isSupported(_locale)) {
+                if (S.delegate.isSupported(_locale!)) {
                   return _locale;
                 }
                 return supportedLocales.first;
@@ -148,7 +150,7 @@ class _MyAppState extends State<MyApp> {
               return MediaQuery(
                 //设置文字大小不随系统设置改变
                 data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-                child: widget,
+                child: widget!,
               );
             },
           );

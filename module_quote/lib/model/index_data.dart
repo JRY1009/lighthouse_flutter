@@ -5,14 +5,14 @@ import 'package:library_base/utils/object_util.dart';
 
 class IndexData {
 
-  num turnover;
-  num turnover_market_vol;
-  num total_supply;
-  num total_supply_market_vol;
-  num address_count;
-  String update_time;
-  String pair;
-  List<AssetsDistribution> address_balance_list;
+  num? turnover;
+  num? turnover_market_vol;
+  num? total_supply;
+  num? total_supply_market_vol;
+  num? address_count;
+  String? update_time;
+  String? pair;
+  List<AssetsDistribution>? address_balance_list;
 
 
   IndexData({
@@ -55,9 +55,9 @@ class IndexData {
 
 class AssetsDistribution {
 
-  String range;
-  num address_count;
-  String compare_yesterday_ratio ;
+  String? range;
+  num? address_count;
+  String? compare_yesterday_ratio ;
 
   Color getColor(int index) {
     switch (index % 7) {
@@ -74,6 +74,8 @@ class AssetsDistribution {
       case 5:
         return Color(0xff46A9E1);
       case 6:
+        return Color(0xff4EDDB6);
+      default:
         return Color(0xff4EDDB6);
     }
   }
@@ -99,12 +101,12 @@ class AssetsDistribution {
     return jsonMap;
   }
 
-  static List<AssetsDistribution> fromJsonList(List<dynamic> mapList) {
+  static List<AssetsDistribution>? fromJsonList(List<dynamic> mapList) {
     if (ObjectUtil.isEmptyList(mapList)) {
       return null;
     }
 
-    List<AssetsDistribution> items = new List<AssetsDistribution>();
+    List<AssetsDistribution> items = [];
     for(Map<String, dynamic> map in mapList) {
       items.add(AssetsDistribution.fromJson(map));
     }

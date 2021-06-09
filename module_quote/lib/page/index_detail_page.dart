@@ -35,10 +35,10 @@ import 'index_data_page.dart';
 
 class IndexDetailPage extends StatefulWidget {
 
-  final String coinCode;
+  final String? coinCode;
 
   IndexDetailPage({
-    Key key,
+    Key? key,
     this.coinCode = 'bitcoin'
   }) : super(key: key);
 
@@ -48,15 +48,15 @@ class IndexDetailPage extends StatefulWidget {
 
 class _IndexDetailPageState extends State<IndexDetailPage> with BasePageMixin<IndexDetailPage>, SingleTickerProviderStateMixin {
 
-  IndexDetailModel _indexDetailModel;
+  late IndexDetailModel _indexDetailModel;
 
-  List<String> _tabTitles ;
+  List<String>? _tabTitles ;
   ShotController _tabBarSC = new ShotController();
 
   ScrollController _nestedController = ScrollController();
   final _nestedRefreshKey = GlobalKey<NestedRefreshIndicatorState>();
 
-  TabController _tabController;
+  late TabController _tabController;
 
   ValueNotifier<bool> _topBarExtentNofifier = ValueNotifier<bool>(false);
   ValueNotifier<bool> _scrollExtentNofifier = ValueNotifier<bool>(false);
@@ -84,7 +84,7 @@ class _IndexDetailPageState extends State<IndexDetailPage> with BasePageMixin<In
     _tabTitles = [S.current.quote, S.current.info, S.current.briefInfo, S.current.data];
     _indexDetailModel = IndexDetailModel(_tabTitles);
     _indexDetailModel.listenEvent();
-    _indexDetailModel.getSpotDetail(widget.coinCode);
+    _indexDetailModel.getSpotDetail(widget.coinCode ?? '');
   }
 
   @override
@@ -96,7 +96,7 @@ class _IndexDetailPageState extends State<IndexDetailPage> with BasePageMixin<In
   }
 
   Future<void> _refresh()  {
-    return _indexDetailModel.getSpotDetailWithChild(widget.coinCode, _tabController.index);
+    return _indexDetailModel.getSpotDetailWithChild(widget.coinCode ?? '', _tabController.index);
   }
 
   void _scrollNotify(double scrollY, double maxExtent) {
@@ -132,9 +132,9 @@ class _IndexDetailPageState extends State<IndexDetailPage> with BasePageMixin<In
 
     Future.delayed(new Duration(milliseconds: 100), () async {
 
-      String title = _indexDetailModel.quoteCoin != null ? _indexDetailModel.quoteCoin.pair : '';
+      String title = _indexDetailModel.quoteCoin?.pair ?? '';
 
-      Uint8List tabViewpngBytes = await _indexDetailModel.keyList[0]?.currentState.screenShot();
+      Uint8List tabViewpngBytes = await _indexDetailModel.keyList[0].currentState!.screenShot()!;
       Uint8List tabBarPngBytes = await _tabBarSC.makeImageUint8List();
       DialogUtil.showShareDialog(context,
           children: [
@@ -145,7 +145,7 @@ class _IndexDetailPageState extends State<IndexDetailPage> with BasePageMixin<In
               child: Column(
                 children: [
                   IndexDetailShareBar(showShadow: false, quoteCoin: _indexDetailModel.quoteCoin),
-                  IndexTimelineBar(coinCode: widget.coinCode),
+                  IndexTimelineBar(coinCode: widget.coinCode ?? ''),
                   IndexDetailBottomBar(quoteCoin: _indexDetailModel.quoteCoin),
                   Image.memory(tabBarPngBytes),
                   Image.memory(tabViewpngBytes),
@@ -197,7 +197,7 @@ class _IndexDetailPageState extends State<IndexDetailPage> with BasePageMixin<In
                         return _toolbarHeight;
                       },
                       innerScrollPositionKeyBuilder: () {
-                        return Key(_tabTitles[_tabController.index]);
+                        return Key(_tabTitles![_tabController.index]);
                       },
                       headerSliverBuilder: (context, innerBoxIsScrolled) => _headerSliverBuilder(context),
                       body: Column(
@@ -207,22 +207,22 @@ class _IndexDetailPageState extends State<IndexDetailPage> with BasePageMixin<In
                             child: TabBarView(
                               controller: _tabController,
                               children: <Widget>[
-                                extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[0]),
+                                extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles![0]),
                                     IndexPlatformPage(key: _indexDetailModel.keyList[0], coinCode: widget.coinCode)
                                 ),
-                                extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[1]),
+                                extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles![1]),
                                     Routers.generatePage(context, Routers.articleListPage,
                                         parameters: Parameters()
                                           ..putObj('key', _indexDetailModel.keyList[1])
                                           ..putBool('isSupportPull', false)
                                           ..putBool('isSingleCard', false)
-                                          ..putString('tag', widget.coinCode)
-                                    )
+                                          ..putString('tag', widget.coinCode ?? '')
+                                    )!
                                 ),
-                                extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[2]),
+                                extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles![2]),
                                     IndexBriefPage(key: _indexDetailModel.keyList[2], coinCode: widget.coinCode)
                                 ),
-                                extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles[3]),
+                                extended.NestedScrollViewInnerScrollPositionKeyWidget(Key(_tabTitles![3]),
                                     IndexDataPage(key: _indexDetailModel.keyList[3], coinCode: widget.coinCode)
                                 ),
                               ],
@@ -275,7 +275,7 @@ class _IndexDetailPageState extends State<IndexDetailPage> with BasePageMixin<In
       ),
 
       SliverToBoxAdapter(
-        child: IndexTimelineBar(coinCode: widget.coinCode),
+        child: IndexTimelineBar(coinCode: widget.coinCode ?? ''),
       ),
 
       SliverToBoxAdapter(
@@ -299,11 +299,11 @@ class _IndexDetailPageState extends State<IndexDetailPage> with BasePageMixin<In
         model2: _topBarExtentNofifier,
         builder: (context, model1, model2, child) {
 
-          String title = _indexDetailModel.quoteCoin != null ? _indexDetailModel.quoteCoin.pair : '';
-          double rate = _indexDetailModel.quoteCoin != null ? _indexDetailModel.quoteCoin.change_percent : 0;
-          double price = _indexDetailModel.quoteCoin != null ? _indexDetailModel.quoteCoin.quote : 0;
-          String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate, 2).toString() + '%';
-          String priceStr = NumUtil.getNumByValueDouble(price, 2).toString();
+          String title = _indexDetailModel.quoteCoin?.pair ?? '';
+          num rate = _indexDetailModel.quoteCoin?.change_percent ?? 0;
+          num price = _indexDetailModel.quoteCoin?.quote ?? 0;
+          String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate as double, 2).toString() + '%';
+          String priceStr = NumUtil.getNumByValueDouble(price as double, 2).toString();
 
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -346,10 +346,10 @@ class _IndexDetailPageState extends State<IndexDetailPage> with BasePageMixin<In
                   insets: EdgeInsets.only(left: 8, right: 8)),
               isScrollable: true,
               tabs: <Tab>[
-                Tab(text: _tabTitles[0]),
-                Tab(text: _tabTitles[1]),
-                Tab(text: _tabTitles[2]),
-                Tab(text: _tabTitles[3]),
+                Tab(text: _tabTitles![0]),
+                Tab(text: _tabTitles![1]),
+                Tab(text: _tabTitles![2]),
+                Tab(text: _tabTitles![3]),
               ],
             ),
           ),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class FrameAnimationImage extends StatefulWidget {
   final List<String> assetList;
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
   final int interval;
   final bool repeat;
 
@@ -23,8 +23,8 @@ class FrameAnimationImage extends StatefulWidget {
 class _FrameAnimationImageState extends State<FrameAnimationImage>
     with SingleTickerProviderStateMixin {
   // 动画控制
-  Animation<double> _animation;
-  AnimationController _controller;
+  late Animation<double> _animation;
+  late AnimationController _controller;
   int interval = 25;
 
   @override

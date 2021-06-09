@@ -6,7 +6,7 @@ import 'package:library_base/utils/image_util.dart';
 class LocalImage extends StatelessWidget {
   
   const LocalImage(this.image, {
-    Key key,
+    Key? key,
     this.package,
     this.width,
     this.height, 
@@ -19,14 +19,14 @@ class LocalImage extends StatelessWidget {
   }): super(key: key);
 
   final String image;
-  final String package;
-  final double width;
-  final double height;
-  final int cacheWidth;
-  final int cacheHeight;
-  final BoxFit fit;
+  final String? package;
+  final double? width;
+  final double? height;
+  final int? cacheWidth;
+  final int? cacheHeight;
+  final BoxFit? fit;
   final ImageFormat format;
-  final Color color;
+  final Color? color;
   final bool gaplessPlayback;
   
   @override

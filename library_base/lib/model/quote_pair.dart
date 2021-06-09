@@ -3,20 +3,20 @@
 import 'quote.dart';
 
 class QuotePair {
-  String pair;
-  String chain;
-  String coin_code;
-  String coin_name;
-  String icon;
-  String icon_grey;
-  num market_val;
-  num change_percent;
-  num change_amount;
-  num quote;
-  num vol_24h;
-  num amount_24h;
-  String hashrate;
-  List<Quote> quote_24h;
+  String? pair;
+  String? chain;
+  String? coin_code;
+  String? coin_name;
+  String? icon;
+  String? icon_grey;
+  num? market_val;
+  num? change_percent;
+  num? change_amount;
+  num? quote;
+  num? vol_24h;
+  num? amount_24h;
+  String? hashrate;
+  List<Quote>? quote_24h;
 
   QuotePair({
     this.pair,

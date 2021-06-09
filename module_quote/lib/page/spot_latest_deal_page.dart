@@ -20,7 +20,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 class SpotLatestDealPage extends StatefulWidget {
 
   const SpotLatestDealPage({
-    Key key,
+    Key? key,
   }): super(key: key);
 
 
@@ -35,14 +35,14 @@ class _SpotLatestDealPageState extends State<SpotLatestDealPage> with BasePageMi
 
   RefreshController _easyController = RefreshController();
 
-  SpotDealModel _spotDealModel;
+  late SpotDealModel _spotDealModel;
 
   @override
   void initState() {
     super.initState();
 
     _spotDealModel = SpotDealModel();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (mounted) {
         initViewModel();
       }
@@ -62,7 +62,7 @@ class _SpotLatestDealPageState extends State<SpotLatestDealPage> with BasePageMi
     _spotDealModel.addListener(() {
       if (_spotDealModel.isError) {
         _easyController.refreshFailed();
-        ToastUtil.error(_spotDealModel.viewStateError.message);
+        ToastUtil.error(_spotDealModel.viewStateError!.message!);
 
       } else if (_spotDealModel.isSuccess || _spotDealModel.isEmpty) {
         _easyController.refreshCompleted(resetFooterState: false);
@@ -104,10 +104,10 @@ class _SpotLatestDealPageState extends State<SpotLatestDealPage> with BasePageMi
                     SliverList(
                       delegate: SliverChildBuilderDelegate((context, i) {
                         return LatestDealItem(
-                          latestDeal: _spotDealModel?.dealList[i],
+                          latestDeal: _spotDealModel.dealList[i],
                         );
                       },
-                        childCount: min(20, _spotDealModel?.dealList?.length),
+                        childCount: min(20, _spotDealModel.dealList.length),
                       ),
                     ),
                   ],

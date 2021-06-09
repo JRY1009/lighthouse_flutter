@@ -10,9 +10,9 @@ class LessonItem extends StatelessWidget {
   final Lesson lesson;
   final bool isLast;
 
-  const LessonItem({Key key,
-    this.lesson,
-    this.isLast
+  const LessonItem({Key? key,
+    required this.lesson,
+    this.isLast = false
   }) : super(key: key);
 
   @override
@@ -44,7 +44,7 @@ class LessonItem extends StatelessWidget {
               padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 20, vertical: 2)),
               shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(23)))),
             ),
-            child: Text(lesson.title,
+            child: Text(lesson.title ?? '',
               style: TextStyles.textMain500_14,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

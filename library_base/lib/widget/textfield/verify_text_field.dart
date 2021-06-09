@@ -10,21 +10,21 @@ import 'package:library_base/res/styles.dart';
 //登陆注册界面验证码edittext输入框
 class VerifyTextField extends StatefulWidget {
 
-  final FocusNode focusNode;
-  final Function() onTextChanged;
-  final TextEditingController controller;
+  final FocusNode? focusNode;
+  final Function()? onTextChanged;
+  final TextEditingController? controller;
   final Future<bool> Function() getVCode;
 
-  final Color backgroundColor;
-  final InputBorder focusedBorder;
-  final InputBorder enabledBorder;
+  final Color? backgroundColor;
+  final InputBorder? focusedBorder;
+  final InputBorder? enabledBorder;
 
   VerifyTextField({
-    Key key,
-    @required this.controller,
+    Key? key,
+    required this.controller,
+    required this.getVCode,
     this.focusNode,
     this.onTextChanged,
-    this.getVCode,
     this.backgroundColor,
     this.focusedBorder,
     this.enabledBorder
@@ -40,8 +40,8 @@ class _VerifyTextFieldState extends State<VerifyTextField> {
   /// 倒计时秒数
   final int _second = 60;
   /// 当前秒数
-  int _currentSecond;
-  StreamSubscription _subscription;
+  int? _currentSecond;
+  StreamSubscription? _subscription;
 
   @override
   void dispose() {
@@ -59,7 +59,7 @@ class _VerifyTextFieldState extends State<VerifyTextField> {
       _subscription = Stream.periodic(const Duration(seconds: 1), (int i) => i).take(_second).listen((int i) {
         setState(() {
           _currentSecond = _second - i - 1;
-          _clickable = _currentSecond < 1;
+          _clickable = _currentSecond! < 1;
         });
       });
     }
@@ -114,7 +114,9 @@ class _VerifyTextFieldState extends State<VerifyTextField> {
           ),
           onChanged: (text) {
             setState(() {
-              widget.onTextChanged();
+              if (widget.onTextChanged != null) {
+                widget.onTextChanged!();
+              }
             });
           },
         )

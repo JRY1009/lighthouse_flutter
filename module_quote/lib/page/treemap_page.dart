@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:core';
 import 'dart:typed_data';
@@ -24,7 +25,7 @@ import 'package:module_quote/viewmodel/treemap_model.dart';
 class TreemapPage extends StatefulWidget {
 
   TreemapPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   _TreemapPageState createState() => _TreemapPageState();
@@ -32,7 +33,7 @@ class TreemapPage extends StatefulWidget {
 
 class _TreemapPageState extends State<TreemapPage> {
 
-  TreemapModel _treemapModel;
+  late TreemapModel _treemapModel;
 
   final _echartKey = GlobalKey<InappEchartsState>();
   ShotController _shotController = new ShotController();
@@ -52,7 +53,7 @@ class _TreemapPageState extends State<TreemapPage> {
 
   Future<void> _share() async {
     Uint8List pngBytes = await _shotController.makeImageUint8List();
-    Uint8List webBytes = await _echartKey?.currentState.webviewController.takeScreenshot();
+    Uint8List webBytes = await (_echartKey.currentState!.webviewController!.takeScreenshot() as FutureOr<Uint8List>);
     DialogUtil.showShareDialog(context,
         children: [
           Container(
@@ -67,7 +68,7 @@ class _TreemapPageState extends State<TreemapPage> {
                     overflow: TextOverflow.ellipsis,
                     style: TextStyles.textGray800_w700_16
                 ),
-                Text(DateUtil.getDateStrByDateTime(DateTime.now(), format: DateFormat.NORMAL),
+                Text(DateUtil.getDateStrByDateTime(DateTime.now(), format: DateFormat.NORMAL) ?? '',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyles.textGray500_w400_12

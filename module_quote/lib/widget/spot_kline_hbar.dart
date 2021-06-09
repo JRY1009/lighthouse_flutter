@@ -28,8 +28,8 @@ class SpotKlineHBar extends StatefulWidget {
   final bool horizontal;
 
   const SpotKlineHBar({
-    Key key,
-    this.coinCode,
+    Key? key,
+    required this.coinCode,
     this.horizontal = false
   }): super(key: key);
 
@@ -43,9 +43,9 @@ class _SpotKlineHBarState extends State<SpotKlineHBar> with AutomaticKeepAliveCl
   @override
   bool get wantKeepAlive => true;
 
-  SpotKlineModel _spotKlineModel;
+  late SpotKlineModel _spotKlineModel;
 
-  TabController _tabController;
+  late TabController _tabController;
 
   MainState mainState = MainState.MA;
   VolState volState = VolState.VOL;
@@ -56,11 +56,11 @@ class _SpotKlineHBarState extends State<SpotKlineHBar> with AutomaticKeepAliveCl
   final GlobalKey _bodyKey = GlobalKey();
   double _tabHeight = 24;
 
-  double _height;
+  late double _height;
 
   int _initIndex = 2;
   int _lastIndex = 2;
-  int _subIndex;
+  int? _subIndex;
   int _tablength = 7;
 
   @override
@@ -105,7 +105,7 @@ class _SpotKlineHBarState extends State<SpotKlineHBar> with AutomaticKeepAliveCl
         height: body.size.height - tab.size.height,
         sortIndex: _subIndex,
         onSelected: (index, name) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
+          WidgetsBinding.instance!.addPostFrameCallback((_) {
             _subIndex = index;
             _lastIndex = _tabController.index;
             if (_spotKlineModel.getQuoteList(_tabController.index) != null) {
@@ -116,12 +116,12 @@ class _SpotKlineHBarState extends State<SpotKlineHBar> with AutomaticKeepAliveCl
           });
         },
         onCancel: () {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
+          WidgetsBinding.instance!.addPostFrameCallback((_) {
             if (_lastIndex != _tablength - 1) {
               _subIndex = null;
             }
             _tabController.index = _lastIndex;
-            _spotKlineModel?.spotKlineTabModel.notifyListeners();
+            _spotKlineModel.spotKlineTabModel.notifyListeners();
           });
         },
       ),
@@ -180,7 +180,7 @@ class _SpotKlineHBarState extends State<SpotKlineHBar> with AutomaticKeepAliveCl
                                   child: Stack(
                                     children: [
                                       Center(
-                                        child: Text(_subIndex == null ? S.of(context).more : _spotKlineModel.moreList[_subIndex],
+                                        child: Text(_subIndex == null ? S.of(context).more : _spotKlineModel.moreList[_subIndex!],
                                             style: (_tabController.index == _tablength - 1) ? TextStyles.textMain500_12 : TextStyles.textGray400_w400_12),
                                       ),
 
@@ -232,7 +232,7 @@ class _SpotKlineHBarState extends State<SpotKlineHBar> with AutomaticKeepAliveCl
                                   quoteList: model.getQuoteList(_tabController.index),
                                   onLongPressChanged: (entity) {
                                     SpotDetailModel spotDetailModel = Provider.of<SpotDetailModel>(context, listen: false);
-                                    spotDetailModel?.handleKLineLongPress(entity);
+                                    spotDetailModel.handleKLineLongPress(entity);
                                   },
                                 )
                             )

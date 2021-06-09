@@ -12,8 +12,8 @@ class SortButton extends StatelessWidget {
   final SortButtonState state;
 
   const SortButton({
-    Key key,
-    this.state,
+    Key? key,
+    required this.state,
   }) : super(key: key);
 
   @override

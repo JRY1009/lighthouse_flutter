@@ -12,7 +12,7 @@ import 'package:module_info/model/article.dart';
 class ArticleModel extends ViewStateModel {
 
   List<Article> articleList = [];
-  Article article;
+  Article? article;
 
   final String tag;
   int page = 0;
@@ -40,9 +40,9 @@ class ArticleModel extends ViewStateModel {
       'count': pageSize,
     };
 
-    return DioUtil.getInstance().requestArticle(Apis.URL_GET_ARTICLES + '15/articles', 'get', params: params,
+    return DioUtil.getInstance()!.requestArticle(Apis.URL_GET_ARTICLES + '15/articles', 'get', params: params,
         cancelToken: cancelToken,
-        onSuccess: (data) {
+        onSuccess: (dynamic data) {
 
           List<Article> newsList = Article.fromJsonList(data) ?? [];
           if (page == 0) {
@@ -54,7 +54,7 @@ class ArticleModel extends ViewStateModel {
           }
 
           articleList = articleList.toSet().toList();
-          noMore = newsList?.length < pageSize;
+          noMore = newsList.length < pageSize;
 
           if (ObjectUtil.isEmptyList(articleList)) {
             setEmpty();
@@ -63,7 +63,7 @@ class ArticleModel extends ViewStateModel {
           }
         },
         onError: (errno, msg) {
-          setError(errno, message: msg);
+          setError(errno!, message: msg);
         });
   }
 
@@ -71,16 +71,16 @@ class ArticleModel extends ViewStateModel {
     Map<String, dynamic> params = {
     };
 
-    return DioUtil.getInstance().requestArticle(Apis.URL_GET_ARTICLE + article_id.toString(), 'get', params: params,
+    return DioUtil.getInstance()!.requestArticle(Apis.URL_GET_ARTICLE + article_id.toString(), 'get', params: params,
         cancelToken: cancelToken,
-        onSuccess: (data) {
+        onSuccess: (dynamic data) {
 
           article = Article.fromJson(data);
 
           setSuccess();
         },
         onError: (errno, msg) {
-          setError(errno, message: msg);
+          setError(errno!, message: msg);
         });
   }
 

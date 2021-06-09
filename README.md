@@ -18,6 +18,7 @@
 * 基于bugly的应用全量更新
 * 基于bugly + tinker的热更新
 * 基于walle的多渠道打包
+* 代码迁移至nullsafety
 * 全平台适配，Web、Android、iOS、Windows、macos
 
 ## 在线Demo
@@ -46,7 +47,7 @@
 | [cached_network_image](https://github.com/renefloor/flutter_cached_network_image)       | **图片加载**       |
 | [fluro](https://github.com/theyakka/fluro)                            | **路由管理**     |
 | [flutter_oktoast](https://github.com/OpenFlutter/flutter_oktoast)     | **Toast**        |
-| [flutter_swiper](https://github.com/best-flutter/flutter_swiper)      | **Flutter 轮播组件**       |
+| [flutter_carousel_slider](https://github.com/serenader2014/flutter_carousel_slider)      | **Flutter 轮播组件**       |
 | [url_launcher](https://github.com/flutter/plugins/tree/master/packages/url_launcher)   | **启动URL的插件**       |
 | [image_picker](https://github.com/flutter/plugins/tree/master/packages/image_picker)   | **图片选择插件** |
 | [image_cropper](https://github.com/hnvn/flutter_image_cropper)   | **图片裁剪** |

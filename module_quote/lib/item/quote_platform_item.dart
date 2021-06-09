@@ -13,22 +13,22 @@ import 'package:module_quote/model/quote_platform.dart';
 
 class QuotePlatformItem extends StatelessWidget {
 
-  final int index;
+  final int? index;
 
   final QuotePlatformPair quotePlatformPair;
 
 
   const QuotePlatformItem(
-      {Key key,
+      {Key? key,
+        required this.quotePlatformPair,
         this.index,
-        this.quotePlatformPair
       })
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
-    String rateStr = (quotePlatformPair.change_percent >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(quotePlatformPair.change_percent.toDouble(), 2).toString() + '%';
+    String rateStr = (quotePlatformPair.change_percent! >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(quotePlatformPair.change_percent!.toDouble(), 2).toString() + '%';
 
     String priceStr = NumUtil.formatNum(quotePlatformPair.quote, point: 2);
     String cnyStr = NumUtil.formatNum(quotePlatformPair.cny, point: 2);
@@ -64,13 +64,13 @@ class QuotePlatformItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(quotePlatformPair.name,
+                      Text(quotePlatformPair.name ?? '',
                         style: TextStyles.textGray800_w600_15,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                       Gaps.vGap5,
-                      Text(quotePlatformPair.pair,
+                      Text(quotePlatformPair.pair ?? '',
                         style: TextStyles.textGray500_w400_11,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -104,7 +104,7 @@ class QuotePlatformItem extends StatelessWidget {
               width: 70,
               alignment: Alignment.centerRight,
               child: Text(rateStr,
-                  style: quotePlatformPair.change_percent >= 0 ? TextStyles.textGreen_w400_14 : TextStyles.textRed_w400_14,
+                  style: quotePlatformPair.change_percent! >= 0 ? TextStyles.textGreen_w400_14 : TextStyles.textRed_w400_14,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis),
             ),

@@ -22,33 +22,33 @@ class QuoteRouter implements IRouter{
   List<PageBuilder> getPageBuilders() {
     return [
       PageBuilder(Routers.quotePage, (params) {
-        Key key = params?.getObj('key');
+        Key? key = params?.getObj('key');
         return QuotePage(key: key);
       }),
 
       PageBuilder(Routers.indexDetailPage, (params) {
-        String coinCode = params?.getString('coinCode');
+        String? coinCode = params?.getString('coinCode');
         return IndexDetailPage(coinCode: coinCode);
       }),
 
       PageBuilder(Routers.spotDetailPage, (params) {
-        String coinCode = params?.getString('coinCode');
+        String? coinCode = params?.getString('coinCode');
         return SpotDetailPage(coinCode: coinCode);
       }),
 
       PageBuilder(Routers.spotDetailHPage, (params) {
-        String coinCode = params?.getString('coinCode');
-        QuoteCoin quoteCoin = params?.getObj('quoteCoin');
+        String? coinCode = params?.getString('coinCode');
+        QuoteCoin? quoteCoin = params?.getObj('quoteCoin');
         return SpotDetailHPage(coinCode: coinCode, quoteCoin: quoteCoin);
       }),
 
       PageBuilder(Routers.spotDepthOrderPage, (params) {
-        Key key = params?.getObj('key');
+        Key? key = params?.getObj('key');
         return SpotDepthOrderPage(key: key);
       }),
 
       PageBuilder(Routers.spotLatestDealPage, (params) {
-        Key key = params?.getObj('key');
+        Key? key = params?.getObj('key');
         return SpotLatestDealPage(key: key);
       }),
 

@@ -5,9 +5,9 @@ export 'package:library_kchart/chart_style.dart';
 
 abstract class BaseChartRenderer<T> {
   double maxValue, minValue;
-  double scaleY, scaleX;
+  double? scaleY, scaleX;
   double topPadding;
-  Rect chartRect;
+  Rect? chartRect;
   final Paint chartPaint = Paint()
     ..isAntiAlias = true
     ..filterQuality = FilterQuality.high
@@ -20,19 +20,19 @@ abstract class BaseChartRenderer<T> {
     ..color = ChartColors.gridColor;
 
   BaseChartRenderer(
-      {@required this.chartRect,
-      @required this.maxValue,
-      @required this.minValue,
-      @required this.topPadding,
-      @required this.scaleX}) {
+      {required this.chartRect,
+      required this.maxValue,
+      required this.minValue,
+      required this.topPadding,
+      required this.scaleX}) {
     if (maxValue == minValue) {
       maxValue += 0.5;
       minValue -= 0.5;
     }
-    scaleY = chartRect.height / (maxValue - minValue);
+    scaleY = chartRect!.height / (maxValue - minValue);
   }
 
-  double getY(double y) => (maxValue - y) * scaleY + chartRect.top;
+  double getY(double y) => (maxValue - y) * scaleY! + chartRect!.top;
 
   String format(double n) {
     return KChartNumberUtil.format(n);

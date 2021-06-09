@@ -18,44 +18,41 @@ class InfoRouter implements IRouter{
   List<PageBuilder> getPageBuilders() {
     return [
       PageBuilder(Routers.infoPage, (params) {
-        Key key = params?.getObj('key');
+        Key? key = params?.getObj('key');
         return InfoPage(key: key);
       }),
 
       PageBuilder(Routers.articleRecommendPage, (params) {
-        Key key = params?.getObj('key');
-        String tag = params?.getString('tag') ?? '';
-        return ArticleRecommendPage(key: key, tag: tag);
+        Key? key = params?.getObj('key');
+        return ArticleRecommendPage(key: key);
       }),
 
       PageBuilder(Routers.articleListPage, (params) {
-        Key key = params?.getObj('key');
-        String tag = params?.getString('tag') ?? '';
-        bool isSupportPull = params?.getBool('isSupportPull');
-        bool isSingleCard = params?.getBool('isSingleCard');
-        return ArticleListPage(key: key, tag: tag, isSupportPull: isSupportPull, isSingleCard: isSingleCard);
+        Key? key = params?.getObj('key');
+        bool isSupportPull = params?.getBool('isSupportPull') ?? true;
+        bool isSingleCard = params?.getBool('isSingleCard') ?? false;
+        return ArticleListPage(key: key, isSupportPull: isSupportPull, isSingleCard: isSingleCard);
       }),
 
       PageBuilder(Routers.newsListPage, (params) {
-        Key key = params?.getObj('key');
-        String tag = params?.getString('tag') ?? '';
-        bool isSupportPull = params?.getBool('isSupportPull');
-        return NewsListPage(key: key, tag: tag, isSupportPull: isSupportPull);
+        Key? key = params?.getObj('key');
+        bool isSupportPull = params?.getBool('isSupportPull') ?? true;
+        return NewsListPage(key: key, isSupportPull: isSupportPull);
       }),
 
       PageBuilder(Routers.articlePage, (params) {
-        String title = params?.getString('title');
-        String url = params?.getString('url');
-        String title_share = params?.getString('title_share');
-        String summary_share = params?.getString('summary_share');
-        String url_share = params?.getString('url_share');
-        String thumb_share = params?.getString('thumb_share');
+        String? title = params?.getString('title');
+        String? url = params?.getString('url');
+        String? title_share = params?.getString('title_share');
+        String? summary_share = params?.getString('summary_share');
+        String? url_share = params?.getString('url_share');
+        String? thumb_share = params?.getString('thumb_share');
         bool show_share = params?.getBool('show_share') ?? true;
         return ArticlePage(url, title, title_share: title_share, summary_share: summary_share, url_share: url_share, thumb_share: thumb_share, show_share: show_share);
       }),
 
       PageBuilder(Routers.articleRequestPage, (params) {
-        num article_id = params?.getInt('article_id');
+        num article_id = params?.getInt('article_id') ?? 0;
         return ArticleRequestPage(article_id);
       }),
 

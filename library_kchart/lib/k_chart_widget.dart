@@ -22,17 +22,17 @@ class KChartWidget extends StatefulWidget {
   final SecondaryState secondaryState;
   final bool isLine;
   final bool isAutoScaled;
-  final int gridRows;
-  final int gridColumns;
-  final Function(KLineEntity entity) onLongPressChanged;
-  final ui.Image logoImage;
+  final int? gridRows;
+  final int? gridColumns;
+  final Function(KLineEntity? entity)? onLongPressChanged;
+  final ui.Image? logoImage;
 
   KChartWidget(
       this.datas, {
         this.mainState = MainState.MA,
         this.volState = VolState.VOL,
         this.secondaryState = SecondaryState.MACD,
-        this.isLine,
+        this.isLine = false,
         this.isAutoScaled = false,
         this.gridRows,
         this.gridColumns,
@@ -48,15 +48,15 @@ class KChartWidget extends StatefulWidget {
 }
 
 class _KChartWidgetState extends State<KChartWidget> with TickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<double> _animation;
+  late AnimationController _controller;
+  late Animation<double> _animation;
   double mScaleX = 0.6, mScrollX = 0.0, mSelectX = 0.0;
-  StreamController<InfoWindowEntity> mInfoWindowStream;
-  StreamController<InfoWindowEntity> mInfoOutStream;
-  StreamSubscription _streamSubscription;
+  StreamController<InfoWindowEntity?>? mInfoWindowStream;
+  StreamController<InfoWindowEntity?>? mInfoOutStream;
+  StreamSubscription? _streamSubscription;
 
   double mWidth = 0;
-  AnimationController _scrollXController;
+  late AnimationController _scrollXController;
 
   double getMinScrollX() {
     return mScaleX;
@@ -72,10 +72,10 @@ class _KChartWidgetState extends State<KChartWidget> with TickerProviderStateMix
 
     mInfoWindowStream = StreamController<InfoWindowEntity>();
     mInfoOutStream = StreamController<InfoWindowEntity>();
-    _streamSubscription = mInfoOutStream.stream.listen((event) {
-      KLineEntity entity = event?.kLineEntity;
+    _streamSubscription = mInfoOutStream!.stream.listen((event) {
+      KLineEntity? entity = event?.kLineEntity;
       if (widget.onLongPressChanged != null) {
-        widget.onLongPressChanged(entity);
+        widget.onLongPressChanged!(entity);
       }
     });
 
@@ -127,8 +127,8 @@ class _KChartWidgetState extends State<KChartWidget> with TickerProviderStateMix
     mInfoWindowStream?.close();
     mInfoOutStream?.close();
     _streamSubscription?.cancel();
-    _controller?.dispose();
-    _scrollXController?.dispose();
+    _controller.dispose();
+    _scrollXController.dispose();
     super.dispose();
   }
 
@@ -148,24 +148,24 @@ class _KChartWidgetState extends State<KChartWidget> with TickerProviderStateMix
 
         if (isLongPress) {
           isLongPress = false;
-          mInfoWindowStream?.sink?.add(null);
-          mInfoOutStream?.sink.add(null);
+          mInfoWindowStream?.sink.add(InfoWindowEntity(null, false));
+          mInfoOutStream?.sink.add(InfoWindowEntity(null, false));
         }
 
-        mScrollX = (details.primaryDelta / mScaleX + mScrollX).clamp(0.0, ChartPainter.maxScrollX);
+        mScrollX = (details.primaryDelta! / mScaleX + mScrollX).clamp(0.0, ChartPainter.maxScrollX) as double;
         notifyChanged();
       },
       onHorizontalDragEnd: widget.isAutoScaled ? null : (DragEndDetails details) {
         // isDrag = false;
         final Tolerance tolerance = Tolerance(
           velocity:
-              1.0 / (0.050 * WidgetsBinding.instance.window.devicePixelRatio), // logical pixels per second
-          distance: 1.0 / WidgetsBinding.instance.window.devicePixelRatio, // logical pixels
+              1.0 / (0.050 * WidgetsBinding.instance!.window.devicePixelRatio), // logical pixels per second
+          distance: 1.0 / WidgetsBinding.instance!.window.devicePixelRatio, // logical pixels
         );
 
         ClampingScrollSimulation simulation = ClampingScrollSimulation(
           position: mScrollX,
-          velocity: details.primaryVelocity,
+          velocity: details.primaryVelocity!,
           tolerance: tolerance,
         );
         _scrollXController.animateWith(simulation);
@@ -179,8 +179,8 @@ class _KChartWidgetState extends State<KChartWidget> with TickerProviderStateMix
 
         if (isLongPress) {
           isLongPress = false;
-          mInfoWindowStream?.sink?.add(null);
-          mInfoOutStream?.sink.add(null);
+          mInfoWindowStream?.sink.add(InfoWindowEntity(null, false));
+          mInfoOutStream?.sink.add(InfoWindowEntity(null, false));
         }
 
         mScaleX = (_lastScale * details.scale).clamp(0.4, 2.2);
@@ -206,16 +206,16 @@ class _KChartWidgetState extends State<KChartWidget> with TickerProviderStateMix
       onLongPressEnd: (details) {
         if (widget.isAutoScaled) {
           isLongPress = false;
-          mInfoWindowStream?.sink?.add(null);
-          mInfoOutStream?.sink.add(null);
+          mInfoWindowStream?.sink.add(InfoWindowEntity(null, false));
+          mInfoOutStream?.sink.add(InfoWindowEntity(null, false));
           notifyChanged();
         }
       },
       onTap: widget.isAutoScaled ? null : () {
         if (isLongPress) {
           isLongPress = false;
-          mInfoWindowStream?.sink?.add(null);
-          mInfoOutStream?.sink.add(null);
+          mInfoWindowStream?.sink.add(InfoWindowEntity(null, false));
+          mInfoOutStream?.sink.add(InfoWindowEntity(null, false));
           notifyChanged();
         }
       },
@@ -260,29 +260,29 @@ class _KChartWidgetState extends State<KChartWidget> with TickerProviderStateMix
   void notifyChanged() => setState(() {});
 
   List<String> infoNames = ["时间", "开", "高", "低", "收", "涨跌额", "涨幅", "成交量"];
-  List infos;
+  late List infos;
 
   Widget _buildInfoDialog() {
-    return StreamBuilder<InfoWindowEntity>(
+    return StreamBuilder<InfoWindowEntity?>(
         stream: mInfoWindowStream?.stream,
         builder: (context, snapshot) {
-          if (!isLongPress || widget.isLine == true || !snapshot.hasData || snapshot.data.kLineEntity == null)
+          if (!isLongPress || widget.isLine == true || !snapshot.hasData || snapshot.data!.kLineEntity == null)
             return Container();
-          KLineEntity entity = snapshot.data.kLineEntity;
-          double upDown = entity.close - entity.open;
-          double upDownPercent = upDown / entity.open * 100;
+          KLineEntity entity = snapshot.data!.kLineEntity!;
+          double upDown = entity.close! - entity.open!;
+          double upDownPercent = upDown / entity.open! * 100;
           infos = [
-            getDate(entity.id),
+            getDate(entity.id!),
             KChartNumberUtil.format(entity.open),
             KChartNumberUtil.format(entity.high),
             KChartNumberUtil.format(entity.low),
             KChartNumberUtil.format(entity.close),
             "${upDown > 0 ? "+" : ""}${KChartNumberUtil.format(upDown)}",
             "${upDownPercent > 0 ? "+" : ''}${upDownPercent.toStringAsFixed(2)}%",
-            KChartNumberUtil.volFormat(entity.vol)
+            KChartNumberUtil.volFormat(entity.vol!)
           ];
           return Align(
-            alignment: snapshot.data.isLeft ? Alignment.topLeft : Alignment.topRight,
+            alignment: snapshot.data!.isLeft ? Alignment.topLeft : Alignment.topRight,
             child: Container(
               margin: EdgeInsets.only(left: 10, right: 10, top: 25),
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 7),

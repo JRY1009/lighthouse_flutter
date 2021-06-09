@@ -19,13 +19,13 @@ import 'package:module_info/model/news.dart';
 
 class NewsItem extends StatefulWidget {
 
-  final int index;
+  final int? index;
   final News news;
   final bool isLast;
 
-  NewsItem({Key key,
+  NewsItem({Key? key,
+    required this.news,
     this.index,
-    this.news,
     this.isLast = false,
   })
       : super(key: key);
@@ -65,11 +65,11 @@ class _NewsItemState extends State<NewsItem> {
                       padding: EdgeInsets.fromLTRB(16, 20, 18, 20),
                       child: Column(
                         children: [
-                          ObjectUtil.isEmpty(widget.news?.title) ? Gaps.empty :
+                          ObjectUtil.isEmpty(widget.news.title) ? Gaps.empty :
                           Container(
                               margin: EdgeInsets.only(top: 20),
                               alignment: Alignment.centerLeft,
-                              child: Text(widget.news?.title ?? '',
+                              child: Text(widget.news.title ?? '',
                                   strutStyle: StrutStyle(forceStrutHeight: true, height:1.4, leading: 0.5),
                                   style: TextStyles.textGray800_w700_20
                               )
@@ -81,7 +81,7 @@ class _NewsItemState extends State<NewsItem> {
                               children: [
                                 LocalImage('icon_time', width: 12, height: 12, package: Constant.baseLib),
                                 Gaps.hGap5,
-                                Text(TimeCountUtil.formatDateStr(widget.news?.publish_time, format: DateFormat.NORMAL) ?? '',
+                                Text(TimeCountUtil.formatDateStr(widget.news.publish_time ?? '', format: DateFormat.NORMAL) ?? '',
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyles.textGray500_w400_12
@@ -92,7 +92,7 @@ class _NewsItemState extends State<NewsItem> {
                           Container(
                               margin: EdgeInsets.only(top: 10),
                               alignment: Alignment.centerLeft,
-                              child: Text(widget.news?.summary ?? '',
+                              child: Text(widget.news.summary ?? '',
                                   strutStyle: StrutStyle(forceStrutHeight: true, height:1.2, leading: 0.5),
                                   style: TextStyles.textGray800_w400_15
                               )
@@ -168,7 +168,7 @@ class _NewsItemState extends State<NewsItem> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(TimeCountUtil.formatDateStr(widget.news?.publish_time, format: DateFormat.HOUR_MINUTE) ?? '',
+                          Text(TimeCountUtil.formatDateStr(widget.news.publish_time ?? '', format: DateFormat.HOUR_MINUTE) ?? '',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyles.textGray500_w400_12
@@ -182,15 +182,15 @@ class _NewsItemState extends State<NewsItem> {
                       ),
                     ),
 
-                    ObjectUtil.isEmpty(widget.news?.title) ? Gaps.empty :
+                    ObjectUtil.isEmpty(widget.news.title) ? Gaps.empty :
                     GestureDetector(
                       onTap: () {
-                        controller.trigger = !controller.trigger;
+                        controller.trigger = !controller.trigger!;
                       },
                       child: Container(
                         margin: EdgeInsets.only(top: 10),
                         alignment: Alignment.centerLeft,
-                        child: Text(widget.news?.title ?? '',
+                        child: Text(widget.news.title ?? '',
                             strutStyle: StrutStyle(forceStrutHeight: true, height:1.4, leading: 0.5),
                             style: TextStyles.textGray800_w700_17
                         )
@@ -202,7 +202,7 @@ class _NewsItemState extends State<NewsItem> {
                         alignment: Alignment.centerLeft,
                         child: TextExpand(
                             controller: controller,
-                            text: widget.news?.summary ?? '',
+                            text: widget.news.summary ?? '',
                             expandText: '',
                             minLines: 4,
                             isEnableTextClick: true,

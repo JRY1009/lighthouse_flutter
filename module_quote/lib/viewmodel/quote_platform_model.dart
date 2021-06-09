@@ -22,10 +22,10 @@ enum PlatformSortState {
 
 class QuotePlatformModel extends ViewStateModel {
 
-  QuotePlatformBasic platformBasic;
+  QuotePlatformBasic? platformBasic;
   List<QuotePlatformPair> platformPairList = [];
 
-  StreamSubscription indexSubscription;
+  StreamSubscription? indexSubscription;
 
   PlatformSortState sortState = PlatformSortState.NORMAL;
 
@@ -63,30 +63,30 @@ class QuotePlatformModel extends ViewStateModel {
       if (sortState == PlatformSortState.NORMAL) {
         return 0;
       } else if (sortState == PlatformSortState.PRICE_ASCEND) {
-        if (a.quote > b.quote) {
+        if (a.quote! > b.quote!) {
           return 1;
-        } else if (a.quote < b.quote) {
+        } else if (a.quote! < b.quote!) {
           return -1;
         }
 
       } else if (sortState == PlatformSortState.PRICE_DESCEND) {
-        if (a.quote > b.quote) {
+        if (a.quote! > b.quote!) {
           return -1;
-        } else if (a.quote < b.quote) {
+        } else if (a.quote! < b.quote!) {
           return 1;
         }
 
       } else if (sortState == PlatformSortState.RATE_ASCEND) {
-        if (a.change_percent > b.change_percent) {
+        if (a.change_percent! > b.change_percent!) {
           return -1;
-        } else if (a.change_percent < b.change_percent) {
+        } else if (a.change_percent! < b.change_percent!) {
           return 1;
         }
 
       } else if (sortState == PlatformSortState.RATE_DESCEND) {
-        if (a.change_percent > b.change_percent) {
+        if (a.change_percent! > b.change_percent!) {
           return 1;
-        } else if (a.change_percent < b.change_percent) {
+        } else if (a.change_percent! < b.change_percent!) {
           return -1;
         }
       }
@@ -120,9 +120,9 @@ class QuotePlatformModel extends ViewStateModel {
       'chain': chain,
     };
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_GET_CHAIN_QUOTE, 'get', params: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_GET_CHAIN_QUOTE, 'get', params: params,
         cancelToken: cancelToken,
-        onSuccess: (data) {
+        onSuccess: (dynamic data) {
 
           platformBasic = QuotePlatformBasic.fromJson(data);
           platformPairList = platformBasic?.exchange_quote_list ?? [];
@@ -134,7 +134,7 @@ class QuotePlatformModel extends ViewStateModel {
           }
         },
         onError: (errno, msg) {
-          setError(errno, message: msg);
+          setError(errno!, message: msg);
         });
   }
 

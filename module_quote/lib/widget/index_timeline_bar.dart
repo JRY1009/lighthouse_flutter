@@ -16,11 +16,11 @@ import 'package:provider/provider.dart';
 class IndexTimelineBar extends StatefulWidget {
 
   final String coinCode;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
 
   const IndexTimelineBar({
-    Key key,
-    this.coinCode,
+    Key? key,
+    required this.coinCode,
     this.onPressed,
   }): super(key: key);
 
@@ -34,9 +34,11 @@ class _IndexTimelineBarState extends State<IndexTimelineBar> with AutomaticKeepA
   @override
   bool get wantKeepAlive => true;
 
-  IndexTimelineModel _indexTimelineModel;
+  late IndexTimelineModel _indexTimelineModel;
 
-  TabController _tabController;
+  late TabController _tabController;
+
+  final GlobalKey<KLineChartMixin> keyChart = GlobalKey();
 
   @override
   void initState() {
@@ -52,7 +54,7 @@ class _IndexTimelineBarState extends State<IndexTimelineBar> with AutomaticKeepA
   }
 
   void initViewModel() {
-    _indexTimelineModel = IndexTimelineModel();
+    _indexTimelineModel = IndexTimelineModel(keyChart);
     _indexTimelineModel.listenEvent();
     _indexTimelineModel.getQuote(widget.coinCode, 1);
   }
@@ -82,12 +84,13 @@ class _IndexTimelineBarState extends State<IndexTimelineBar> with AutomaticKeepA
                           height: height - 55,
                           padding: EdgeInsets.symmetric(horizontal: 12),
                           child: model.isBusy ? FirstRefresh() : KLineChart(
+                            key: keyChart,
                             height: height - 55,
                             gridRows: 5,
-                            quoteList: model.getQuoteList(_tabController.index),
+                            quoteList: model.getQuoteList(_tabController.index) ?? [],
                             onLongPressChanged: (entity) {
                               IndexDetailModel indexDetailModel = Provider.of<IndexDetailModel>(context, listen: false);
-                              indexDetailModel?.handleKLineLongPress(entity);
+                              indexDetailModel.handleKLineLongPress(entity);
                             },
                           )
                       )

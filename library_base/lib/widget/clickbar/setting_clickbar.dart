@@ -8,23 +8,23 @@ class SettingClickBar extends StatefulWidget {
   // 标题
   final String title;
 
-  final String subTitle;
+  final String? subTitle;
 
   // 点击事件
-  final Function() onPressed;
+  final Function()? onPressed;
 
-  final ShapeBorder shape;
+  final ShapeBorder? shape;
 
-  final TextStyle titleStyle;
+  final TextStyle? titleStyle;
 
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry? padding;
 
   final bool iconSpace;
 
   // 构造函数
   SettingClickBar({
-    Key key,
-    @required this.title,
+    Key? key,
+    required this.title,
     this.titleStyle,
     this.subTitle,
     this.onPressed,

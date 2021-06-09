@@ -7,17 +7,16 @@ import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/widget/image/circle_image.dart';
 import 'package:library_base/utils/image_util.dart';
-import 'package:library_base/widget/image/local_image.dart';
 
 class MineAppBar extends StatefulWidget {
 
-  final Account account;
-  final VoidCallback onPressed;
-  final VoidCallback onActionPressed;
-  final VoidCallback onAvatarPressed;
+  final Account? account;
+  final VoidCallback? onPressed;
+  final VoidCallback? onActionPressed;
+  final VoidCallback? onAvatarPressed;
 
   const MineAppBar({
-    Key key,
+    Key? key,
     this.account,
     this.onPressed,
     this.onActionPressed,
@@ -35,11 +34,15 @@ class _MineAppBarState extends State<MineAppBar> {
   @override
   Widget build(BuildContext context) {
 
-    String title = widget.account != null ? widget.account.nick_name : S.of(context).loginNow;
-    String subTitle = widget.account != null ? widget.account.phoneSecret : S.of(context).loginGuide;
+    String title = widget.account != null ? widget.account!.nick_name! : S.of(context).loginNow;
+    String? subTitle = widget.account != null ? widget.account!.phoneSecret : S.of(context).loginGuide;
 
     return InkWell(
-        onTap: widget.onPressed,
+        onTap: () {
+          if (widget.onPressed != null) {
+            widget.onPressed!();
+          }
+        },
         child: Container(
             height: 150,
             decoration: BoxDecoration(
@@ -69,7 +72,7 @@ class _MineAppBarState extends State<MineAppBar> {
                           child: InkWell(
                             onTap: widget.onAvatarPressed,
                             child: CircleImage(
-                                widget.account?.head_ico,
+                                widget.account?.head_ico ?? '',
                                 radius: 32,
                                 borderWidth: 3,
                                 borderColor: Colours.white,
@@ -113,6 +116,11 @@ class _MineAppBarState extends State<MineAppBar> {
                       IconButton(
                         padding: EdgeInsets.only(top: 10, right: 10),
                         icon: Icon(Icons.keyboard_arrow_right, color: Colours.gray_200, size: 25),
+                        onPressed: (){
+                          if (widget.onPressed != null) {
+                            widget.onPressed!();
+                          }
+                        },
                       ),
 
                     ],

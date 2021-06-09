@@ -3,15 +3,15 @@ import 'package:library_base/utils/object_util.dart';
 
 class News {
 
-  num article_id;
-  String publish_time;
-  String author;
-  String publisher;
-  String title;
-  String summary;
-  String snapshot_url;
-  String url;
-  String url_app;
+  num? article_id;
+  String? publish_time;
+  String? author;
+  String? publisher;
+  String? title;
+  String? summary;
+  String? snapshot_url;
+  String? url;
+  String? url_app;
 
   News({
     this.article_id,
@@ -43,7 +43,7 @@ class News {
     summary = jsonMap['summary'] ?? '';
     snapshot_url = jsonMap['snapshot_url'] ?? '';
     url = jsonMap['url'] ?? '';
-    url_app = url + '?app=1';
+    url_app = url! + '?app=1';
   }
 
   Map<String, dynamic> toJson() {
@@ -60,12 +60,12 @@ class News {
     return jsonMap;
   }
 
-  static List<News> fromJsonList(List<dynamic> mapList) {
+  static List<News>? fromJsonList(List<dynamic> mapList) {
     if (ObjectUtil.isEmptyList(mapList)) {
       return null;
     }
 
-    List<News> items = new List<News>();
+    List<News> items = [];
     for(Map<String, dynamic> map in mapList) {
       items.add(News.fromJson(map));
     }

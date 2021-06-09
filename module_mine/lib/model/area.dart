@@ -9,13 +9,13 @@ import 'package:module_mine/mine_router.dart';
 
 class Area {
 
-  String us_name;
-  String cn_name;
-  String code;
-  String get name => WidgetsBinding.instance.window.locale.toString() == 'zh_CN' ? cn_name : us_name;
-  String get sort_name => WidgetsBinding.instance.window.locale.toString() == 'zh_CN' ? first_pinyin : us_name;
-  String get first_pinyin => PinyinHelper.getFirstWordPinyin(cn_name);
-  String get short_pinyin => PinyinHelper.getShortPinyin(cn_name);
+  String? us_name;
+  String? cn_name;
+  String? code;
+  String? get name => WidgetsBinding.instance!.window.locale.toString() == 'zh_CN' ? cn_name : us_name;
+  String? get sort_name => WidgetsBinding.instance!.window.locale.toString() == 'zh_CN' ? first_pinyin : us_name;
+  String get first_pinyin => PinyinHelper.getFirstWordPinyin(cn_name!);
+  String get short_pinyin => PinyinHelper.getShortPinyin(cn_name!);
 
   Area({
     this.us_name,
@@ -38,19 +38,19 @@ class Area {
     return jsonMap;
   }
 
-  static List<Area> fromJsonList(List<dynamic> mapList) {
+  static List<Area>? fromJsonList(List<dynamic> mapList) {
     if (ObjectUtil.isEmptyList(mapList)) {
       return null;
     }
 
-    List<Area> items = new List<Area>();
+    List<Area> items = [];
     for(Map<String, dynamic> map in mapList) {
       items.add(Area.fromJson(map));
     }
     return items;
   }
 
-  static Future<List<Area>> loadAreaFromFile() async{
+  static Future<List<Area>?> loadAreaFromFile() async{
     String jsonString = await rootBundle.loadString(
         MineRouter.isRunModule ?
         'assets/files/country.json' :

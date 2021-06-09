@@ -18,11 +18,11 @@ import 'package:module_quote/widget/spot_kline_hbar.dart';
 
 class SpotDetailHPage extends StatefulWidget {
 
-  final String coinCode;
-  final QuoteCoin quoteCoin;
+  final String? coinCode;
+  final QuoteCoin? quoteCoin;
 
   SpotDetailHPage({
-    Key key,
+    Key? key,
     this.coinCode = 'bitcoin',
     this.quoteCoin
   }) : super(key: key);
@@ -33,20 +33,21 @@ class SpotDetailHPage extends StatefulWidget {
 
 class _SpotDetailHPageState extends State<SpotDetailHPage> with BasePageMixin<SpotDetailHPage>, SingleTickerProviderStateMixin {
 
-  SpotDetailModel _spotDetailModel;
+  late SpotDetailModel _spotDetailModel;
 
-  List<String> _tabTitles ;
+  late  List<String> _tabTitles ;
   ShotController _tabBarSC = new ShotController();
 
   ScrollController _nestedController = ScrollController();
   final _nestedRefreshKey = GlobalKey<NestedRefreshIndicatorState>();
 
-  TabController _tabController;
+  late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
 
+    OrientationHelper.setPreferredOrientations([DeviceOrientation.landscapeRight]);
     OrientationHelper.forceOrientation(DeviceOrientation.landscapeRight);
 
     _tabController = TabController(length: 2, vsync: this);
@@ -59,6 +60,7 @@ class _SpotDetailHPageState extends State<SpotDetailHPage> with BasePageMixin<Sp
 
     super.dispose();
 
+    OrientationHelper.setPreferredOrientations([DeviceOrientation.portraitUp]);
     OrientationHelper.forceOrientation(DeviceOrientation.portraitUp);
 
     _tabController.dispose();
@@ -82,7 +84,7 @@ class _SpotDetailHPageState extends State<SpotDetailHPage> with BasePageMixin<Sp
   }
 
   Future<void> _refresh()  {
-    return _spotDetailModel.getSpotDetailWithChild(widget.coinCode, _tabController.index);
+    return _spotDetailModel.getSpotDetailWithChild(widget.coinCode ?? '', _tabController.index);
   }
 
   @override
@@ -101,22 +103,24 @@ class _SpotDetailHPageState extends State<SpotDetailHPage> with BasePageMixin<Sp
                 automaticallyImplyLeading: false,
                 toolbarHeight: 1,
               ),
-              body: Column(
-                children: <Widget>[
-                  ProviderWidget<SpotKLineHandleModel>(
-                      model: _spotDetailModel.spotKLineHandleModel,
-                      builder: (context, model, child) {
-                        return SpotDetailHAppbar(
-                            showShadow: false,
-                            quoteCoin: _spotDetailModel.quoteCoin,
-                            numberSlideController: _spotDetailModel.quoteSlideController
-                        );
-                      }
-                  ),
+              body: SafeArea(
+                child: Column(
+                  children: <Widget>[
+                    ProviderWidget<SpotKLineHandleModel>(
+                        model: _spotDetailModel.spotKLineHandleModel,
+                        builder: (context, model, child) {
+                          return SpotDetailHAppbar(
+                              showShadow: false,
+                              quoteCoin: _spotDetailModel.quoteCoin,
+                              numberSlideController: _spotDetailModel.quoteSlideController
+                          );
+                        }
+                    ),
 
 
-                  Expanded(child: SpotKlineHBar(coinCode: widget.coinCode, horizontal: true))
-                ],
+                    Expanded(child: SpotKlineHBar(coinCode: widget.coinCode ?? '', horizontal: true))
+                  ],
+                ),
               )
           );
 

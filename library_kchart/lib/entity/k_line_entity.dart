@@ -4,14 +4,14 @@
 import 'package:library_kchart/entity/k_entity.dart';
 
 class KLineEntity extends KEntity {
-  double open;
-  double high;
-  double low;
-  double close;
-  double vol;
-  double amount;
-  int count;
-  int id;
+  double? open;
+  double? high;
+  double? low;
+  double? close;
+  double? vol;
+  double? amount;
+  int? count;
+  int? id;
 
   KLineEntity({
     this.open,
@@ -25,14 +25,14 @@ class KLineEntity extends KEntity {
   });
 
   KLineEntity.fromJson(Map<String, dynamic> json) {
-    open = (json['open'] as num)?.toDouble();
-    high = (json['high'] as num)?.toDouble();
-    low = (json['low'] as num)?.toDouble();
-    close = (json['close'] as num)?.toDouble();
-    vol = (json['vol'] as num)?.toDouble();
-    amount = (json['amount'] as num)?.toDouble();
-    count = (json['count'] as num)?.toInt();
-    id = (json['id'] as num)?.toInt();
+    open = (json['open'] as num?)?.toDouble();
+    high = (json['high'] as num?)?.toDouble();
+    low = (json['low'] as num?)?.toDouble();
+    close = (json['close'] as num?)?.toDouble();
+    vol = (json['vol'] as num?)?.toDouble();
+    amount = (json['amount'] as num?)?.toDouble();
+    count = (json['count'] as num?)?.toInt();
+    id = (json['id'] as num?)?.toInt();
   }
 
   Map<String, dynamic> toJson(){

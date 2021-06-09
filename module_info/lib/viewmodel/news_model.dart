@@ -42,9 +42,9 @@ class NewsModel extends ViewStateModel {
       'count': pageSize,
     };
 
-    return DioUtil.getInstance().requestArticle(Apis.URL_GET_ARTICLES + '1/articles', 'get', params: params,
+    return DioUtil.getInstance()!.requestArticle(Apis.URL_GET_ARTICLES + '1/articles', 'get', params: params,
         cancelToken: cancelToken,
-        onSuccess: (data) {
+        onSuccess: (dynamic data) {
 
           List<News> list = News.fromJsonList(data) ?? [];
           if (page == 0) {
@@ -55,7 +55,7 @@ class NewsModel extends ViewStateModel {
             newsList.addAll(list);
           }
 
-          noMore = list?.length < pageSize;
+          noMore = list.length < pageSize;
 
           generateList();
 
@@ -66,28 +66,27 @@ class NewsModel extends ViewStateModel {
           }
         },
         onError: (errno, msg) {
-          setError(errno, message: msg);
+          setError(errno!, message: msg);
         });
   }
 
   void generateList() {
     newsList = newsList.toSet().toList();
     newsList.sort((a, b) {
-      DateTime aD = DateUtil.getDateTime(a.publish_time);
-      DateTime bD = DateUtil.getDateTime(b.publish_time);
+      DateTime aD = DateUtil.getDateTime(a.publish_time!)!;
+      DateTime bD = DateUtil.getDateTime(b.publish_time!)!;
       return bD.compareTo(aD);
     });
 
     int length = newsList.length;
     if (length > 0) {
 
-
       dateNewsList.clear();
       dateNewsList.add([]);
-      DateTime groupDt = DateUtil.getDateTime(newsList.first?.publish_time);
+      DateTime groupDt = DateUtil.getDateTime(newsList.first.publish_time!)!;
 
       for (int i=0; i<length; i++) {
-        DateTime dt = DateUtil.getDateTime(newsList[i].publish_time);
+        DateTime dt = DateUtil.getDateTime(newsList[i].publish_time!)!;
         if (DateUtil.dayIsEqual(dt, groupDt)) {
           dateNewsList.last.add(newsList[i]);
 

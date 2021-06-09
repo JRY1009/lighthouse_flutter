@@ -15,16 +15,16 @@ import 'package:share/share.dart';
 
 class ShareLinkDialog extends StatelessWidget {
 
-  final String title_share;
-  final String summary_share;
+  final String? title_share;
+  final String? summary_share;
   final String url_share;
-  final String thumb_share;
+  final String? thumb_share;
 
   ShareLinkDialog({
-    Key key,
+    Key? key,
+    required this.url_share,
     this.title_share,
     this.summary_share,
-    this.url_share,
     this.thumb_share,
   }) : super(key: key);
 
@@ -54,9 +54,9 @@ class ShareLinkDialog extends StatelessWidget {
     }
 
     shareToWeChat(WeChatShareWebPageModel(url_share,
-        title: title_share,
+        title: title_share ?? '',
         description: ObjectUtil.isEmpty(summary_share) ? null : summary_share,
-        thumbnail: ObjectUtil.isEmpty(thumb_share) ? WeChatImage.asset('assets/images/logo_share_wechat.png?package=library_base', suffix: '.png') : WeChatImage.network(thumb_share),
+        thumbnail: ObjectUtil.isEmpty(thumb_share) ? WeChatImage.asset('assets/images/logo_share_wechat.png?package=library_base', suffix: '.png') : WeChatImage.network(thumb_share!),
         scene: scene)
     );
 

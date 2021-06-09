@@ -36,7 +36,7 @@ import 'package:provider/provider.dart';
 class SettingPage extends StatefulWidget {
 
   const SettingPage({
-    Key key,
+    Key? key,
   }) : super(key : key);
 
   @override
@@ -45,9 +45,9 @@ class SettingPage extends StatefulWidget {
 
 class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPage>{
 
-  SettingModel _settingModel;
-  BindModel _bindModel;
-  StreamSubscription _subWechatResponse;
+  late SettingModel _settingModel;
+  late BindModel _bindModel;
+  StreamSubscription? _subWechatResponse;
 
   @override
   void initState() {
@@ -58,7 +58,7 @@ class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPag
   @override
   void dispose() {
     super.dispose();
-    if (_subWechatResponse != null) _subWechatResponse.cancel();
+    if (_subWechatResponse != null) _subWechatResponse!.cancel();
   }
 
   void initViewModel() {
@@ -70,7 +70,7 @@ class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPag
 
       } else if (_settingModel.isError) {
         closeProgress();
-        ToastUtil.error(_settingModel.viewStateError.message);
+        ToastUtil.error(_settingModel.viewStateError!.message!);
 
       } else if (_settingModel.isSuccess) {
         closeProgress();
@@ -86,12 +86,12 @@ class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPag
 
       } else if (_bindModel.isError) {
         closeProgress();
-        ToastUtil.error(_bindModel.viewStateError.message);
+        ToastUtil.error(_bindModel.viewStateError!.message!);
 
       } else if (_bindModel.isSuccess) {
         closeProgress();
 
-        Account account = RTAccount.instance().getActiveAccount();
+        Account? account = RTAccount.instance()!.getActiveAccount();
         bool binded = account?.wechat_account?.binded ?? false;
         ToastUtil.success(binded ? S.current.bindSuccess : S.current.unbindSuccess);
       }
@@ -110,7 +110,7 @@ class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPag
   }
 
   @override
-  Widget buildProgress({String content, bool showContent}) {
+  Widget buildProgress({String? content, bool showContent = true}) {
     return LoadingCenterDialog(
         content: content,
         showContent: showContent,
@@ -129,7 +129,7 @@ class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPag
 
   void _viewAvatar() {
 
-    Account account = RTAccount.instance().getActiveAccount();
+    Account? account = RTAccount.instance()!.getActiveAccount();
     List<Gallery> galleryList = [Gallery(id: 'avatar', resource: account?.head_ico)];
 
     Navigator.push(
@@ -188,7 +188,7 @@ class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPag
         confirmPressed: () {
           Navigator.of(context).pop();
           Routers.goBack(context);
-          RTAccount.instance().logout();
+          RTAccount.instance()!.logout();
         }
     );
   }
@@ -211,7 +211,7 @@ class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPag
             builder: (context, model, child) {
 
               LocaleProvider localeModel = Provider.of<LocaleProvider>(context);
-              Account account = RTAccount.instance().getActiveAccount();
+              Account? account = RTAccount.instance()!.getActiveAccount();
 
               bool _had_password = account?.had_password ?? false;
 

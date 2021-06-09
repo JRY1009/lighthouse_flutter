@@ -3,8 +3,8 @@ import 'package:library_base/utils/object_util.dart';
 
 class MileStone {
 
-  String content;
-  String date ;
+  String? content;
+  String? date ;
 
   MileStone({
     this.content,
@@ -24,12 +24,12 @@ class MileStone {
     return jsonMap;
   }
 
-  static List<MileStone> fromJsonList(List<dynamic> mapList) {
+  static List<MileStone>? fromJsonList(List<dynamic> mapList) {
     if (ObjectUtil.isEmptyList(mapList)) {
       return null;
     }
 
-    List<MileStone> items = new List<MileStone>();
+    List<MileStone> items = [];
     for(Map<String, dynamic> map in mapList) {
       items.add(MileStone.fromJson(map));
     }

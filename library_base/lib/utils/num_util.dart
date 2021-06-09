@@ -64,17 +64,17 @@ class NumUtil {
     }
   }
   /// The parameter [fractionDigits] must be an integer satisfying: `0 <= fractionDigits <= 20`.
-  static num getNumByValueStr(String valueStr, {int fractionDigits}) {
-    double value = double.tryParse(valueStr);
+  static num? getNumByValueStr(String valueStr, {int? fractionDigits}) {
+    double? value = double.tryParse(valueStr);
     return fractionDigits == null
         ? value
         : getNumByValueDouble(value, fractionDigits);
   }
 
   /// The parameter [fractionDigits] must be an integer satisfying: `0 <= fractionDigits <= 20`.
-  static num getNumByValueDouble(double value, int fractionDigits) {
+  static num? getNumByValueDouble(double? value, int? fractionDigits) {
     if (value == null) return null;
-    String valueStr = value.toStringAsFixed(fractionDigits);
+    String valueStr = value.toStringAsFixed(fractionDigits!);
     return fractionDigits == 0
         ? int.tryParse(valueStr)
         : double.tryParse(valueStr);
@@ -213,13 +213,13 @@ class NumUtil {
     return Decimal.parse(a) >= Decimal.parse(b);
   }
 
-  static String getBigVolumFormat(double volum, {int fractionDigits}) {
+  static String getBigVolumFormat(double volum, {int? fractionDigits}) {
     if (volum == null) {
       return '0';
     }
 
     String result;
-    String language = WidgetsBinding.instance.window.locale.toString();
+    String language = WidgetsBinding.instance!.window.locale.toString();
 
     if (language.toLowerCase().contains('zh')) {
       if (volum >= 100000000) {

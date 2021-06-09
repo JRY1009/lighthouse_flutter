@@ -8,7 +8,7 @@ import 'package:library_kchart/utils/kchart_number_util.dart';
 class VolRenderer extends BaseChartRenderer<VolumeEntity> {
   double mVolWidth = ChartStyle.volWidth;
 
-  VolRenderer(Rect mainRect, double maxValue, double minValue, double topPadding, double scaleX)
+  VolRenderer(Rect? mainRect, double maxValue, double minValue, double topPadding, double scaleX)
       : super(
             chartRect: mainRect,
             maxValue: maxValue,
@@ -21,23 +21,23 @@ class VolRenderer extends BaseChartRenderer<VolumeEntity> {
       VolumeEntity lastPoint, VolumeEntity curPoint, double lastX, double curX, Size size, Canvas canvas) {
     double r = mVolWidth / 2;
     double top = getY(curPoint.vol);
-    double bottom = chartRect.bottom;
+    double bottom = chartRect!.bottom;
     canvas.drawRect(Rect.fromLTRB(curX - r, top, curX + r, bottom),
-        chartPaint..color = curPoint.close >= curPoint.open ? ChartColors.upColor : ChartColors.dnColor);
+        chartPaint..color = curPoint.close! >= curPoint.open! ? ChartColors.upColor : ChartColors.dnColor);
 
     if (lastPoint.MA5Volume != 0) {
-      drawLine(lastPoint.MA5Volume, curPoint.MA5Volume, canvas, lastX, curX, ChartColors.ma5Color);
+      drawLine(lastPoint.MA5Volume!, curPoint.MA5Volume!, canvas, lastX, curX, ChartColors.ma5Color);
     }
 
     if (lastPoint.MA10Volume != 0) {
-      drawLine(lastPoint.MA10Volume, curPoint.MA10Volume, canvas, lastX, curX, ChartColors.ma10Color);
+      drawLine(lastPoint.MA10Volume!, curPoint.MA10Volume!, canvas, lastX, curX, ChartColors.ma10Color);
     }
   }
 
   @override
-  double getY(double y) {
-    if (maxValue == 0) return chartRect.bottom;
-    return (maxValue - y) * (chartRect.height / maxValue) + chartRect.top;
+  double getY(double? y) {
+    if (maxValue == 0) return chartRect!.bottom;
+    return (maxValue - y!) * (chartRect!.height / maxValue) + chartRect!.top;
   }
 
   @override
@@ -45,18 +45,18 @@ class VolRenderer extends BaseChartRenderer<VolumeEntity> {
     TextSpan span = TextSpan(
       children: [
         TextSpan(
-            text: "VOL:${KChartNumberUtil.volFormat(data.vol)}    ", style: getTextStyle(ChartColors.volColor)),
+            text: "VOL:${KChartNumberUtil.volFormat(data.vol!)}    ", style: getTextStyle(ChartColors.volColor)),
         TextSpan(
-            text: "MA5:${KChartNumberUtil.volFormat(data.MA5Volume)}    ",
+            text: "MA5:${KChartNumberUtil.volFormat(data.MA5Volume!)}    ",
             style: getTextStyle(ChartColors.ma5Color)),
         TextSpan(
-            text: "MA10:${KChartNumberUtil.volFormat(data.MA10Volume)}    ",
+            text: "MA10:${KChartNumberUtil.volFormat(data.MA10Volume!)}    ",
             style: getTextStyle(ChartColors.ma10Color)),
       ],
     );
     TextPainter tp = TextPainter(text: span, textDirection: TextDirection.ltr);
     tp.layout();
-    tp.paint(canvas, Offset(x, chartRect.top - topPadding));
+    tp.paint(canvas, Offset(x, chartRect!.top - topPadding));
   }
 
   @override
@@ -64,17 +64,17 @@ class VolRenderer extends BaseChartRenderer<VolumeEntity> {
     TextSpan span = TextSpan(text: "${KChartNumberUtil.volFormat(maxValue)}", style: textStyle);
     TextPainter tp = TextPainter(text: span, textDirection: TextDirection.ltr);
     tp.layout();
-    tp.paint(canvas, Offset(chartRect.width - tp.width, chartRect.top - topPadding));
+    tp.paint(canvas, Offset(chartRect!.width - tp.width, chartRect!.top - topPadding));
   }
 
   @override
   void drawGrid(Canvas canvas, int gridRows, int gridColumns, {bool showRows = true, bool showColumns = true} ) {
-    canvas.drawLine(Offset(0, chartRect.bottom), Offset(chartRect.width, chartRect.bottom), gridPaint);
-    double columnSpace = chartRect.width / gridColumns;
+    canvas.drawLine(Offset(0, chartRect!.bottom), Offset(chartRect!.width, chartRect!.bottom), gridPaint);
+    double columnSpace = chartRect!.width / gridColumns;
     for (int i = 0; i <= columnSpace; i++) {
       //vol垂直线
-      canvas.drawLine(Offset(columnSpace * i, chartRect.top - topPadding),
-          Offset(columnSpace * i, chartRect.bottom), gridPaint);
+      canvas.drawLine(Offset(columnSpace * i, chartRect!.top - topPadding),
+          Offset(columnSpace * i, chartRect!.bottom), gridPaint);
     }
   }
 }

@@ -18,7 +18,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 class SpotDepthOrderPage extends StatefulWidget {
 
   const SpotDepthOrderPage({
-    Key key,
+    Key? key,
   }): super(key: key);
 
 
@@ -33,14 +33,14 @@ class _SpotDepthOrderPageState extends State<SpotDepthOrderPage> with BasePageMi
 
   RefreshController _easyController = RefreshController();
 
-  SpotDepthModel _spotDepthModel;
+  late SpotDepthModel _spotDepthModel;
 
   @override
   void initState() {
     super.initState();
 
     _spotDepthModel = SpotDepthModel();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (mounted) {
         initViewModel();
       }
@@ -60,7 +60,7 @@ class _SpotDepthOrderPageState extends State<SpotDepthOrderPage> with BasePageMi
     _spotDepthModel.addListener(() {
       if (_spotDepthModel.isError) {
         _easyController.refreshFailed();
-        ToastUtil.error(_spotDepthModel.viewStateError.message);
+        ToastUtil.error(_spotDepthModel.viewStateError!.message!);
 
       } else if (_spotDepthModel.isSuccess || _spotDepthModel.isEmpty) {
         _easyController.refreshCompleted(resetFooterState: false);
@@ -102,13 +102,13 @@ class _SpotDepthOrderPageState extends State<SpotDepthOrderPage> with BasePageMi
                     SliverList(
                       delegate: SliverChildBuilderDelegate((context, i) {
                         return DepthOrderItem(
-                          bid: i < _spotDepthModel?.bidsList?.length ? _spotDepthModel?.bidsList[i] : null,
-                          ask: i < _spotDepthModel?.asksList?.length ? _spotDepthModel?.asksList[i] : null,
-                          bidAmountMax: _spotDepthModel?.bidAmountMax,
-                          askAmountMax: _spotDepthModel?.askAmountMax,
+                          bid: i < _spotDepthModel.bidsList!.length ? _spotDepthModel.bidsList![i] : null,
+                          ask: i < _spotDepthModel.asksList!.length ? _spotDepthModel.asksList![i] : null,
+                          bidAmountMax: _spotDepthModel.bidAmountMax,
+                          askAmountMax: _spotDepthModel.askAmountMax,
                         );
                       },
-                        childCount: min(20, _spotDepthModel?.bidsList?.length),
+                        childCount: min(20, _spotDepthModel.bidsList!.length),
                       ),
                     ),
                   ],

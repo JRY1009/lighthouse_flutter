@@ -8,13 +8,13 @@ import 'package:library_base/res/styles.dart';
 
 class SearchTextField extends StatefulWidget {
 
-  final FocusNode focusNode;
-  final Function() onTextChanged;
+  final FocusNode? focusNode;
+  final Function()? onTextChanged;
   final TextEditingController controller;
 
   SearchTextField({
-    Key key,
-    @required this.controller,
+    Key? key,
+    required this.controller,
     this.focusNode,
     this.onTextChanged,
   }) : super(key: key);
@@ -57,14 +57,18 @@ class _SearchTextFieldState extends State<SearchTextField> {
               onPressed: () {
                 setState(() {
                   widget.controller.text = "";
-                  widget.onTextChanged();
+                  if (widget.onTextChanged != null) {
+                    widget.onTextChanged!();
+                  }
                 });
               },
             ) : Gaps.empty,
           ),
           onChanged: (text) {
             setState(() {
-              widget.onTextChanged();
+              if (widget.onTextChanged != null) {
+                widget.onTextChanged!();
+              }
             });
           },
         )

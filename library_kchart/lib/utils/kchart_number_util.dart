@@ -72,7 +72,7 @@ class KChartNumberUtil {
     if (value != _fractionDigits) _fractionDigits = value;
   }
 
-  static String format(double price) {
+  static String format(double? price) {
     return formatNum(price, point: _fractionDigits);
   }
 }

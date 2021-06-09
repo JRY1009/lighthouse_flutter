@@ -39,9 +39,9 @@ class HttpError {
   ///网络请求取消
   static const String CANCEL = "CANCEL";
 
-  String code;
+  String? code;
 
-  String message;
+  String? message;
 
   HttpError(this.code, this.message);
 

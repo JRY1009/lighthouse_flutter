@@ -6,9 +6,9 @@ import 'package:library_base/res/colors.dart';
 //loading加载框
 class LoadingCenterDialog extends Dialog {
   //loading动画
-  final Widget loadingView;
+  final Widget? loadingView;
   //提示内容
-  final String content;
+  final String? content;
   //是否显示提示文字
   final bool showContent;
   //圆角大小
@@ -19,7 +19,7 @@ class LoadingCenterDialog extends Dialog {
   final Color backgroundColor;
 
   LoadingCenterDialog(
-      {Key key,
+      {Key? key,
         this.loadingView,
         this.content,
         this.showContent = true,

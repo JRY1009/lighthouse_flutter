@@ -20,7 +20,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 class PlatformListPage extends StatefulWidget {
 
   const PlatformListPage({
-    Key key,
+    Key? key,
   }): super(key: key);
 
 
@@ -35,14 +35,14 @@ class _PlatformListPageState extends State<PlatformListPage> with BasePageMixin<
 
   RefreshController _easyController = RefreshController();
 
-  QuotePlatformModel _platformModel;
+  late QuotePlatformModel _platformModel;
 
   @override
   void initState() {
     super.initState();
 
     _platformModel = QuotePlatformModel();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (mounted) {
         initViewModel();
       }
@@ -62,7 +62,7 @@ class _PlatformListPageState extends State<PlatformListPage> with BasePageMixin<
     _platformModel.addListener(() {
       if (_platformModel.isError) {
         _easyController.refreshFailed();
-        ToastUtil.error(_platformModel.viewStateError.message);
+        ToastUtil.error(_platformModel.viewStateError!.message!);
 
       } else if (_platformModel.isSuccess || _platformModel.isEmpty) {
         _easyController.refreshCompleted(resetFooterState: false);
@@ -138,12 +138,12 @@ class _PlatformListPageState extends State<PlatformListPage> with BasePageMixin<
 
   Widget _buildHeader() {
 
-    double rate = _platformModel.platformBasic != null ? _platformModel.platformBasic.change_percent : 0;
-    double price = _platformModel.platformBasic != null ? _platformModel.platformBasic.quote : 0;
-    double cny = _platformModel.platformBasic != null ? _platformModel.platformBasic.cny : 0;
-    double change_amount = _platformModel.platformBasic != null ? _platformModel.platformBasic.change_amount : 0;
+    double rate = _platformModel.platformBasic?.change_percent ?? 0;
+    double price = _platformModel.platformBasic?.quote ?? 0;
+    double cny = _platformModel.platformBasic?.cny ?? 0;
+    double change_amount = _platformModel.platformBasic?.change_amount ?? 0;
 
-    String groupStr = _platformModel.platformBasic != null ? _platformModel.platformBasic.data_src : '';
+    String groupStr = _platformModel.platformBasic?.data_src ?? '';
     String rateStr = (rate >= 0 ? '+' : '') + NumUtil.getNumByValueDouble(rate, 2).toString() + '%';
 
     String priceStr = NumUtil.formatNum(price, point: 2);

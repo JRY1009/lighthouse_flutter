@@ -23,8 +23,8 @@ import 'package:photo_view/photo_view_gallery.dart';
 class Gallery {
   Gallery({this.id, this.resource});
 
-  final String id;
-  final String resource;
+  final String? id;
+  final String? resource;
 }
 
 
@@ -34,13 +34,13 @@ class GalleryPhotoViewWrapper extends StatefulWidget{
     this.backgroundDecoration,
     this.minScale,
     this.maxScale,
-    this.initialIndex,
-    @required this.galleryItems,
+    required this.initialIndex,
+    required this.galleryItems,
     this.scrollDirection = Axis.horizontal,
   }) : pageController = PageController(initialPage: initialIndex);
 
-  final LoadingBuilder loadingBuilder;
-  final Decoration backgroundDecoration;
+  final LoadingBuilder? loadingBuilder;
+  final Decoration? backgroundDecoration;
   final dynamic minScale;
   final dynamic maxScale;
   final int initialIndex;
@@ -55,7 +55,7 @@ class GalleryPhotoViewWrapper extends StatefulWidget{
 }
 
 class _GalleryPhotoViewWrapperState extends State<GalleryPhotoViewWrapper> with BasePageMixin<GalleryPhotoViewWrapper>  {
-  int currentIndex;
+  late int currentIndex;
 
   @override
   void initState() {
@@ -92,7 +92,7 @@ class _GalleryPhotoViewWrapperState extends State<GalleryPhotoViewWrapper> with 
                   ),
                 );
               },
-              backgroundDecoration: widget.backgroundDecoration,
+              backgroundDecoration: widget.backgroundDecoration as BoxDecoration?,
               pageController: widget.pageController,
               onPageChanged: onPageChanged,
               scrollDirection: widget.scrollDirection,
@@ -115,7 +115,7 @@ class _GalleryPhotoViewWrapperState extends State<GalleryPhotoViewWrapper> with 
                       onTap: (){
                         final Gallery item = widget.galleryItems[currentIndex];
                         DialogUtil.showShareImageDialog(context,
-                          imgUrl: item.resource,
+                          imgUrl: item.resource ?? '',
                         );
                       },
                       child: LocalImage('icon_share_dark', package: Constant.baseLib, width: 38, height: 38)
@@ -138,17 +138,17 @@ class _GalleryPhotoViewWrapperState extends State<GalleryPhotoViewWrapper> with 
   PhotoViewGalleryPageOptions _buildItem(BuildContext context, int index) {
     final Gallery item = widget.galleryItems[index];
     return PhotoViewGalleryPageOptions(
-      imageProvider: NetworkImage(item.resource),
+      imageProvider: NetworkImage(item.resource ?? ''),
       initialScale: PhotoViewComputedScale.contained,
       minScale: PhotoViewComputedScale.contained * (0.5 + index / 10),
       maxScale: PhotoViewComputedScale.covered * 4.1,
-      heroAttributes: PhotoViewHeroAttributes(tag: item.id),
+      heroAttributes: PhotoViewHeroAttributes(tag: item.id ?? ''),
       onTapUp: (context, details, controllerValue) => Navigator.pop(context),
     );
   }
 
   @override
-  Widget buildProgress({String content, bool showContent}) {
+  Widget buildProgress({String? content, bool showContent = true}) {
     return LoadingCenterDialog(
         content: content,
         showContent: showContent);
@@ -163,7 +163,7 @@ class _GalleryPhotoViewWrapperState extends State<GalleryPhotoViewWrapper> with 
 
     showProgress(content: S.of(context).saving);
     final Gallery item = widget.galleryItems[currentIndex];
-    var response = await Dio().get(item.resource, options: Options(responseType: ResponseType.bytes));
+    var response = await Dio().get(item.resource ?? '', options: Options(responseType: ResponseType.bytes));
     final result = await ImageGallerySaver.saveImage(Uint8List.fromList(response.data));
 
     closeProgress();

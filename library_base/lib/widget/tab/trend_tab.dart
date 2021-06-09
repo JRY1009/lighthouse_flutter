@@ -14,10 +14,10 @@ class TrendTab extends StatelessWidget {
   /// [iconMargin] is only useful when [icon] and either one of [text] or
   /// [child] is non-null.
   const TrendTab({
-    Key key,
+    Key? key,
+    required this.select,
     this.text,
     this.icon,
-    this.select,
     this.padding,
     this.iconMargin = const EdgeInsets.only(bottom: 10.0),
     this.child,
@@ -25,23 +25,23 @@ class TrendTab extends StatelessWidget {
         assert(text == null || child == null),
         super(key: key);
 
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry? padding;
 
   final bool select;
   /// The text to display as the tab's label.
   ///
   /// Must not be used in combination with [child].
-  final String text;
+  final String? text;
 
   /// The widget to be used as the tab's label.
   ///
   /// Usually a [Text] widget, possibly wrapped in a [Semantics] widget.
   ///
   /// Must not be used in combination with [text].
-  final Widget child;
+  final Widget? child;
 
   /// An icon to display as the tab's label.
-  final Widget icon;
+  final Widget? icon;
 
   /// The margin added around the tab's icon.
   ///
@@ -58,7 +58,7 @@ class TrendTab extends StatelessWidget {
         color: select ? Colours.gray_100 : Colours.transparent,
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
       ),
-      child: Text(text, softWrap: false, overflow: TextOverflow.fade,
+      child: Text(text ?? '', softWrap: false, overflow: TextOverflow.fade,
           style: select ? TextStyle(fontSize: 13, color: Colours.app_main) : TextStyle(fontSize: 13, color: Colours.gray_500)
       ),
     );
@@ -75,7 +75,7 @@ class TrendTab extends StatelessWidget {
       label = _buildLabelText();
     } else if (text == null && child == null) {
       height = _kTabHeight;
-      label = icon;
+      label = icon!;
     } else {
       height = _kTextAndIconTabHeight;
       label = Column(

@@ -7,17 +7,17 @@ import 'package:library_base/utils/date_util.dart';
 
 class Quote {
 
-  int hour;
-  int minute;
-  int second;
-  num quote;
-  String date;
+  int? hour;
+  int? minute;
+  int? second;
+  late num quote;
+  String? date;
 
-  num open;
-  num close;
-  num high;
-  num low;
-  num vol;
+  num? open;
+  num? close;
+  num? high;
+  num? low;
+  num? vol;
 
   int _id = 0;
   int get id => _getIdTs();
@@ -41,7 +41,7 @@ class Quote {
     }
 
     String dateStr = '$date $hourStr:$minuteStr:$secondStr';
-    int ts = (DateUtil.getDateMsByTimeStr(dateStr) / 1000).floor();
+    int ts = ((DateUtil.getDateMsByTimeStr(dateStr) ?? 0) / 1000).floor();
     return ts;
   }
 
@@ -50,10 +50,10 @@ class Quote {
   }
 
   Quote({
+    required this.quote,
     this.hour,
     this.minute,
     this.second,
-    this.quote,
     this.date,
   }) {
 
@@ -61,10 +61,10 @@ class Quote {
   }
 
   Quote.fromJson(Map<String, dynamic> jsonMap) {
+    quote = jsonMap['quote'] ?? 0;
     hour = jsonMap['hour'] ?? 0;
     minute = jsonMap['minute'] ?? 0;
     second = jsonMap['second'] ?? 0;
-    quote = jsonMap['quote'] ?? 0;
     date = jsonMap['date'] ?? '';
 
     initKlineData();
@@ -79,12 +79,12 @@ class Quote {
     } else {
       open = quote - rng.nextInt(20);
     }
-    if (open > close) {
-      high = open + rng.nextInt(10);
-      low = close - rng.nextInt(10);
+    if (open! > close!) {
+      high = open! + rng.nextInt(10);
+      low = close! - rng.nextInt(10);
     } else {
-      high = close + rng.nextInt(10);
-      low = open - rng.nextInt(10);
+      high = close! + rng.nextInt(10);
+      low = open! - rng.nextInt(10);
     }
     vol = NumUtil.multiply(quote, rng.nextInt(100));
   }
@@ -113,11 +113,11 @@ class Quote {
       ];
     }
 
-    Quote lastQuote;
-    List<Quote> items = new List<Quote>();
+    Quote? lastQuote;
+    List<Quote> items = [];
     for(Map<String, dynamic> map in mapList) {
       Quote quote = Quote.fromJson(map);
-      lastQuote?.open = quote?.close;
+      lastQuote?.open = quote.close;
       lastQuote = quote;
       items.add(quote);
     }

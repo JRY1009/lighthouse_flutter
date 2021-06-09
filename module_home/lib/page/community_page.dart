@@ -20,7 +20,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 class CommunityPage extends StatefulWidget {
 
   CommunityPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -36,7 +36,7 @@ class _CommunityPageState extends State<CommunityPage> with BasePageMixin<Commun
 
   RefreshController _easyController = RefreshController();
 
-  LeaveMessageModel _leaveMessageModel;
+  late LeaveMessageModel _leaveMessageModel;
 
   @override
   void initState() {
@@ -62,7 +62,7 @@ class _CommunityPageState extends State<CommunityPage> with BasePageMixin<Commun
         } else {
           _easyController.loadFailed();
         }
-        ToastUtil.error(_leaveMessageModel.viewStateError.message);
+        ToastUtil.error(_leaveMessageModel.viewStateError!.message!);
 
       } else if (_leaveMessageModel.isSuccess || _leaveMessageModel.isEmpty) {
         if (_leaveMessageModel.page == 1) {

@@ -12,7 +12,7 @@ import 'package:lighthouse/viewmodel/splash_model.dart';
 import 'package:package_info/package_info.dart';
 
 class SplashPage extends StatefulWidget {
-  SplashPage({Key key}) : super(key: key);
+  SplashPage({Key? key}) : super(key: key);
 
   @override
   SplashPageState createState() {
@@ -22,13 +22,13 @@ class SplashPage extends StatefulWidget {
 
 class SplashPageState extends State<SplashPage> {
 
-  SplashModel _splashModel;
+  late SplashModel _splashModel;
 
   @override
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       initViewModel();
     });
 //    Future.delayed(new Duration(seconds: 1), () {
@@ -46,7 +46,7 @@ class SplashPageState extends State<SplashPage> {
           String old_version = SPUtil.getString(SPUtil.key_old_version, defValue: '');
 
           PackageInfo packageInfo = await PackageInfo.fromPlatform();
-          String cur_version = packageInfo?.version;
+          String cur_version = packageInfo.version;
 
           if (old_version == cur_version) {
             Navigator.pop(context);

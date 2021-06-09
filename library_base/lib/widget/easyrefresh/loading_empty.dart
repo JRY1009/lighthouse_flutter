@@ -6,11 +6,11 @@ import 'package:library_base/widget/image/local_image.dart';
 
 class LoadingEmpty extends StatelessWidget {
 
-  final String text;
-  final String image;
+  final String? text;
+  final String? image;
 
   const LoadingEmpty({
-    Key key,
+    Key? key,
     this.text,
     this.image
   }) : super(key: key);

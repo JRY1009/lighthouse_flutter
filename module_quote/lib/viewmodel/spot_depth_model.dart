@@ -15,10 +15,10 @@ import 'package:module_quote/quote_router.dart';
 
 class SpotDepthModel extends ViewStateModel {
 
-  List<DepthEntity> bidsList, asksList;
+  List<DepthEntity>? bidsList, asksList;
   num bidAmountMax = 0, askAmountMax = 0;
 
-  StreamSubscription quoteSubscription;
+  StreamSubscription? quoteSubscription;
 
   SpotDepthModel() :
         super(viewState: ViewState.first) {
@@ -35,7 +35,7 @@ class SpotDepthModel extends ViewStateModel {
     });
   }
 
-  Future getDepth(String chain, {bool isChart = true}) {
+  Future getDepth(String chain, {bool isChart = true}) async {
     Map<String, dynamic> params = {
       'chain': chain,
     };
@@ -60,52 +60,52 @@ class SpotDepthModel extends ViewStateModel {
     });
   }
   
-  void initDepthChart(List<DepthEntity> bids, List<DepthEntity> asks) {
+  void initDepthChart(List<DepthEntity>? bids, List<DepthEntity>? asks) {
     if (bids == null || asks == null || bids.isEmpty || asks.isEmpty) return;
-    bidsList = List();
-    asksList = List();
+    bidsList = [];
+    asksList = [];
     double amount = 0.0;
-    bids?.sort((left, right) => left.price.compareTo(right.price));
+    bids.sort((left, right) => left.price.compareTo(right.price));
     //倒序循环 //累加买入委托量
     bids.reversed.forEach((item) {
       amount += item.amount;
       item.amount = amount;
-      bidsList.insert(0, item);
+      bidsList!.insert(0, item);
     });
 
     amount = 0.0;
-    asks?.sort((left, right) => left.price.compareTo(right.price));
+    asks.sort((left, right) => left.price.compareTo(right.price));
     //循环 //累加买入委托量
-    asks?.forEach((item) {
+    asks.forEach((item) {
       amount += item.amount;
       item.amount = amount;
-      asksList.add(item);
+      asksList!.add(item);
     });
   }
 
   void initDepth(List<DepthEntity> bids, List<DepthEntity> asks) {
     if (bids == null || asks == null || bids.isEmpty || asks.isEmpty) return;
-    bidsList = List();
-    asksList = List();
+    bidsList = [];
+    asksList = [];
 
     int index = 0;
-    bids?.sort((left, right) => left.price.compareTo(right.price));
+    bids.sort((left, right) => left.price.compareTo(right.price));
     //循环
-    bids?.reversed?.forEach((item) {
+    bids.reversed.forEach((item) {
       if (index++ < 20) {
         bidAmountMax = max(bidAmountMax, item.amount);
       }
-      bidsList.add(item);
+      bidsList!.add(item);
     });
 
     index = 0;
-    asks?.sort((left, right) => left.price.compareTo(right.price));
+    asks.sort((left, right) => left.price.compareTo(right.price));
     //循环
-    asks?.forEach((item) {
+    asks.forEach((item) {
       if (index++ < 20) {
         askAmountMax = max(askAmountMax, item.amount);
       }
-      asksList.add(item);
+      asksList!.add(item);
     });
   }
 

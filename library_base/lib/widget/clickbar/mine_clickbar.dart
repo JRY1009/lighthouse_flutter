@@ -8,17 +8,17 @@ class MineClickBar extends StatefulWidget {
   // 标题
   final String title;
 
-  final String subTitle;
+  final String? subTitle;
   // 右侧控件
-  final Widget icon;
+  final Widget? icon;
   // 点击事件
-  final Function() onPressed;
+  final Function()? onPressed;
 
-  final ShapeBorder shape;
+  final ShapeBorder? shape;
   // 构造函数
   MineClickBar({
-    Key key,
-    @required this.title,
+    Key? key,
+    required this.title,
     this.subTitle,
     this.icon,
     this.onPressed,
@@ -47,7 +47,7 @@ class _MineClickBarState extends State<MineClickBar> {
                 onPressed: null,
                 constraints: BoxConstraints(minWidth: 0),
                 padding: EdgeInsets.all(10),
-                icon: widget.icon,
+                icon: widget.icon!,
               ) : Gaps.empty,
               Expanded(
                   child: Container(

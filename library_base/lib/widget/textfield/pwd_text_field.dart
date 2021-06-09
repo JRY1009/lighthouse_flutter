@@ -9,21 +9,21 @@ import 'package:library_base/res/gaps.dart';
 //登陆注册界面edittext输入框
 class PwdTextField extends StatefulWidget {
 
-  final FocusNode focusNode;
-  final Function() onTextChanged;
-  final TextEditingController controller;
+  final FocusNode? focusNode;
+  final Function()? onTextChanged;
+  final TextEditingController? controller;
 
-  final String prefixText;
-  final Color backgroundColor;
-  final InputBorder focusedBorder;
-  final InputBorder enabledBorder;
+  final String? prefixText;
+  final Color? backgroundColor;
+  final InputBorder? focusedBorder;
+  final InputBorder? enabledBorder;
 
-  final String hintText;
-  final TextStyle hintStyle;
+  final String? hintText;
+  final TextStyle? hintStyle;
 
   PwdTextField({
-    Key key,
-    @required this.controller,
+    Key? key,
+    required this.controller,
     this.focusNode,
     this.onTextChanged,
     this.prefixText,
@@ -49,7 +49,7 @@ class _AccountTextFieldState extends State<PwdTextField> {
   }
 
   bool _isEmptyText() {
-    return widget.controller.text == null || widget.controller.text.isEmpty;
+    return widget.controller!.text == null || widget.controller!.text.isEmpty;
   }
 
   @override
@@ -97,8 +97,10 @@ class _AccountTextFieldState extends State<PwdTextField> {
                       icon: Icon(Icons.close, color: Colours.gray_400, size: 20),
                       onPressed: () {
                         setState(() {
-                          widget.controller.text = "";
-                          widget.onTextChanged();
+                          widget.controller!.text = "";
+                          if (widget.onTextChanged != null) {
+                            widget.onTextChanged!();
+                          }
                         });
                       },
                     ) : Gaps.empty,
@@ -117,7 +119,9 @@ class _AccountTextFieldState extends State<PwdTextField> {
           ),
           onChanged: (text) {
             setState(() {
-              widget.onTextChanged();
+              if (widget.onTextChanged != null) {
+                widget.onTextChanged!();
+              }
             });
           },
         )

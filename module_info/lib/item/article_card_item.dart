@@ -13,13 +13,13 @@ import 'package:module_info/model/article.dart';
 /// 资讯列表详情
 class ArticleCardItem extends StatelessWidget {
 
-  final int index;
+  final int? index;
   final Article aritcle;
 
   const ArticleCardItem(
-      {Key key,
-        this.index,
-        this.aritcle
+      {Key? key,
+        required this.aritcle,
+        this.index
       })
       : super(key: key);
 
@@ -50,7 +50,7 @@ class ArticleCardItem extends StatelessWidget {
                 Container(
                     margin: EdgeInsets.only(top: 10),
                     alignment: Alignment.centerLeft,
-                    child: Text(aritcle?.title ?? '',
+                    child: Text(aritcle.title ?? '',
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         strutStyle: StrutStyle(forceStrutHeight: true, height:1.4, leading: 0.5),
@@ -61,10 +61,10 @@ class ArticleCardItem extends StatelessWidget {
                 IntrinsicHeight(
                   child: Row(
                     children: [
-                      ObjectUtil.isEmpty(aritcle?.snapshot_url) ? Gaps.empty :
+                      ObjectUtil.isEmpty(aritcle.snapshot_url) ? Gaps.empty :
                       Container(
                         margin: EdgeInsets.only(right: 10),
-                        child: RoundImage(aritcle?.snapshot_url ?? '',
+                        child: RoundImage(aritcle.snapshot_url ?? '',
                           width: 84,
                           height: 84,
                           borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -73,7 +73,7 @@ class ArticleCardItem extends StatelessWidget {
                       Expanded(
                         child: Container(
                             alignment: Alignment.topLeft,
-                            child: Text(aritcle?.summary ?? '',
+                            child: Text(aritcle.summary ?? '',
                                 maxLines: 4,
                                 overflow: TextOverflow.ellipsis,
                                 strutStyle: StrutStyle(forceStrutHeight: true, height:1.2, leading: 0.5),
@@ -90,12 +90,12 @@ class ArticleCardItem extends StatelessWidget {
                     children: [
                       Container(
                         alignment: Alignment.centerLeft,
-                        child: Text(aritcle?.publisher, style: TextStyles.textGray400_w400_12),
+                        child: Text(aritcle.publisher ?? '', style: TextStyles.textGray400_w400_12),
                       ),
                       Container(
                         margin: EdgeInsets.only(left: 10),
                         alignment: Alignment.centerRight,
-                        child: Text(TimeCountUtil.formatStr(aritcle?.publish_time) ?? '',
+                        child: Text(TimeCountUtil.formatStr(aritcle.publish_time ?? '') ?? '',
                           style: TextStyles.textGray400_w400_12,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,

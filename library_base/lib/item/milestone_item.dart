@@ -11,11 +11,11 @@ class MileStoneItem extends StatelessWidget {
   final bool isLast;
 
   const MileStoneItem(
-      {Key key,
-        this.index,
-        this.content,
+      {Key? key,
+        required this.index,
+        required this.content,
+        required this.time,
         this.isLast = false,
-        this.time
       })
       : super(key: key);
 
@@ -34,7 +34,7 @@ class MileStoneItem extends StatelessWidget {
                   children: <Widget>[
                     Container(
                       alignment: Alignment.topLeft,
-                      child: Text(DateUtil.getDateStrByTimeStr(time, format: DateFormat.YEAR_ONLY),
+                      child: Text(DateUtil.getDateStrByTimeStr(time, format: DateFormat.YEAR_ONLY) ?? '',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyles.textGray400_w400_12
@@ -43,7 +43,7 @@ class MileStoneItem extends StatelessWidget {
                     Container(
                       alignment: Alignment.topLeft,
                       margin: EdgeInsets.only(top: 3.0),
-                      child: Text(DateUtil.getDateStrByTimeStr(time, format: DateFormat.MONTH_DAY, dateSeparate: '/'),
+                      child: Text(DateUtil.getDateStrByTimeStr(time, format: DateFormat.MONTH_DAY, dateSeparate: '/') ?? '',
                           style: TextStyles.textGray800_w700_15
                       ),
                     ),
@@ -79,7 +79,7 @@ class MileStoneItem extends StatelessWidget {
               flex: 1,
               child: Container(
                 padding: EdgeInsets.fromLTRB(20, 20, 18, isLast ? 20 : 6),
-                child: Text((content ?? ''),
+                child: Text((content),
                     strutStyle: StrutStyle(forceStrutHeight: true, height:1.2, leading: 0.5),
                     style: TextStyles.textGray800_w400_15
                 ),

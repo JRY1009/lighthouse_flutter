@@ -6,9 +6,9 @@ import 'package:library_base/widget/image/local_image.dart';
 class RoundCheckBox extends StatefulWidget {
   var value = false;
 
-  Function(bool) onChanged;
+  Function(bool)? onChanged;
 
-  RoundCheckBox({Key key, @required this.value, this.onChanged})
+  RoundCheckBox({Key? key, required this.value, this.onChanged})
       : super(key: key);
 
   @override
@@ -21,7 +21,9 @@ class _RoundCheckBoxState extends State<RoundCheckBox> {
     return InkWell(
         onTap: () {
           widget.value = !widget.value;
-          widget.onChanged(widget.value);
+          if (widget.onChanged != null) {
+            widget.onChanged!(widget.value);
+          }
         },
         child: Container(
           height: 36,

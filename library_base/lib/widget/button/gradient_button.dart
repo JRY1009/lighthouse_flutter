@@ -6,15 +6,15 @@ import 'package:library_base/res/styles.dart';
 class GradientButton extends StatefulWidget {
 
   final List<Color> colors;
-  final String text;
+  final String? text;
   final TextStyle textStyle;
-  final double width;
-  final double height;
-  final Function() onPressed;
+  final double? width;
+  final double? height;
+  final Function()? onPressed;
 
   GradientButton({
-    Key key,
-    @required this.colors,
+    Key? key,
+    required this.colors,
     this.text,
     this.textStyle = TextStyles.textWhite16,
     this.width,
@@ -45,7 +45,7 @@ class _GradientButtonState extends State<GradientButton> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50.0))),
         disabledColor: Color(0xff93b8fd),
         child: Text(
-          widget.text,
+          widget.text ?? '',
           style: widget.textStyle,
         ),
         onPressed: widget.onPressed,

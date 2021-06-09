@@ -31,7 +31,7 @@ class _SetPwdPageState extends State<SetPwdPage> with BasePageMixin<SetPwdPage> 
   final TextEditingController _pwdRepeatController = TextEditingController();
   final FocusNode _pwdRepeatNode = FocusNode();
 
-  ModifyPwdModel _modifyPwdModel;
+  late ModifyPwdModel _modifyPwdModel;
 
   bool _saveEnabled = false;
 
@@ -50,7 +50,7 @@ class _SetPwdPageState extends State<SetPwdPage> with BasePageMixin<SetPwdPage> 
 
       } else if (_modifyPwdModel.isError) {
         closeProgress();
-        ToastUtil.error(_modifyPwdModel.viewStateError.message);
+        ToastUtil.error(_modifyPwdModel.viewStateError!.message!);
 
       } else if (_modifyPwdModel.isSuccess) {
         closeProgress();
@@ -94,7 +94,7 @@ class _SetPwdPageState extends State<SetPwdPage> with BasePageMixin<SetPwdPage> 
   @override
   Widget build(BuildContext context) {
 
-    Account account = RTAccount.instance().getActiveAccount();
+    Account? account = RTAccount.instance()!.getActiveAccount();
     
     return Scaffold(
         backgroundColor: Colours.white,

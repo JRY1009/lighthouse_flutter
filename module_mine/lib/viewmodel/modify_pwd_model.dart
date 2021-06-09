@@ -19,13 +19,13 @@ class ModifyPwdModel extends ViewStateModel {
 
     setBusy();
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_UPDATE_PASSWORD, "post", data: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_UPDATE_PASSWORD, "post", data: params,
         cancelToken: cancelToken,
         onSuccess: (data) {
           setSuccess();
         },
         onError: (errno, msg) {
-          setError(errno, message: msg);
+          setError(errno!, message: msg);
         });
   }
 
@@ -39,13 +39,13 @@ class ModifyPwdModel extends ViewStateModel {
 
     setBusy();
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_RESET_PASSWORD, "post", data: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_RESET_PASSWORD, "post", data: params,
         cancelToken: cancelToken,
         onSuccess: (data) {
           setSuccess();
         },
         onError: (errno, msg) {
-          setError(errno, message: msg);
+          setError(errno!, message: msg);
         });
   }
 
@@ -60,13 +60,13 @@ class ModifyPwdModel extends ViewStateModel {
 
     setBusy();
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_FORGET_PASSWORD, "post", data: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_FORGET_PASSWORD, "post", data: params,
         cancelToken: cancelToken,
         onSuccess: (data) {
           setSuccess();
         },
         onError: (errno, msg) {
-          setError(errno, message: msg);
+          setError(errno!, message: msg);
         });
   }
 
@@ -79,13 +79,13 @@ class ModifyPwdModel extends ViewStateModel {
 
     setBusy();
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_SET_PASSWORD, "post", data: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_SET_PASSWORD, "post", data: params,
         cancelToken: cancelToken,
         onSuccess: (data) {
           setSuccess();
         },
         onError: (errno, msg) {
-          setError(errno, message: msg);
+          setError(errno!, message: msg);
         });
   }
 }

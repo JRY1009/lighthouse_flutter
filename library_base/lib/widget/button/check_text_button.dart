@@ -8,12 +8,12 @@ class CheckTextButton extends StatefulWidget {
 
   bool value = false;
 
-  String text;
+  String? text;
 
-  Function(bool) onChanged;
+  Function(bool)? onChanged;
 
-  CheckTextButton({Key key,
-    @required this.value,
+  CheckTextButton({Key? key,
+    required this.value,
     this.text,
     this.onChanged
   }) : super(key: key);
@@ -28,15 +28,17 @@ class _RoundCheckBoxState extends State<CheckTextButton> {
     return InkWell(
         onTap: () {
           widget.value = !widget.value;
-          widget.onChanged(widget.value);
+          if (widget.onChanged != null) {
+            widget.onChanged!(widget.value);
+          }
         },
         child: Container(
             height: 30,
             color: Colours.white,
             padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 9),
             child: widget.value
-                ? Text(widget.text, style: TextStyles.textMain500_11)
-                : Text(widget.text, style: TextStyles.textGray400_w400_11)
+                ? Text(widget.text ?? '', style: TextStyles.textMain500_11)
+                : Text(widget.text ?? '', style: TextStyles.textGray400_w400_11)
         )
     );
   }

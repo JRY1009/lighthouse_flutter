@@ -18,7 +18,7 @@ import 'platform_page.dart';
 class QuotePage extends StatefulWidget {
 
   QuotePage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -30,10 +30,10 @@ class _QuotePageState extends State<QuotePage> with BasePageMixin<QuotePage>, Au
   @override
   bool get wantKeepAlive => true;
 
-  List<GlobalKey<BasePageMixin>> _keyList;
-  List<String> _tabTitles ;
+  late List<GlobalKey<BasePageMixin>> _keyList;
+  late List<String> _tabTitles ;
 
-  TabController _tabController;
+  late TabController _tabController;
 
   @override
   void initState() {
@@ -56,9 +56,9 @@ class _QuotePageState extends State<QuotePage> with BasePageMixin<QuotePage>, Au
   }
 
   @override
-  Future<void> jump({Map<String, dynamic> params}) {
+  Future<void> jump({Map<String, dynamic>? params}) async {
     LogUtil.v('_QuotePageState ==> jump $params');
-    int tabIndex = params['tab'] ?? 0;
+    int tabIndex = params!['tab'] ?? 0;
 
     setState(() {
       _tabController.index = tabIndex;
@@ -67,7 +67,7 @@ class _QuotePageState extends State<QuotePage> with BasePageMixin<QuotePage>, Au
 
   @override
   Future<void> refresh({slient = false}) {
-    return _keyList[_tabController.index]?.currentState.refresh();
+    return _keyList[_tabController.index].currentState!.refresh();
   }
 
   @override

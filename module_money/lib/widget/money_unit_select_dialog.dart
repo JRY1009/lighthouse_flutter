@@ -6,11 +6,11 @@ import 'package:library_base/res/gaps.dart';
 
 class MoneyUnitSelectDialog extends StatelessWidget {
 
-  final ValueChanged<String> selectCallback;
+  final ValueChanged<String>? selectCallback;
 
 
   MoneyUnitSelectDialog({
-    Key key,
+    Key? key,
     this.selectCallback,
   }) : super(key: key);
 
@@ -31,7 +31,7 @@ class MoneyUnitSelectDialog extends StatelessWidget {
                   FlatButton(
                       onPressed: () {
                         Navigator.pop(context);
-                        selectCallback('CNY');
+                        selectCallback!('CNY');
                       },
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(14.0))),
                       padding: EdgeInsets.all(0.0),
@@ -53,7 +53,7 @@ class MoneyUnitSelectDialog extends StatelessWidget {
                   FlatButton(
                       onPressed: () {
                         Navigator.pop(context);
-                        selectCallback('USD');
+                        selectCallback!('USD');
                       },
                       padding: EdgeInsets.all(0.0),
                       child: Container(
@@ -74,7 +74,7 @@ class MoneyUnitSelectDialog extends StatelessWidget {
                   FlatButton(
                       onPressed: () {
                         Navigator.pop(context);
-                        selectCallback('BTC');
+                        selectCallback!('BTC');
                       },
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(bottom: Radius.circular(14.0))),
                       padding: EdgeInsets.all(0.0),

@@ -39,9 +39,9 @@ class MileStoneModel extends ViewStateModel {
       'page_size': pageSize,
     };
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_GET_MILESTONES, 'get', params: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_GET_MILESTONES, 'get', params: params,
         cancelToken: cancelToken,
-        onSuccess: (data) {
+        onSuccess: (dynamic data) {
 
           List<MileStone> newsList = MileStone.fromJsonList(data['records']) ?? [];
           if (page == 0) {
@@ -52,7 +52,7 @@ class MileStoneModel extends ViewStateModel {
             mileStoneList.addAll(newsList);
           }
 
-          noMore = newsList?.length < pageSize;
+          noMore = newsList.length < pageSize;
 
           if (ObjectUtil.isEmptyList(mileStoneList)) {
             setEmpty();
@@ -61,7 +61,7 @@ class MileStoneModel extends ViewStateModel {
           }
         },
         onError: (errno, msg) {
-          setError(errno, message: msg);
+          setError(errno!, message: msg);
         });
   }
 

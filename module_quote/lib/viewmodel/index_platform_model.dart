@@ -22,10 +22,10 @@ enum IndexPlatformSortState {
 
 class IndexPlatformModel extends ViewStateModel {
 
-  QuoteIndexPlatformBasic quoteBasic;
+  QuoteIndexPlatformBasic? quoteBasic;
   List<QuoteIndexPlatform> quoteList = [];
 
-  StreamSubscription quoteSubscription;
+  StreamSubscription? quoteSubscription;
 
   IndexPlatformSortState sortState = IndexPlatformSortState.NORMAL;
 
@@ -63,30 +63,30 @@ class IndexPlatformModel extends ViewStateModel {
       if (sortState == IndexPlatformSortState.NORMAL) {
         return 0;
       } else if (sortState == IndexPlatformSortState.PRICE_ASCEND) {
-        if (a.quote > b.quote) {
+        if (a.quote! > b.quote!) {
           return 1;
-        } else if (a.quote < b.quote) {
+        } else if (a.quote! < b.quote!) {
           return -1;
         }
 
       } else if (sortState == IndexPlatformSortState.PRICE_DESCEND) {
-        if (a.quote > b.quote) {
+        if (a.quote! > b.quote!) {
           return -1;
-        } else if (a.quote < b.quote) {
+        } else if (a.quote! < b.quote!) {
           return 1;
         }
 
       } else if (sortState == IndexPlatformSortState.RATE_ASCEND) {
-        if (a.change_percent > b.change_percent) {
+        if (a.change_percent! > b.change_percent!) {
           return -1;
-        } else if (a.change_percent < b.change_percent) {
+        } else if (a.change_percent! < b.change_percent!) {
           return 1;
         }
 
       } else if (sortState == IndexPlatformSortState.RATE_DESCEND) {
-        if (a.change_percent > b.change_percent) {
+        if (a.change_percent! > b.change_percent!) {
           return 1;
-        } else if (a.change_percent < b.change_percent) {
+        } else if (a.change_percent! < b.change_percent!) {
           return -1;
         }
       }
@@ -120,9 +120,9 @@ class IndexPlatformModel extends ViewStateModel {
       'chain': chain,
     };
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_GET_CHAIN_QUOTE, 'get', params: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_GET_CHAIN_QUOTE, 'get', params: params,
         cancelToken: cancelToken,
-        onSuccess: (data) {
+        onSuccess: (dynamic data) {
 
           quoteBasic = QuoteIndexPlatformBasic.fromJson(data);
           quoteList = quoteBasic?.exchange_quote_list ?? [];
@@ -134,7 +134,7 @@ class IndexPlatformModel extends ViewStateModel {
           }
         },
         onError: (errno, msg) {
-          setError(errno, message: msg);
+          setError(errno!, message: msg);
         });
   }
 

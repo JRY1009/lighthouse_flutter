@@ -14,12 +14,12 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 class WebSocketUtil {
   static const String _TAG = "WebSocketUtil";
 
-  static WebSocketUtil _socket;
+  static WebSocketUtil? _socket;
 
   /// 内部构造方法，可避免外部暴露构造函数，进行实例化
   WebSocketUtil._();
 
-  static WebSocketUtil instance() {
+  static WebSocketUtil? instance() {
     if (_socket == null) {
       _socket = new WebSocketUtil._();
     }
@@ -28,7 +28,7 @@ class WebSocketUtil {
 
   static void initWS() {
 
-    WebSocketUtil.instance().initWebSocket(
+    WebSocketUtil.instance()!.initWebSocket(
         openCallback: () {
 
           Map<String, dynamic> params = {
@@ -36,14 +36,14 @@ class WebSocketUtil {
             'group': 'public.quote',
             'message': 'eth,btc',
           };
-          WebSocketUtil.instance().sendMessage(json.encode(params));
+          WebSocketUtil.instance()!.sendMessage(json.encode(params));
         },
 
         messageCallback: (data) {
 
-          Map<String, dynamic> result = json.decode(data);
+          Map<String, dynamic>? result = json.decode(data);
           if (result != null) {
-            String group = result['group'];
+            String? group = result['group'];
             switch(group) {
               case 'public.quote': {
                 QuoteWs quoteWs = QuoteWs.fromJson(result['message']);
@@ -56,23 +56,23 @@ class WebSocketUtil {
         });
   }
 
-  WebSocketChannel _channel; // WebSocket
+  WebSocketChannel? _channel; // WebSocket
   bool _isConnect = false;
   bool _handleClose = false;
 
   num _heartTimes = 10000; // 心跳间隔(毫秒)
   num _rcMaxCount = 600; // 重连次数，默认60次
   num _rcTimes = 0; // 重连计数器
-  Timer _rcTimer; // 重连定时器
+  Timer? _rcTimer; // 重连定时器
 
-  Function openCallback; // 连接开启回调
-  Function errorCallback; // 连接错误回调
-  Function messageCallback; // 接收消息回调
+  Function? openCallback; // 连接开启回调
+  Function? errorCallback; // 连接错误回调
+  Function? messageCallback; // 接收消息回调
 
   void initWebSocket({
-    Function openCallback,
-    Function errorCallback,
-    Function messageCallback,
+    Function? openCallback,
+    Function? errorCallback,
+    Function? messageCallback,
   }) {
     this.openCallback = openCallback;
     this.errorCallback = errorCallback;
@@ -89,12 +89,12 @@ class WebSocketUtil {
     if (DeviceUtil.isWeb) {
       _channel = WebSocketChannel.connect(Uri.parse(AppConfig.env.wsUrl));
     } else {
-      _channel = IOWebSocketChannel.connect(AppConfig.env.wsUrl, pingInterval: Duration(milliseconds: _heartTimes));
+      _channel = IOWebSocketChannel.connect(AppConfig.env.wsUrl, pingInterval: Duration(milliseconds: _heartTimes.toInt()));
     }
 
     LogUtil.v('websocket connect:  ${AppConfig.env.wsUrl}', tag: _TAG);
 
-    _channel.stream.listen((data) => _onMessage(data),
+    _channel!.stream.listen((data) => _onMessage(data),
         onError: _onError,
         onDone: _onDone
     );
@@ -109,14 +109,14 @@ class WebSocketUtil {
       _rcTimer = null;
 
       if (openCallback != null) {
-        openCallback();
+        openCallback!();
       }
     }
 
     LogUtil.v('websocket onmessage:  $data', tag: _TAG);
 
     if (messageCallback != null) {
-      messageCallback(data);
+      messageCallback!(data);
     }
   }
 
@@ -132,7 +132,7 @@ class WebSocketUtil {
     LogUtil.v('websocket error: $e', tag: _TAG);
 
     if (errorCallback != null) {
-      errorCallback(e);
+      errorCallback!(e);
     }
     closed();
   }
@@ -145,8 +145,8 @@ class WebSocketUtil {
   /// 关闭WebSocket
   void closed() {
     if (_channel != null) {
-      if (_channel.sink != null) {
-        _channel.sink.close();
+      if (_channel!.sink != null) {
+        _channel!.sink.close();
         _isConnect = false;
 
         LogUtil.v('websocket closed', tag: _TAG);
@@ -158,8 +158,8 @@ class WebSocketUtil {
 
     if (_channel != null) {
       LogUtil.v('websocket send: $message, isconnect: $_isConnect', tag: _TAG);
-      if (_channel.sink != null && _isConnect) {
-        _channel.sink.add(message);
+      if (_channel!.sink != null && _isConnect) {
+        _channel!.sink.add(message);
       }
     }
   }
@@ -170,17 +170,17 @@ class WebSocketUtil {
       _rcTimes++;
 
       if (_rcTimer == null) {
-        _rcTimer = new Timer.periodic(Duration(milliseconds: _heartTimes), (timer) {
+        _rcTimer = new Timer.periodic(Duration(milliseconds: _heartTimes.toInt()), (timer) {
 
           LogUtil.v('websocket reconnect:  ${AppConfig.env.wsUrl}', tag: _TAG);
 
           if (DeviceUtil.isWeb) {
             _channel = WebSocketChannel.connect(Uri.parse(AppConfig.env.wsUrl));
           } else {
-            _channel = IOWebSocketChannel.connect(AppConfig.env.wsUrl, pingInterval: Duration(milliseconds: _heartTimes));
+            _channel = IOWebSocketChannel.connect(AppConfig.env.wsUrl, pingInterval: Duration(milliseconds: _heartTimes.toInt()));
           }
 
-          _channel.stream.listen((data) => _onMessage(data),
+          _channel!.stream.listen((data) => _onMessage(data),
               onError: _onError,
               onDone: _onDone
           );

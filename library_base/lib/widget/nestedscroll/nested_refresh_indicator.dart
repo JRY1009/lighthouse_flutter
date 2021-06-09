@@ -106,10 +106,10 @@ class NestedRefreshIndicator extends StatefulWidget {
   /// An empty string may be passed to avoid having anything read by screen reading software.
   /// The [semanticsValue] may be used to specify progress on the widget.
   const NestedRefreshIndicator({
-    Key key,
-    @required this.child,
+    Key? key,
+    required this.child,
     this.displacement = 40.0,
-    @required this.onRefresh,
+    required this.onRefresh,
     this.color,
     this.backgroundColor,
     this.notificationPredicate = nestedScrollNotificationPredicate,
@@ -144,11 +144,11 @@ class NestedRefreshIndicator extends StatefulWidget {
 
   /// The progress indicator's foreground color. The current theme's
   /// [ThemeData.accentColor] by default.
-  final Color color;
+  final Color? color;
 
   /// The progress indicator's background color. The current theme's
   /// [ThemeData.canvasColor] by default.
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   /// A check that specifies whether a [ScrollNotification] should be
   /// handled by this widget.
@@ -161,10 +161,10 @@ class NestedRefreshIndicator extends StatefulWidget {
   ///
   /// This will be defaulted to [MaterialLocalizations.refreshIndicatorSemanticLabel]
   /// if it is null.
-  final String semanticsLabel;
+  final String? semanticsLabel;
 
   /// {@macro flutter.progress_indicator.ProgressIndicator.semanticsValue}
-  final String semanticsValue;
+  final String? semanticsValue;
 
   /// Defines `strokeWidth` for `NestedRefreshIndicator`.
   ///
@@ -193,17 +193,17 @@ class NestedRefreshIndicator extends StatefulWidget {
 /// Contains the state for a [NestedRefreshIndicator]. This class can be used to
 /// programmatically show the refresh indicator, see the [show] method.
 class NestedRefreshIndicatorState extends State<NestedRefreshIndicator> with TickerProviderStateMixin<NestedRefreshIndicator> {
-  AnimationController _positionController;
-  AnimationController _scaleController;
-  Animation<double> _positionFactor;
-  Animation<double> _scaleFactor;
-  Animation<double> _value;
-  Animation<Color> _valueColor;
+  late AnimationController _positionController;
+  late AnimationController _scaleController;
+  late Animation<double> _positionFactor;
+  late Animation<double> _scaleFactor;
+  late Animation<double> _value;
+  Animation<Color?>? _valueColor;
 
-  _NestedRefreshIndicatorMode _mode;
-  Future<void> _pendingRefreshFuture;
-  bool _isIndicatorAtTop;
-  double _dragOffset;
+  _NestedRefreshIndicatorMode? _mode;
+  Future<void>? _pendingRefreshFuture;
+  bool? _isIndicatorAtTop;
+  double? _dragOffset;
 
   static final Animatable<double> _threeQuarterTween = Tween<double>(begin: 0.0, end: 0.75);
   static final Animatable<double> _kDragSizeFactorLimitTween = Tween<double>(begin: 0.0, end: _kDragSizeFactorLimit);
@@ -276,7 +276,7 @@ class NestedRefreshIndicatorState extends State<NestedRefreshIndicator> with Tic
       });
       return false;
     }
-    bool indicatorAtTopNow;
+    bool? indicatorAtTopNow;
     switch (notification.metrics.axisDirection) {
       case AxisDirection.down:
         indicatorAtTopNow = true;
@@ -298,7 +298,7 @@ class NestedRefreshIndicatorState extends State<NestedRefreshIndicator> with Tic
         if (notification.metrics.extentBefore > 0.0) {
           _dismiss(_NestedRefreshIndicatorMode.canceled);
         } else {
-          _dragOffset = _dragOffset - notification.scrollDelta;
+          _dragOffset = _dragOffset! - notification.scrollDelta!;
           _checkDragOffset(maxContainerExtent);
         }
       }
@@ -310,7 +310,7 @@ class NestedRefreshIndicatorState extends State<NestedRefreshIndicator> with Tic
       }
     } else if (notification is OverscrollNotification) {
       if (_mode == _NestedRefreshIndicatorMode.drag || _mode == _NestedRefreshIndicatorMode.armed) {
-        _dragOffset -= notification.overscroll / 2.0;
+        _dragOffset = _dragOffset! - notification.overscroll / 2.0;
         _checkDragOffset(maxContainerExtent);
       }
     } else if (notification is ScrollEndNotification) {
@@ -364,11 +364,11 @@ class NestedRefreshIndicatorState extends State<NestedRefreshIndicator> with Tic
 
   void _checkDragOffset(double containerExtent) {
     assert(_mode == _NestedRefreshIndicatorMode.drag || _mode == _NestedRefreshIndicatorMode.armed);
-    double newValue = _dragOffset / (containerExtent * _kDragContainerExtentPercentage);
+    double newValue = _dragOffset! / (containerExtent * _kDragContainerExtentPercentage);
     if (_mode == _NestedRefreshIndicatorMode.armed)
       newValue = math.max(newValue, 1.0 / _kDragSizeFactorLimit);
     _positionController.value = newValue.clamp(0.0, 1.0); // this triggers various rebuilds
-    if (_mode == _NestedRefreshIndicatorMode.drag && _valueColor.value.alpha == 0xFF)
+    if (_mode == _NestedRefreshIndicatorMode.drag && _valueColor!.value!.alpha == 0xFF)
       _mode = _NestedRefreshIndicatorMode.armed;
   }
 
@@ -461,7 +461,7 @@ class NestedRefreshIndicatorState extends State<NestedRefreshIndicator> with Tic
   /// When initiated in this manner, the refresh indicator is independent of any
   /// actual scroll view. It defaults to showing the indicator at the top. To
   /// show it at the bottom, set `atTop` to false.
-  Future<void> show({ bool atTop = true }) {
+  Future<void>? show({ bool atTop = true }) {
     if (_mode != _NestedRefreshIndicatorMode.refresh &&
         _mode != _NestedRefreshIndicatorMode.snap) {
       if (_mode == null)
@@ -499,25 +499,25 @@ class NestedRefreshIndicatorState extends State<NestedRefreshIndicator> with Tic
       children: <Widget>[
         child,
         if (_mode != null) Positioned(
-          top: _isIndicatorAtTop ? 0.0 : null,
-          bottom: !_isIndicatorAtTop ? 0.0 : null,
+          top: _isIndicatorAtTop! ? 0.0 : null,
+          bottom: !_isIndicatorAtTop! ? 0.0 : null,
           left: 0.0,
           right: 0.0,
           child: SizeTransition(
-            axisAlignment: _isIndicatorAtTop ? 1.0 : -1.0,
+            axisAlignment: _isIndicatorAtTop! ? 1.0 : -1.0,
             sizeFactor: _positionFactor, // this is what brings it down
             child: Container(
-              padding: _isIndicatorAtTop
+              padding: _isIndicatorAtTop!
                   ? EdgeInsets.only(top: widget.displacement)
                   : EdgeInsets.only(bottom: widget.displacement),
-              alignment: _isIndicatorAtTop
+              alignment: _isIndicatorAtTop!
                   ? Alignment.topCenter
                   : Alignment.bottomCenter,
               child: ScaleTransition(
                 scale: _scaleFactor,
                 child: AnimatedBuilder(
                   animation: _positionController,
-                  builder: (BuildContext context, Widget child) {
+                  builder: (BuildContext context, Widget? child) {
                     return RefreshProgressIndicator(
                       semanticsLabel: widget.semanticsLabel ?? MaterialLocalizations.of(context).refreshIndicatorSemanticLabel,
                       semanticsValue: widget.semanticsValue,

@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 ///A controller for updating the single digit displayed by [_DigitSlide]
 class _DigitSlideController extends ValueNotifier {
-  String _number;
+  String? _number;
 
   _DigitSlideController({String num = '0'}) : super(num) {
     this._number = num;
   }
 
-  String get number => _number;
+  String? get number => _number;
 
-  set number(String num) {
+  set number(String? num) {
     this._number = num;
     super.value = num;
   }
@@ -27,7 +27,7 @@ class _DigitSlide extends StatelessWidget {
 
   final String initialNumber;
 
-  ScrollController scrollController;
+  late ScrollController scrollController;
 
   final TextStyle textStyle;
 
@@ -36,15 +36,15 @@ class _DigitSlide extends StatelessWidget {
   _DigitSlide(
       {this.backgroundColor = Colors.transparent,
         this.curve = Curves.ease,
-        this.controller,
-        this.textStyle,
-        this.initialNumber,
-        this.duration})
+        required this.controller,
+        required this.initialNumber,
+        required this.textStyle,
+        required this.duration})
       : assert(controller != null, 'Controller cannot be null.'),
         assert(initialNumber != null, 'Initial number cannot be null.'),
         super(key: Key(controller.toString())) {
 
-    scrollController = ScrollController(initialScrollOffset: textStyle.fontSize * (9 / 10) * _initOffset());
+    scrollController = ScrollController(initialScrollOffset: textStyle.fontSize! * (9 / 10) * _initOffset());
     controller.addListener(onValueChanged);
   }
 
@@ -55,7 +55,7 @@ class _DigitSlide extends StatelessWidget {
     return 0;
   }
 
-  bool _isNumber(String num) {
+  bool _isNumber(String? num) {
     if (num != null && num.length == 1) {
       int digit = num.codeUnitAt(0) - 48;
       if (digit >= 0 && digit <= 9) {
@@ -70,9 +70,9 @@ class _DigitSlide extends StatelessWidget {
     if (this.scrollController.hasClients) {
 
       if(_isNumber(controller.number)) {
-        int digit = controller.number.codeUnitAt(0) - 48;
+        int digit = controller.number!.codeUnitAt(0) - 48;
         scrollController.animateTo(
-            digit * textStyle.fontSize * (9 / 10),
+            digit * textStyle.fontSize! * (9 / 10),
             duration: duration,
             curve: curve);
       }
@@ -87,8 +87,8 @@ class _DigitSlide extends StatelessWidget {
       },
       child: Container(
           color: backgroundColor,
-          height: textStyle.fontSize * (9 / 10),
-          width: _isNumber(controller.number) ? textStyle.fontSize * (6.5 / 10) : textStyle.fontSize * (3 / 10),
+          height: textStyle.fontSize! * (9 / 10),
+          width: _isNumber(controller.number) ? textStyle.fontSize! * (6.5 / 10) : textStyle.fontSize! * (3 / 10),
           child: Stack(
             children: [
               _isNumber(controller.number) ?
@@ -98,7 +98,7 @@ class _DigitSlide extends StatelessWidget {
                 children: [
                   for (var i in List.generate(10, (index) => index))
                     Container(
-                      height: textStyle.fontSize * (9 / 10),
+                      height: textStyle.fontSize! * (9 / 10),
                       child: Center(
                         child: Text("$i", style: textStyle),
                       ),
@@ -106,9 +106,9 @@ class _DigitSlide extends StatelessWidget {
                 ],
               ) :
               Container(
-                height: textStyle.fontSize * (9 / 10),
+                height: textStyle.fontSize! * (9 / 10),
                 child: Center(
-                  child: Text(controller.number, style: textStyle),
+                  child: Text(controller.number!, style: textStyle),
                 ),
               )
             ],
@@ -118,15 +118,15 @@ class _DigitSlide extends StatelessWidget {
 }
 
 class NumberSlideController extends ValueNotifier {
-  String _number;
+  String? _number;
 
   NumberSlideController() : super(0) {
     this._number = '0';
   }
 
-  String get number => _number;
+  String? get number => _number;
 
-  set number(String num) {
+  set number(String? num) {
     this._number = num;
     super.value = num;
   }
@@ -144,9 +144,9 @@ class NumberSlide extends StatefulWidget {
   NumberSlide(
       {this.backgroundColor = Colors.transparent,
         this.curve = Curves.ease,
-        this.controller,
+        required this.controller,
         this.textStyle = const TextStyle(color: Colors.black, fontSize: 12),
-        this.initialNumber,
+        required this.initialNumber,
         this.duration = const Duration(milliseconds: 300)
       })
       : assert(controller != null, 'Controller cannot be null.'),
@@ -162,9 +162,9 @@ class NumberSlide extends StatefulWidget {
 class _NumberSlideState extends State<NumberSlide>
     with SingleTickerProviderStateMixin {
 
-  AnimationController animationController;
+  late AnimationController animationController;
 
-  String currentNumString;
+  late String currentNumString;
 
   bool shorter = false, longer = false;
 
@@ -215,7 +215,7 @@ class _NumberSlideState extends State<NumberSlide>
     bool shorter = false;
     bool longer = false;
 
-    if (numString.length < currentNumString.length) {
+    if (numString!.length < currentNumString.length) {
 
       int shortLength = currentNumString.length - numString.length;
       for (int i=digitControllers.length-1; i >= shortLength; i--) {
@@ -261,7 +261,7 @@ class _NumberSlideState extends State<NumberSlide>
 
   @override
   Widget build(BuildContext context) {
-    var width = widget.textStyle.fontSize * (6.5 / 10);
+    var width = widget.textStyle.fontSize! * (6.5 / 10);
     return AnimatedBuilder(
         animation: animationController,
         builder: (_, __) {

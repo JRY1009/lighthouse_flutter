@@ -2,14 +2,15 @@ library flutter_echarts;
 
 // --- FIX_BLINK ---
 import 'dart:io' show Platform;
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 // --- FIX_BLINK ---
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/foundation.dart';
-
-import 'package:flutter_echarts/echarts_script.dart' show echartsScript;
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+
+import 'echarts_script.dart' show echartsScript;
 
 /// <!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, target-densitydpi=device-dpi" /><style type="text/css">body,html,#chart{height: 100%;width: 100%;margin: 0px;}div {-webkit-tap-highlight-color:rgba(255,255,255,0);}</style></head><body><div id="chart" /></body></html>
 /// 'data:text/html;base64,' + base64Encode(const Utf8Encoder().convert( /* STRING ABOVE */ ))
@@ -17,8 +18,8 @@ const htmlBase64 = 'data:text/html;base64,PCFET0NUWVBFIGh0bWw+PGh0bWw+PGhlYWQ+PG
 
 class InappEcharts extends StatefulWidget {
   InappEcharts({
-    Key key,
-    @required this.option,
+    Key? key,
+    required this.option,
     this.extraScript = '',
     this.onMessage,
     this.extensions = const [],
@@ -31,24 +32,24 @@ class InappEcharts extends StatefulWidget {
 
   final String extraScript;
 
-  final void Function(String message) onMessage;
+  final void Function(String message)? onMessage;
 
   final List<String> extensions;
 
-  final String theme;
+  final String? theme;
 
   final bool captureAllGestures;
 
-  final void Function() onLoad;
+  final void Function()? onLoad;
 
   @override
   InappEchartsState createState() => InappEchartsState();
 }
 
 class InappEchartsState extends State<InappEcharts> {
-  InAppWebViewController webviewController;
+  InAppWebViewController? webviewController;
 
-  String _currentOption;
+  String? _currentOption;
 
   // --- FIX_BLINK ---
   double _opacity = Platform.isAndroid ? 0.0 : 1.0;
@@ -63,7 +64,7 @@ class InappEchartsState extends State<InappEcharts> {
   void init() async {
     final extensionsStr = this.widget.extensions.length > 0
         ? this.widget.extensions.reduce(
-            (value, element) => (value ?? '') + '\n' + (element ?? '')
+            (value, element) => (value) + '\n' + (element)
     )
         : '';
     final themeStr = this.widget.theme != null ? '\'${this.widget.theme}\'' : 'null';
@@ -75,7 +76,7 @@ class InappEchartsState extends State<InappEcharts> {
       chart.setOption($_currentOption, true);
     ''');
     if (widget.onLoad != null) {
-      widget.onLoad();
+      widget.onLoad!();
     }
   }
 
@@ -101,7 +102,7 @@ class InappEchartsState extends State<InappEcharts> {
   @override
   void dispose() {
     if (Platform.isIOS) {
-      webviewController.clearCache();
+      webviewController?.clearCache();
     }
     super.dispose();
   }
@@ -136,11 +137,11 @@ class InappEchartsState extends State<InappEcharts> {
           onWebViewCreated: (InAppWebViewController controller) {
             webviewController = controller;
           },
-          onLoadStart: (InAppWebViewController controller, Uri url) {
+          onLoadStart: (InAppWebViewController controller, Uri? url) {
             setState(() {
             });
           },
-          onLoadStop: (InAppWebViewController controller, Uri url) async {
+          onLoadStop: (InAppWebViewController controller, Uri? url) async {
             if (Platform.isAndroid) {
               setState(() { _opacity = 1.0; });
             }

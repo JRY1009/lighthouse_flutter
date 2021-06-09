@@ -19,9 +19,9 @@ class DioUtil {
   static const String _TAG = "DioUtil";
   //写一个单例
   //在 Dart 里，带下划线开头的变量是私有变量
-  static DioUtil _instance;
+  static DioUtil? _instance;
 
-  static DioUtil getInstance() {
+  static DioUtil? getInstance() {
     if (_instance == null) {
       _instance = DioUtil();
     }
@@ -44,11 +44,11 @@ class DioUtil {
   }
 
   Future<BaseEntity<T>> _request<T>(String url, String method, {
-    Map<String, dynamic> params,
+    Map<String, dynamic>? params,
     dynamic data,
-    CancelToken cancelToken}) async {
+    CancelToken? cancelToken}) async {
 
-    Response response;
+    Response? response;
     try {
       if (method == 'get') {
         if (params != null) {
@@ -104,11 +104,11 @@ class DioUtil {
   }
 
   Future requestNetwork<T>(String url, String method, {
-    Map<String, dynamic> params,
+    Map<String, dynamic>? params,
     dynamic data,
-    Function(T data) onSuccess,
-    Function(String errno, String msg) onError,
-    CancelToken cancelToken
+    Function(T? data)? onSuccess,
+    Function(String? errno, String? msg)? onError,
+    CancelToken? cancelToken
   }) {
     dio.options.baseUrl = AppConfig.env.apiUrl;
 
@@ -125,8 +125,8 @@ class DioUtil {
         }
       } else {
         if (result.errno == Apis.ERRNO_FORBIDDEN) {
-          ToastUtil.error(result.msg);
-          RTAccount.instance().logout();
+          ToastUtil.error(result.msg ?? '');
+          RTAccount.instance()!.logout();
         }
 
         if (onError != null) {
@@ -138,11 +138,11 @@ class DioUtil {
 
 
   Future requestArticle<T>(String url, String method, {
-    Map<String, dynamic> params,
+    Map<String, dynamic>? params,
     dynamic data,
-    Function(T data) onSuccess,
-    Function(String errno, String msg) onError,
-    CancelToken cancelToken
+    Function(T? data)? onSuccess,
+    Function(String? errno, String? msg)? onError,
+    CancelToken? cancelToken
   }) {
     dio.options.baseUrl = AppConfig.env.articleApiUrl;
 
@@ -158,8 +158,8 @@ class DioUtil {
         }
       } else {
         if (result.errno == Apis.ERRNO_FORBIDDEN) {
-          ToastUtil.error(result.msg);
-          RTAccount.instance().logout();
+          ToastUtil.error(result.msg ?? '');
+          RTAccount.instance()!.logout();
         }
 
         if (onError != null) {

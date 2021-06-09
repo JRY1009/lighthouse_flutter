@@ -37,10 +37,10 @@ class _BindPhonePageState extends State<BindPhonePage> with BasePageMixin<BindPh
   final FocusNode _phoneNode = FocusNode();
   final FocusNode _verifyNode = FocusNode();
 
-  LoginModel _loginModel;
-  VerifyModel _verifyModel;
+  late LoginModel _loginModel;
+  late VerifyModel _verifyModel;
 
-  String _area_code;
+  String? _area_code;
   bool _loginEnabled = false;
   bool _agreeChecked = false;
 
@@ -58,9 +58,9 @@ class _BindPhonePageState extends State<BindPhonePage> with BasePageMixin<BindPh
   void dispose() {
     super.dispose();
 
-    Account account = RTAccount.instance().getActiveAccount();
-    if (account != null && ObjectUtil.isEmpty(account?.phone)) {
-      RTAccount.instance().setActiveAccount(null);
+    Account? account = RTAccount.instance()!.getActiveAccount();
+    if (account != null && ObjectUtil.isEmpty(account.phone)) {
+      RTAccount.instance()!.setActiveAccount(null);
     }
   }
 
@@ -78,7 +78,7 @@ class _BindPhonePageState extends State<BindPhonePage> with BasePageMixin<BindPh
 
       } else if (_loginModel.isError) {
         closeProgress();
-        ToastUtil.error(_loginModel.viewStateError.message);
+        ToastUtil.error(_loginModel.viewStateError!.message!);
 
       } else if (_loginModel.isSuccess) {
         closeProgress();
@@ -93,7 +93,7 @@ class _BindPhonePageState extends State<BindPhonePage> with BasePageMixin<BindPh
       if (_verifyModel.isBusy) {
 
       } else if (_verifyModel.isError) {
-        ToastUtil.waring(_verifyModel.viewStateError.message);
+        ToastUtil.waring(_verifyModel.viewStateError!.message!);
 
       } else if (_verifyModel.isSuccess) {
         ToastUtil.normal(S.current.verifySended);
@@ -112,23 +112,23 @@ class _BindPhonePageState extends State<BindPhonePage> with BasePageMixin<BindPh
   }
 
   void _bind() {
-    Account account = RTAccount.instance().getActiveAccount();
+    Account? account = RTAccount.instance()!.getActiveAccount();
     if (account != null) {
       String phone = _phoneController.text;
       String verify = _verifyController.text;
 
-      _loginModel.bindPhone(account?.account_id, phone, verify);
+      _loginModel.bindPhone(account.account_id, phone, verify);
     }
 
   }
 
   void _selectArea() {
     Parameters params = Parameters()
-      ..putString('areaCode', _area_code);
+      ..putString('areaCode', _area_code!);
 
     Routers.navigateToResult(context, Routers.areaPage, params, (result) {
       setState(() {
-        _area_code = result;
+        _area_code = result as String?;
       });
     }, transition: TransitionType.materialFullScreenDialog);
   }

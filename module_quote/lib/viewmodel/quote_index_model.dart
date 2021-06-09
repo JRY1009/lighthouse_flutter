@@ -22,10 +22,10 @@ enum IndexSortState {
 
 class QuoteIndexModel extends ViewStateModel {
 
-  QuoteIndexBasic indexBasic;
+  QuoteIndexBasic? indexBasic;
   List<QuoteIndex> indexList = [];
 
-  StreamSubscription indexSubscription;
+  StreamSubscription? indexSubscription;
 
   IndexSortState sortState = IndexSortState.NORMAL;
 
@@ -63,30 +63,30 @@ class QuoteIndexModel extends ViewStateModel {
       if (sortState == IndexSortState.NORMAL) {
         return 0;
       } else if (sortState == IndexSortState.PRICE_ASCEND) {
-        if (a.quote > b.quote) {
+        if (a.quote! > b.quote!) {
           return 1;
-        } else if (a.quote < b.quote) {
+        } else if (a.quote! < b.quote!) {
           return -1;
         }
 
       } else if (sortState == IndexSortState.PRICE_DESCEND) {
-        if (a.quote > b.quote) {
+        if (a.quote! > b.quote!) {
           return -1;
-        } else if (a.quote < b.quote) {
+        } else if (a.quote! < b.quote!) {
           return 1;
         }
 
       } else if (sortState == IndexSortState.RATE_ASCEND) {
-        if (a.change_percent > b.change_percent) {
+        if (a.change_percent! > b.change_percent!) {
           return -1;
-        } else if (a.change_percent < b.change_percent) {
+        } else if (a.change_percent! < b.change_percent!) {
           return 1;
         }
 
       } else if (sortState == IndexSortState.RATE_DESCEND) {
-        if (a.change_percent > b.change_percent) {
+        if (a.change_percent! > b.change_percent!) {
           return 1;
-        } else if (a.change_percent < b.change_percent) {
+        } else if (a.change_percent! < b.change_percent!) {
           return -1;
         }
       }
@@ -120,9 +120,9 @@ class QuoteIndexModel extends ViewStateModel {
       'chain': chain,
     };
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_GET_CHAIN_QUOTE, 'get', params: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_GET_CHAIN_QUOTE, 'get', params: params,
         cancelToken: cancelToken,
-        onSuccess: (data) {
+        onSuccess: (dynamic data) {
 
           indexBasic = QuoteIndexBasic.fromJson(data);
           indexList = indexBasic?.exchange_quote_list ?? [];
@@ -134,7 +134,7 @@ class QuoteIndexModel extends ViewStateModel {
           }
         },
         onError: (errno, msg) {
-          setError(errno, message: msg);
+          setError(errno!, message: msg);
         });
   }
 

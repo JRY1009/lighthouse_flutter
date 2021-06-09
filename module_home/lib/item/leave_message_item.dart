@@ -17,14 +17,14 @@ import 'package:module_home/model/leave_message.dart';
 class LeaveMessageItem extends StatelessWidget {
 
   final LeaveMessage lvMessage;
-  final double height;
-  final EdgeInsetsGeometry margin;
+  final double? height;
+  final EdgeInsetsGeometry? margin;
   final int maxLines;
   final bool share;
 
   const LeaveMessageItem(
-      {Key key,
-        this.lvMessage,
+      {Key? key,
+        required this.lvMessage,
         this.height,
         this.margin,
         this.maxLines = 5,
@@ -65,7 +65,7 @@ class LeaveMessageItem extends StatelessWidget {
                                       children: [
                                         Container(
                                           child: CircleImage(
-                                            lvMessage?.head_ico ?? '',
+                                            lvMessage.head_ico ?? '',
                                             radius: 18,
                                             borderWidth: 0.5,
                                             borderColor: Colours.white,
@@ -76,7 +76,7 @@ class LeaveMessageItem extends StatelessWidget {
                                           ),
                                         ),
                                         Gaps.hGap10,
-                                        Expanded(child: Text(lvMessage?.nick_name ?? '',
+                                        Expanded(child: Text(lvMessage.nick_name ?? '',
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyles.textGray800_w400_14)
@@ -88,8 +88,8 @@ class LeaveMessageItem extends StatelessWidget {
                                       width: double.infinity,
                                       margin: EdgeInsets.only(top: 10),
                                       alignment: Alignment.centerLeft,
-                                      child: Text(lvMessage?.content ?? '',
-                                          maxLines: maxLines ?? 5,
+                                      child: Text(lvMessage.content ?? '',
+                                          maxLines: maxLines,
                                           overflow: TextOverflow.ellipsis,
                                           strutStyle: StrutStyle(forceStrutHeight: true, height:1.1, leading: 0.5),
                                           style: TextStyles.textGray500_w400_14
@@ -106,7 +106,7 @@ class LeaveMessageItem extends StatelessWidget {
                                 children: [
                                   Container(
                                     alignment: Alignment.centerLeft,
-                                    child: Text(lvMessage?.sourceText, style: TextStyles.textGray300_w400_12),
+                                    child: Text(lvMessage.sourceText ?? '', style: TextStyles.textGray300_w400_12),
                                   ),
                                 ],
                               ),
@@ -156,7 +156,7 @@ class LeaveMessageItem extends StatelessWidget {
                           children: [
                             Container(
                               child: CircleImage(
-                                lvMessage?.head_ico ?? '',
+                                lvMessage.head_ico ?? '',
                                 radius: 18,
                                 borderWidth: 0.5,
                                 borderColor: Colours.white,
@@ -167,7 +167,7 @@ class LeaveMessageItem extends StatelessWidget {
                               ),
                             ),
                             Gaps.hGap10,
-                            Expanded(child: Text(lvMessage?.nick_name ?? '',
+                            Expanded(child: Text(lvMessage.nick_name ?? '',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyles.textGray800_w400_14)
@@ -179,8 +179,8 @@ class LeaveMessageItem extends StatelessWidget {
                           width: double.infinity,
                           margin: EdgeInsets.only(top: 10),
                           alignment: Alignment.centerLeft,
-                          child: Text(lvMessage?.content ?? '',
-                              maxLines: maxLines ?? 5,
+                          child: Text(lvMessage.content ?? '',
+                              maxLines: maxLines,
                               overflow: TextOverflow.ellipsis,
                               strutStyle: StrutStyle(forceStrutHeight: true, height:1.1, leading: 0.5),
                               style: TextStyles.textGray500_w400_14
@@ -198,7 +198,7 @@ class LeaveMessageItem extends StatelessWidget {
                     children: [
                       Container(
                         alignment: Alignment.centerLeft,
-                        child: Text(lvMessage?.sourceText, style: TextStyles.textGray300_w400_12),
+                        child: Text(lvMessage.sourceText ?? '', style: TextStyles.textGray300_w400_12),
                       ),
                       share ?
                       InkWell(

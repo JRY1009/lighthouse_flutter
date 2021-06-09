@@ -30,7 +30,7 @@ import 'package:module_mine/viewmodel/verify_model.dart';
 import 'package:module_mine/widget/third_login_bar.dart';
 
 class LoginSmsPage extends StatefulWidget {
-  final String phone;
+  final String? phone;
   final bool agreeChecked;
 
   LoginSmsPage({
@@ -49,10 +49,10 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
   final FocusNode _phoneNode = FocusNode();
   final FocusNode _verifyNode = FocusNode();
 
-  LoginModel _loginModel;
-  VerifyModel _verifyModel;
+  late LoginModel _loginModel;
+  late VerifyModel _verifyModel;
 
-  String _area_code;
+  String? _area_code;
   bool _loginEnabled = false;
   bool _agreeChecked = false;
 
@@ -70,15 +70,15 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
     _area_code = '+86';
     _agreeChecked = widget.agreeChecked;
     if (!ObjectUtil.isEmpty(widget.phone)) {
-      _phoneController.text = widget.phone;
+      _phoneController.text = widget.phone!;
       
     } else {
-      Account account = RTAccount.instance().loadAccount();
+      Account? account = RTAccount.instance()!.loadAccount();
       if (account != null) {
         // var t = account.phone?.split(' ');
         // _area_code = t?.first;
         // _phoneController.text = t?.last;
-        _phoneController.text = account.phone;
+        _phoneController.text = account.phone!;
       }
     }
   }
@@ -93,14 +93,14 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
 
       } else if (_loginModel.isError) {
         closeProgress();
-        ToastUtil.error(_loginModel.viewStateError.message);
+        ToastUtil.error(_loginModel.viewStateError!.message!);
 
       } else if (_loginModel.isSuccess) {
         closeProgress();
 
         bool firstLogin = SPUtil.getBool(SPUtil.key_first_login, defValue: true);
         bool had_pwd = _loginModel.loginResult?.account_info?.had_password ?? true;
-        String phone = _loginModel.loginResult?.account_info?.phone;
+        String? phone = _loginModel.loginResult?.account_info?.phone;
 
         if (ObjectUtil.isEmpty(phone)) {
           Routers.navigateTo(context, Routers.bindPhonePage);
@@ -124,7 +124,7 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
       if (_verifyModel.isBusy) {
 
       } else if (_verifyModel.isError) {
-        ToastUtil.waring(_verifyModel.viewStateError.message);
+        ToastUtil.waring(_verifyModel.viewStateError!.message!);
 
       } else if (_verifyModel.isSuccess) {
         ToastUtil.normal(S.current.verifySended);
@@ -153,11 +153,11 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
 
   void _selectArea() {
     Parameters params = Parameters()
-      ..putString('areaCode', _area_code);
+      ..putString('areaCode', _area_code!);
 
     Routers.navigateToResult(context, Routers.areaPage, params, (result) {
       setState(() {
-        _area_code = result;
+        _area_code = result as String?;
       });
     }, transition: TransitionType.materialFullScreenDialog);
   }

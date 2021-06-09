@@ -7,22 +7,23 @@ class LeaveMessage {
   static const String SOURCE_APP = 'APP';
   static const String SOURCE_OFFICIAL_ACCOUNTS = 'OFFICIAL_ACCOUNTS';
 
-  num id;
-  num user_id;
-  String createdAt;
-  String nick_name;
-  String source;
-  String remark;
-  String content;
-  String head_ico;
+  num? id;
+  num? user_id;
+  String? createdAt;
+  String? nick_name;
+  String? source;
+  String? remark;
+  String? content;
+  String? head_ico;
 
-  String get sourceText => _getSourceText();
-  String _getSourceText() {
+  String? get sourceText => _getSourceText();
+  String? _getSourceText() {
     if (source == SOURCE_APP) {
       return S.current.sourceFromApp;
     } else if (source == SOURCE_OFFICIAL_ACCOUNTS) {
       return S.current.sourceFromOfficialAccount;
     }
+    return null;
   }
 
   LeaveMessage({
@@ -71,12 +72,12 @@ class LeaveMessage {
     return jsonMap;
   }
 
-  static List<LeaveMessage> fromJsonList(List<dynamic> mapList) {
+  static List<LeaveMessage>? fromJsonList(List<dynamic> mapList) {
     if (ObjectUtil.isEmptyList(mapList)) {
       return null;
     }
 
-    List<LeaveMessage> items = new List<LeaveMessage>();
+    List<LeaveMessage> items = [];
     for(Map<String, dynamic> map in mapList) {
       items.add(LeaveMessage.fromJson(map));
     }

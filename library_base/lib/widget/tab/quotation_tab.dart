@@ -10,7 +10,7 @@ import 'package:library_base/widget/image/round_image.dart';
 class QuotationTab extends StatefulWidget {
 
   const QuotationTab({
-    this.select,
+    this.select = false,
     this.icon,
     this.iconUnselect,
     this.title,
@@ -19,13 +19,13 @@ class QuotationTab extends StatefulWidget {
     this.rateStr
   });
 
-  final num rate;
+  final num? rate;
   final bool select;
-  final String icon;
-  final String iconUnselect;
-  final String title;
-  final String priceStr;
-  final String rateStr;
+  final String? icon;
+  final String? iconUnselect;
+  final String? title;
+  final String? priceStr;
+  final String? rateStr;
 
   @override
   _QuotationTabState createState() => _QuotationTabState();
@@ -73,8 +73,8 @@ class _QuotationTabState extends State<QuotationTab> {
             children: [
               Text.rich(TextSpan(
                   children: [
-                    TextSpan(text: '\$', style: widget.select ? (widget.rate >= 0 ? TextStyles.textGreen_w600_10 : TextStyles.textRed_w600_10) : TextStyles.textGray400_w400_10),
-                    TextSpan(text: widget.priceStr ?? '', style: widget.select ? (widget.rate >= 0 ? TextStyles.textGreen_w600_14 : TextStyles.textRed_w600_14) : TextStyles.textGray400_w400_14),
+                    TextSpan(text: '\$', style: widget.select ? (widget.rate! >= 0 ? TextStyles.textGreen_w600_10 : TextStyles.textRed_w600_10) : TextStyles.textGray400_w400_10),
+                    TextSpan(text: widget.priceStr ?? '', style: widget.select ? (widget.rate! >= 0 ? TextStyles.textGreen_w600_14 : TextStyles.textRed_w600_14) : TextStyles.textGray400_w400_14),
                   ]
               )),
               Gaps.hGap8,
@@ -83,11 +83,11 @@ class _QuotationTabState extends State<QuotationTab> {
                 alignment: Alignment.center,
                 padding: EdgeInsets.symmetric(horizontal: 4),
                 decoration: BoxDecoration(
-                  color: widget.select ? (widget.rate >= 0 ? Color(0x1a22C29B) : Color(0x1aEC3944)) : Colours.transparent,
+                  color: widget.select ? (widget.rate! >= 0 ? Color(0x1a22C29B) : Color(0x1aEC3944)) : Colours.transparent,
                   borderRadius: BorderRadius.all(Radius.circular(2.0)),
                 ),
                 child: Text(widget.rateStr ?? '',
-                  style: widget.select ? (widget.rate >= 0 ? TextStyles.textGreen_w400_10 : TextStyles.textRed_w400_10) : TextStyles.textGray400_w400_12,
+                  style: widget.select ? (widget.rate! >= 0 ? TextStyles.textGreen_w400_10 : TextStyles.textRed_w400_10) : TextStyles.textGray400_w400_11,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),

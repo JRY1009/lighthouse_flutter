@@ -13,7 +13,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 class ShareQRHeader extends StatelessWidget {
 
   ShareQRHeader({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -67,10 +67,10 @@ class ShareQRHeader extends StatelessWidget {
 
 class ShareQRFoooter extends StatelessWidget {
 
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   ShareQRFoooter({
-    Key key,
+    Key? key,
     this.backgroundColor
   }) : super(key: key);
 
@@ -133,7 +133,7 @@ class ShareQRFoooter extends StatelessWidget {
 class ShareNewsHeader extends StatelessWidget {
 
   ShareNewsHeader({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

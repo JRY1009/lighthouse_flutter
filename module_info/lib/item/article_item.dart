@@ -13,13 +13,13 @@ import 'package:module_info/model/article.dart';
 /// 资讯列表详情
 class ArticleItem extends StatelessWidget {
 
-  final int index;
+  final int? index;
   final Article aritcle;
 
   const ArticleItem(
-      {Key key,
+      {Key? key,
         this.index,
-        this.aritcle
+        required this.aritcle
       })
       : super(key: key);
 
@@ -53,7 +53,7 @@ class ArticleItem extends StatelessWidget {
                       Container(
                           margin: EdgeInsets.only(top: 4),
                           alignment: Alignment.centerLeft,
-                          child: Text(aritcle?.title ?? '',
+                          child: Text(aritcle.title ?? '',
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               strutStyle: StrutStyle(forceStrutHeight: true, height:1.4, leading: 0.5),
@@ -66,12 +66,12 @@ class ArticleItem extends StatelessWidget {
                           children: [
                             Container(
                               alignment: Alignment.centerLeft,
-                              child: Text(aritcle?.publisher, style: TextStyles.textGray400_w400_12),
+                              child: Text(aritcle.publisher ?? '', style: TextStyles.textGray400_w400_12),
                             ),
                             Container(
                               margin: EdgeInsets.only(left: 10),
                               alignment: Alignment.centerRight,
-                              child: Text(TimeCountUtil.formatStr(aritcle?.publish_time) ?? '',
+                              child: Text(TimeCountUtil.formatStr(aritcle.publish_time ?? '') ?? '',
                                 style: TextStyles.textGray400_w400_12,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -83,10 +83,10 @@ class ArticleItem extends StatelessWidget {
                     ],
                   )
                 ),
-                ObjectUtil.isEmpty(aritcle?.snapshot_url) ? Gaps.empty :
+                ObjectUtil.isEmpty(aritcle.snapshot_url) ? Gaps.empty :
                 Container(
                   margin: EdgeInsets.only(left: 10),
-                  child: RoundImage(aritcle?.snapshot_url ?? '',
+                  child: RoundImage(aritcle.snapshot_url ?? '',
                     width: 105,
                     height: 80,
                     borderRadius: BorderRadius.all(Radius.circular(8)),

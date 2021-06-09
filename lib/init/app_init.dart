@@ -73,10 +73,10 @@ class AppInit {
 
   static Future<void> saveErrorToFile(String error) async {
     if (!DeviceUtil.isMobile) {
-      return Future.value(0);
+      return null;
     }
 
-    String dirPath = '';
+    String? dirPath = '';
     if (DeviceUtil.isIOS) {
       dirPath = await PathUtils.getCacheDirPath();
       if (ObjectUtil.isEmpty(dirPath)) {
@@ -89,20 +89,20 @@ class AppInit {
       }
     }
 
-    Directory crashDir = PathUtils.createDirSync('$dirPath/crash');
-    String crashDirPath = crashDir?.path;
+    Directory? crashDir = PathUtils.createDirSync('$dirPath/crash');
+    String? crashDirPath = crashDir?.path;
     if (ObjectUtil.isEmpty(dirPath)) {
       return null;
     }
 
-    String fileName = 'crash_' + DateUtil.getNowDateStr().replaceAll(' ', '_') + '.txt';
+    String fileName = 'crash_' + DateUtil.getNowDateStr()!.replaceAll(' ', '_') + '.txt';
 
     File file = new File('$crashDirPath/$fileName');
     if (!file.existsSync()) {
       file.createSync();
     }
 
-    return file.writeAsString(error);
+    file.writeAsString(error);
   }
 
   // 构建错误信息

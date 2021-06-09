@@ -25,19 +25,19 @@ class Parameters {
 
   putMap<K, V>(String k, Map<K, V> v) => _setValue(k, v);
 
-  int getInt(String k) => _getValue(k) as int;
+  int? getInt(String k) => _getValue(k) as int?;
 
-  double getDouble(String k) => _getValue(k) as double;
+  double? getDouble(String k) => _getValue(k) as double?;
 
-  String getString(String k) => _getValue(k) as String;
+  String? getString(String k) => _getValue(k) as String?;
 
-  bool getBool(String k) => _getValue(k) as bool;
+  bool? getBool(String k) => _getValue(k) as bool?;
 
-  O getObj<O>(String k) => _getValue(k) as O;
+  O? getObj<O>(String k) => _getValue(k) as O?;
 
-  List getList(String k) => _getValue(k) as List;
+  List? getList(String k) => _getValue(k) as List?;
 
-  Map getMap(String k) => _getValue(k) as Map;
+  Map? getMap(String k) => _getValue(k) as Map?;
 
   @override
   String toString() {

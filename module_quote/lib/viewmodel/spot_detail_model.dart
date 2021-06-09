@@ -19,17 +19,17 @@ import 'package:library_kchart/entity/k_line_entity.dart';
 
 class SpotDetailModel extends ViewStateModel {
 
-  SpotKLineHandleModel spotKLineHandleModel;
-  SpotHeaderModel spotHeaderModel;
-  SpotHeaderModel spotAppbarModel;
+  late SpotKLineHandleModel spotKLineHandleModel;
+  late SpotHeaderModel spotHeaderModel;
+  late SpotHeaderModel spotAppbarModel;
 
-  QuoteCoin quoteCoin;
-  QuoteCoin lastQuoteCoin;
+  QuoteCoin? quoteCoin;
+  QuoteCoin? lastQuoteCoin;
 
   List<GlobalKey<BasePageMixin>> keyList = [];
 
   NumberSlideController quoteSlideController = NumberSlideController();
-  StreamSubscription quoteSubscription;
+  StreamSubscription? quoteSubscription;
 
   bool _handleKLine = false;
 
@@ -56,18 +56,18 @@ class SpotDetailModel extends ViewStateModel {
         return;
       }
 
-      if (quoteCoin != null && quoteWs.coin_code.toLowerCase() == quoteCoin.coin_code.toLowerCase()) {
+      if (quoteCoin != null && quoteWs.coin_code!.toLowerCase() == quoteCoin!.coin_code!.toLowerCase()) {
 
         if (!_handleKLine) {
-          quoteCoin.quote = quoteWs.quote;
-          quoteCoin.change_amount = quoteWs.change_amount;
-          quoteCoin.change_percent = quoteWs.change_percent;
+          quoteCoin!.quote = quoteWs.quote;
+          quoteCoin!.change_amount = quoteWs.change_amount;
+          quoteCoin!.change_percent = quoteWs.change_percent;
         }
 
         if (lastQuoteCoin != null) {
-          lastQuoteCoin.quote = quoteWs.quote;
-          lastQuoteCoin.change_amount = quoteWs.change_amount;
-          lastQuoteCoin.change_percent = quoteWs.change_percent;
+          lastQuoteCoin!.quote = quoteWs.quote;
+          lastQuoteCoin!.change_amount = quoteWs.change_amount;
+          lastQuoteCoin!.change_percent = quoteWs.change_percent;
         }
 
         if (!_handleKLine) {
@@ -79,7 +79,7 @@ class SpotDetailModel extends ViewStateModel {
     });
   }
 
-  void handleKLineLongPress(KLineEntity entity) {
+  void handleKLineLongPress(KLineEntity? entity) {
     if (quoteCoin == null) {
       return;
     }
@@ -87,13 +87,13 @@ class SpotDetailModel extends ViewStateModel {
     if (entity == null) {
       _handleKLine = false;
       if (lastQuoteCoin != null) {
-        quoteCoin.quote = lastQuoteCoin.quote;
-        quoteCoin.change_amount = lastQuoteCoin.change_amount;
-        quoteCoin.change_percent = lastQuoteCoin.change_percent;
+        quoteCoin!.quote = lastQuoteCoin!.quote;
+        quoteCoin!.change_amount = lastQuoteCoin!.change_amount;
+        quoteCoin!.change_percent = lastQuoteCoin!.change_percent;
       }
     } else {
       _handleKLine = true;
-      quoteCoin.quote = entity.close;
+      quoteCoin!.quote = entity.close;
     }
     spotKLineHandleModel.notifyListeners();
   }
@@ -112,9 +112,7 @@ class SpotDetailModel extends ViewStateModel {
     await Future.wait<dynamic>([
       getCoinQuote(chain),
 
-      keyList[index] != null ?
-      keyList[index]?.currentState.refresh(slient: true) :
-      Future.value(),
+      keyList[index].currentState!.refresh(slient: true)
     ]);
 
     setIdle();
@@ -126,9 +124,9 @@ class SpotDetailModel extends ViewStateModel {
       'chain': chain,
     };
 
-    return DioUtil.getInstance().requestNetwork(Apis.URL_GET_COIN_QUOTE, "get", params: params,
+    return DioUtil.getInstance()!.requestNetwork(Apis.URL_GET_COIN_QUOTE, "get", params: params,
         cancelToken: cancelToken,
-        onSuccess: (data) {
+        onSuccess: (dynamic data) {
           quoteCoin = QuoteCoin.fromJson(data);
           lastQuoteCoin = QuoteCoin.fromJson(data);
         },
@@ -140,7 +138,7 @@ class SpotDetailModel extends ViewStateModel {
   @override
   void dispose() {
     quoteSubscription?.cancel();
-    quoteSlideController?.dispose();
+    quoteSlideController.dispose();
     super.dispose();
   }
 }

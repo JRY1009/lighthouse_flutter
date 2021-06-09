@@ -16,7 +16,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class AreaPage extends StatefulWidget {
 
-  final String areaCode;
+  final String? areaCode;
 
   AreaPage(this.areaCode);
 
@@ -31,7 +31,7 @@ class _AreaPageState extends State<AreaPage> with BasePageMixin<AreaPage> {
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchNode = FocusNode();
 
-  String areaCode;
+  String? areaCode;
   List<Area> _currentList = [];
   List<Area> _allList = [];
   List<Area> _searchList = [];
@@ -45,7 +45,7 @@ class _AreaPageState extends State<AreaPage> with BasePageMixin<AreaPage> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       if (mounted) {
         _refresh();
       }
@@ -54,9 +54,9 @@ class _AreaPageState extends State<AreaPage> with BasePageMixin<AreaPage> {
 
   Future<void> _refresh() async {
     return Area.loadAreaFromFile().then((value) {
-      value.sort((a, b) {
-        List<int> al = a.sort_name.codeUnits;
-        List<int> bl = b.sort_name.codeUnits;
+      value!.sort((a, b) {
+        List<int> al = a.sort_name!.codeUnits;
+        List<int> bl = b.sort_name!.codeUnits;
         for (int i = 0; i < al.length; i++) {
           if (bl.length <= i) return 1;
           if (al[i] > bl[i]) {
@@ -76,10 +76,10 @@ class _AreaPageState extends State<AreaPage> with BasePageMixin<AreaPage> {
   void _selectArea(Area area) {
     setState(() {});
 
-    areaCode = '+' + area?.code;
+    areaCode = '+' + area.code!;
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Routers.goBackWithParams(context, areaCode);
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      Routers.goBackWithParams(context, areaCode!);
     });
   }
 
@@ -88,21 +88,21 @@ class _AreaPageState extends State<AreaPage> with BasePageMixin<AreaPage> {
     _searchList.clear();
     _currentList.clear();
 
-    if (WidgetsBinding.instance.window.locale.toString() == 'zh_CN') {
+    if (WidgetsBinding.instance!.window.locale.toString() == 'zh_CN') {
       _allList.forEach((element) {
-        if (element.cn_name.toLowerCase().contains(key) ||
+        if (element.cn_name!.toLowerCase().contains(key) ||
             element.short_pinyin.toLowerCase().contains(key) ||
             element.first_pinyin.toLowerCase().contains(key) ||
-            element.code.contains(key)) {
+            element.code!.contains(key)) {
           _searchList.add(element);
         }
       });
     } else {
       _allList.forEach((element) {
-        if (element.us_name.toLowerCase().contains(key) ||
+        if (element.us_name!.toLowerCase().contains(key) ||
             element.short_pinyin.contains(key) ||
             element.first_pinyin.contains(key) ||
-            element.code.contains(key)) {
+            element.code!.contains(key)) {
           _searchList.add(element);
         }
       });
@@ -147,8 +147,8 @@ class _AreaPageState extends State<AreaPage> with BasePageMixin<AreaPage> {
                         delegate: SliverChildBuilderDelegate(
                               (context, index) {
                             return AreaItem(
-                              title: '+' + _currentList[index].code + '  ' + _currentList[index].name,
-                              check: areaCode == ('+' + _currentList[index].code),
+                              title: '+' + _currentList[index].code! + '  ' + _currentList[index].name!,
+                              check: areaCode == ('+' + _currentList[index].code!),
                               onPressed: () { _selectArea(_currentList[index]); },
                             );
                           },

@@ -25,7 +25,7 @@ import 'package:module_home/widget/home_quote_treemap_bar.dart';
 class HomePage extends StatefulWidget {
 
   HomePage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
 
   double _toolbarHeight = DeviceUtil.isIOS ? 105 : 90;
 
-  HomeModel _homeModel;
+  late HomeModel _homeModel;
   ValueNotifier<double> _opacityNofifier = ValueNotifier<double>(0);
 
   ScrollController _nestedController = ScrollController();
@@ -112,7 +112,7 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
                     body: extended.NestedScrollViewInnerScrollPositionKeyWidget(Key('Tab0'),
                         Routers.generatePage(context, Routers.articleRecommendPage,
                           parameters: Parameters()
-                            ..putObj('key', model.articlePageKey))
+                            ..putObj('key', model.articlePageKey))!
                     )
                   ),
                 ),
