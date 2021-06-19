@@ -14,6 +14,7 @@ import 'package:library_base/router/routers.dart';
 import 'package:library_base/utils/channel_util.dart';
 import 'package:library_base/utils/device_util.dart';
 import 'package:library_base/utils/log_util.dart';
+import 'package:library_base/utils/orientation_helper.dart';
 import 'package:library_base/utils/refresh_util.dart';
 import 'package:library_base/utils/sp_util.dart';
 import 'package:library_base/utils/toast_util.dart';
@@ -94,6 +95,10 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+
+    //强制竖屏
+    OrientationHelper.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    OrientationHelper.forceOrientation(DeviceOrientation.portraitUp);
 
     Routers.init([
       MainRouter(),
