@@ -14,6 +14,7 @@
 * 曲线图、饼状图、柱状图、热力图
 * K线图、分时图
 * 截图功能，长页面截图，webview截图
+* 长文章页面
 * 微信分享，保存本地图片分享
 * 基于bugly的应用全量更新
 * 基于bugly + tinker的热更新
@@ -26,6 +27,12 @@
 
 备注：部分三方库不支持Web、Desktop平台，如微信、bugly、webview等，因此Web、Desktop端相关功能暂时缺失
 
+## 截图
+
+| ![](./screenshot/screenshot0.jpg)    |  ![](./screenshot/screenshot1.jpg)    | ![](./screenshot/screenshot2.jpg)   |
+| :--------------------------------: | :---------------------------------: | :-------------------------------: |
+| ![](./screenshot/screenshot4.jpg)    |  ![](./screenshot/screenshot5.jpg)    | ![](./screenshot/screenshot6.jpg)   |
+| ![](./screenshot/screenshot0.jpg)    |  ![](./screenshot/screenshot7.jpg)    |
 ## 使用的三方库
 
 | 库                         | 功能             |
