@@ -15,6 +15,7 @@ import 'package:library_base/res/gaps.dart';
 import 'package:library_base/res/styles.dart';
 import 'package:library_base/router/parameters.dart';
 import 'package:library_base/router/routers.dart';
+import 'package:library_base/utils/device_util.dart';
 import 'package:library_base/utils/toast_util.dart';
 import 'package:library_base/widget/dialog/popup_window.dart';
 import 'package:library_base/utils/screen_util.dart';
@@ -70,12 +71,13 @@ class _SpotKlineBarState extends State<SpotKlineBar> with AutomaticKeepAliveClie
   int _lastIndex = 2;
   int? _subIndex;
   int _tablength = 7;
-  
+
   @override
   void initState() {
     super.initState();
 
-    _height = widget.horizontal ? double.infinity : max(295, ScreenUtil.instance().screenHeight * 0.5);
+    double topHeight = DeviceUtil.isIOS ? 206 : 176;
+    _height = widget.horizontal ? double.infinity : max(295, ScreenUtil.instance().screenHeight - topHeight);
 
     _tabController = TabController(initialIndex: _initIndex, length: _tablength, vsync: this);
     initViewModel();

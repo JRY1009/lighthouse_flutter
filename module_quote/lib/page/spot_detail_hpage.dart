@@ -8,6 +8,7 @@ import 'package:library_base/model/quote_coin.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/mvvm/provider_widget.dart';
 import 'package:library_base/res/colors.dart';
+import 'package:library_base/utils/device_util.dart';
 import 'package:library_base/utils/orientation_helper.dart';
 import 'package:library_base/widget/easyrefresh/first_refresh.dart';
 import 'package:library_base/widget/nestedscroll/nested_refresh_indicator.dart';
@@ -47,7 +48,9 @@ class _SpotDetailHPageState extends State<SpotDetailHPage> with BasePageMixin<Sp
   void initState() {
     super.initState();
 
-    OrientationHelper.setPreferredOrientations([DeviceOrientation.landscapeRight]);
+    if (DeviceUtil.isIOS) {
+      OrientationHelper.setPreferredOrientations([DeviceOrientation.landscapeRight]);
+    }
     OrientationHelper.forceOrientation(DeviceOrientation.landscapeRight);
 
     _tabController = TabController(length: 2, vsync: this);
