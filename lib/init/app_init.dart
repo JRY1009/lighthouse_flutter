@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:dokit/dokit.dart';
+//import 'package:dokit/dokit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bugly/flutter_bugly.dart';
 import 'package:library_base/constant/constant.dart';
@@ -17,14 +17,15 @@ class AppInit {
   static Future<void> run() async {
 
     if (DeviceUtil.isAndroid) {
-      DoKit.runApp(
-          appCreator: () async => DoKitApp(await DefaultApp.getApp()),
-          useInRelease: true,
-          exceptionCallback: (obj, trace) {
-            var details = makeDetails(obj, trace);
-            reportErrorAndLog(details);
-          });
+      // DoKit.runApp(
+      //     appCreator: () async => DoKitApp(await DefaultApp.getApp()),
+      //     useInRelease: true,
+      //     exceptionCallback: (obj, trace) {
+      //       var details = makeDetails(obj, trace);
+      //       reportErrorAndLog(details);
+      //     });
 
+      catchException(() => DefaultApp.run());
     } else {
       //捕获异常
       catchException(() => DefaultApp.run());

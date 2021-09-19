@@ -79,9 +79,9 @@
 
 ## 项目运行环境
 
-    1. Flutter version 2.2.3
+    1. Flutter version 2.5.1
      
-    2. Dart version 2.13.4
+    2. Dart version 2.14.2
 
 ## 注意事项
 
