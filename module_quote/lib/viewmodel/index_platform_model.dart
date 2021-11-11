@@ -10,6 +10,7 @@ import 'package:library_base/mvvm/view_state_model.dart';
 import 'package:library_base/net/apis.dart';
 import 'package:library_base/net/dio_util.dart';
 import 'package:library_base/utils/object_util.dart';
+import 'package:module_quote/mock_data.dart';
 import 'package:module_quote/model/quote_index_platform.dart';
 
 enum IndexPlatformSortState {
@@ -134,6 +135,15 @@ class IndexPlatformModel extends ViewStateModel {
           }
         },
         onError: (errno, msg) {
+          //mock
+          if (chain == Apis.COIN_BITCOIN) {
+            quoteBasic = mock_btc_pbasic;
+            quoteList = quoteBasic?.exchange_quote_list ?? [];
+
+          } else if (chain == Apis.COIN_ETHEREUM) {
+            quoteBasic = mock_eth_pbasic;
+            quoteList = quoteBasic?.exchange_quote_list ?? [];
+          }
           setError(errno!, message: msg);
         });
   }

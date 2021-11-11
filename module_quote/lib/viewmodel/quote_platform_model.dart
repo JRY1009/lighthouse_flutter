@@ -4,12 +4,14 @@ import 'dart:async';
 
 import 'package:library_base/event/event.dart';
 import 'package:library_base/event/ws_event.dart';
+import 'package:library_base/model/quote.dart';
 import 'package:library_base/model/quote_ws.dart';
 import 'package:library_base/mvvm/view_state.dart';
 import 'package:library_base/mvvm/view_state_model.dart';
 import 'package:library_base/net/apis.dart';
 import 'package:library_base/net/dio_util.dart';
 import 'package:library_base/utils/object_util.dart';
+import 'package:module_quote/mock_data.dart';
 import 'package:module_quote/model/quote_platform.dart';
 
 enum PlatformSortState {
@@ -134,7 +136,16 @@ class QuotePlatformModel extends ViewStateModel {
           }
         },
         onError: (errno, msg) {
-          setError(errno!, message: msg);
+          //mock
+          if (chain == Apis.COIN_BITCOIN) {
+            platformBasic = mock_btc_qbasic;
+            platformPairList = platformBasic?.exchange_quote_list ?? [];
+          } else if (chain == Apis.COIN_ETHEREUM) {
+            platformBasic = mock_eth_qbasic;
+            platformPairList = platformBasic?.exchange_quote_list ?? [];
+          }
+          setSuccess();
+          //setError(errno!, message: msg);
         });
   }
 

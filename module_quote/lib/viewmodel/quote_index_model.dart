@@ -10,6 +10,7 @@ import 'package:library_base/mvvm/view_state_model.dart';
 import 'package:library_base/net/apis.dart';
 import 'package:library_base/net/dio_util.dart';
 import 'package:library_base/utils/object_util.dart';
+import 'package:module_quote/mock_data.dart';
 import 'package:module_quote/model/quote_index.dart';
 
 enum IndexSortState {
@@ -134,7 +135,17 @@ class QuoteIndexModel extends ViewStateModel {
           }
         },
         onError: (errno, msg) {
-          setError(errno!, message: msg);
+          //mock
+          if (chain == Apis.COIN_BITCOIN) {
+            indexBasic = mock_btc_ibasic;
+            indexList = indexBasic?.exchange_quote_list ?? [];
+
+          } else if (chain == Apis.COIN_ETHEREUM) {
+            indexBasic = mock_eth_ibasic;
+            indexList = indexBasic?.exchange_quote_list ?? [];
+          }
+          setSuccess();
+          //setError(errno!, message: msg);
         });
   }
 

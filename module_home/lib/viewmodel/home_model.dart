@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:library_base/event/event.dart';
+import 'package:library_base/constant/mock_data.dart';
 import 'package:library_base/event/ws_event.dart';
 import 'package:library_base/model/quote_ws.dart';
 import 'package:library_base/mvvm/base_page.dart';
@@ -127,6 +128,13 @@ class HomeModel extends ViewStateModel {
           }
         },
         onError: (errno, msg) {
+          //mock
+          if (chain == Apis.COIN_BITCOIN) {
+            btcUsdPair = mock_btcUsdPair;
+
+          } else if (chain == Apis.COIN_ETHEREUM) {
+            ethUsdPair = mock_ethUsdPair;
+          }
         });
 
   }

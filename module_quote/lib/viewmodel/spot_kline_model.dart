@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:library_base/constant/mock_data.dart';
 import 'package:library_base/event/event.dart';
 import 'package:library_base/event/ws_event.dart';
 import 'package:library_base/model/quote.dart';
@@ -96,7 +97,16 @@ class SpotKlineModel extends ViewStateModel {
           setIdle();
         },
         onError: (errno, msg) {
-          quoteMap[rangeList[index]] = [];
+          //mock
+
+          Quote? lastQuote;
+          for(Quote item in mock_quote_24h) {
+            Quote quote = item;
+            lastQuote?.open = quote.close;
+            lastQuote = quote;
+          }
+          quoteMap[rangeList[index]] = mock_quote_24h;
+
           setError(errno!, message: msg);
         });
   }

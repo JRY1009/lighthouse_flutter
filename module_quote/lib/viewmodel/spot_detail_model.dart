@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:library_base/constant/mock_data.dart';
 import 'package:library_base/event/event.dart';
 import 'package:library_base/event/ws_event.dart';
 import 'package:library_base/model/quote_coin.dart';
@@ -131,6 +132,13 @@ class SpotDetailModel extends ViewStateModel {
           lastQuoteCoin = QuoteCoin.fromJson(data);
         },
         onError: (errno, msg) {
+          if (chain == Apis.COIN_BITCOIN) {
+            quoteCoin = mock_btccoin;
+            lastQuoteCoin = mock_btccoin;
+          } else if (chain == Apis.COIN_ETHEREUM) {
+            quoteCoin = mock_ethcoin;
+            lastQuoteCoin = mock_ethcoin;
+          }
         });
 
   }
