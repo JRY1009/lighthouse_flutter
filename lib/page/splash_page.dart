@@ -56,7 +56,7 @@ class SplashPageState extends State<SplashPage> {
             await SPUtil.putString(SPUtil.key_old_version, cur_version);
 
             Navigator.pop(context);
-            Routers.navigateTo(context, Routers.loginSmsPage, clearStack: true, transition: TransitionType.none);
+            Routers.navigateTo(context, Routers.loginPage, clearStack: true, transition: TransitionType.none);
           }
 
         } else {

@@ -35,8 +35,8 @@ dependencies:
   pull_to_refresh: ^2.0.0
   # loading动画 https://github.com/jogboms/flutter_spinkit
   flutter_spinkit: ^5.0.0
-  # 友盟统计 https://github.com/Wayaer/fl_umeng/blob/main/android/build.gradle
-  fl_umeng: ^1.1.8
+  # 友盟统计 https://pub.dev/packages/umeng_common_sdk
+  umeng_common_sdk: ^1.2.4
   # 汉字转拼音 https://github.com/flutterchina/lpinyin
   lpinyin: ^2.0.3
   # 图片选择插件 https://github.com/flutter/plugins/tree/master/packages/image_picker

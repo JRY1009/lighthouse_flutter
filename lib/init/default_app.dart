@@ -26,7 +26,7 @@ import 'package:module_mine/mine_router.dart';
 import 'package:module_quote/quote_router.dart';
 import 'package:module_money/money_router.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:fl_umeng/fl_umeng.dart';
+import 'package:umeng_common_sdk/umeng_common_sdk.dart';
 
 //默认App的启动
 class DefaultApp {
@@ -66,13 +66,9 @@ class DefaultApp {
 
       String channel = await ChannelUtil.getChannel();
 
-      await initWithUM(
-          androidAppKey: '607552ba5844f15425d14f03',
-          iosAppKey: '6075530a5844f15425d151b2',
-          channel: channel
-      );
+      UmengCommonSdk.initCommon('607552ba5844f15425d14f03', '6075530a5844f15425d151b2', channel);
 
-      await setPageCollectionModeManualWithUM();
+      UmengCommonSdk.setPageCollectionModeManual();
 
       await registerWxApi(
           appId: "wxfdba5c8a01643f82",

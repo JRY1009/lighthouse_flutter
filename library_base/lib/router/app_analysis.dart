@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:library_base/utils/device_util.dart';
-import 'package:fl_umeng/fl_umeng.dart';
+import 'package:umeng_common_sdk/umeng_common_sdk.dart';
 
 class AppAnalysis extends NavigatorObserver {
   @override
@@ -12,11 +12,11 @@ class AppAnalysis extends NavigatorObserver {
     }
 
     if (previousRoute != null && previousRoute.settings.name != null) {
-      onPageEndWithUM(previousRoute.settings.name!);
+      UmengCommonSdk.onPageEnd(previousRoute.settings.name!);
     }
 
     if (route != null && route.settings.name != null) {
-      onPageStartWithUM(route.settings.name!);
+      UmengCommonSdk.onPageStart(route.settings.name!);
     }
   }
 
@@ -27,11 +27,11 @@ class AppAnalysis extends NavigatorObserver {
     }
 
     if (route != null && route.settings.name != null) {
-      onPageEndWithUM(route.settings.name!);
+      UmengCommonSdk.onPageEnd(route.settings.name!);
     }
 
     if (previousRoute != null && previousRoute.settings.name != null) {
-      onPageStartWithUM(previousRoute.settings.name!);
+      UmengCommonSdk.onPageStart(previousRoute.settings.name!);
     }
   }
 
@@ -42,11 +42,11 @@ class AppAnalysis extends NavigatorObserver {
     }
 
     if (oldRoute != null && oldRoute.settings.name != null) {
-      onPageEndWithUM(oldRoute.settings.name!);
+      UmengCommonSdk.onPageEnd(oldRoute.settings.name!);
     }
 
     if (newRoute != null && newRoute.settings.name != null) {
-      onPageStartWithUM(newRoute.settings.name!);
+      UmengCommonSdk.onPageStart(newRoute.settings.name!);
     }
   }
 }
