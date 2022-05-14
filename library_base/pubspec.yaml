@@ -42,7 +42,7 @@ dependencies:
   # 图片选择插件 https://github.com/flutter/plugins/tree/master/packages/image_picker
   image_picker: ^0.8.0+1
   # 图片裁剪 https://github.com/hnvn/flutter_image_cropper
-  image_cropper: ^1.4.0
+  image_cropper: ^2.0.2
   # 图片保存至相册 https://github.com/hui-z/image_gallery_saver
   image_gallery_saver: ^1.6.9
   # 图片手势缩放（看大图）https://github.com/fireslime/photo_view

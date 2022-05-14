@@ -31,13 +31,13 @@ class AvatarSelectDialog extends StatelessWidget {
     String? path = _pickedFile?.path;
 
     if (crop && _pickedFile != null) {
-      File? croppedFile = await ImageCropper.cropImage(
+      CroppedFile? croppedFile = await ImageCropper().cropImage(
           sourcePath: _pickedFile.path,
           aspectRatio: CropAspectRatio(ratioX: 1.0, ratioY: 1.0),
           maxWidth: 720,
           maxHeight: 720,
-          androidUiSettings: AndroidUiSettings(
-              hideBottomControls: false),
+          uiSettings:[AndroidUiSettings(
+              hideBottomControls: false)],
       );
       path = croppedFile?.path;
     }
