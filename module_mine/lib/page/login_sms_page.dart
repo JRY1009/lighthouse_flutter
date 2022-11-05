@@ -223,11 +223,13 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
           backgroundColor: Colours.white,
           automaticallyImplyLeading: false,
           actions: <Widget>[
-            FlatButton(
-                padding: EdgeInsets.all(0),
-                minWidth: 70,
-                disabledTextColor: Colours.gray_500,
-                textColor: Colours.gray_400,
+            TextButton(
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.all(0),
+                  minimumSize: Size.fromWidth(70),
+                  disabledBackgroundColor: Colours.gray_500,
+                  textStyle: const TextStyle(color: Colours.gray_400),
+                ),
                 child: Text(S.of(context).skip, style: TextStyle(fontSize: 15)),
                 onPressed: _skip
             )

@@ -63,11 +63,13 @@ class MoneyTotalAssetsBar extends StatelessWidget {
                     border: Border.all(color: Colours.white, width: 1.0),
                     borderRadius: BorderRadius.circular(4.0),   //圆角
                   ),
-                  child: FlatButton(
+                  child: TextButton(
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.all(0.0),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4.0))),
+                        backgroundColor: Colours.transparent,
+                      ),
                     onPressed: () => _unitSelect(context),
-                    padding: EdgeInsets.all(0.0),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4.0))),
-                    color: Colours.transparent,
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [

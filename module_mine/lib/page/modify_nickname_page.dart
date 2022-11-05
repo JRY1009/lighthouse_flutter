@@ -89,11 +89,13 @@ class _ModifyNicknamePageState extends State<ModifyNicknamePage> with BasePageMi
             brightness: Brightness.light,
             backgroundColor: Colours.white,
             actions: <Widget>[
-              FlatButton(
-                  padding: EdgeInsets.all(0),
-                  minWidth: 70,
-                  disabledTextColor: Colours.gray_500,
-                  textColor: Colours.app_main,
+              TextButton(
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.all(0),
+                    minimumSize: Size.fromWidth(70),
+                    disabledBackgroundColor: Colours.gray_500,
+                    textStyle: const TextStyle(color: Colours.app_main),
+                  ),
                   child: Text(S.of(context).save, style: TextStyle(fontSize: 14)),
                   onPressed: _saveEnabled ? _submit : null)
             ],

@@ -41,9 +41,11 @@ class _GradientButtonState extends State<GradientButton> {
             colors: widget.colors,
         ),
       ),
-      child: FlatButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50.0))),
-        disabledColor: Color(0xff93b8fd),
+      child: TextButton(
+        style: TextButton.styleFrom(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50.0))),
+          disabledBackgroundColor: Color(0xff93b8fd),
+        ),
         child: Text(
           widget.text ?? '',
           style: widget.textStyle,

@@ -14,7 +14,7 @@ class MineClickBar extends StatefulWidget {
   // 点击事件
   final Function()? onPressed;
 
-  final ShapeBorder? shape;
+  final OutlinedBorder? shape;
   // 构造函数
   MineClickBar({
     Key? key,
@@ -33,9 +33,11 @@ class _MineClickBarState extends State<MineClickBar> {
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
-      shape: widget.shape,
-      padding: EdgeInsets.all(0.0),
+    return TextButton(
+      style: TextButton.styleFrom(
+        padding: EdgeInsets.all(0.0),
+        shape: widget.shape,
+      ),
       onPressed: widget.onPressed,
       child: Container(
           height: 54.0,

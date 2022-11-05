@@ -28,13 +28,15 @@ class MoneyUnitSelectDialog extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  FlatButton(
+                  TextButton(
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.all(0.0),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(14.0))),
+                      ),
                       onPressed: () {
                         Navigator.pop(context);
                         selectCallback!('CNY');
                       },
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(14.0))),
-                      padding: EdgeInsets.all(0.0),
                       child: Container(
                           alignment: Alignment.center,
                           height: 60.0,
@@ -50,12 +52,14 @@ class MoneyUnitSelectDialog extends StatelessWidget {
                       )
                   ),
 
-                  FlatButton(
+                  TextButton(
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.all(0.0),
+                      ),
                       onPressed: () {
                         Navigator.pop(context);
                         selectCallback!('USD');
                       },
-                      padding: EdgeInsets.all(0.0),
                       child: Container(
                           alignment: Alignment.center,
                           height: 60.0,
@@ -71,13 +75,15 @@ class MoneyUnitSelectDialog extends StatelessWidget {
                       )
                   ),
 
-                  FlatButton(
+                  TextButton(
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.all(0.0),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(bottom: Radius.circular(14.0))),
+                      ),
                       onPressed: () {
                         Navigator.pop(context);
                         selectCallback!('BTC');
                       },
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(bottom: Radius.circular(14.0))),
-                      padding: EdgeInsets.all(0.0),
                       child: Container(
                           alignment: Alignment.center,
                           height: 60.0,

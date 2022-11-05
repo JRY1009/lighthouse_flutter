@@ -74,9 +74,11 @@ class _AccountTextFieldState extends State<PwdTextField> {
               focusedBorder: widget.focusedBorder ?? BorderStyles.underlineInputMain,
               enabledBorder: widget.enabledBorder ?? BorderStyles.underlineInputGray,
               prefixIcon: Container(
-                  child: FlatButton(
-                    padding: EdgeInsets.all(10.0),
-                    minWidth: 80,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.all(10.0),
+                      minimumSize: Size.fromWidth(90),
+                    ),
                     onPressed: null,
                     child: Container(
                         constraints: BoxConstraints(maxWidth: 60),

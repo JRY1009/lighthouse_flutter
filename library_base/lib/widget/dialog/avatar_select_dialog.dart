@@ -59,7 +59,11 @@ class AvatarSelectDialog extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  FlatButton(
+                  TextButton(
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.all(0.0),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(14.0))),
+                      ),
                       onPressed: () {
                         _selectImage(ImageSource.camera).then((String? path) {
                           if (ObjectUtil.isNotEmpty(path)) {
@@ -70,8 +74,6 @@ class AvatarSelectDialog extends StatelessWidget {
                           }
                         });
                       },
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(14.0))),
-                      padding: EdgeInsets.all(0.0),
                       child: Container(
                           alignment: Alignment.center,
                           height: 60.0,
@@ -87,7 +89,10 @@ class AvatarSelectDialog extends StatelessWidget {
                       )
                   ),
 
-                  FlatButton(
+                  TextButton(
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.all(0.0),
+                      ),
                       onPressed: () {
                         _selectImage(ImageSource.gallery).then((path) {
                           if (ObjectUtil.isNotEmpty(path)) {
@@ -98,7 +103,6 @@ class AvatarSelectDialog extends StatelessWidget {
                           }
                         });
                       },
-                      padding: EdgeInsets.all(0.0),
                       child: Container(
                           alignment: Alignment.center,
                           height: 60.0,
@@ -114,14 +118,16 @@ class AvatarSelectDialog extends StatelessWidget {
                       )
                   ),
 
-                  FlatButton(
+                  TextButton(
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.all(0.0),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(bottom: Radius.circular(14.0))),
+                      ),
                       onPressed: () {
                         if (viewCallback != null) {
                           viewCallback!();
                         }
                       },
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(bottom: Radius.circular(14.0))),
-                      padding: EdgeInsets.all(0.0),
                       child: Container(
                           alignment: Alignment.center,
                           height: 60.0,
@@ -143,10 +149,12 @@ class AvatarSelectDialog extends StatelessWidget {
                 color: Colours.white,
                 borderRadius: BorderRadius.all(Radius.circular(14.0)),
               ),
-              child: FlatButton(
+              child: TextButton(
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.all(0.0),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(14.0))),
+                  ),
                   onPressed: () => Navigator.pop(context),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(14.0))),
-                  padding: EdgeInsets.all(0.0),
                   child: Container(
                       alignment: Alignment.center,
                       height: 56.0,

@@ -25,7 +25,10 @@ class ArticleItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
+    return TextButton(
+      style: TextButton.styleFrom(
+        padding: EdgeInsets.all(0),
+      ),
       onPressed: () {
         Parameters params = Parameters()
           ..putString('title', '')
@@ -37,7 +40,6 @@ class ArticleItem extends StatelessWidget {
 
         Routers.navigateTo(context, Routers.articlePage, parameters: params);
       },
-      padding: EdgeInsets.all(0.0),
       child: Container(
         width: double.infinity,
         child: Container(

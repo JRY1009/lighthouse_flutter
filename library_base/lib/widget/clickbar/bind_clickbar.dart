@@ -12,7 +12,7 @@ class BindClickBar extends StatefulWidget {
   // 点击事件
   final Function()? onPressed;
 
-  final ShapeBorder? shape;
+  final OutlinedBorder? shape;
 
   final TextStyle? titleStyle;
 
@@ -42,10 +42,12 @@ class _SettingClickBarState extends State<BindClickBar> {
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
-      color: Colours.white,
-      shape: widget.shape,
-      padding: EdgeInsets.all(0.0),
+    return TextButton(
+      style: TextButton.styleFrom(
+        padding: EdgeInsets.all(0.0),
+        shape: widget.shape,
+        backgroundColor: Colours.white,
+      ),
       onPressed: widget.onPressed ?? (){},
       child: Container(
           height: 52.0,

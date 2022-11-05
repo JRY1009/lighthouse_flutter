@@ -263,10 +263,12 @@ class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPag
                     ),
 
                     Gaps.vGap18,
-                    FlatButton(
-                        color: Colours.white,
+                    TextButton(
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.all(0),
+                          backgroundColor: Colours.white,
+                        ),
                         onPressed: () => _logout(),
-                        padding: EdgeInsets.all(0.0),
                         child: Container(
                             alignment: Alignment.center,
                             height: 50.0,
