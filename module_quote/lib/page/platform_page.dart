@@ -2,6 +2,7 @@
 
 import 'package:extended_tabs/extended_tabs.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/res/gaps.dart';
@@ -78,7 +79,7 @@ class _PlatformPageState extends State<PlatformPage> with BasePageMixin<Platform
       backgroundColor: Colours.white,
       appBar: AppBar(
         elevation: 0,
-        brightness: Brightness.light,
+        systemOverlayStyle: SystemUiOverlayStyle(statusBarBrightness: Brightness.light),
         backgroundColor: Colours.white,
         automaticallyImplyLeading: false,
         toolbarHeight: 10,

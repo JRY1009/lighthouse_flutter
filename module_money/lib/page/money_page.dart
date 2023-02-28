@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/res/colors.dart';
 import 'package:library_base/utils/toast_util.dart';
@@ -64,7 +65,7 @@ class _MoneyPageState extends State<MoneyPage> with BasePageMixin<MoneyPage>, Au
                   children: <Widget>[
                     AppBar(
                       elevation: 0,
-                      brightness: Brightness.light,
+                      systemOverlayStyle: SystemUiOverlayStyle(statusBarBrightness: Brightness.light),
                       backgroundColor: Colours.transparent,
                       automaticallyImplyLeading: false,
                       toolbarHeight: 0,

@@ -2,6 +2,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/model/account.dart';
@@ -219,7 +220,7 @@ class _LoginSmsPageState extends State<LoginSmsPage> with BasePageMixin<LoginSms
         backgroundColor: Colours.white,
         appBar: AppBar(
           elevation: 0,
-          brightness: Brightness.light,
+          systemOverlayStyle: SystemUiOverlayStyle(statusBarBrightness: Brightness.light),
           backgroundColor: Colours.white,
           automaticallyImplyLeading: false,
           actions: <Widget>[

@@ -173,7 +173,7 @@ class _SpotDetailPageState extends State<SpotDetailPage> with BasePageMixin<Spot
               appBar: AppBar(
                 leading: BackButtonEx(),
                 elevation: 0,
-                brightness: Brightness.light,
+                systemOverlayStyle: SystemUiOverlayStyle(statusBarBrightness: Brightness.light),
                 backgroundColor: Colours.white,
                 actions: <Widget>[
                   IconButton(

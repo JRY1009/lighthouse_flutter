@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/mvvm/base_page.dart';
@@ -107,7 +108,7 @@ class _LessonPageState extends State<LessonPage> with BasePageMixin<LessonPage> 
         appBar: AppBar(
             leading: BackButtonEx(),
             elevation: 0,
-            brightness: Brightness.light,
+            systemOverlayStyle: SystemUiOverlayStyle(statusBarBrightness: Brightness.light),
             backgroundColor: Colours.normal_bg,
             actions: [
               IconButton(

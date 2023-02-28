@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/res/colors.dart';
@@ -75,7 +76,7 @@ class _InfoPageState extends State<InfoPage> with BasePageMixin<InfoPage>, Autom
       backgroundColor: Colours.white,
       appBar: AppBar(
         elevation: 0,
-        brightness: Brightness.light,
+        systemOverlayStyle: SystemUiOverlayStyle(statusBarBrightness: Brightness.light),
         backgroundColor: Colours.white,
         automaticallyImplyLeading: false,
         toolbarHeight: 10,

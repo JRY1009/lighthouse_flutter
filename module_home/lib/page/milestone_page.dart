@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/res/colors.dart';
@@ -75,7 +76,7 @@ class _MileStonePageState extends State<MileStonePage> with BasePageMixin<MileSt
       appBar: AppBar(
           leading: BackButtonEx(),
           elevation: 0,
-          brightness: Brightness.light,
+          systemOverlayStyle: SystemUiOverlayStyle(statusBarBrightness: Brightness.light),
           backgroundColor: Color(0xFFF5FAFE),
           centerTitle: true,
           title: Text(S.of(context).dengtaSchool, style: TextStyles.textBlack16)

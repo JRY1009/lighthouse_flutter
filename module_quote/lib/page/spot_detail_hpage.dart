@@ -101,7 +101,7 @@ class _SpotDetailHPageState extends State<SpotDetailHPage> with BasePageMixin<Sp
               backgroundColor: Colours.white,
               appBar: AppBar(
                 elevation: 0,
-                brightness: Brightness.light,
+                systemOverlayStyle: SystemUiOverlayStyle(statusBarBrightness: Brightness.light),
                 backgroundColor: Colours.white,
                 automaticallyImplyLeading: false,
                 toolbarHeight: 1,

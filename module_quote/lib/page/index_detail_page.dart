@@ -3,6 +3,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:library_base/constant/constant.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/mvvm/base_page.dart';
@@ -170,7 +171,7 @@ class _IndexDetailPageState extends State<IndexDetailPage> with BasePageMixin<In
               appBar: AppBar(
                 leading: BackButtonEx(),
                 elevation: 0,
-                brightness: Brightness.light,
+                systemOverlayStyle: SystemUiOverlayStyle(statusBarBrightness: Brightness.light),
                 backgroundColor: Colours.white,
                 actions: <Widget>[
                   IconButton(

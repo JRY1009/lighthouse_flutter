@@ -184,7 +184,7 @@ class _TreemapPageState extends State<TreemapPage> {
               appBar: AppBar(
                 leading: BackButtonEx(),
                 elevation: 1,
-                brightness: Brightness.light,
+                systemOverlayStyle: SystemUiOverlayStyle(statusBarBrightness: Brightness.light),
                 backgroundColor: Colours.white,
                 actions: <Widget>[
                   IconButton(

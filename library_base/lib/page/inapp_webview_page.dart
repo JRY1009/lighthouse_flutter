@@ -129,7 +129,7 @@ class _InappWebviewPageState extends State<InappWebviewPage> {
           },
         ),
         elevation: 0,
-        brightness: Brightness.light,
+        systemOverlayStyle: SystemUiOverlayStyle(statusBarBrightness: Brightness.light),
         backgroundColor: Colours.white,
         actions: widget.show_share ? <Widget>[
           IconButton(

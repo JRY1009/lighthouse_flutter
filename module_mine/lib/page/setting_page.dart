@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bugly/flutter_bugly.dart';
 import 'package:fluwx/fluwx.dart' as fluwx;
 import 'package:library_base/constant/constant.dart';
@@ -201,7 +202,7 @@ class _SettingPageState extends State<SettingPage> with BasePageMixin<SettingPag
         appBar: AppBar(
             leading: BackButtonEx(),
             elevation: 0.5,
-            brightness: Brightness.light,
+            systemOverlayStyle: SystemUiOverlayStyle(statusBarBrightness: Brightness.light),
             backgroundColor: Colours.white,
             centerTitle: true,
             title: Text(S.of(context).accountSecurity, style: TextStyles.textBlack18)

@@ -131,7 +131,7 @@ class _ArticleRequestPageState extends State<ArticleRequestPage> {
             },
           ),
           elevation: 0,
-          brightness: Brightness.light,
+          systemOverlayStyle: SystemUiOverlayStyle(statusBarBrightness: Brightness.light),
           backgroundColor: Colours.white,
           actions: <Widget>[
             IconButton(

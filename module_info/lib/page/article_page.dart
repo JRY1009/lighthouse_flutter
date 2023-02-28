@@ -119,7 +119,7 @@ class _ArticlePageState extends State<ArticlePage> {
             },
           ),
           elevation: 0,
-          brightness: Brightness.light,
+          systemOverlayStyle: SystemUiOverlayStyle(statusBarBrightness: Brightness.light),
           backgroundColor: Colours.white,
           actions: widget.show_share ? <Widget>[
             IconButton(

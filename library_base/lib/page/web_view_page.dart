@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:core';
 
+import 'package:flutter/services.dart';
 import 'package:library_base/widget/button/back_button.dart';
 import 'package:library_base/utils/toast_util.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -41,7 +42,7 @@ class _WebViewPageState extends State<WebViewPage> {
               appBar: AppBar(
                 leading: BackButtonEx(),
                 elevation: 1,
-                brightness: Brightness.light,
+                systemOverlayStyle: SystemUiOverlayStyle(statusBarBrightness: Brightness.light),
                 backgroundColor: Colours.white,
                 centerTitle: true,
                 title: Text(widget.title ?? '', style: TextStyles.textBlack18),

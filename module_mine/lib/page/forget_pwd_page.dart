@@ -1,6 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:library_base/generated/l10n.dart';
 import 'package:library_base/mvvm/base_page.dart';
 import 'package:library_base/res/colors.dart';
@@ -141,7 +142,7 @@ class _ForgetPwdPageState extends State<ForgetPwdPage> with BasePageMixin<Forget
         appBar: AppBar(
             leading: BackButtonEx(),
             elevation: 0,
-            brightness: Brightness.light,
+            systemOverlayStyle: SystemUiOverlayStyle(statusBarBrightness: Brightness.light),
             backgroundColor: Colours.white,
             centerTitle: true,
             title: Text(S.of(context).forgetPassword, style: TextStyles.textBlack16)

@@ -148,7 +148,7 @@ class OverScrollBehavior extends ScrollBehavior{
           //显示尾部水波纹
           showTrailing: true,
           axisDirection: axisDirection,
-          color: Theme.of(context).accentColor,
+          color: Theme.of(context).primaryColor,
         );
     }
     return child;

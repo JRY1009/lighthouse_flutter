@@ -136,7 +136,7 @@ class _HomePageState extends State<HomePage> with BasePageMixin<HomePage>, Autom
                 actions: null,
                 automaticallyImplyLeading : false,
                 backgroundColor: Colours.white,
-                brightness: _opacityNofifier.value > 0.5 ? Brightness.light : Brightness.dark,
+                systemOverlayStyle: SystemUiOverlayStyle(statusBarBrightness: _opacityNofifier.value > 0.5 ? Brightness.light : Brightness.dark),
                 title: HomePinnedAppBar(height: _toolbarHeight, appBarOpacity: _opacityNofifier.value),
                 centerTitle: true,
                 expandedHeight: 495.0,
